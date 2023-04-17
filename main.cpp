@@ -118,8 +118,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	/// ここから↓
 
 
-
-	///////////////
+	//////////////////////////////
 	
 	// DXGIファクトリーの生成
 	IDXGIFactory7* dxgiFactory = nullptr;
@@ -132,7 +131,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// どうにもできない場合が多いのでassertにしておく
 	assert(SUCCEEDED(hr));
 
-	///////////////
+	//////////////////////////////
 
 
 
@@ -182,8 +181,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	}
 	// デバイスの生成がうまく行かなかったので起動できない
 	assert(device != nullptr);
-	Log("Complate create D3D12Device!!!\n"); // 初期化完了のログを出す
-
+	Log("Complate create D3D12Device!!!  Let's goooooooooooo!!!!!!!!!!!!!\n"); // 初期化完了のログを出す
+										 //後で消す
 
 
 	/// ここまで↑
