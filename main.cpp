@@ -36,6 +36,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg,
 
 
 
+
+/* -----プロトタイプ宣言----- */
+
 //string  -> wstring
 std::wstring ConvertString(const std::string& str);
 
@@ -66,12 +69,14 @@ void Log(const std::string& message) {
 
 
 
+
 struct Vector4 {
 	float x;
 	float y;
 	float z;
 	float w;
 };
+
 
 
 
