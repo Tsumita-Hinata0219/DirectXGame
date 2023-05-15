@@ -1,24 +1,56 @@
-#pragma once
-#include <Windows.h>
+ï»¿#include <Windows.h>
 #include <cstdint>
+#include <string>
 
 
-
-class WindowsClass {
-
+class WindowsClass
+{
 public:
 
+	/// <summary>
+	/// ã‚¤ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	/// </summary>
+	WindowsClass(const wchar_t* title, int32_t kClientWidth, int32_t kClientHeight);
+
+
+	/// <summary>
+	/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	/// </summary>
+	~WindowsClass();
+
+
+	/// <summary>
+	/// åˆæœŸåŒ–
+	/// </summary>
 	void Initialize();
 
 
+	/// <summary>
+	/// æ›´æ–°å‡¦ç†
+	/// </summary>
+	void Update();
 
-public:
 
-	//int32_t‚ğg‚¤‚½‚ß‚Éinclude‚ğ’Ç‰Á@#include <cstdint>
+	/// <summary>
+	/// æç”»å‡¦ç†
+	/// </summary>
+	void Draw();
 
 
-	//ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚ÌƒTƒCƒY
-	const int32_t kClientWidth = 1280;
-	const int32_t kClientHeight = 720
+	/// <summary>
+	/// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
+	/// </summary>
+	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg,
+		WPARAM wparam, LPARAM lparam);
+
+
+private:
+
+	int32_t kClientWidth_;
+	int32_t kClientHeight_;
+	const wchar_t* title_;
+
+	WNDCLASS wc_{};
+	HWND hwnd_;
 
 };
