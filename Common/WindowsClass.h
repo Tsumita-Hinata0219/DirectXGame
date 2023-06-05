@@ -1,6 +1,5 @@
-﻿#include <Windows.h>
-#include <cstdint>
-#include <string>
+﻿#pragma once
+#include "Function.h"
 
 
 class WindowsClass
@@ -42,6 +41,15 @@ public:
 	/// </summary>
 	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg,
 		WPARAM wparam, LPARAM lparam);
+
+
+	/// <summary>
+	/// アクセッサ
+	/// </summary>
+	/// <returns></returns>
+	int32_t GetkClientWidth() const { return kClientWidth_; };
+	int32_t GetkClientHeight() const { return kClientHeight_; };
+	HWND GetHwnd() const { return hwnd_; };
 
 
 private:

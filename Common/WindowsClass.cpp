@@ -1,8 +1,6 @@
 #include "WindowsClass.h"
 
 
-
-
 /// <summary>
 /// ウィンドウプロシージャ
 /// </summary>
