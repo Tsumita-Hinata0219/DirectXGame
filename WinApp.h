@@ -2,20 +2,20 @@
 #include "Function.h"
 
 
-class WindowsClass
+class WinApp
 {
 public:
 
 	/// <summary>
 	/// インストラクタ
 	/// </summary>
-	WindowsClass(const wchar_t* title, int32_t kClientWidth, int32_t kClientHeight);
+	WinApp(const wchar_t* title, int32_t kClientWidth, int32_t kClientHeight);
 
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~WindowsClass();
+	~WinApp();
 
 
 	/// <summary>
@@ -57,6 +57,8 @@ private:
 	int32_t kClientWidth_;
 	int32_t kClientHeight_;
 	const wchar_t* title_;
+
+	MSG msg{};
 
 	WNDCLASS wc_{};
 	HWND hwnd_;

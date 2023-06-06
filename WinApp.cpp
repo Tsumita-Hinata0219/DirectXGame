@@ -1,10 +1,10 @@
-#include "WindowsClass.h"
+﻿#include "WinApp.h"
 
 
 /// <summary>
 /// ウィンドウプロシージャ
 /// </summary>
-LRESULT CALLBACK WindowsClass::WindowProc(HWND hwnd, UINT msg,
+LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg,
 	WPARAM wparam, LPARAM lparam) {
 
 	// メッセージが来てたら最優先で処理させる
@@ -26,7 +26,7 @@ LRESULT CALLBACK WindowsClass::WindowProc(HWND hwnd, UINT msg,
 /// <summary>
 /// コンストラクタ
 /// </summary>
-WindowsClass::WindowsClass(const wchar_t* title, int32_t kClientWidth, int32_t kClientHeight){
+WinApp::WinApp(const wchar_t* title, int32_t kClientWidth, int32_t kClientHeight) {
 	this->title_ = title;
 	this->kClientWidth_ = kClientWidth;
 	this->kClientHeight_ = kClientHeight;
@@ -37,14 +37,14 @@ WindowsClass::WindowsClass(const wchar_t* title, int32_t kClientWidth, int32_t k
 /// <summary>
 /// デストラクタ
 /// </summary>
-WindowsClass::~WindowsClass(){}
+WinApp::~WinApp() {}
 
 
 
 /// <summary>
 /// 初期化
 /// </summary>
-void WindowsClass::Initialize(){
+void WinApp::Initialize() {
 
 
 	/* --- ウィンドウクラスを登録する --- */
@@ -107,11 +107,11 @@ void WindowsClass::Initialize(){
 /// <summary>
 /// 更新処理
 /// </summary>
-void WindowsClass::Update(){
+void WinApp::Update() {
 
 
 
-	
+
 }
 
 
@@ -119,7 +119,7 @@ void WindowsClass::Update(){
 /// <summary>
 /// 描画処理
 /// </summary>
-void WindowsClass::Draw(){
+void WinApp::Draw() {
 
 
 }

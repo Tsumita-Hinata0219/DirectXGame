@@ -36,14 +36,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Common\WindowsClass.cpp">
-      <Filter>ソース ファイル\Common</Filter>
-    </ClCompile>
     <ClCompile Include="3D\Model.cpp">
       <Filter>ソース ファイル\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\DirectXClass.cpp">
-      <Filter>ソース ファイル\Common</Filter>
     </ClCompile>
     <ClCompile Include="math\Function.cpp">
       <Filter>ソース ファイル</Filter>
@@ -51,14 +45,14 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="WinApp.cpp">
+      <Filter>ソース ファイル\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXCommon.cpp">
+      <Filter>ソース ファイル\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common\DirectXClass.h">
-      <Filter>ヘッダー ファイル\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\WindowsClass.h">
-      <Filter>ヘッダー ファイル\Common</Filter>
-    </ClInclude>
     <ClInclude Include="math\Function.h">
       <Filter>ヘッダー ファイル\math</Filter>
     </ClInclude>
@@ -67,6 +61,12 @@
     </ClInclude>
     <ClInclude Include="3D\Model.h">
       <Filter>ヘッダー ファイル\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="WinApp.h">
+      <Filter>ヘッダー ファイル\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXCommon.h">
+      <Filter>ヘッダー ファイル\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

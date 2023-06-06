@@ -12,6 +12,8 @@
 #include <dxgidebug.h>
 #include <dxcapi.h>
 
+#include <wrl.h>
+
 #include "Vector4.h"
 
 #pragma comment(lib, "d3d12.lib")
