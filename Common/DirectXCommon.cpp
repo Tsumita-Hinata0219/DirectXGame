@@ -115,8 +115,8 @@ void DirectXCommon::PostDraw() {
 	assert(SUCCEEDED(hr_));
 
 	// GPUにコマンドリストの実行を行わせる
-	ID3D12CommandList* commandLisuts[] = { commandList_ };
-	commandQueue_->ExecuteCommandLists(1, commandLisuts);
+	ID3D12CommandList* commandLists[] = { commandList_ };
+	commandQueue_->ExecuteCommandLists(1, commandLists);
 
 
 	// GPUとOSに画面の交換を行うよう通知する
@@ -152,13 +152,17 @@ void DirectXCommon::Release() {
 
 	CloseHandle(fenceEvent_);
 	fence_->Release();
+
+
 	rtvDescriptorHeap_->Release();
 	swapChainResources_[0]->Release();
 	swapChainResources_[1]->Release();
+
 	swapChain_->Release();
 	commandList_->Release();
 	commandAllocator_->Release();
 	commandQueue_->Release();
+
 	device_->Release();
 	useAdapter_->Release();
 	dxgiFactory_->Release();
@@ -240,8 +244,6 @@ void DirectXCommon::CreateDevice() {
 	assert(device_ != nullptr);
 	Log("Complete create D3D12Device!!!\n"); // 初期化完了のログを出す
 
-
-
 }
 
 //////////////////////////////
@@ -266,7 +268,7 @@ void DirectXCommon::DebugErrorInfoQueue() {
 		infoQueue_->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
 
 		// 警告時に止まる
-		infoQueue_->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
+		//infoQueue_->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
 
 
 		// 抑制するメッセージのID
@@ -486,5 +488,6 @@ void DirectXCommon::MakeFence() {
 	hr_ = device_->CreateFence(fenceValue_, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence_));
 	assert(SUCCEEDED(hr_));
 	// FenceのSignalを待つためのイベントを作成する
+	HANDLE fenceEvent_ = CreateEvent(NULL, FALSE, FALSE, NULL);
 	assert(fenceEvent_ != nullptr);
 }

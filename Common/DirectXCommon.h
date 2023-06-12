@@ -141,5 +141,5 @@ private:
 
 
 	// Event
-	HANDLE fenceEvent_ = CreateEvent(NULL, FALSE, FALSE, NULL);
+	HANDLE fenceEvent_;
 };
