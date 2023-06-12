@@ -1,17 +1,18 @@
-﻿#include "WinApp.h"
+#include "WinApp.h"
 
 
 /// <summary>
 /// ウィンドウプロシージャ
 /// </summary>
-LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg,
+LRESULT WinApp::WindowProc(HWND hwnd, UINT msg,
 	WPARAM wparam, LPARAM lparam) {
 
 	// メッセージが来てたら最優先で処理させる
 	switch (msg)
 	{
-		// ウィンドウが破棄された
+	// ウィンドウが破棄された
 	case WM_DESTROY:
+
 		// OSに対して、アプリ終了を伝える
 		PostQuitMessage(0);
 		return 0;
@@ -26,11 +27,7 @@ LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg,
 /// <summary>
 /// コンストラクタ
 /// </summary>
-WinApp::WinApp(const wchar_t* title, int32_t kClientWidth, int32_t kClientHeight) {
-	this->title_ = title;
-	this->kClientWidth_ = kClientWidth;
-	this->kClientHeight_ = kClientHeight;
-}
+WinApp::WinApp() {}
 
 
 
@@ -44,48 +41,44 @@ WinApp::~WinApp() {}
 /// <summary>
 /// 初期化
 /// </summary>
-void WinApp::Initialize() {
+void WinApp::Initialize(const wchar_t* title, int32_t ClientWidth, int32_t ClientHeight) {
+
+	this->title_ = title;
+	this->ClientWidth_ = ClientWidth;
+	this->ClientHeight_ = ClientHeight;
 
 
 	/* --- ウィンドウクラスを登録する --- */
 
 	// ウィンドウプロシージャ
 	wc_.lpfnWndProc = WindowProc;
-
 	// ウィンドウクラス名(なんでも良い)
 	wc_.lpszClassName = L"%s", title_;
-
 	// インスタンスハンドル
 	wc_.hInstance = GetModuleHandle(nullptr);
-
 	// カーソル
 	wc_.hCursor = LoadCursor(nullptr, IDC_ARROW);
-
 	// ウィンドウクラスを登録する
 	RegisterClass(&wc_);
-
-
 
 
 
 	/* --- ウィンドウサイズを決める --- */
 
 	// クライアント領域のサイズ
-	RECT wrc = { 0, 0, kClientWidth_, kClientHeight_ };
+	RECT wrc = { 0, 0, ClientWidth_, ClientHeight_ };
 
 	// クライアント領域をもとに実際のサイズにwrcを変更してもらう
 	AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
 
 
 
-
-
 	/* --- ウィンドウを生成して表示 --- */
 
 	//ウィンドウの生成
-	HWND hwnd = CreateWindow(
+	hwnd_ = CreateWindow(
 
-		wc_.lpszClassName,      //利用するクラス名
+		wc_.lpszClassName,     //利用するクラス名
 		title_,				   //タイトルバーの文字(なんでも良い)
 		WS_OVERLAPPEDWINDOW,   //欲見るウィンドウスタイル
 		CW_USEDEFAULT,		   //表示X座標(Windowsに任せる)
@@ -99,32 +92,8 @@ void WinApp::Initialize() {
 
 
 	//ウィンドウを表示する
-	ShowWindow(hwnd, SW_SHOW);
+	ShowWindow(hwnd_, SW_SHOW);
 }
-
-
-
-/// <summary>
-/// 更新処理
-/// </summary>
-void WinApp::Update() {
-
-
-
-
-}
-
-
-
-/// <summary>
-/// 描画処理
-/// </summary>
-void WinApp::Draw() {
-
-
-}
-
-
 
 
 

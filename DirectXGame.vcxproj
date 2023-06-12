@@ -89,17 +89,17 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="3D\Model.cpp" />
-    <ClCompile Include="DirectXCommon.cpp" />
+    <ClCompile Include="Common\DirectXCommon.cpp" />
+    <ClCompile Include="Common\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\Function.cpp" />
-    <ClCompile Include="WinApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3D\Model.h" />
-    <ClInclude Include="DirectXCommon.h" />
+    <ClInclude Include="Common\DirectXCommon.h" />
+    <ClInclude Include="Common\WinApp.h" />
     <ClInclude Include="math\Function.h" />
     <ClInclude Include="math\Vector4.h" />
-    <ClInclude Include="WinApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
