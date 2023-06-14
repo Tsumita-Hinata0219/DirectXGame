@@ -20,8 +20,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	const int32_t ClientHeight = 500;
 
 
+
 	// WinAppの初期化処理
 	windows_->Initialize(L"CG2", ClientWidth, ClientHeight);
+
 	// DirectXClassの初期化処理
 	dXCommon_->Initialize(ClientWidth, ClientHeight, windows_->GetHwnd());
 
