@@ -14,7 +14,11 @@
 
 #include <wrl.h>
 
+#include "Vector2.h"
+#include "Vector3.h"
 #include "Vector4.h"
+#include "WinApp.h"
+#include "DirectXCommon.h"
 
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")

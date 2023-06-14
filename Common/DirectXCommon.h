@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Function.h"
-#include "WinApp.h"
 
 
 class DirectXCommon {
@@ -65,6 +64,36 @@ public:
 	// Fenceを生成する
 	void MakeFence();
 
+	// DXCの初期化
+	void InitializeDXC();
+
+	// CompileShader関数
+	IDxcBlob* CompileShader(
+		// CompilerするShaderファイルへのパス
+		const std::wstring& filePath,
+		// Compilerに使用するProfile
+		const wchar_t* profile,
+		// 初期化で生成したものを3つ
+		IDxcUtils* dxcUtils,
+		IDxcCompiler3* dxcCompiler,
+		IDxcIncludeHandler* includeHandler);
+
+	// PSOを生成する
+	void CreatePSO();
+
+	// 頂点リソース用のヒープ設定
+	void CreateVertexResource();
+
+	// 頂点バッファビューを作成する
+	void MakeVertexBufferView();
+
+	// ViewportとScissor
+	void SetViewport();
+
+	void SetScissor();
+
+	// 頂点リソースにデータを書き込む
+	void Draw();
 
 
 
@@ -142,4 +171,74 @@ private:
 
 	// Event
 	HANDLE fenceEvent_;
+
+
+	// dxcCompilerを初期化
+	IDxcUtils* dxcUtils_ = nullptr;
+
+	IDxcCompiler3* dxcCompiler_ = nullptr;
+
+	IDxcIncludeHandler* includeHandler_ = nullptr;
+
+
+	// CompileShader関数
+	IDxcBlobEncoding* shaderSource_ = nullptr;
+
+	DxcBuffer shaderSourceBuffer_{};
+
+	IDxcResult* shaderResult_ = nullptr;
+
+	IDxcBlobUtf8* shaderError_ = nullptr;
+
+	IDxcBlob* shaderBlob_ = nullptr;
+
+
+	// PSOを生成する
+	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature_{};
+
+	ID3DBlob* signatureBlob_ = nullptr;
+	
+	ID3DBlob* errorBlob_ = nullptr;
+	
+	ID3D12RootSignature* rootSignature_ = nullptr;
+
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[1] = {};
+
+	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc_{};
+
+	D3D12_BLEND_DESC blendDesc_{};
+
+	D3D12_RASTERIZER_DESC rasterizerDesc_{};
+
+	IDxcBlob* vertexShaderBlob_;
+
+	IDxcBlob* pixelShaderBlob_;
+
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc_{};
+
+	ID3D12PipelineState* graphicsPipelineState_ = nullptr;
+
+
+	// 頂点リソース用のヒープ設定
+	D3D12_HEAP_PROPERTIES uploadHeapProperties_{};
+
+	D3D12_RESOURCE_DESC vertexResourceDesc_{};
+
+	ID3D12Resource* vertexResource_ = nullptr;
+
+
+	// 頂点リソース用のヒープ設定
+	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_{};
+
+
+	// 頂点リソースにデータを書き込む
+	Vector4* vertexData_ = nullptr;
+
+
+	// ビューポート
+	D3D12_VIEWPORT viewport_{};
+
+	// シザー矩形
+	D3D12_RECT scissorRect_{};
+
 };

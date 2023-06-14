@@ -34,6 +34,9 @@
     <Filter Include="リソース ファイル\shaders">
       <UniqueIdentifier>{00b8048a-8066-4c78-aced-9b5a9c8cdc9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Adapter">
+      <UniqueIdentifier>{13d70e04-94be-4833-bbb6-590f0ee10417}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3D\Model.cpp">
@@ -68,5 +71,19 @@
     <ClInclude Include="Common\WinApp.h">
       <Filter>ヘッダー ファイル\Common</Filter>
     </ClInclude>
+    <ClInclude Include="math\Vector2.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Vector3.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Resources\shaders\Object3d.PS.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\Object3d.VS.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
