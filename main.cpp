@@ -23,7 +23,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// WinAppの初期化処理
 	windows_->Initialize(L"CG2", ClientWidth, ClientHeight);
 	// DirectXClassの初期化処理
-	dXCommon_->Initialize(ClientWidth, ClientHeight, windows_);
+	dXCommon_->Initialize(ClientWidth, ClientHeight, windows_->GetHwnd());
 
 
 
@@ -57,8 +57,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// 解放処理
 	delete windows_;
-
-	dXCommon_->Release();
 	delete dXCommon_;
 
 

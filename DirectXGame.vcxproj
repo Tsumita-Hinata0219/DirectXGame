@@ -96,6 +96,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3D\Model.h" />
+    <ClInclude Include="Adapter.h" />
     <ClInclude Include="Common\DirectXCommon.h" />
     <ClInclude Include="Common\WinApp.h" />
     <ClInclude Include="math\Function.h" />
