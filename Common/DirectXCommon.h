@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Function.h"
-#include "WinApp.h"
 
 
 class DirectXCommon {
@@ -10,7 +9,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(const int32_t ClientWidth, const int32_t ClientHeight, WinApp* winndows);
+	void Initialize(int32_t ClientWidth, int32_t ClientHeight, HWND hwnd);
 
 	/// <summary>
 	/// 描画前処理
@@ -70,7 +69,6 @@ public:
 
 private:
 
-	WinApp* windows_;
 	int32_t ClientWidth_;
 	int32_t ClientHeight_;
 	HWND hwnd_;

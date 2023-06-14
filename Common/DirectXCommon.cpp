@@ -2,11 +2,11 @@
 
 
 
-void DirectXCommon::Initialize(const int32_t ClientWidth, const int32_t ClientHeight, WinApp* windows) {
+void DirectXCommon::Initialize(int32_t ClientWidth, int32_t ClientHeight, HWND hwnd) {
 
-	windows_ = windows;
 	ClientWidth_ = ClientWidth;
 	ClientHeight_ = ClientHeight;
+	hwnd_ = hwnd;
 
 
 	/* ----- デバッグレイヤー -----*/
@@ -364,7 +364,7 @@ void DirectXCommon::CreateSwapChain() {
 	// コマンドキュー、ウィンドウハンドル、設定を渡して生成する
 	hr_ = dxgiFactory_->CreateSwapChainForHwnd(
 		commandQueue_, 
-		windows_->GetHwnd(),
+		hwnd_,
 		&swapChainDesc, 
 		nullptr, 
 		nullptr, 
