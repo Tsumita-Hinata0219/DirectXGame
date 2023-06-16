@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Function.h"
 
 
@@ -7,46 +7,49 @@ class Triangle {
 public:
 
 	/// <summary>
-	/// ‰Šú‰»ˆ—
+	/// åˆæœŸåŒ–å‡¦ç†
 	/// </summary>
-	void Initialize(DirectXCommon* directX);
+	void Initialize(ID3D12Device* device, ID3D12GraphicsCommandList* commandList);
 
 
 	/// <summary>
-	/// OŠpŒ`‚Ì•`‰æ
+	/// ä¸‰è§’å½¢ã®æç”»
 	/// </summary>
-	void Draw();
+	void Draw(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
 
 
 	/// <summary>
-	/// ‰ğ•úˆ—
+	/// è§£æ”¾å‡¦ç†
 	/// </summary>
-	void Relese();
+	void Release();
 
 
 
-	// ’¸“_ƒŠƒ\[ƒX—p‚Ìƒq[ƒvİ’è
+	// é ‚ç‚¹ãƒªã‚½ãƒ¼ã‚¹ç”¨ã®ãƒ’ãƒ¼ãƒ—è¨­å®š
 	void CreateVertexResource();
 
-	// ’¸“_ƒoƒbƒtƒ@ƒrƒ…[‚ğì¬‚·‚é
+	// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ“ãƒ¥ãƒ¼ã‚’ä½œæˆã™ã‚‹
 	void MakeVertexBufferView();
 
 
 private:
 
-	// DirectX
-	DirectXCommon* directX_;
+	// ä½¿ç”¨ã™ã‚‹ã‚¢ãƒ€ãƒ—ã‚¿
+	ID3D12Device* device_ = nullptr;
 
 
-	// ‚È‚É‚±‚ê«
+	// ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆ
+	ID3D12GraphicsCommandList* commandList_ = nullptr;
+
+
 	HRESULT hr_;
 
 
-	// ’¸“_ƒŠƒ\[ƒX‚Éƒf[ƒ^‚ğ‘‚«‚Ş
+	// é ‚ç‚¹ãƒªã‚½ãƒ¼ã‚¹ã«ãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãè¾¼ã‚€
 	Vector4* vertexData_ = nullptr;
 
 
-	// ’¸“_ƒŠƒ\[ƒX—p‚Ìƒq[ƒvİ’è
+	// é ‚ç‚¹ãƒªã‚½ãƒ¼ã‚¹ç”¨ã®ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_HEAP_PROPERTIES uploadHeapProperties_{};
 
 	D3D12_RESOURCE_DESC vertexResourceDesc_{};
@@ -54,6 +57,6 @@ private:
 	ID3D12Resource* vertexResource_ = nullptr;
 
 
-	// ’¸“_ƒŠƒ\[ƒX—p‚Ìƒq[ƒvİ’è
+	// é ‚ç‚¹ãƒªã‚½ãƒ¼ã‚¹ç”¨ã®ãƒ’ãƒ¼ãƒ—è¨­å®š
 	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_{};
 };

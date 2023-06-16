@@ -29,12 +29,8 @@ void DirectXCommon::Initialize(int32_t ClientWidth, int32_t ClientHeight, HWND h
 	// D3D12Deviceを生成する
 	CreateDevice();
 
-
-
-	/* ----- エラーと警告の抑制 ----- */
+	// エラーと警告の抑制
 	DebugErrorInfoQueue();
-
-
 
 	// コマンドキューを生成する
 	CreateCommandQueue();
@@ -57,6 +53,12 @@ void DirectXCommon::Initialize(int32_t ClientWidth, int32_t ClientHeight, HWND h
 	// DXCの初期化
 	InitializeDXC();
 
+	// PSOを設定する
+	SetPSO();
+
+	// ViewportとScissor
+	SetViewport();
+	SetScissor();
 }
 
 
@@ -66,7 +68,6 @@ void DirectXCommon::Release() {
 
 	CloseHandle(fenceEvent_);
 	fence_->Release();
-	vertexResource_->Release();
 	graphicsPipelineState_->Release();
 	signatureBlob_->Release();
 	if (errorBlob_) {
@@ -130,6 +131,12 @@ void DirectXCommon::PreDraw() {
 		clearColor,
 		0, nullptr);
 
+	// いざ描画！！！！！
+	commandList_->RSSetViewports(1, &viewport_); // Viewportを設定
+	commandList_->RSSetScissorRects(1, &scissorRect_); // Scissorを設定
+	// RootSignatureを設定。PSOに設定してるけど別途設定が必要
+	commandList_->SetGraphicsRootSignature(rootSignature_);
+	commandList_->SetPipelineState(graphicsPipelineState_); // PSOを設定
 }
 
 
@@ -283,7 +290,7 @@ void DirectXCommon::DebugErrorInfoQueue() {
 		infoQueue_->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
 
 		// 警告時に止まる
-		//infoQueue_->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
+		infoQueue_->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
 
 
 		// 抑制するメッセージのID
@@ -601,9 +608,9 @@ IDxcBlob* DirectXCommon::CompileShader(
 
 
 
-/* --- PSOを生成する --- */
+/* --- RootSignatureを作成 --- */
 
-void DirectXCommon::CreatePSO() {
+void DirectXCommon::MakeRootSignature() {
 
 	// RootSignature作成
 	descriptionRootSignature_.Flags =
@@ -619,7 +626,13 @@ void DirectXCommon::CreatePSO() {
 	hr_ = device_->CreateRootSignature(0, signatureBlob_->GetBufferPointer(),
 		signatureBlob_->GetBufferSize(), IID_PPV_ARGS(&rootSignature_));
 	assert(SUCCEEDED(hr_));
+}
 
+
+
+/* --- InputLayoutを設定する --- */
+
+void DirectXCommon::SetInputLayout() {
 
 	// InputLayout
 	inputElementDescs_[0].SemanticName = "POSITION";
@@ -628,29 +641,53 @@ void DirectXCommon::CreatePSO() {
 	inputElementDescs_[0].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
 	inputLayoutDesc_.pInputElementDescs = inputElementDescs_;
 	inputLayoutDesc_.NumElements = _countof(inputElementDescs_);
+}
 
+
+
+/* --- BlendStateを設定する --- */
+
+void DirectXCommon::SetBlendState() {
 
 	// BlendStateの設定
 	// 全ての色要素を書き込む
 	blendDesc_.RenderTarget[0].RenderTargetWriteMask =
 		D3D12_COLOR_WRITE_ENABLE_ALL;
+}
 
+
+
+/* --- RasiterzerStateを設定する --- */
+
+void DirectXCommon::SetRasiterzerState() {
 
 	// RasiterzerStateの設定
 	// 裏面(時計回り)を表示しない
 	rasterizerDesc_.CullMode = D3D12_CULL_MODE_BACK;
 	// 三角形の中を塗りつぶす
 	rasterizerDesc_.FillMode = D3D12_FILL_MODE_SOLID;
+}
 
+
+
+/* --- Shaderをcompileする --- */
+
+void DirectXCommon::SetShaderCompile() {
 
 	// Shaderをコンパイルする
-	vertexShaderBlob_ = CompileShader(L"Object3D.VS.hlsl",
+	vertexShaderBlob_ = CompileShader(L"Object3d.VS.hlsl",
 		L"vs_6_0", dxcUtils_, dxcCompiler_, includeHandler_);
 	assert(vertexShaderBlob_ != nullptr);
-	pixelShaderBlob_ = CompileShader(L"Object3D.PS.hlsl",
+	pixelShaderBlob_ = CompileShader(L"Object3d.PS.hlsl",
 		L"ps_6_0", dxcUtils_, dxcCompiler_, includeHandler_);
 	assert(pixelShaderBlob_ != nullptr);
+}
 
+
+
+/* --- PSOを生成する --- */
+
+void DirectXCommon::CreatePipelineStateObject() {
 
 	graphicsPipelineStateDesc_.pRootSignature = rootSignature_; // RootSignature
 	graphicsPipelineStateDesc_.InputLayout = inputLayoutDesc_; // InputLayout
@@ -685,42 +722,27 @@ void DirectXCommon::CreatePSO() {
 
 
 
-/* ----- 頂点リソース用のヒープ設定 ----- */
+/* --- PSOを設定する --- */
 
-void DirectXCommon::CreateVertexResource() {
+void DirectXCommon::SetPSO() {
 
-	// 頂点リソース用のヒープ設定
-	uploadHeapProperties_.Type = D3D12_HEAP_TYPE_UPLOAD; // UploadHeapを使う
-	// バッファリソース。テクスチャの場合はまた別の設定をする
-	vertexResourceDesc_.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-	vertexResourceDesc_.Width = sizeof(Vector4) * 3; // リソースのサイズ。今回はVector4を3頂点文
-	// バッファの場合はこれらは1にする決まり
-	vertexResourceDesc_.Height = 1;
-	vertexResourceDesc_.DepthOrArraySize = 1;
-	vertexResourceDesc_.MipLevels = 1;
-	vertexResourceDesc_.SampleDesc.Count = 1;
-	// バッファの場合はこれにする決まり
-	vertexResourceDesc_.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
-	// 実際に頂点リソースを作る
-	hr_ = device_->CreateCommittedResource(&uploadHeapProperties_, D3D12_HEAP_FLAG_NONE,
-		&vertexResourceDesc_, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
-		IID_PPV_ARGS(&vertexResource_));
-	assert(SUCCEEDED(hr_));
-}
+	// RootSignatureを作成
+	MakeRootSignature();
 
+	// InputLayoutを設定する
+	SetInputLayout();
 
+	// BlendStateを設定する
+	SetBlendState();
 
-/* ----- 頂点リソース用のヒープ設定 ----- */
+	// RasiterzerStateを設定する
+	SetRasiterzerState();
 
-void DirectXCommon::MakeVertexBufferView() {
+	// Shaderをcompileする
+	SetShaderCompile();
 
-	// 頂点バッファビューを作成する
-	// リソースの先頭アドレスから使う
-	vertexBufferView_.BufferLocation = vertexResource_->GetGPUVirtualAddress();
-	// 使用するリソースのサイズは頂点3つ分のサイズ
-	vertexBufferView_.SizeInBytes = sizeof(Vector4) * 3;
-	// 1頂点あたりのサイズ
-	vertexBufferView_.StrideInBytes = sizeof(Vector4);
+	// PSOを生成する
+	CreatePipelineStateObject();
 }
 
 
@@ -749,32 +771,3 @@ void DirectXCommon::SetScissor() {
 	scissorRect_.bottom = ClientHeight_;
 }
 
-
-/* ----- 頂点リソースにデータを書き込む ----- */
-
-void DirectXCommon::Draw() {
-
-	// 書き込むためのアドレスを取得
-	vertexResource_->Map(0, nullptr, reinterpret_cast<void**>(&vertexData_));
-	// 左下
-	vertexData_[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
-
-	// 上
-	vertexData_[1] = { 0.0f, 0.5f, 0.0f, 1.0f };
-
-	// 右下
-	vertexData_[2] = { 0.5f, -0.5f, 0.0f, 1.0f };
-
-
-	// いざ描画！！！！！
-	commandList_->RSSetViewports(1, &viewport_); // Viewportを設定
-	commandList_->RSSetScissorRects(1, &scissorRect_); // Scissorを設定
-	// RootSignatureを設定。PSOに設定してるけど別途設定が必要
-	commandList_->SetGraphicsRootSignature(rootSignature_);
-	commandList_->SetPipelineState(graphicsPipelineState_); // PSOを設定
-	commandList_->IASetVertexBuffers(0, 1, &vertexBufferView_); // VBVを設定
-	// 形状を設定。PSOに設定しているものとはまた別。おなじものを設定すると考えておけば良い
-	commandList_->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-	commandList_->DrawInstanced(3, 1, 0, 0);
-}

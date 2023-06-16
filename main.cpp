@@ -2,6 +2,7 @@
 #include "DirectXCommon.h"
 #include "Triangle.h"
 
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
@@ -13,8 +14,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* windows_ = new WinApp();
 	// DirectXClassを用意
 	DirectXCommon* dXCommon_ = new DirectXCommon();
-	// TriangleClassを用意
-	
+	//// TriangleClassを用意
+	//Triangle* triangle_ = new Triangle();
 
 
 	// クライアント領域を設定
@@ -26,14 +27,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// WinAppの初期化処理
 	windows_->Initialize(L"CG2", ClientWidth, ClientHeight);
 
-	// DirectXClassの初期化処理
+	// DirectXCommonの初期化処理
 	dXCommon_->Initialize(ClientWidth, ClientHeight, windows_->GetHwnd());
 
+	//// Triangleの初期化処理
+	//triangle_->Initialize(dXCommon_->GetDevice(), dXCommon_->GetCommandList());
+
+	//Vector4 bottomLeft = { -0.1f,0.9f,0.0f,1.0f };
+	//Vector4 top = { 0.0f,1.0f,0.0f,1.0f };
+	//Vector4 bottomRight = { 0.1f,0.9f,0.0f,1.0f };
 
 
 	MSG msg{};
 
-	
+
 	/* ----- メインループ ----- */
 
 	// ウィンドウの×ボタンが押されるまでループ
@@ -45,22 +52,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			DispatchMessage(&msg);
 
 		}
-		else {
-			// ゲームの処理
-			dXCommon_->PreDraw();
+		else { // ゲームの処理
+
+			//// 描画前処理
+			//dXCommon_->PreDraw();
 
 
+			//// 三角形描画
+			//triangle_->Draw(bottomLeft, top, bottomRight);
+			//
 
-
-
-			dXCommon_->PostDraw();
+			//// 描画後処理
+			//dXCommon_->PostDraw();
 		}
+
 
 	}
 
 
 	// 解放処理
 	delete windows_;
+	/*delete triangle_;*/
 	delete dXCommon_;
 
 

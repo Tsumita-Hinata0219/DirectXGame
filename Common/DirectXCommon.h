@@ -78,22 +78,31 @@ public:
 		IDxcCompiler3* dxcCompiler,
 		IDxcIncludeHandler* includeHandler);
 
+	// RootSignatureを作成
+	void MakeRootSignature();
+
+	// InputLayoutを設定する
+	void SetInputLayout();
+
+	// BlendStateを設定する
+	void SetBlendState();
+
+	// RasiterzerStateを設定する
+	void SetRasiterzerState();
+
+	// Shaderをcompileする
+	void SetShaderCompile();
+
 	// PSOを生成する
-	void CreatePSO();
+	void CreatePipelineStateObject();
 
-	// 頂点リソース用のヒープ設定
-	void CreateVertexResource();
-
-	// 頂点バッファビューを作成する
-	void MakeVertexBufferView();
+	// PSOを設定するする
+	void SetPSO();
 
 	// ViewportとScissor
 	void SetViewport();
 
 	void SetScissor();
-
-	// 頂点リソースにデータを書き込む
-	void Draw();
 
 
 	/// <summary>
@@ -224,24 +233,9 @@ private:
 	ID3D12PipelineState* graphicsPipelineState_ = nullptr;
 
 
-	// 頂点リソース用のヒープ設定
-	D3D12_HEAP_PROPERTIES uploadHeapProperties_{};
-
-	D3D12_RESOURCE_DESC vertexResourceDesc_{};
-
-	ID3D12Resource* vertexResource_ = nullptr;
-
-
-	// 頂点リソース用のヒープ設定
-	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_{};
-
-
-	// 頂点リソースにデータを書き込む
-	Vector4* vertexData_ = nullptr;
-
-
 	// ビューポート
 	D3D12_VIEWPORT viewport_{};
+
 
 	// シザー矩形
 	D3D12_RECT scissorRect_{};

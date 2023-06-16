@@ -4,13 +4,13 @@
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Triangle::Initialize(DirectXCommon* directX) {
+void Triangle::Initialize(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
 
 	// DirectX
-	directX_ = directX;
+	device_ = device;
+	commandList_ = commandList;
 
-	/* ----- 頂点データの作成とビュー ----- */
-
+	// 頂点データの作成とビュー
 	CreateVertexResource();
 	MakeVertexBufferView();
 }
@@ -19,33 +19,34 @@ void Triangle::Initialize(DirectXCommon* directX) {
 /// <summary>
 /// 描画処理
 /// </summary>
-void Triangle::Draw() {
+void Triangle::Draw(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight) {
 
 	// 左下
-	vertexData_[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+	vertexData_[0] = bottomLeft;
 
 	// 上
-	vertexData_[1] = { 0.0f, 0.5f, 0.0f, 1.0f };
+	vertexData_[1] = top;
 
 	// 右下
-	vertexData_[2] = { 0.5f, -0.5f, 0.0f, 1.0f };
+	vertexData_[2] = bottoomRight;
 
 
+	// いざ描画！！！！！
 	// VBVを設定
-	directX_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferView_);
+	commandList_->IASetVertexBuffers(0, 1, &vertexBufferView_);
 	// 形状を設定
-	directX_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	commandList_->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-	directX_->GetCommandList()->DrawInstanced(3, 1, 0, 0);
+	commandList_->DrawInstanced(3, 1, 0, 0);
 }
 
 
 /// <summary>
 /// 解放処理
 /// </summary>
-void Triangle::Relese() {
+void Triangle::Release() {
 
-
+	vertexResource_->Release();
 }
 
 
@@ -67,7 +68,7 @@ void Triangle::CreateVertexResource() {
 	// バッファの場合はこれにする決まり
 	vertexResourceDesc_.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
 	// 実際に頂点リソースを作る
-	hr_ = directX_->GetDevice()->CreateCommittedResource(&uploadHeapProperties_, D3D12_HEAP_FLAG_NONE,
+	hr_ = device_->CreateCommittedResource(&uploadHeapProperties_, D3D12_HEAP_FLAG_NONE,
 		&vertexResourceDesc_, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
 		IID_PPV_ARGS(&vertexResource_));
 	assert(SUCCEEDED(hr_));
@@ -85,5 +86,7 @@ void Triangle::MakeVertexBufferView() {
 	vertexBufferView_.SizeInBytes = sizeof(Vector4) * 3;
 	// 1頂点あたりのサイズ
 	vertexBufferView_.StrideInBytes = sizeof(Vector4);
+	// 書き込むためのアドレスを取得
+	vertexResource_->Map(0, nullptr, reinterpret_cast<void**>(&vertexData_));
 }
 
