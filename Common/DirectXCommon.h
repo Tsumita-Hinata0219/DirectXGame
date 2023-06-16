@@ -1,243 +1,109 @@
 ﻿#pragma once
 #include "Function.h"
+#include "WinApp.h"
 
-
-class DirectXCommon {
-
+class DirectX
+{
 public:
 
-	/// <summary>
-	/// 初期化処理
-	/// </summary>
-	void Initialize(int32_t ClientWidth, int32_t ClientHeight, HWND hwnd);
+	void Initialize(WinApp* winApp, int32_t kClientWidth, int32_t kClientHeight);
 
-	/// <summary>
-	/// 描画前処理
-	/// </summary>
-	void PreDraw();
+	void PreView();
 
-	/// <summary>
-	/// 描画後処理
-	/// </summary>
-	void PostDraw();
+	void PostView();
 
-	/// <summary>
-	/// 解放処理
-	/// </summary>
 	void Release();
 
+	ID3D12GraphicsCommandList* GetcommandList()const { return commandList; }
 
-
-	// DXGIファクトリーの生成
-	void CreateDxgiFactory();
-
-	// D3D12Deviceの生成
-	void CreateDevice();
-
-	// コマンドキューを生成する
-	void CreateCommandQueue();
-
-	// エラーと警告の抑制
-	void DebugErrorInfoQueue();
-
-	// コマンドアロケータを作成
-	void CreateCommandAllocator();
-
-	// コマンドリストを生成する
-	void CreateCommandList();
-
-	// スワップチェーンを生成する
-	void CreateSwapChain();
-
-	// ディスクリプタヒープを生成する
-	void CreateRtvDescriptorHeap();
-
-	// SwapChainからResourceを引っ張ってくる
-	void CreateSwapChainResources();
-
-	// RTVを作る
-	void SettingRTV();
-
-	// 状態を遷移する
-	void ChanegResourceState();
-
-	// Fenceを生成する
-	void MakeFence();
-
-	// DXCの初期化
-	void InitializeDXC();
-
-	// CompileShader関数
-	IDxcBlob* CompileShader(
-		// CompilerするShaderファイルへのパス
-		const std::wstring& filePath,
-		// Compilerに使用するProfile
-		const wchar_t* profile,
-		// 初期化で生成したものを3つ
-		IDxcUtils* dxcUtils,
-		IDxcCompiler3* dxcCompiler,
-		IDxcIncludeHandler* includeHandler);
-
-	// RootSignatureを作成
-	void MakeRootSignature();
-
-	// InputLayoutを設定する
-	void SetInputLayout();
-
-	// BlendStateを設定する
-	void SetBlendState();
-
-	// RasiterzerStateを設定する
-	void SetRasiterzerState();
-
-	// Shaderをcompileする
-	void SetShaderCompile();
-
-	// PSOを生成する
-	void CreatePipelineStateObject();
-
-	// PSOを設定するする
-	void SetPSO();
-
-	// ViewportとScissor
-	void SetViewport();
-
-	void SetScissor();
-
-
-	/// <summary>
-	/// アクセッサ
-	/// </summary>
-	ID3D12Device* const GetDevice() { return device_; };
-	ID3D12GraphicsCommandList* const GetCommandList() { return commandList_; };
-
+	ID3D12Device* GetDevice()const { return device; }
 
 private:
+	WinApp* winApp_;
+	int32_t kClientWidth_;
+	int32_t kClientHeight_;
 
-	int32_t ClientWidth_;
-	int32_t ClientHeight_;
-	HWND hwnd_;
-
-
-	// デバッグレイヤー
-	ID3D12Debug1* debugController_ = nullptr;
-
-
-	// DXGIFactory
-	IDXGIFactory7* dxgiFactory_ = nullptr;
-
-
-	// なにこれ↓
-	HRESULT hr_;
-
-
-	// 使用するアダプタ用の変数
-	IDXGIAdapter4* useAdapter_ = nullptr;
-
-	ID3D12Device* device_ = nullptr;
-
-
-	// エラー・警告・即ち停止
-	ID3D12InfoQueue* infoQueue_ = nullptr;
-
-	// なにこれ↓
-	D3D12_INFO_QUEUE_FILTER filter_{};
-
-
-	// コマンドキュー
-	ID3D12CommandQueue* commandQueue_ = nullptr;
-
-	// コマンドアロケータ
-	ID3D12CommandAllocator* commandAllocator_ = nullptr;
-
-	// コマンドリスト
-	ID3D12GraphicsCommandList* commandList_ = nullptr;
-
-	// バックバッファインデックス
-	UINT backBufferIndex_;
-
-
-	// TransitionBarrierの設定
-	D3D12_RESOURCE_BARRIER barrier_{};
-
-
-	// スワップチェーン
-	IDXGISwapChain4* swapChain_ = nullptr;
-
-	// ディスクリプタヒープ
-	ID3D12DescriptorHeap* rtvDescriptorHeap_ = nullptr;
-
-	// スワップチェーンリソース
-	ID3D12Resource* swapChainResources_[2] = { nullptr };
-
-
-	// RTV
-	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc_{};
-
-	// RTVを2つ作るのでディスクリプタを2つ用意
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandles_[2] = {};
+	HRESULT hr;
+	//TransitionBarrier
+	D3D12_RESOURCE_BARRIER barrier{};
+	//DXGIファクトリー
+	IDXGIFactory7* dxgiFactory = nullptr;
+	//アダプターを作成
+	IDXGIAdapter4* useAdapter = nullptr;
+	//デバイス
+	ID3D12Device* device = nullptr;
+	//コマンドキューを生成
+	ID3D12CommandQueue* commandQueue = nullptr;
+	//コマンドアロケータを作成
+	ID3D12CommandAllocator* commandAllocator = nullptr;
+	//コマンドリストを作成
+	ID3D12GraphicsCommandList* commandList = nullptr;
+	//スワップチェーンを作成
+	IDXGISwapChain4* swapChain = nullptr;
+	//SwapChainからResourceを持ってくる
+	ID3D12Resource* swapChainResources[2] = { nullptr };
+	//ディスクリプタヒープの作成
+	ID3D12DescriptorHeap* rtvDescriptorHeap = nullptr;
+	//RTVを2つつくるので2つ用意
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandles[2];
+	//Fenceを作る
+	ID3D12Fence* fence = nullptr;
+	uint64_t fenceValue = 0;
+	//FenceのSignalを待つイベント
+	HANDLE fenceEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+	//dxCompiler初期化
+	IDxcUtils* dxcUtils = nullptr;
+	IDxcCompiler3* dxcCompiler = nullptr;
+	IDxcIncludeHandler* includeHandler = nullptr;
+	//コンパイルシェーダー
+	IDxcBlobUtf8* shaderError = nullptr;
+	IDxcBlob* shaderBlob = nullptr;
+	//ルートシグネチャ―
+	ID3D12RootSignature* rootSignature = nullptr;
+	ID3DBlob* signatureBlob = nullptr;
+	ID3DBlob* errorBlob = nullptr;
+	//インプットレイアウト
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs[1] = {};
+	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
+	//ブレンドステート
+	D3D12_BLEND_DESC blendDesc{};
+	//ラスタライザステート
+	D3D12_RASTERIZER_DESC rasterizerDesc{};
+	//シェーダーコンパイル
+	IDxcBlob* vertexShaderBlob = nullptr;
+	IDxcBlob* pixelShaderBlob = nullptr;
+	//PSO
+	ID3D12PipelineState* graphicsPipelineState = nullptr;
 
 
-	// Fence
-	ID3D12Fence* fence_ = nullptr;
-	uint64_t fenceValue_ = 0;
+	//ビューポート
+	D3D12_VIEWPORT viewport{};
+	//シザー
+	D3D12_RECT scissorRect{};
+#ifdef _DEBUG
+	ID3D12Debug1* debugController = nullptr;
+#endif
 
+	//プライベート関数
+	void MakeDXGIFactory();
+	void MakeD3D12Device();
+	void MakeCommandQueue();
+	void MakeCommandAllocator();
+	void MakeCommandList();
+	void MakeSwapChain();
+	void MakeDescriptorHeap();
+	void MakeFence();
+	void MakeDXC();
+	IDxcBlob* CompileShader(const std::wstring& filePath, const wchar_t* profile, IDxcUtils* dxcUtils, IDxcCompiler3* dxcCompiler, IDxcIncludeHandler* includeHandler);
+	//PSO
+	void MakeRootSignature();
+	void MakeInputLayOut();
+	void MakeBlendState();
+	void MakeRasterizarState();
+	void MakeShaderCompile();
+	void MakePipelineStateObject();
 
-	// Event
-	HANDLE fenceEvent_;
-
-
-	// dxcCompilerを初期化
-	IDxcUtils* dxcUtils_ = nullptr;
-
-	IDxcCompiler3* dxcCompiler_ = nullptr;
-
-	IDxcIncludeHandler* includeHandler_ = nullptr;
-
-
-	// CompileShader関数
-	IDxcBlobEncoding* shaderSource_ = nullptr;
-
-	DxcBuffer shaderSourceBuffer_{};
-
-	IDxcResult* shaderResult_ = nullptr;
-
-	IDxcBlobUtf8* shaderError_ = nullptr;
-
-	IDxcBlob* shaderBlob_ = nullptr;
-
-
-	// PSOを生成する
-	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature_{};
-
-	ID3DBlob* signatureBlob_ = nullptr;
-	
-	ID3DBlob* errorBlob_ = nullptr;
-	
-	ID3D12RootSignature* rootSignature_ = nullptr;
-
-	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[1] = {};
-
-	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc_{};
-
-	D3D12_BLEND_DESC blendDesc_{};
-
-	D3D12_RASTERIZER_DESC rasterizerDesc_{};
-
-	IDxcBlob* vertexShaderBlob_;
-
-	IDxcBlob* pixelShaderBlob_;
-
-	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc_{};
-
-	ID3D12PipelineState* graphicsPipelineState_ = nullptr;
-
-
-	// ビューポート
-	D3D12_VIEWPORT viewport_{};
-
-
-	// シザー矩形
-	D3D12_RECT scissorRect_{};
-
+	void MakeViewport();
+	void MakeScissor();
 };
+

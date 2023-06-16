@@ -1,773 +1,435 @@
-#include "DirectXCommon.h"
+#include"DirectXCommon.h"
 
 
 
-void DirectXCommon::Initialize(int32_t ClientWidth, int32_t ClientHeight, HWND hwnd) {
-
-	ClientWidth_ = ClientWidth;
-	ClientHeight_ = ClientHeight;
-	hwnd_ = hwnd;
-
-
-	/* ----- デバッグレイヤー -----*/
+void DirectX::Initialize(WinApp* winApp, int32_t kClientWidth, int32_t kClientHeight)
+{
+	winApp_ = winApp;
+	kClientWidth_ = kClientWidth;
+	kClientHeight_ = kClientHeight;
 #ifdef _DEBUG
-
-	if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugController_)))) {
-		// デバッグレイヤーを有効にする
-		debugController_->EnableDebugLayer();
-		// さらにGPU側でもチェックを行うようにする
-		debugController_->SetEnableGPUBasedValidation(TRUE);
+	if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debugController)))) {
+		//デバッグレイヤ―を有効化
+		debugController->EnableDebugLayer();
+		//GPU側のチェック
+		debugController->SetEnableGPUBasedValidation(TRUE);
 	}
+#endif
 
-#endif // _DEBUG
+	MakeDXGIFactory();
 
+	MakeD3D12Device();
+#ifdef _DEBUG
+	ID3D12InfoQueue* infoQueue = nullptr;
+	if (SUCCEEDED(device->QueryInterface(IID_PPV_ARGS(&infoQueue)))) {
+		//やばいエラー
+		infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true);
+		//エラー
+		infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
+		//警告
+		infoQueue->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
+		//リリース
+		infoQueue->Release();
+		//エラーの抑制
+		D3D12_MESSAGE_ID denyIds[] = {
+			D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_COMMAND_LIST_TYPE
+		};
+		//抑制レベル
+		D3D12_MESSAGE_SEVERITY severities[] = { D3D12_MESSAGE_SEVERITY_INFO };
+		D3D12_INFO_QUEUE_FILTER filter{};
+		filter.DenyList.NumIDs = _countof(denyIds);
+		filter.DenyList.pIDList = denyIds;
+		filter.DenyList.NumSeverities = _countof(severities);
+		filter.DenyList.pSeverityList = severities;
+		infoQueue->PushStorageFilter(&filter);
+	}
+#endif
+	MakeCommandQueue();
 
+	MakeCommandAllocator();
 
-	// DxgiFactoryを生成する
-	CreateDxgiFactory();
+	MakeCommandList();
 
-	// D3D12Deviceを生成する
-	CreateDevice();
+	MakeSwapChain();
 
-	// エラーと警告の抑制
-	DebugErrorInfoQueue();
+	MakeDescriptorHeap();
 
-	// コマンドキューを生成する
-	CreateCommandQueue();
-
-	// コマンドアロケータを生成する
-	CreateCommandAllocator();
-
-	// コマンドを生成する
-	CreateCommandList();
-
-	// スワップチェーンを生成する
-	CreateSwapChain();
-
-	// ディスクリプタヒープの生成
-	CreateRtvDescriptorHeap();
-
-	// フェンスを作る
 	MakeFence();
 
-	// DXCの初期化
-	InitializeDXC();
+	MakeDXC();
 
-	// PSOを設定する
-	SetPSO();
+	MakeRootSignature();
 
-	// ViewportとScissor
-	SetViewport();
-	SetScissor();
+	MakeInputLayOut();
+
+	MakeBlendState();
+
+	MakeRasterizarState();
+
+	MakeShaderCompile();
+
+	MakePipelineStateObject();
+
+	MakeViewport();
+
+	MakeScissor();
 }
 
+void DirectX::PreView()
+{
+	//コマンドを積む
+	//バックバッファのインデックス取得
+	UINT backBufferIndex = swapChain->GetCurrentBackBufferIndex();
+	//今回のバリアはTransition
+	barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+	//noneにしておく
+	barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+	//バリアを貼る対象のリソース
+	barrier.Transition.pResource = swapChainResources[backBufferIndex];
+	barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PRESENT;
+	barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;
+	//TransitionBarrierを張る
+	commandList->ResourceBarrier(1, &barrier);
 
+	//描画先のRTVの設定
+	commandList->OMSetRenderTargets(1, &rtvHandles[backBufferIndex], false, nullptr);
+	//指定した色で画面全体をクリア
+	float clearColor[] = { 0.1f,0.25f,0.5f,1.0f };//いつもの青っぽいやつ
+	commandList->ClearRenderTargetView(rtvHandles[backBufferIndex], clearColor, 0, nullptr);
 
-// 解放処理
-void DirectXCommon::Release() {
+	commandList->RSSetViewports(1, &viewport);
+	commandList->RSSetScissorRects(1, &scissorRect);
+	commandList->SetGraphicsRootSignature(rootSignature);
+	commandList->SetPipelineState(graphicsPipelineState);
+}
 
-	CloseHandle(fenceEvent_);
-	fence_->Release();
-	graphicsPipelineState_->Release();
-	signatureBlob_->Release();
-	if (errorBlob_) {
-		errorBlob_->Release();
+void DirectX::PostView()
+{
+	//RenderTargetからPresentにする
+	barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
+	barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
+	//TransitionBarrierを張る
+	commandList->ResourceBarrier(1, &barrier);
+
+	hr = commandList->Close();
+	assert(SUCCEEDED(hr));
+	//コマンドをキック
+	ID3D12CommandList* commandLists[] = { commandList };
+	commandQueue->ExecuteCommandLists(1, commandLists);
+	swapChain->Present(1, 0);
+	//Fenceの更新
+	fenceValue++;
+	commandQueue->Signal(fence, fenceValue);
+	if (fence->GetCompletedValue() < fenceValue) {
+		fence->SetEventOnCompletion(fenceValue, fenceEvent);
+		WaitForSingleObject(fenceEvent, INFINITE);
 	}
-	rootSignature_->Release();
-	pixelShaderBlob_->Release();
-	vertexShaderBlob_->Release();
+	hr = commandAllocator->Reset();
+	assert(SUCCEEDED(hr));
+	hr = commandList->Reset(commandAllocator, nullptr);
+	assert(SUCCEEDED(hr));
 
-
-	rtvDescriptorHeap_->Release();
-	swapChainResources_[0]->Release();
-	swapChainResources_[1]->Release();
-
-	swapChain_->Release();
-	commandList_->Release();
-	commandAllocator_->Release();
-	commandQueue_->Release();
-
-	device_->Release();
-	useAdapter_->Release();
-	dxgiFactory_->Release();
 }
 
-
-
-void DirectXCommon::PreDraw() {
-
-	// コマンドを積み込んで確定させる
-	// これから書き込むバックバッファのインデックスを取得
-	UINT backBufferIndex_ = swapChain_->GetCurrentBackBufferIndex();
-
-
-	// Barrierを設定する
-	// 今回のバリアはTransition
-	barrier_.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
-	// Noneにしておく
-	barrier_.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
-	// バリアを張る対象のリソース。現在のバックバッファに対して行う
-	barrier_.Transition.pResource = swapChainResources_[backBufferIndex_];
-	// 遷移前(現在)のResourceState
-	barrier_.Transition.StateBefore = D3D12_RESOURCE_STATE_PRESENT;
-	// 遷移後のResourceState
-	barrier_.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;
-	// TransitionBarrierを張る
-	commandList_->ResourceBarrier(1, &barrier_);
-
-
-	// 描画先のRTVを設定する
-	commandList_->OMSetRenderTargets(
-		1, &rtvHandles_[backBufferIndex_],
-		false,
-		nullptr);
-
-
-	// 指定した色で画面全体をクリアする
-	float clearColor[] = { 0.1f, 0.25f, 0.5f, 1.0f }; // 青っぽい色。RGBAの順
-
-	commandList_->ClearRenderTargetView(
-		rtvHandles_[backBufferIndex_],
-		clearColor,
-		0, nullptr);
-
-	// いざ描画！！！！！
-	commandList_->RSSetViewports(1, &viewport_); // Viewportを設定
-	commandList_->RSSetScissorRects(1, &scissorRect_); // Scissorを設定
-	// RootSignatureを設定。PSOに設定してるけど別途設定が必要
-	commandList_->SetGraphicsRootSignature(rootSignature_);
-	commandList_->SetPipelineState(graphicsPipelineState_); // PSOを設定
-}
-
-
-void DirectXCommon::PostDraw() {
-
-	// 状態を遷移
-	// 画面に描く処理はすべて終わり、画面に映すので、状態を遷移
-	// 今回はRenderTargetからPresentにする
-	barrier_.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
-	barrier_.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
-
-	// TransitionBarrierを張る
-	commandList_->ResourceBarrier(1, &barrier_);
-
-
-	// コマンドをキックする
-	// コマンドリストの内容を確定させる・全てのコマンドを積んでからCloseすること
-	hr_ = commandList_->Close();
-	assert(SUCCEEDED(hr_));
-
-	// GPUにコマンドリストの実行を行わせる
-	ID3D12CommandList* commandLists[] = { commandList_ };
-	commandQueue_->ExecuteCommandLists(1, commandLists);
-
-
-	// GPUとOSに画面の交換を行うよう通知する
-	swapChain_->Present(0, 1);
-
-
-	// Fenceの値を更新
-	fenceValue_++;
-
-	// GPUがここまで辿り着いたときに、Fenceの値を指定した値に代入するようにSignalを送る
-	commandQueue_->Signal(fence_, fenceValue_);
-
-	// Fenceの値が指定したSignal値にたどり着いているか確認するか
-	// GetCompletedValueの初期値はFence作成時に渡した初期値
-	if (fence_->GetCompletedValue() < fenceValue_) {
-		// 指定したSignalにたどりついていないので、辿り着くまで待つようにイベントを設定する
-		fence_->SetEventOnCompletion(fenceValue_, fenceEvent_);
-		// イベントを待つ
-		WaitForSingleObject(fenceEvent_, INFINITE);
+void DirectX::Release()
+{
+	CloseHandle(fenceEvent);
+	fence->Release();
+	rtvDescriptorHeap->Release();
+	swapChainResources[0]->Release();
+	swapChainResources[1]->Release();
+	swapChain->Release();
+	commandList->Release();
+	commandAllocator->Release();
+	commandQueue->Release();
+	device->Release();
+	useAdapter->Release();
+	dxgiFactory->Release();
+#ifdef _DEBUG
+	debugController->Release();
+#endif
+	CloseWindow(winApp_->GetHWND());
+	graphicsPipelineState->Release();
+	signatureBlob->Release();
+	if (errorBlob) {
+		errorBlob->Release();
 	}
-
-	swapChain_->Present(1, 0);
-
-	// 次のフレーム用のコマンドリストを準備
-	hr_ = commandAllocator_->Reset();
-	assert(SUCCEEDED(hr_));
-	hr_ = commandList_->Reset(commandAllocator_, nullptr);
-	assert(SUCCEEDED(hr_));
+	rootSignature->Release();
+	pixelShaderBlob->Release();
+	vertexShaderBlob->Release();
+	IDXGIDebug1* debug;
+	if (SUCCEEDED(DXGIGetDebugInterface1(0, IID_PPV_ARGS(&debug)))) {
+		debug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_ALL);
+		debug->ReportLiveObjects(DXGI_DEBUG_APP, DXGI_DEBUG_RLO_ALL);
+		debug->ReportLiveObjects(DXGI_DEBUG_D3D12, DXGI_DEBUG_RLO_ALL);
+		debug->Release();
+	}
 }
 
 
-
-/* ---DirectX初期化--- */
-/// ここから↓
-//////////////////////////////
-
-void DirectXCommon::CreateDxgiFactory() {
-
-	// DXGIファクトリーの生成
-	// HRESULTはWindows系のエラーコードであり、
-	// 関数が成功したかどうかをSUCCEEDEDマクロで判定できる
-	dxgiFactory_ = nullptr;
-	hr_ = CreateDXGIFactory(IID_PPV_ARGS(&dxgiFactory_));
-
-	// 初期化の根本的な部分でエラーが出た場合はプログラムが間違ってるかどうか、
-	// どうにもできない場合が多いのでassertにしておく
-	assert(SUCCEEDED(hr_));
-
-
-
-	// いい順にアダプタを頼む
-	for (UINT i = 0; dxgiFactory_->EnumAdapterByGpuPreference(i,
-		DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE, IID_PPV_ARGS(&useAdapter_)) !=
-		DXGI_ERROR_NOT_FOUND; i++)
-	{
-		// アダプターの情報を取得する
+//プライベート関数
+void DirectX::MakeDXGIFactory()
+{
+	//DXGIファクトリーを作成
+	hr = CreateDXGIFactory(IID_PPV_ARGS(&dxgiFactory));
+	assert(SUCCEEDED(hr));
+	//アダプターを作成
+	for (UINT i = 0; dxgiFactory->EnumAdapterByGpuPreference(i, DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE, IID_PPV_ARGS(&useAdapter)) != DXGI_ERROR_NOT_FOUND; i++) {
 		DXGI_ADAPTER_DESC3 adapterDesc{};
-		hr_ = useAdapter_->GetDesc3(&adapterDesc);
-		assert(SUCCEEDED(hr_)); // 取得できないのは一大事
-
-		// ソフトウェアアダプタ出なければ採用！
-		if (!(adapterDesc.Flags & DXGI_ADAPTER_FLAG3_SOFTWARE))
-		{
-			// 採用したアダプタの情報をログに出力。wstringのほうなので注意
-			Log(ConvertString(std::format(L"USE Adapater:{}\n", adapterDesc.Description)));
+		hr = useAdapter->GetDesc3(&adapterDesc);
+		assert(SUCCEEDED(hr));
+		if (!(adapterDesc.Flags & DXGI_ADAPTER_FLAG3_SOFTWARE)) {
+			Log(ConvertString(std::format(L"Use Adapter:{}\n", adapterDesc.Description)));
 			break;
 		}
-		useAdapter_ = nullptr; // ソフトウェアアダプタの場合は見なかったことにする
+		useAdapter = nullptr;
 	}
-	// 適切なアダプタが見つからなかったので起動できない
-	assert(useAdapter_ != nullptr);
+	//アダプターが見つからないので起動できない
+	assert(useAdapter != nullptr);
 }
 
-
-
-/* ----- D3D12Deviceを生成する ----- */
-
-void DirectXCommon::CreateDevice() {
-
-	// 昨日レベルとログ出力用の文字列
-	D3D_FEATURE_LEVEL featureLevels[] = {
-		D3D_FEATURE_LEVEL_12_2,
-		D3D_FEATURE_LEVEL_12_1,
-		D3D_FEATURE_LEVEL_12_0
+void DirectX::MakeD3D12Device()
+{
+	//機能レベル
+	D3D_FEATURE_LEVEL featureLevels[]{
+		D3D_FEATURE_LEVEL_12_2,D3D_FEATURE_LEVEL_12_1,D3D_FEATURE_LEVEL_12_0
 	};
-
-	const char* featureLevelStrings[] = { "12.2", "12.1", "12.0" };
-
-
-	// 高い順に生成できるか試していく
+	const char* featureLevelStrings[] = { "12.2","12.1","12.0" };
+	//高い順に生成できるか試す
 	for (size_t i = 0; i < _countof(featureLevels); ++i) {
-		// 採用したアダプターでデバイスを生成
-		hr_ = D3D12CreateDevice(useAdapter_, featureLevels[i], IID_PPV_ARGS(&device_));
-		
-		// 指定した昨日レベルでデバイスが生成できたかを確認
-		if (SUCCEEDED(hr_)) {
-			// 生成できたのでログ出力を行ってループを抜ける
+		//採用したアダプターでデバイスを生成
+		hr = D3D12CreateDevice(useAdapter, featureLevels[i], IID_PPV_ARGS(&device));
+		if (SUCCEEDED(hr)) {
+			//生成出来たらログを出力してループを抜ける
 			Log(std::format("FeatureLevel : {}\n", featureLevelStrings[i]));
 			break;
 		}
 	}
-
-	// デバイスの生成がうまく行かなかったので起動できない
-	assert(device_ != nullptr);
-	Log("Complete create D3D12Device!!!\n"); // 初期化完了のログを出す
-
+	//デバイスの生成ができないので起動できない
+	assert(device != nullptr);
+	//初期化完了のログを出す
+	Log("Complete create D3D12Device!!!\n");
 }
 
-//////////////////////////////
-/// ここまで↑
-/* ---DirectX初期化--- */
-
-
-
-/* ----- エラーと警告の抑制 ----- */
-
-void DirectXCommon::DebugErrorInfoQueue() {
-
-
-#ifdef _DEBUG
-
-	if (SUCCEEDED(device_->QueryInterface(IID_PPV_ARGS(&infoQueue_)))) {
-
-		// ヤバいエラー時に止まる
-		infoQueue_->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_CORRUPTION, true);
-
-		// エラー時に止まる
-		infoQueue_->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_ERROR, true);
-
-		// 警告時に止まる
-		infoQueue_->SetBreakOnSeverity(D3D12_MESSAGE_SEVERITY_WARNING, true);
-
-
-		// 抑制するメッセージのID
-		D3D12_MESSAGE_ID denyIds_[] = {
-			// Windows11でのDXGIデバッグレイヤーとDX12デバッグレイヤーの相互作用バグによるエラーメッセージ
-			// https://stackoverflow.com/questions/69805245/directx-12-application-is-crashing-in-windows-11
-			D3D12_MESSAGE_ID_RESOURCE_BARRIER_MISMATCHING_COMMAND_LIST_TYPE
-		};
-
-		//抑制するレベル
-		D3D12_MESSAGE_SEVERITY severities_[] = { D3D12_MESSAGE_SEVERITY_INFO };
-		filter_.DenyList.NumIDs = _countof(denyIds_);
-		filter_.DenyList.pIDList = denyIds_;
-		filter_.DenyList.NumSeverities = _countof(severities_);
-		filter_.DenyList.pSeverityList = severities_;
-		// 指定したメッセージの表示を抑制する
-		infoQueue_->PushStorageFilter(&filter_);
-
-
-		// 解放
-		infoQueue_->Release();
-	}
-
-#endif // _DEBUG
-}
-
-
-
-/* ----- コマンドキューを生成する ----- */
-
-void DirectXCommon::CreateCommandQueue() {
-
-	// コマンドキューを生成する
-	D3D12_COMMAND_QUEUE_DESC commandQueueDesc{};
-	hr_ = device_->CreateCommandQueue(
-		&commandQueueDesc,
-		IID_PPV_ARGS(&commandQueue_));
-
-
-	// コマンドキューの生成がうまくいかなかったので起動できない
-	assert(SUCCEEDED(hr_));
-}
-
-
-
-/* ----- コマンドアロケータを生成する ----- */
-void DirectXCommon::CreateCommandAllocator() {
-
-	// コマンドアロケータを生成する
-	hr_ = device_->CreateCommandAllocator(
-		D3D12_COMMAND_LIST_TYPE_DIRECT,
-		IID_PPV_ARGS(&commandAllocator_));
-
-
-	// コマンドアロケータの生成がうまくいかなかったので起動できない
-	assert(SUCCEEDED(hr_));
-}
-
-
-
-/* ----- コマンドリストを生成する ----- */
-
-void DirectXCommon::CreateCommandList() {
-
-	// コマンドリストを生成する
-	hr_ = device_->CreateCommandList(
-		0, D3D12_COMMAND_LIST_TYPE_DIRECT, 
-		commandAllocator_, 
-		nullptr,
-		IID_PPV_ARGS(&commandList_));
-
-
-	// コマンドリストの生成がうまくいかなかったので起動できない
-	assert(SUCCEEDED(hr_));
-}
-
-
-
-/* ----- スワップチェーンを生成する ----- */
-
-void DirectXCommon::CreateSwapChain() {
-
-	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
-
-	swapChainDesc.Width = ClientWidth_;	  // 画面の幅、ウィンドウのクライアント領域を同じものにしてく
-	swapChainDesc.Height = ClientHeight_; // 画面の高さ、ウィンドウのクライアント領域を同じものにしておく
-	swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // 色の形式
-	swapChainDesc.SampleDesc.Count = 1; // マルチサンプルしない
-	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 描画のターゲットとして利用する
-	swapChainDesc.BufferCount = 2; // ダブルバッファ
-	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // モニタにうつしたら、中身を破棄
-
-	// コマンドキュー、ウィンドウハンドル、設定を渡して生成する
-	hr_ = dxgiFactory_->CreateSwapChainForHwnd(
-		commandQueue_, 
-		hwnd_,
-		&swapChainDesc, 
-		nullptr, 
-		nullptr, 
-		reinterpret_cast<IDXGISwapChain1**>(&swapChain_));
-
-	assert(SUCCEEDED(hr_));
-}
-
-
-
-/* ----- ディスクリプタヒープの生成 ----- */
-
-void DirectXCommon::CreateRtvDescriptorHeap() {
-
-	D3D12_DESCRIPTOR_HEAP_DESC rtvDescriptorHeapDesc{};
-
-	// レンダーターゲットビュー用
-	rtvDescriptorHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; 
-
-	// ダブルバッファように二つ。多くても別に構わない
-	rtvDescriptorHeapDesc.NumDescriptors = 2; 
-	hr_ = device_->CreateDescriptorHeap(
-		&rtvDescriptorHeapDesc, 
-		IID_PPV_ARGS(&rtvDescriptorHeap_));
-
-	// ディスクリプタヒープが作れなかったので起動できない
-	assert(SUCCEEDED(hr_));
-
-
-	// SwapChainからResourceを引っ張ってくる
-	CreateSwapChainResources();
-
-
-	// RTVを作る
-	SettingRTV();
-}
-
-
-
-/* ----- SwapChainからResourceを引っ張ってくる ----- */
-
-void DirectXCommon::CreateSwapChainResources() {
-
-	hr_ = swapChain_->GetBuffer(0, IID_PPV_ARGS(&swapChainResources_[0]));
-
-	// うまく取得できなければ起動できない
-	assert(SUCCEEDED(hr_));
-
-
-	hr_ = swapChain_->GetBuffer(1, IID_PPV_ARGS(&swapChainResources_[1]));
-
-	// うまく取得できなければ起動できない
-	assert(SUCCEEDED(hr_));
-}
-
-
-
-/* ----- RTVを作る ----- */
-
-void DirectXCommon::SettingRTV() {
-
-	// RTVの設定
-	rtvDesc_.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB; // 出力結果をSRGBに変換して書き込む
-	rtvDesc_.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D; // 2sテクスチャとして書き込む
-
-	// ディスクリプタの先頭を取得する
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvStartHandle = rtvDescriptorHeap_->GetCPUDescriptorHandleForHeapStart();
-
-	// まず1つ目を作る。1つ目は最初のところに作る。作る場所をこちらで指定してあげる必要がある
-	rtvHandles_[0] = rtvStartHandle;
-	device_->CreateRenderTargetView(
-		swapChainResources_[0], 
-		&rtvDesc_, 
-		rtvHandles_[0]);
-
-	// 2つ目のディスクリプタハンドルを得る(自力で)
-	rtvHandles_[1].ptr = 
-		rtvHandles_[0].ptr + device_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-
-	// 2つ目を作る
-	device_->CreateRenderTargetView(
-		swapChainResources_[1], 
-		&rtvDesc_, 
-		rtvHandles_[1]);
-
-
-	////DescriptorHandleとDescriptorHeap
-	typedef struct D3D12_CPU_DESCRIPTOR_HANDLE {
-		SIZE_T ptr;
-	}D3D12_CPU_DESCRIPTOR_HANDLE;
-
-	////Descriptorの位置を決める
-	rtvHandles_[0] = rtvStartHandle;
-
-	rtvHandles_[1].ptr = 
-		rtvHandles_[0].ptr + device_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-
-}
-
-
-
-// 状態を遷移する
-void DirectXCommon::ChanegResourceState() {
-
-	// 画面に描く処理はすべて終わり、画面に映すので、状態を遷移
-	// 今回はRenderTargetからPresentにする
-	barrier_.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
-	barrier_.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
-
-	// TransitionBarrierを張る
-	commandList_->ResourceBarrier(1, &barrier_);
-}
-
-
-
-/* ----- Fenceを生成する ----- */
-
-void DirectXCommon::MakeFence() {
-
-	// 初期値0でFenceを作る
-	hr_ = device_->CreateFence(fenceValue_, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence_));
-	assert(SUCCEEDED(hr_));
-	// FenceのSignalを待つためのイベントを作成する
-	HANDLE fenceEvent_ = CreateEvent(NULL, FALSE, FALSE, NULL);
-	assert(fenceEvent_ != nullptr);
-}
-
-
-
-/* ----- DXCの初期化 ----- */
-
-void DirectXCommon::InitializeDXC() {
-
-	// dxcCompilerを初期化
-	hr_ = DxcCreateInstance(CLSID_DxcUtils, IID_PPV_ARGS(&dxcUtils_));
-	assert(SUCCEEDED(hr_));
-	hr_ = DxcCreateInstance(CLSID_DxcCompiler, IID_PPV_ARGS(&dxcCompiler_));
-	assert(SUCCEEDED(hr_));
-
-
-	// 現時点でincludeはしないが、includeに対応するための設定を行っておく
-	hr_ = dxcUtils_->CreateDefaultIncludeHandler(&includeHandler_);
-	assert(SUCCEEDED(hr_));
-}
-
-
-
-/* ----- CompileShader関数 ----- */
-
-IDxcBlob* DirectXCommon::CompileShader(
-	// CompilerするShaderファイルへのパス
-	const std::wstring& filePath,
-	// Compilerに使用するProfile
-	const wchar_t* profile,
-	// 初期化で生成したものを3つ
-	IDxcUtils* dxcUtils,
-	IDxcCompiler3* dxcCompiler,
-	IDxcIncludeHandler* includeHandler)
+void DirectX::MakeCommandQueue()
 {
-	/* --- 1. hlslファイルを読む --- */
+	//コマンドキューを生成
+	D3D12_COMMAND_QUEUE_DESC commandQueueDesc{};
+	hr = device->CreateCommandQueue(&commandQueueDesc, IID_PPV_ARGS(&commandQueue));
+	//コマンドキューの生成ができないので起動できない
+	assert(SUCCEEDED(hr));
 
-	// これからシェーダーをコンパイルする旨をログに出す
-	Log(ConvertString(std::format(L"Begin CompileShader, path:{}, profile:{}\n", filePath, profile)));
-	// hlslを読み込む
-	HRESULT hr_ = dxcUtils->LoadFile(filePath.c_str(), nullptr, &shaderSource_);
-	// 読み込めなかったら止める
-	assert(SUCCEEDED(hr_));
-	// 読み込んだファイルの内容を設定する
-	shaderSourceBuffer_.Ptr = shaderSource_->GetBufferPointer();
-	shaderSourceBuffer_.Size = shaderSource_->GetBufferSize();
-	shaderSourceBuffer_.Encoding = DXC_CP_UTF8; // UTF8の文字コードであることを通知
+}
+
+void DirectX::MakeCommandAllocator()
+{
+	//コマンドアロケータを作成
+	hr = device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&commandAllocator));
+	//コマンドアロケータの生成ができないので起動できない
+	assert(SUCCEEDED(hr));
+}
+
+void DirectX::MakeCommandList()
+{
+	//コマンドリストを作成
+	hr = device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, commandAllocator, nullptr, IID_PPV_ARGS(&commandList));
+	//コマンドリストの生成ができないので起動できない
+	assert(SUCCEEDED(hr));
+}
+
+void DirectX::MakeSwapChain()
+{
+	//スワップチェーンを作成
+	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
+	swapChainDesc.Width = kClientWidth_;
+	swapChainDesc.Height = kClientHeight_;
+	swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	swapChainDesc.SampleDesc.Count = 1;
+	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	swapChainDesc.BufferCount = 2;
+	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	//コマンドキュー、ウィンドウハンドル、設定を渡して生成
+	hr = dxgiFactory->CreateSwapChainForHwnd(commandQueue, winApp_->GetHWND(), &swapChainDesc, nullptr, nullptr, reinterpret_cast<IDXGISwapChain1**>(&swapChain));
+	//スワップチェーンの生成ができないので起動できない
+	assert(SUCCEEDED(hr));
+}
+
+void DirectX::MakeDescriptorHeap()
+{
+	//ディスクリプタヒープの作成
+	D3D12_DESCRIPTOR_HEAP_DESC rtvDescriptorHeapDesc{};
+	rtvDescriptorHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+	rtvDescriptorHeapDesc.NumDescriptors = 2;
+	hr = device->CreateDescriptorHeap(&rtvDescriptorHeapDesc, IID_PPV_ARGS(&rtvDescriptorHeap));
+	//ディスクリプタヒープの生成ができないので起動できない
+	assert(SUCCEEDED(hr));
+	//SwapChainからResourceを持ってくる
+	hr = swapChain->GetBuffer(0, IID_PPV_ARGS(&swapChainResources[0]));
+	//リソースの取得ができないので起動できない
+	assert(SUCCEEDED(hr));
+	hr = swapChain->GetBuffer(1, IID_PPV_ARGS(&swapChainResources[1]));
+	//リソースの取得ができないので起動できない
+	assert(SUCCEEDED(hr));
+	//RTVの設定
+	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
+	rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+	rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
+	//ディスクリプタの先頭を取得
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvStartHandle = rtvDescriptorHeap->GetCPUDescriptorHandleForHeapStart();
+	//一つ目
+	rtvHandles[0] = rtvStartHandle;
+	device->CreateRenderTargetView(swapChainResources[0], &rtvDesc, rtvHandles[0]);
+	//二つ目
+	rtvHandles[1].ptr = rtvHandles[0].ptr + device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	device->CreateRenderTargetView(swapChainResources[1], &rtvDesc, rtvHandles[1]);
+}
+
+void DirectX::MakeFence()
+{
+	//Fenceを作る
+	hr = device->CreateFence(fenceValue, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence));
+	assert(SUCCEEDED(hr));
+	//FenceのSignalを待つイベント
+	assert(fenceEvent != nullptr);
+}
+
+void DirectX::MakeDXC()
+{
+	//dxCompiler初期化
+	hr = DxcCreateInstance(CLSID_DxcUtils, IID_PPV_ARGS(&dxcUtils));
+	assert(SUCCEEDED(hr));
+	hr = DxcCreateInstance(CLSID_DxcCompiler, IID_PPV_ARGS(&dxcCompiler));
+	assert(SUCCEEDED(hr));
 
 
-	/* --- 2.Compilerする --- */
+	hr = dxcUtils->CreateDefaultIncludeHandler(&includeHandler);
+	assert(SUCCEEDED(hr));
+}
+
+IDxcBlob* DirectX::CompileShader(const std::wstring& filePath, const wchar_t* profile, IDxcUtils* dxcUtils, IDxcCompiler3* dxcCompiler, IDxcIncludeHandler* includeHandler)
+{
+	//ログにメッセージ
+	Log(ConvertString(std::format(L"Begin CompileShader, path:{},profile:{}\n", filePath, profile)));
+	//hlslファイルを読む
+	IDxcBlobEncoding* shaderSource = nullptr;
+	hr = dxcUtils->LoadFile(filePath.c_str(), nullptr, &shaderSource);
+	assert(SUCCEEDED(hr));
+	DxcBuffer shaderSourceBuffer;
+	shaderSourceBuffer.Ptr = shaderSource->GetBufferPointer();
+	shaderSourceBuffer.Size = shaderSource->GetBufferSize();
+	shaderSourceBuffer.Encoding = DXC_CP_UTF8;
 
 	LPCWSTR arguments[] = {
-		filePath.c_str(),  // コンパイル対象のhlslファイル名
-		L"-E", L"main",  // エントリーポイントの指定。基本的にmain以外にはしない
-		L"-T", profile,  // ShaderProfileの設定
-		L"-Zi", L"-Qembed_debug",  // デバッグ用の情報を埋め込む
-		L"-Od",  // 最適化を外しておく
-		L"-Zpr",  // メモリレイアウトは行優先
+		filePath.c_str(),
+		L"-E",L"main",
+		L"-T",profile,
+		L"-Zi",L"-Qembed_debug",
+		L"-Od",
+		L"-Zpr",
 	};
-	// 実際にShaderをコンパイルする
-	hr_ = dxcCompiler->Compile(
-		&shaderSourceBuffer_,        // 読み込んだファイル
-		arguments,					// コンパイルオプション
-		_countof(arguments),		// コンパイルオプションの数
-		includeHandler,				// includeが含まれた諸々
-		IID_PPV_ARGS(&shaderResult_)	// コンパイル結果
+	IDxcResult* shaderResult = nullptr;
+	hr = dxcCompiler->Compile(
+		&shaderSourceBuffer,
+		arguments,
+		_countof(arguments),
+		includeHandler,
+		IID_PPV_ARGS(&shaderResult)
 	);
-	// コンパイルエラーではなくdxcが起動できないなど致命的な状況
-	assert(SUCCEEDED(hr_));
+	//dxcが起動できない
+	assert(SUCCEEDED(hr));
 
 
-	/* --- 3. 警告・エラーが出てないか確認する --- */
-
-	shaderResult_->GetOutput(DXC_OUT_ERRORS, IID_PPV_ARGS(&shaderError_), nullptr);
-	if (shaderError_ != nullptr && shaderError_->GetStringLength() != 0) {
-		// 警告・エラーゼッタイ
-		Log(shaderError_->GetStringPointer());
+	shaderResult->GetOutput(DXC_OUT_ERRORS, IID_PPV_ARGS(&shaderError), nullptr);
+	if (shaderError != nullptr && shaderError->GetStringLength() != 0) {
+		Log(shaderError->GetStringPointer());
 		assert(false);
 	}
 
-
-	/* --- 4. Compiler結果を受け取って返す --- */
-
-	// コンパイル結果から実行用のバイナリ部分を取得
-	hr_ = shaderResult_->GetOutput(DXC_OUT_OBJECT, IID_PPV_ARGS(&shaderBlob_), nullptr);
-	assert(SUCCEEDED(hr_));
-	// 成功したログを出す
-	Log(ConvertString(std::format(L"Compile Succeded, path{}, profile:{}\n", filePath, profile)));
-	// もう使わないリソースを解放
-	shaderSource_->Release();
-	shaderResult_->Release();
-	// 実行用のバイナリを返却
-	return shaderBlob_;
+	hr = shaderResult->GetOutput(DXC_OUT_OBJECT, IID_PPV_ARGS(&shaderBlob), nullptr);
+	assert(SUCCEEDED(hr));
+	Log(ConvertString(std::format(L"Compile Succeeded, path:{}, profile:{}\n", filePath, profile)));
+	shaderSource->Release();
+	shaderResult->Release();
+	return shaderBlob;
 }
 
-
-
-/* --- RootSignatureを作成 --- */
-
-void DirectXCommon::MakeRootSignature() {
-
-	// RootSignature作成
-	descriptionRootSignature_.Flags =
-		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-	// シリアライズしてバイナリにする
-	hr_ = D3D12SerializeRootSignature(&descriptionRootSignature_,
-		D3D_ROOT_SIGNATURE_VERSION_1, &signatureBlob_, &errorBlob_);
-	if (FAILED(hr_)) {
-		Log(reinterpret_cast<char*>(errorBlob_->GetBufferPointer()));
+void DirectX::MakeRootSignature()
+{
+	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature{};
+	descriptionRootSignature.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+	hr = D3D12SerializeRootSignature(&descriptionRootSignature, D3D_ROOT_SIGNATURE_VERSION_1, &signatureBlob, &errorBlob);
+	if (FAILED(hr)) {
+		Log(reinterpret_cast<char*>(errorBlob->GetBufferPointer()));
 		assert(false);
 	}
-	// バイナリを元に生成
-	hr_ = device_->CreateRootSignature(0, signatureBlob_->GetBufferPointer(),
-		signatureBlob_->GetBufferSize(), IID_PPV_ARGS(&rootSignature_));
-	assert(SUCCEEDED(hr_));
+
+	hr = device->CreateRootSignature(0, signatureBlob->GetBufferPointer(), signatureBlob->GetBufferSize(), IID_PPV_ARGS(&rootSignature));
+	assert(SUCCEEDED(hr));
 }
 
-
-
-/* --- InputLayoutを設定する --- */
-
-void DirectXCommon::SetInputLayout() {
-
-	// InputLayout
-	inputElementDescs_[0].SemanticName = "POSITION";
-	inputElementDescs_[0].SemanticIndex = 0;
-	inputElementDescs_[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	inputElementDescs_[0].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
-	inputLayoutDesc_.pInputElementDescs = inputElementDescs_;
-	inputLayoutDesc_.NumElements = _countof(inputElementDescs_);
+void DirectX::MakeInputLayOut()
+{
+	inputElementDescs[0].SemanticName = "POSITION";
+	inputElementDescs[0].SemanticIndex = 0;
+	inputElementDescs[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	inputElementDescs[0].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	inputLayoutDesc.pInputElementDescs = inputElementDescs;
+	inputLayoutDesc.NumElements = _countof(inputElementDescs);
 }
 
-
-
-/* --- BlendStateを設定する --- */
-
-void DirectXCommon::SetBlendState() {
-
-	// BlendStateの設定
-	// 全ての色要素を書き込む
-	blendDesc_.RenderTarget[0].RenderTargetWriteMask =
-		D3D12_COLOR_WRITE_ENABLE_ALL;
+void DirectX::MakeBlendState()
+{
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 }
 
-
-
-/* --- RasiterzerStateを設定する --- */
-
-void DirectXCommon::SetRasiterzerState() {
-
-	// RasiterzerStateの設定
-	// 裏面(時計回り)を表示しない
-	rasterizerDesc_.CullMode = D3D12_CULL_MODE_BACK;
-	// 三角形の中を塗りつぶす
-	rasterizerDesc_.FillMode = D3D12_FILL_MODE_SOLID;
+void DirectX::MakeRasterizarState()
+{
+	rasterizerDesc.CullMode = D3D12_CULL_MODE_BACK;
+	rasterizerDesc.FillMode = D3D12_FILL_MODE_SOLID;
 }
 
-
-
-/* --- Shaderをcompileする --- */
-
-void DirectXCommon::SetShaderCompile() {
-
-	// Shaderをコンパイルする
-	vertexShaderBlob_ = CompileShader(L"Object3d.VS.hlsl",
-		L"vs_6_0", dxcUtils_, dxcCompiler_, includeHandler_);
-	assert(vertexShaderBlob_ != nullptr);
-	pixelShaderBlob_ = CompileShader(L"Object3d.PS.hlsl",
-		L"ps_6_0", dxcUtils_, dxcCompiler_, includeHandler_);
-	assert(pixelShaderBlob_ != nullptr);
+void DirectX::MakeShaderCompile()
+{
+	vertexShaderBlob = CompileShader(L"Object3D.VS.hlsl", L"vs_6_0", dxcUtils, dxcCompiler, includeHandler);
+	assert(vertexShaderBlob != nullptr);
+	pixelShaderBlob = CompileShader(L"Object3D.PS.hlsl", L"ps_6_0", dxcUtils, dxcCompiler, includeHandler);
 }
 
+void DirectX::MakePipelineStateObject()
+{
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc{};
+	graphicsPipelineStateDesc.pRootSignature = rootSignature;
+	graphicsPipelineStateDesc.InputLayout = inputLayoutDesc;
+	graphicsPipelineStateDesc.VS = { vertexShaderBlob->GetBufferPointer(),vertexShaderBlob->GetBufferSize() };
+	graphicsPipelineStateDesc.PS = { pixelShaderBlob->GetBufferPointer(),pixelShaderBlob->GetBufferSize() };
+	graphicsPipelineStateDesc.BlendState = blendDesc;
+	graphicsPipelineStateDesc.RasterizerState = rasterizerDesc;
+	//書き込むRTV
+	graphicsPipelineStateDesc.NumRenderTargets = 1;
+	graphicsPipelineStateDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
 
+	graphicsPipelineStateDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+	graphicsPipelineStateDesc.SampleDesc.Count = 1;
+	graphicsPipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
 
-/* --- PSOを生成する --- */
-
-void DirectXCommon::CreatePipelineStateObject() {
-
-	graphicsPipelineStateDesc_.pRootSignature = rootSignature_; // RootSignature
-	graphicsPipelineStateDesc_.InputLayout = inputLayoutDesc_; // InputLayout
-	graphicsPipelineStateDesc_.VS = { vertexShaderBlob_->GetBufferPointer(),
-	vertexShaderBlob_->GetBufferSize() }; // VertexShader
-	graphicsPipelineStateDesc_.PS = { pixelShaderBlob_->GetBufferPointer(),
-	pixelShaderBlob_->GetBufferSize() }; // PixelShader
-	graphicsPipelineStateDesc_.BlendState = blendDesc_; // BlendState
-	graphicsPipelineStateDesc_.RasterizerState = rasterizerDesc_; // RasterizeState
-
-
-	// 書き込むRTVの情報
-	graphicsPipelineStateDesc_.NumRenderTargets = 1;
-	graphicsPipelineStateDesc_.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-
-
-	// 利用するトポロジ(形状)もタイプ。三角形
-	graphicsPipelineStateDesc_.PrimitiveTopologyType =
-		D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-
-
-	// どのように画面に色を打ち込むかの設定(気にしなくて良い)
-	graphicsPipelineStateDesc_.SampleDesc.Count = 1;
-	graphicsPipelineStateDesc_.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
-
-
-	// 実際に生成
-	hr_ = device_->CreateGraphicsPipelineState(&graphicsPipelineStateDesc_,
-		IID_PPV_ARGS(&graphicsPipelineState_));
-	assert(SUCCEEDED(hr_));
+	hr = device->CreateGraphicsPipelineState(&graphicsPipelineStateDesc, IID_PPV_ARGS(&graphicsPipelineState));
+	assert(SUCCEEDED(hr));
 }
 
-
-
-/* --- PSOを設定する --- */
-
-void DirectXCommon::SetPSO() {
-
-	// RootSignatureを作成
-	MakeRootSignature();
-
-	// InputLayoutを設定する
-	SetInputLayout();
-
-	// BlendStateを設定する
-	SetBlendState();
-
-	// RasiterzerStateを設定する
-	SetRasiterzerState();
-
-	// Shaderをcompileする
-	SetShaderCompile();
-
-	// PSOを生成する
-	CreatePipelineStateObject();
+void DirectX::MakeViewport()
+{
+	viewport.Width = (float)kClientWidth_;
+	viewport.Height = (float)kClientHeight_;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
 }
 
-
-
-/* ----- ViewportとScissor ----- */
-
-void DirectXCommon::SetViewport() {
-
-	// ビューポート
-	// クライアント領域のサイズと一緒にして画面全体に表示
-	viewport_.Width = float(ClientWidth_);
-	viewport_.Height = float(ClientHeight_);
-	viewport_.TopLeftX = 0;
-	viewport_.TopLeftY = 0;
-	viewport_.MinDepth = 0.0f;
-	viewport_.MaxDepth = 1.0f;
+void DirectX::MakeScissor()
+{
+	scissorRect.left = 0;
+	scissorRect.right = kClientWidth_;
+	scissorRect.top = 0;
+	scissorRect.bottom = kClientHeight_;
 }
-
-void DirectXCommon::SetScissor() {
-
-	// シザー矩形
-	// 基本的にビューポートと同じ矩形が構成されるようにする
-	scissorRect_.left = 0;
-	scissorRect_.right = ClientWidth_;
-	scissorRect_.top = 0;
-	scissorRect_.bottom = ClientHeight_;
-}
-
