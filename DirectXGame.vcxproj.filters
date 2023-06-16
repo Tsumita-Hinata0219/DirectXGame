@@ -57,6 +57,9 @@
     <ClCompile Include="math\Function.cpp">
       <Filter>ソース ファイル\math</Filter>
     </ClCompile>
+    <ClCompile Include="Adapter\Triangle.cpp">
+      <Filter>ヘッダー ファイル\Adapter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Function.h">
@@ -80,8 +83,8 @@
     <ClInclude Include="math\Vector3.h">
       <Filter>ヘッダー ファイル\math</Filter>
     </ClInclude>
-    <ClInclude Include="Adapter.h">
-      <Filter>ヘッダー ファイル\Adapter</Filter>
+    <ClInclude Include="Adapter\Triangle.h">
+      <Filter>ソース ファイル\Adapter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -96,6 +96,12 @@ public:
 	void Draw();
 
 
+	/// <summary>
+	/// アクセッサ
+	/// </summary>
+	ID3D12Device* const GetDevice() { return device_; };
+	ID3D12GraphicsCommandList* const GetCommandList() { return commandList_; };
+
 
 private:
 

@@ -1,6 +1,6 @@
 #include "WinApp.h"
 #include "DirectXCommon.h"
-
+#include "Triangle.h"
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -13,6 +13,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* windows_ = new WinApp();
 	// DirectXClassを用意
 	DirectXCommon* dXCommon_ = new DirectXCommon();
+	// TriangleClassを用意
+	
 
 
 	// クライアント領域を設定
