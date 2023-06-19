@@ -60,3 +60,4 @@ private:
 	// 頂点リソース用のヒープ設定
 	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_{};
 };
+

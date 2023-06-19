@@ -52,7 +52,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)math;$(ProjectDir)3D;$(ProjectDir)shaders;$(ProjectDir)Adapter;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)math;$(ProjectDir)3D;$(ProjectDir)shaders;$(ProjectDir)Adapter;$(ProjectDir)Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -74,7 +74,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)math;$(ProjectDir)3D;$(ProjectDir)shaders;$(ProjectDir)Adapter;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)math;$(ProjectDir)3D;$(ProjectDir)shaders;$(ProjectDir)Adapter;$(ProjectDir)Resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -89,6 +89,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="3D\Model.cpp" />
+    <ClCompile Include="Adapter\Pastorale.cpp" />
     <ClCompile Include="Adapter\Triangle.cpp" />
     <ClCompile Include="Common\DirectXCommon.cpp" />
     <ClCompile Include="Common\WinApp.cpp" />
@@ -97,6 +98,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3D\Model.h" />
+    <ClInclude Include="Adapter\Pastorale.h" />
     <ClInclude Include="Adapter\Triangle.h" />
     <ClInclude Include="Common\DirectXCommon.h" />
     <ClInclude Include="Common\WinApp.h" />

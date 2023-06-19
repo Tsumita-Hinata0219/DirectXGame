@@ -60,6 +60,9 @@
     <ClCompile Include="Adapter\Triangle.cpp">
       <Filter>ヘッダー ファイル\Adapter</Filter>
     </ClCompile>
+    <ClCompile Include="Adapter\Pastorale.cpp">
+      <Filter>ヘッダー ファイル\Adapter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Function.h">
@@ -84,6 +87,9 @@
       <Filter>ヘッダー ファイル\math</Filter>
     </ClInclude>
     <ClInclude Include="Adapter\Triangle.h">
+      <Filter>ソース ファイル\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="Adapter\Pastorale.h">
       <Filter>ソース ファイル\Adapter</Filter>
     </ClInclude>
   </ItemGroup>
