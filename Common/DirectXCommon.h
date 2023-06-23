@@ -114,6 +114,7 @@ public:
 
 private:
 
+	// クライアントサイズとウィンドウハンドル
 	int32_t ClientWidth_;
 	int32_t ClientHeight_;
 	HWND hwnd_;
