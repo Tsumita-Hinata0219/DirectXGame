@@ -1,6 +1,4 @@
 #include "Pastorale.h"
-//#include "Triangle.h"
-//#include "DirectXCommon.h"
 
 
 const wchar_t* kWindowTitle = L"LE2B_20_ツミタ_ヒナタ_CG2";
@@ -17,7 +15,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	pastorale_->Initialize(kWindowTitle, ClientWidth, ClientHeight);
 
 
-	//	
 	const int MaxTriangle = 10;
 	// 三角形の各要素を用意(左下、上、右下)
 	Vector4 bottomLeft[MaxTriangle] = {
@@ -91,47 +88,3 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 解放処理
 	delete pastorale_;
 }
-
-//	MSG msg{};
-//
-//
-//	/* ----- メインループ ----- */
-//
-//	// ウィンドウの×ボタンが押されるまでループ
-//	while (msg.message != WM_QUIT) {
-//		
-//		// Windowにメッセージが来てたら最優先で処理させる
-//		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-//			TranslateMessage(&msg);
-//			DispatchMessage(&msg);
-//
-//		}
-//		else { // ゲームの処理
-//
-//			// 描画前処理
-//			dXCommon_->PreDraw();
-//
-//
-//			// 三角形描画
-//			for (int i = 0; i < maxTriangle; i++) {
-//				triangle_[i]->Draw(bottomLeft[i], top[i], bottomRight[i]);
-//			}
-//
-//
-//			// 描画後処理
-//			dXCommon_->PostDraw();
-//		}
-//	}
-//
-//
-//	// 解放処理
-//	delete windows_;
-//	for (int i = 0; i < maxTriangle; i++) {
-//		delete triangle_[i];
-//	}
-//	delete dXCommon_;
-//
-//
-//	return 0;
-//}
-
