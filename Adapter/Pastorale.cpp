@@ -86,25 +86,5 @@ bool Pastorale::ProcessMessage() {
 void Pastorale::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight) {
 
 	model_->DrawTriangle(bottomLeft, top, bottoomRight);
-
-//	// 左下
-//	vertexData_[0] = bottomLeft;
-//
-//	// 上
-//	vertexData_[1] = top;
-//
-//	// 右下
-//	vertexData_[2] = bottoomRight;
-//
-//
-//	// いざ描画！！！！！
-//	// VBVを設定
-//	dXCommon_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferView_);
-//
-//	// 形状を設定
-//	dXCommon_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-//
-//	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-//	dXCommon_->GetCommandList()->DrawInstanced(3, 1, 0, 0);
 }
 
