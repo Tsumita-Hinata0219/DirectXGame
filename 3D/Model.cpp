@@ -104,7 +104,7 @@ void Model::MakeMaterialResource() {
 
 
 // 三角形の描画
-void Model::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
+void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
 
 	// 頂点リソース用のヒープ設定
 	vertexResource_ = CreateBufferResource(device_, sizeof(Vector4) * 3);

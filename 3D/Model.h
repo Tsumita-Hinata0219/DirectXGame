@@ -34,7 +34,7 @@ public:
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color);
+	void Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color);
 	
 	/// <summary>
 	/// 色の変換

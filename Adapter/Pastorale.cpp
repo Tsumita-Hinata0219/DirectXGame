@@ -50,7 +50,7 @@ void Pastorale::Initialize(const wchar_t* title, const int32_t Width, const int3
 /// </summary>
 void Pastorale::BeginFrame() {
 
-	dXCommon_->PreDraw();;
+	dXCommon_->PreDraw();
 }
 
 
@@ -85,7 +85,7 @@ bool Pastorale::ProcessMessage() {
 /// </summary>
 void Pastorale::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color) {
 
-	model_->DrawTriangle(bottomLeft, top, bottoomRight, color);
+	model_->Triangle(bottomLeft, top, bottoomRight, color);
 
 }
 
