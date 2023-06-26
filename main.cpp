@@ -90,6 +90,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	};
 
 
+
 	// ウィンドウの×ボタンが押されるまでループ
 	while (pastorale_->ProcessMessage() == 0) {
 		// フレームの開始
