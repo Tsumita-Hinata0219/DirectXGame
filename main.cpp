@@ -15,44 +15,80 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	pastorale_->Initialize(kWindowTitle, ClientWidth, ClientHeight);
 
 
+
+	// 三角形描画の各要素
+	struct TriangleElement {
+		Vector4 bottomLeft;  // 左下座標
+		Vector4 top;		 // 上座標
+		Vector4 bottomRight; // 右下座標
+		unsigned int color;	 // 色
+	};
+
+	// 三角形を複数用意
+	// 各要素を決めていく
 	const int MaxTriangle = 10;
-	// 三角形の各要素を用意(左下、上、右下)
-	Vector4 bottomLeft[MaxTriangle] = {
-		{-0.4f,0.7f,0.0f,1.0f},
-		{-0.4f,0.5f,0.0f,1.0f},
-		{0.2f,0.7f,0.0f,1.0f},
-		{0.2f,0.5f,0.0f,1.0f},
-		{-0.1f,0.6f,0.0f,1.0f},
-		{-0.4f,0.2f,0.0f,1.0f},
-		{-0.4f,0.0f,0.0f,1.0f},
-		{0.2f,0.2f,0.0f,1.0f},
-		{0.2f,0.0f,0.0f,1.0f},
-		{-0.1f,0.1f,0.0f,1.0f}
-	};
-	Vector4 top[MaxTriangle] = {
+	TriangleElement triangle[MaxTriangle] = {
+		// 1
+		{{-0.4f,0.7f,0.0f,1.0f},
 		{-0.3f,0.8f,0.0f,1.0f},
-		{-0.3f,0.6f,0.0f,1.0f},
-		{0.3f,0.8f,0.0f,1.0f},
-		{0.3f,0.6f,0.0f,1.0f},
-		{0.0f,0.7f,0.0f,1.0f},
-		{-0.3f,0.3f,0.0f,1.0f},
-		{-0.3f,0.1f,0.0f,1.0f},
-		{0.3f,0.3f,0.0f,1.0f},
-		{0.3f,0.1f,0.0f,1.0f},
-		{0.0f,0.2f,0.0f,1.0f}
-	};
-	Vector4 bottomRight[MaxTriangle] = {
 		{-0.2f,0.7f,0.0f,1.0f},
+		{0xffffffff}},
+
+		// 2
+		{{-0.4f,0.5f,0.0f,1.0f},
+		{-0.3f,0.6f,0.0f,1.0f},
 		{-0.2f,0.5f,0.0f,1.0f},
+		{0xff0000ff}},
+
+		// 3
+		{{0.2f,0.7f,0.0f,1.0f},
+		{0.3f,0.8f,0.0f,1.0f},
 		{0.4f,0.7f,0.0f,1.0f},
+		{0x0000ffff}},
+
+		// 4
+		{{0.2f,0.5f,0.0f,1.0f},
+		{0.3f,0.6f,0.0f,1.0f},
 		{0.4f,0.5f,0.0f,1.0f},
+		{0xffff00ff}},
+
+		// 5
+		{{-0.1f,0.6f,0.0f,1.0f},
+		{0.0f,0.7f,0.0f,1.0f},
 		{0.1f,0.6f,0.0f,1.0f},
+		{0xff7f00ff}},
+
+		// 6
+		{{-0.4f,0.2f,0.0f,1.0f},
+		{-0.3f,0.3f,0.0f,1.0f},
 		{-0.2f,0.2f,0.0f,1.0f},
+		{0x00ff00ff}},
+
+		// 7
+		{{-0.4f,0.0f,0.0f,1.0f},
+		{-0.3f,0.1f,0.0f,1.0f},
 		{-0.2f,0.0f,0.0f,1.0f},
+		{0xff33ccff}},
+
+		// 8
+		{{0.2f,0.2f,0.0f,1.0f},
+		{0.3f,0.3f,0.0f,1.0f},
 		{0.4f,0.2f,0.0f,1.0f},
+		{0x7f00ffff}},
+
+		// 9
+		{{0.2f,0.0f,0.0f,1.0f},
+		{0.3f,0.1f,0.0f,1.0f},
 		{0.4f,0.0f,0.0f,1.0f},
+		{0x000000ff}},
+
+		// 10
+		{{-0.1f,0.1f,0.0f,1.0f},
+		{0.0f,0.2f,0.0f,1.0f},
 		{0.1f,0.1f,0.0f,1.0f},
+		{0x663300ff}},
 	};
+
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (pastorale_->ProcessMessage() == 0) {
@@ -73,7 +109,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// 三角形複数描画
 		for (int i = 0; i < MaxTriangle; i++) {
-			pastorale_->DrawTriangle(bottomLeft[i], top[i], bottomRight[i], 0xff0000ff);
+			pastorale_->DrawTriangle(triangle[i].bottomLeft, triangle[i].top, triangle[i].bottomRight, triangle[i].color);
 		}
 		
 		///

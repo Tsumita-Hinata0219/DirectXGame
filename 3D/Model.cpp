@@ -66,7 +66,7 @@ ID3D12Resource* Model::CreateBufferResource(ID3D12Device* device, size_t sizeInB
 
 
 // 頂点バッファビューを作成する
-D3D12_VERTEX_BUFFER_VIEW Model::CreateBufferView(ID3D12Resource* resource, size_t sizeInBytes) {
+D3D12_VERTEX_BUFFER_VIEW Model::MakeBufferView(ID3D12Resource* resource, size_t sizeInBytes) {
 
 	D3D12_VERTEX_BUFFER_VIEW resultBufferView{};
 
@@ -96,9 +96,6 @@ void Model::MakeMaterialResource() {
 	// マテリアルにデータを書き込む
 	// 書き込むためのアドレスを取得
 	materialResource_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
-
-	// 今回は赤を書き込んでみる
-	*materialDate_ = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 }
 
 
@@ -106,16 +103,19 @@ void Model::MakeMaterialResource() {
 // 三角形の描画
 void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
 
-	// 頂点リソース用のヒープ設定
+	// VertexResourceを生成する
 	vertexResource_ = CreateBufferResource(device_, sizeof(Vector4) * 3);
-	vertexBufferView_ = CreateBufferView(vertexResource_, sizeof(Vector4) * 3);
+	// Material用のResourceを作る
+	MakeMaterialResource();
+	// vertexBufferViewを作成する
+	vertexBufferView_ = MakeBufferView(vertexResource_, sizeof(Vector4) * 3);
 
-	
+	// 引数の色コードをVector4に変換してmaterialDate_に送る
 	*materialDate_ = FloatColor(color);
 
 	// 書き込むためのアドレスを取得
 	vertexResource_->Map(0, nullptr, reinterpret_cast<void**>(&vertexData_));
-	MakeMaterialResource();
+	materialResource_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
 
 	vertexData_[0] = bottomLeft;   // 左下
 	vertexData_[1] = top;          // 上

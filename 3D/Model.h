@@ -21,7 +21,7 @@ public:
 	/// <summary>
 	/// 頂点バッファビューを作成する
 	/// </summary>
-	static D3D12_VERTEX_BUFFER_VIEW CreateBufferView(ID3D12Resource* resource, size_t sizeInBytes);
+	static D3D12_VERTEX_BUFFER_VIEW MakeBufferView(ID3D12Resource* resource, size_t sizeInBytes);
 
 	/// <summary>
 	/// Material用のResourceを作る
@@ -80,7 +80,6 @@ private:
 
 	ID3D12Resource* materialResource_ = nullptr;
 	Vector4* materialDate_ = nullptr;
-
 
 };
 
