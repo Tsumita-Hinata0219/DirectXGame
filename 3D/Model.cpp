@@ -71,7 +71,7 @@ void Model::MakeVertexBufferView() {
 
 
 // 三角形の描画
-void Model::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
+void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
 
 	// 頂点データの作成とビュー
 	CreateVertexResource();

@@ -26,7 +26,7 @@ public:
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
+	void Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
 
 	/// <summary>
 	/// アクセッサ
