@@ -211,6 +211,8 @@ private:
 	// PSOを生成する
 	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature_{};
 
+	D3D12_ROOT_PARAMETER rootParameters_[1] = {};
+
 	ID3DBlob* signatureBlob_ = nullptr;
 	
 	ID3DBlob* errorBlob_ = nullptr;

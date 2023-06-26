@@ -54,7 +54,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{0.1f,0.1f,0.0f,1.0f},
 	};
 
-
 	// ウィンドウの×ボタンが押されるまでループ
 	while (pastorale_->ProcessMessage() == 0) {
 		// フレームの開始
@@ -72,9 +71,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 
-		// 三角形描画
+		// 三角形複数描画
 		for (int i = 0; i < MaxTriangle; i++) {
-			pastorale_->DrawTriangle(bottomLeft[i], top[i], bottomRight[i]);
+			pastorale_->DrawTriangle(bottomLeft[i], top[i], bottomRight[i], 0xff0000ff);
 		}
 		
 		///

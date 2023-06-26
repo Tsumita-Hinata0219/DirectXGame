@@ -8,17 +8,25 @@ public:
 
 	~Model();
 
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
 	void Initialize(ID3D12Device* device, ID3D12GraphicsCommandList* commandList);
 
 	/// <summary>
 	/// 頂点リソース用のヒープ設定
 	/// </summary>
-	void CreateVertexResource();
+	static ID3D12Resource* CreateBufferResource(ID3D12Device* device, size_t sizeInBytes);
 
 	/// <summary>
 	/// 頂点バッファビューを作成する
 	/// </summary>
-	void MakeVertexBufferView();
+	static D3D12_VERTEX_BUFFER_VIEW CreateBufferView(ID3D12Resource* resource, size_t sizeInBytes);
+
+	/// <summary>
+	/// Material用のResourceを作る
+	/// </summary>
+	void MakeMaterialResource();
 
 	/// <summary>
 	/// 三角形の描画
@@ -26,13 +34,21 @@ public:
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
+	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color);
+	
+	/// <summary>
+	/// 色の変換
+	/// </summary>
+	Vector4 FloatColor(unsigned int color);
+
 
 	/// <summary>
 	/// アクセッサ
 	/// </summary>
 	void SetDirectXDevice(ID3D12Device* device);
 	void SetDirectXCommandList(ID3D12GraphicsCommandList* commandList);
+
+
 
 
 private:
@@ -60,6 +76,11 @@ private:
 
 	// 頂点リソース用のヒープ設定
 	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_{};
+
+
+	ID3D12Resource* materialResource_ = nullptr;
+	Vector4* materialDate_ = nullptr;
+
 
 };
 
