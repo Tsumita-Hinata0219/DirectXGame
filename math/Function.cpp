@@ -43,6 +43,7 @@ void Log(const std::string& message) {
 }
 
 
+
 Matrix4x4 MakeIdentity4x4() {
 	Matrix4x4 result{};
 
