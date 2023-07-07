@@ -93,9 +93,35 @@ void Model::MakeMaterialResource() {
 	// マテリアル用のリソースを作る。今回はcolor1つ分サイズを用意する
 	materialResource_ = CreateBufferResource(device_, sizeof(Vector4));
 
-	// マテリアルにデータを書き込む
 	// 書き込むためのアドレスを取得
 	materialResource_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
+}
+
+
+
+// TransformationMatrix用のResourceを作る
+void Model::MakeTransformationMatrixResource() {
+
+	// WVP用のリソースを作る。Matrix4x4 1つ分のサイズを用意する
+	wvpResource_ = CreateBufferResource(device_, sizeof(Matrix4x4));
+
+	// 書き込むためのアドレスを取得
+	wvpResource_->Map(0, nullptr, reinterpret_cast<void**>(&wvpDate_));
+
+	// 単位行列を書き込んでおく
+	*wvpDate_ = MakeIdentity4x4();
+}
+
+
+
+// Resourceを作る
+void Model::MakeBufferResource() {
+
+	// Material用のResourceを作る
+	MakeMaterialResource();
+
+	// TransformationMatrix用のResourceを作る
+	MakeTransformationMatrixResource();
 }
 
 
@@ -105,21 +131,25 @@ void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsig
 
 	// VertexResourceを生成する
 	vertexResource_ = CreateBufferResource(device_, sizeof(Vector4) * 3);
-	// Material用のResourceを作る
-	MakeMaterialResource();
+
 	// vertexBufferViewを作成する
 	vertexBufferView_ = MakeBufferView(vertexResource_, sizeof(Vector4) * 3);
 
-	// 引数の色コードをVector4に変換してmaterialDate_に送る
-	*materialDate_ = FloatColor(color);
+	// Resourceを作る
+	MakeBufferResource();
+
 
 	// 書き込むためのアドレスを取得
 	vertexResource_->Map(0, nullptr, reinterpret_cast<void**>(&vertexData_));
-	materialResource_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
+	
 
 	vertexData_[0] = bottomLeft;   // 左下
 	vertexData_[1] = top;          // 上
 	vertexData_[2] = bottomRight; // 右下
+
+
+	// 引数の色コードをVector4に変換してmaterialDate_に送る
+	*materialDate_ = FloatColor(color);
 
 
 	///// いざ描画！！！！！
@@ -131,6 +161,9 @@ void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsig
 
 	// CBVを設定する
 	commandList_->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
+
+	// wvp用のCBufferの場所を設定
+	commandList_->SetGraphicsRootConstantBufferView(1, wvpResource_->GetGPUVirtualAddress());
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
 	commandList_->DrawInstanced(3, 1, 0, 0);

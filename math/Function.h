@@ -17,6 +17,7 @@
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
+#include "Matrix4x4.h"
 #include "WinApp.h"
 #include "DirectXCommon.h"
 
@@ -34,4 +35,7 @@ std::string ConvertString(const std::wstring& str);
 
 // wstring->string
 void Log(const std::string& message);
+
+
+Matrix4x4 MakeIdentity4x4();
 

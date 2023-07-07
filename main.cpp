@@ -10,8 +10,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Pastorale* pastorale_ = new Pastorale();
 
 	// クライアント領域を設定
-	const int32_t ClientWidth = 500;
-	const int32_t ClientHeight = 500;
+	const int32_t ClientWidth = 800;
+	const int32_t ClientHeight = 700;
 	pastorale_->Initialize(kWindowTitle, ClientWidth, ClientHeight);
 
 
@@ -26,67 +26,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// 三角形を複数用意
 	// 各要素を決めていく
-	const int MaxTriangle = 10;
-	TriangleElement triangle[MaxTriangle] = {
-		// 1
-		{{-0.4f,0.7f,0.0f,1.0f},
-		{-0.3f,0.8f,0.0f,1.0f},
-		{-0.2f,0.7f,0.0f,1.0f},
-		{0xffffffff}},
-
-		// 2
-		{{-0.4f,0.5f,0.0f,1.0f},
-		{-0.3f,0.6f,0.0f,1.0f},
-		{-0.2f,0.5f,0.0f,1.0f},
-		{0xff0000ff}},
-
-		// 3
-		{{0.2f,0.7f,0.0f,1.0f},
-		{0.3f,0.8f,0.0f,1.0f},
-		{0.4f,0.7f,0.0f,1.0f},
-		{0x0000ffff}},
-
-		// 4
-		{{0.2f,0.5f,0.0f,1.0f},
-		{0.3f,0.6f,0.0f,1.0f},
-		{0.4f,0.5f,0.0f,1.0f},
-		{0xffff00ff}},
-
-		// 5
-		{{-0.1f,0.6f,0.0f,1.0f},
-		{0.0f,0.7f,0.0f,1.0f},
-		{0.1f,0.6f,0.0f,1.0f},
-		{0xff7f00ff}},
-
-		// 6
-		{{-0.4f,0.2f,0.0f,1.0f},
-		{-0.3f,0.3f,0.0f,1.0f},
-		{-0.2f,0.2f,0.0f,1.0f},
-		{0x00ff00ff}},
-
-		// 7
-		{{-0.4f,0.0f,0.0f,1.0f},
-		{-0.3f,0.1f,0.0f,1.0f},
-		{-0.2f,0.0f,0.0f,1.0f},
-		{0xff33ccff}},
-
-		// 8
-		{{0.2f,0.2f,0.0f,1.0f},
-		{0.3f,0.3f,0.0f,1.0f},
-		{0.4f,0.2f,0.0f,1.0f},
-		{0x7f00ffff}},
-
-		// 9
-		{{0.2f,0.0f,0.0f,1.0f},
-		{0.3f,0.1f,0.0f,1.0f},
-		{0.4f,0.0f,0.0f,1.0f},
-		{0x000000ff}},
-
-		// 10
-		{{-0.1f,0.1f,0.0f,1.0f},
-		{0.0f,0.2f,0.0f,1.0f},
-		{0.1f,0.1f,0.0f,1.0f},
-		{0x663300ff}},
+	TriangleElement triangle = {
+		{ -0.5f, -0.5f, 0.0f, 1.0f },
+		{ 0.0f, 0.5f, 0.0f, 1.0f },
+		{ 0.5f, -0.5f, 0.0f, 1.0f },
+		{0x00ff00ff}
 	};
 
 
@@ -108,9 +52,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		// 三角形複数描画
-		for (int i = 0; i < MaxTriangle; i++) {
-			pastorale_->DrawTriangle(triangle[i].bottomLeft, triangle[i].top, triangle[i].bottomRight, triangle[i].color);
-		}
+		pastorale_->DrawTriangle(triangle.bottomLeft, triangle.top, triangle.bottomRight, triangle.color);
 		
 		///
 		/// ↑描画処理ここまで

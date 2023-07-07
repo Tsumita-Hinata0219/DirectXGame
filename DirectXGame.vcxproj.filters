@@ -86,6 +86,9 @@
     <ClInclude Include="Adapter\Pastorale.h">
       <Filter>ヘッダー ファイル\Adapter</Filter>
     </ClInclude>
+    <ClInclude Include="math\Matrix4x4.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\Object3d.PS.hlsl">

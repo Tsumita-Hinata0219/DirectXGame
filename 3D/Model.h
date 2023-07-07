@@ -29,6 +29,16 @@ public:
 	void MakeMaterialResource();
 
 	/// <summary>
+	/// TransformationMatrix用のResourceを作る
+	/// </summary>
+	void MakeTransformationMatrixResource();
+
+	/// <summary>
+	/// Resourceを作る。上二つをまとめたもの
+	/// </summary>
+	void MakeBufferResource();
+
+	/// <summary>
 	/// 三角形の描画
 	/// </summary>
 	/// <param name="bottomLeft"></param>
@@ -80,6 +90,9 @@ private:
 
 	ID3D12Resource* materialResource_ = nullptr;
 	Vector4* materialDate_ = nullptr;
+
+	ID3D12Resource* wvpResource_ = nullptr;
+	Matrix4x4* wvpDate_ = nullptr;
 
 };
 
