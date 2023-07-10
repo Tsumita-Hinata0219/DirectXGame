@@ -2,6 +2,7 @@
 #include "WinApp.h"
 #include "DirectXCommon.h"
 #include "Model.h"
+#include "WorldTransform.h"
 
 
 //Pastorale//パストラーレ
@@ -51,7 +52,7 @@ public:
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color);
+	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color, Matrix4x4 worldMatrix);
 
 private:
 
@@ -61,8 +62,6 @@ private:
 	DirectXCommon* dXCommon_ = nullptr;
 	// Modelの生成
 	Model* model_ = nullptr;
-
-
 
 
 	// 頂点リソースにデータを書き込む

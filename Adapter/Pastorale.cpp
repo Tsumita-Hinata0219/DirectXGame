@@ -83,9 +83,9 @@ bool Pastorale::ProcessMessage() {
 /// <summary>
 /// 三角形の描画
 /// </summary>
-void Pastorale::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color) {
+void Pastorale::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color, Matrix4x4 worldMatrix) {
 
-	model_->Triangle(bottomLeft, top, bottoomRight, color);
+	model_->Triangle(bottomLeft, top, bottoomRight, color, worldMatrix);
 
 }
 

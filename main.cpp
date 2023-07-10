@@ -16,6 +16,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 
+	// ワールド変換行列
+	WorldTransform worldTransform_;
+
 	// 三角形描画の各要素
 	struct TriangleElement {
 		Vector4 bottomLeft;  // 左下座標
@@ -34,6 +37,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	};
 
 
+
 	// ウィンドウの×ボタンが押されるまでループ
 	while (pastorale_->ProcessMessage() == 0) {
 		// フレームの開始
@@ -43,6 +47,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
+		// アフィン変換行列
+		worldTransform_.AffineMatrix();
+
+		// 回転加算処理
+		worldTransform_.rotate_.y += 0.03f;
+		
 		///
 		/// ↑更新処理ここまで
 		///
@@ -52,7 +62,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		// 三角形複数描画
-		pastorale_->DrawTriangle(triangle.bottomLeft, triangle.top, triangle.bottomRight, triangle.color);
+		pastorale_->DrawTriangle(triangle.bottomLeft, triangle.top, triangle.bottomRight, triangle.color, worldTransform_.worldMatrix_);
 		
 		///
 		/// ↑描画処理ここまで

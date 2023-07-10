@@ -2,6 +2,10 @@
 
 
 
+
+Model::Model() {}
+
+
 // 解放処理
 Model::~Model() {
 
@@ -127,7 +131,7 @@ void Model::MakeBufferResource() {
 
 
 // 三角形の描画
-void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
+void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color, Matrix4x4 worldMatrix) {
 
 	// VertexResourceを生成する
 	vertexResource_ = CreateBufferResource(device_, sizeof(Vector4) * 3);
@@ -150,6 +154,10 @@ void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsig
 
 	// 引数の色コードをVector4に変換してmaterialDate_に送る
 	*materialDate_ = FloatColor(color);
+
+
+	// 行列の変換
+	*wvpDate_ = worldMatrix;
 
 
 	///// いざ描画！！！！！
@@ -193,3 +201,7 @@ void Model::SetDirectXDevice(ID3D12Device* device) {
 void Model::SetDirectXCommandList(ID3D12GraphicsCommandList* commandList) {
 	commandList_ = commandList;
 }
+void Model::SetWvpData(Matrix4x4 wvpDate) {
+	*wvpDate_ = wvpDate;
+}
+

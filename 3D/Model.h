@@ -6,6 +6,8 @@ class Model {
 
 public:
 
+	Model();
+
 	~Model();
 
 	/// <summary>
@@ -44,21 +46,19 @@ public:
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color);
-	
+	void Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color, Matrix4x4 worldMatrix);
+
 	/// <summary>
 	/// 色の変換
 	/// </summary>
 	Vector4 FloatColor(unsigned int color);
-
 
 	/// <summary>
 	/// アクセッサ
 	/// </summary>
 	void SetDirectXDevice(ID3D12Device* device);
 	void SetDirectXCommandList(ID3D12GraphicsCommandList* commandList);
-
-
+	void SetWvpData(Matrix4x4 wvpDate);
 
 
 private:
