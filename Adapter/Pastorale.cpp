@@ -66,6 +66,26 @@ void Pastorale::EndFrame() {
 
 
 /// <summary>
+/// 頂点データの作成とビュー
+/// </summary>
+void Pastorale::TriangleVertexIni() {
+
+	model_->SetVertex();
+}
+
+
+
+/// <summary>
+/// 三角形の描画
+/// </summary>
+void Pastorale::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight) {
+
+	model_->DrawTriangle(bottomLeft, top, bottoomRight);
+}
+
+
+
+/// <summary>
 /// メッセージの処理
 /// </summary>
 bool Pastorale::ProcessMessage() {
@@ -77,14 +97,3 @@ bool Pastorale::ProcessMessage() {
 		return false;
 	}
 }
-
-
-
-/// <summary>
-/// 三角形の描画
-/// </summary>
-void Pastorale::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight) {
-
-	model_->Triangle(bottomLeft, top, bottoomRight);
-}
-

@@ -21,12 +21,18 @@ public:
 	void MakeVertexBufferView();
 
 	/// <summary>
+	/// 頂点データの作成とビュー
+	/// </summary>
+	void SetVertex();
+
+	/// <summary>
 	/// 三角形の描画
 	/// </summary>
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
+	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
+
 
 	/// <summary>
 	/// アクセッサ

@@ -70,17 +70,26 @@ void Model::MakeVertexBufferView() {
 
 
 
-// 三角形の描画
-void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
+// 頂点データの作成とビュー
+void Model::SetVertex() {
 
 	// 頂点データの作成とビュー
 	CreateVertexResource();
 	MakeVertexBufferView();
 
+}
+
+
+
+// 三角形の描画
+void Model::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
+
+	// 頂点データの作成とビュー
+	SetVertex();
+
 	vertexData_[0] = bottomLeft;   // 左下
 	vertexData_[1] = top;          // 上
 	vertexData_[2] = bottomRight; // 右下
-
 
 	// いざ描画！！！！！
 	// VBVを設定
@@ -102,3 +111,4 @@ void Model::SetDirectXDevice(ID3D12Device* device) {
 void Model::SetDirectXCommandList(ID3D12GraphicsCommandList* commandList) {
 	commandList_ = commandList;
 }
+

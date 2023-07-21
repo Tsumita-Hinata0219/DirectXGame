@@ -46,6 +46,14 @@ public:
 	void EndFrame();
 
 	/// <summary>
+	/// 頂点データの作成とビュー
+	/// </summary>
+	/// <param name="bottomLeft"></param>
+	/// <param name="top"></param>
+	/// <param name="bottoomRight"></param>
+	void TriangleVertexIni();
+
+	/// <summary>
 	/// 三角形の描画
 	/// </summary>
 	/// <param name="bottomLeft"></param>

@@ -54,6 +54,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{0.1f,0.1f,0.0f,1.0f},
 	};
 
+	// 頂点データの作成とビュー
+	pastorale_->TriangleVertexIni();
+
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (pastorale_->ProcessMessage() == 0) {
@@ -88,3 +91,4 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 解放処理
 	delete pastorale_;
 }
+
