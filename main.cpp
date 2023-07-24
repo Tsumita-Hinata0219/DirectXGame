@@ -17,63 +17,86 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 
-	// 三角形
-	//const int MaxTriangle = 10;
-	//Model* triangle[MaxTriangle]{};
 
-	////Model* triangle = new Model();
-	////triangle->transform_.left = { 0.0f, 0.0f, 0.0f, 0.0f };
-	////triangle->transform_.top = { 0.0f, 0.0f, 0.0f, 0.0f };
-	////triangle->transform_.right = { 0.0f, 0.0f, 0.0f, 0.0f };
-	////triangle->Initialize(pastorale_->GetDirectXCommon(), triangle->transform_);
+	// 三角形描画の各要素
+	struct TriangleElement {
+		Vector4 bottomLeft;  // 左下座標
+		Vector4 top;		 // 上座標
+		Vector4 bottomRight; // 右下座標
+	};
+
+	// 三角形を複数用意
+	// 各要素を決めていく
+	const int MaxTriangle = 10;
+	Model* triangle[MaxTriangle]{};
+
+	TriangleElement triangleEle[MaxTriangle] = {
+		// 1
+		{{-0.4f,0.7f,0.0f,1.0f},
+		{-0.3f,0.8f,0.0f,1.0f},
+		{-0.2f,0.7f,0.0f,1.0f}},
+
+		// 2
+		{{-0.4f,0.5f,0.0f,1.0f},
+		{-0.3f,0.6f,0.0f,1.0f},
+		{-0.2f,0.5f,0.0f,1.0f}},
+
+		// 3
+		{{0.2f,0.7f,0.0f,1.0f},
+		{0.3f,0.8f,0.0f,1.0f},
+		{0.4f,0.7f,0.0f,1.0f}},
+
+		// 4
+		{{0.2f,0.5f,0.0f,1.0f},
+		{0.3f,0.6f,0.0f,1.0f},
+		{0.4f,0.5f,0.0f,1.0f}},
+
+		// 5
+		{{-0.1f,0.6f,0.0f,1.0f},
+		{0.0f,0.7f,0.0f,1.0f},
+		{0.1f,0.6f,0.0f,1.0f}},
+
+		// 6
+		{{-0.4f,0.2f,0.0f,1.0f},
+		{-0.3f,0.3f,0.0f,1.0f},
+		{-0.2f,0.2f,0.0f,1.0f}},
+
+		// 7
+		{{-0.4f,0.0f,0.0f,1.0f},
+		{-0.3f,0.1f,0.0f,1.0f},
+		{-0.2f,0.0f,0.0f,1.0f}},
+
+		// 8
+		{{0.2f,0.2f,0.0f,1.0f},
+		{0.3f,0.3f,0.0f,1.0f},
+		{0.4f,0.2f,0.0f,1.0f}},
+
+		// 9
+		{{0.2f,0.0f,0.0f,1.0f},
+		{0.3f,0.1f,0.0f,1.0f},
+		{0.4f,0.0f,0.0f,1.0f}},
+
+		// 10
+		{{-0.1f,0.1f,0.0f,1.0f},
+		{0.0f,0.2f,0.0f,1.0f},
+		{0.1f,0.1f,0.0f,1.0f}},
+	};
+
+	// 頂点の初期化
+	for (int i = 0; i < MaxTriangle; i++) {
+
+		// 生成
+		triangle[i] = new Model();
+
+		// 初期化処理
+		triangle[i]->Initialize(
+			pastorale_->GetDirectXCommon(),
+			triangleEle[i].bottomLeft,
+			triangleEle[i].top,
+			triangleEle[i].bottomRight);
+	}
 
 
-	//// 三角形の各要素を用意(左下、上、右下)
-	//triangle[MaxTriangle]->vertexData_[0] = {
-	//	{-0.4f,0.7f,0.0f,1.0f},
-	//	{-0.4f,0.5f,0.0f,1.0f},
-	//	{0.2f,0.7f,0.0f,1.0f},
-	//	{0.2f,0.5f,0.0f,1.0f},
-	//	{-0.1f,0.6f,0.0f,1.0f},
-	//	{-0.4f,0.2f,0.0f,1.0f},
-	//	{-0.4f,0.0f,0.0f,1.0f},
-	//	{0.2f,0.2f,0.0f,1.0f},
-	//	{0.2f,0.0f,0.0f,1.0f},
-	//	{-0.1f,0.1f,0.0f,1.0f}
-	//};
-	//Vector4 top[MaxTriangle] = {
-	//	{-0.3f,0.8f,0.0f,1.0f},
-	//	{-0.3f,0.6f,0.0f,1.0f},
-	//	{0.3f,0.8f,0.0f,1.0f},
-	//	{0.3f,0.6f,0.0f,1.0f},
-	//	{0.0f,0.7f,0.0f,1.0f},
-	//	{-0.3f,0.3f,0.0f,1.0f},
-	//	{-0.3f,0.1f,0.0f,1.0f},
-	//	{0.3f,0.3f,0.0f,1.0f},
-	//	{0.3f,0.1f,0.0f,1.0f},
-	//	{0.0f,0.2f,0.0f,1.0f}
-	//};
-	//Vector4 bottomRight[MaxTriangle] = {
-	//	{-0.2f,0.7f,0.0f,1.0f},
-	//	{-0.2f,0.5f,0.0f,1.0f},
-	//	{0.4f,0.7f,0.0f,1.0f},
-	//	{0.4f,0.5f,0.0f,1.0f},
-	//	{0.1f,0.6f,0.0f,1.0f},
-	//	{-0.2f,0.2f,0.0f,1.0f},
-	//	{-0.2f,0.0f,0.0f,1.0f},
-	//	{0.4f,0.2f,0.0f,1.0f},
-	//	{0.4f,0.0f,0.0f,1.0f},
-	//	{0.1f,0.1f,0.0f,1.0f},
-	//};
-	//for (int i = 0; i < MaxTriangle; i++) {
-	//
-	//}
-
-	Model* triangle = new Model;
-	triangle->Initialize(pastorale_->GetDirectXCommon());
-	triangle->vertexData_[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
-	triangle->vertexData_[1] = { 0.0f, 0.5f, 0.0f, 1.0f };
-	triangle->vertexData_[2] = { 0.5f, -0.5f, 0.0f, 1.0f };
 
 
 	// ウィンドウの×ボタンが押されるまでループ
@@ -94,7 +117,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		// 三角形描画
-		triangle->Draw();
+		for (int i = 0; i < MaxTriangle; i++) {
+			triangle[i]->Draw();
+		}
 
 		///
 		/// ↑描画処理ここまで
