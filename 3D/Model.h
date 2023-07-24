@@ -8,7 +8,7 @@ public:
 
 	~Model();
 
-	void Initialize(ID3D12Device* device, ID3D12GraphicsCommandList* commandList);
+	void Initialize(DirectXCommon* directX);
 
 	/// <summary>
 	/// 頂点リソース用のヒープ設定
@@ -27,28 +27,19 @@ public:
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
 	void SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
-	
+
 
 	/// <summary>
 	/// 三角形の描画
 	/// </summary>
-	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight);
+	void DrawTriangle();
 
-
-	/// <summary>
-	/// アクセッサ
-	/// </summary>
-	void SetDirectXDevice(ID3D12Device* device);
-	ID3D12GraphicsCommandList* GetCommandList() { return commandList_; }
-	void SetDirectXCommandList(ID3D12GraphicsCommandList* commandList);
 
 
 private:
 
-	// 使用するアダプタ
-	ID3D12Device* device_ = nullptr;
-	// コマンドリスト
-	ID3D12GraphicsCommandList* commandList_ = nullptr;
+
+	DirectXCommon* directX_ = nullptr;
 
 
 	HRESULT hr_;

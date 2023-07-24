@@ -9,7 +9,6 @@ Pastorale::Pastorale() {
 
 	winApp_ = new WinApp();
 	dXCommon_ = new DirectXCommon();
-	model_ = new Model();
 }
 
 
@@ -22,7 +21,6 @@ Pastorale::~Pastorale() {
 	// 解放処理
 	delete winApp_;
 	delete dXCommon_;
-	delete model_;
 }
 
 
@@ -37,9 +35,6 @@ void Pastorale::Initialize(const wchar_t* title, const int32_t Width, const int3
 
 	// DirectXCommonの初期化処理
 	dXCommon_->Initialize(Width, Height, winApp_->GetHwnd());
-
-	// Modelの初期化処理
-	model_->Initialize(dXCommon_->GetDevice(), dXCommon_->GetCommandList());
 
 }
 
@@ -61,26 +56,6 @@ void Pastorale::BeginFrame() {
 void Pastorale::EndFrame() {
 
 	dXCommon_->PostDraw();
-}
-
-
-
-/// <summary>
-/// 頂点を初期化
-/// </summary>
-void Pastorale::TriangleVertexIni(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight) {
-
-	model_->SetVertex(bottomLeft, top, bottoomRight);
-}
-
-
-
-/// <summary>
-/// 三角形の描画
-/// </summary>
-void Pastorale::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
-
-	model_->DrawTriangle(bottomLeft, top, bottomRight);
 }
 
 
