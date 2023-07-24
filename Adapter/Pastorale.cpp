@@ -81,11 +81,21 @@ bool Pastorale::ProcessMessage() {
 
 
 /// <summary>
+/// 頂点の初期化
+/// </summary>
+void Pastorale::TriangleVertexIni(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
+
+	model_->SetVertex(bottomLeft, top, bottomRight, color);
+}
+
+
+
+/// <summary>
 /// 三角形の描画
 /// </summary>
-void Pastorale::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color) {
+void Pastorale::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
 
-	model_->Triangle(bottomLeft, top, bottoomRight, color);
+	model_->DrawTriangle(bottomLeft, top, bottomRight, color);
 
 }
 

@@ -29,12 +29,17 @@ public:
 	void MakeMaterialResource();
 
 	/// <summary>
-	/// 三角形の描画
+	/// 頂点の初期化
 	/// </summary>
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight, unsigned int color);
+	void SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color);
+
+	/// <summary>
+	/// 三角形の描画
+	/// </summary>
+	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color);
 	
 	/// <summary>
 	/// 色の変換

@@ -89,6 +89,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{0x663300ff}},
 	};
 
+	// 頂点の初期化
+	for (int i = 0; i < MaxTriangle; i++) {
+		pastorale_->TriangleVertexIni(triangle[i].bottomLeft, triangle[i].top, triangle[i].bottomRight, triangle[i].color);
+	}
+
 
 
 	// ウィンドウの×ボタンが押されるまでループ

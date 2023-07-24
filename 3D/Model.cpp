@@ -99,10 +99,8 @@ void Model::MakeMaterialResource() {
 }
 
 
-
-// 三角形の描画
-void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
-
+void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
+	
 	// VertexResourceを生成する
 	vertexResource_ = CreateBufferResource(device_, sizeof(Vector4) * 3);
 	// Material用のResourceを作る
@@ -120,7 +118,14 @@ void Model::Triangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsig
 	vertexData_[0] = bottomLeft;   // 左下
 	vertexData_[1] = top;          // 上
 	vertexData_[2] = bottomRight; // 右下
+}
 
+
+// 三角形の描画
+void Model::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
+
+	
+	SetVertex(bottomLeft, top, bottomRight, color);
 
 	///// いざ描画！！！！！
 	// VBVを設定
