@@ -21,23 +21,25 @@ public:
 	void MakeVertexBufferView();
 
 	/// <summary>
-	/// 頂点データの作成とビュー
-	/// </summary>
-	void SetVertex();
-
-	/// <summary>
-	/// 三角形の描画
+	/// 頂点の初期化
 	/// </summary>
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
+	void SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
+	
+
+	/// <summary>
+	/// 三角形の描画
+	/// </summary>
+	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight);
 
 
 	/// <summary>
 	/// アクセッサ
 	/// </summary>
 	void SetDirectXDevice(ID3D12Device* device);
+	ID3D12GraphicsCommandList* GetCommandList() { return commandList_; }
 	void SetDirectXCommandList(ID3D12GraphicsCommandList* commandList);
 
 

@@ -54,8 +54,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{0.1f,0.1f,0.0f,1.0f},
 	};
 
-	// 頂点データの作成とビュー
-	pastorale_->TriangleVertexIni();
+	// 頂点の初期化
+	for (int i = 0; i < MaxTriangle; i++) {
+		pastorale_->TriangleVertexIni(bottomLeft[i], top[i], bottomRight[i]);
+	}
+
 
 
 	// ウィンドウの×ボタンが押されるまでループ

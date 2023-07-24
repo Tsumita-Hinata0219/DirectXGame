@@ -70,12 +70,18 @@ void Model::MakeVertexBufferView() {
 
 
 
-// 頂点データの作成とビュー
-void Model::SetVertex() {
+// 頂点の初期化
+void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
 
 	// 頂点データの作成とビュー
 	CreateVertexResource();
 	MakeVertexBufferView();
+
+
+	vertexData_[0] = bottomLeft;   // 左下
+	vertexData_[1] = top;          // 上
+	vertexData_[2] = bottomRight; // 右下
+
 
 }
 
@@ -84,14 +90,9 @@ void Model::SetVertex() {
 // 三角形の描画
 void Model::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
 
-	// 頂点データの作成とビュー
-	SetVertex();
 
-	vertexData_[0] = bottomLeft;   // 左下
-	vertexData_[1] = top;          // 上
-	vertexData_[2] = bottomRight; // 右下
+	SetVertex(bottomLeft, top, bottomRight);
 
-	// いざ描画！！！！！
 	// VBVを設定
 	commandList_->IASetVertexBuffers(0, 1, &vertexBufferView_);
 

@@ -46,19 +46,16 @@ public:
 	void EndFrame();
 
 	/// <summary>
-	/// 頂点データの作成とビュー
+	/// 頂点の初期化
 	/// </summary>
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void TriangleVertexIni();
+	void TriangleVertexIni(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
 
 	/// <summary>
 	/// 三角形の描画
 	/// </summary>
-	/// <param name="bottomLeft"></param>
-	/// <param name="top"></param>
-	/// <param name="bottoomRight"></param>
 	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
 
 private:
