@@ -11,9 +11,27 @@ Model::~Model() {
 
 
 // 初期化処理
-void Model::Initialize(DirectXCommon* directX) {
+void Model::Initialize(DirectXCommon* directX, Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
 
 	directX_ = directX;
+
+	SetVertex(bottomLeft, top, bottomRight);
+
+}
+
+
+
+// 三角形の描画
+void Model::Draw() {
+
+	// VBVを設定
+	directX_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferView_);
+
+	// 形状を設定
+	directX_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
+	directX_->GetCommandList()->DrawInstanced(3, 1, 0, 0);
 
 }
 
@@ -79,22 +97,6 @@ void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
 	vertexData_[0] = bottomLeft;   // 左下
 	vertexData_[1] = top;          // 上
 	vertexData_[2] = bottomRight; // 右下
-
-}
-
-
-
-// 三角形の描画
-void Model::DrawTriangle() {
-
-	// VBVを設定
-	directX_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferView_);
-
-	// 形状を設定
-	directX_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-	directX_->GetCommandList()->DrawInstanced(3, 1, 0, 0);
 
 }
 

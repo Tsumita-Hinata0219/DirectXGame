@@ -64,10 +64,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		triangle[i] = new Model();
 
 		// 初期化処理	
-		triangle[i]->Initialize(pastorale_->GetDirectXCommon());
-
-		// 頂点の初期化
-		triangle[i]->SetVertex(bottomLeft[i], top[i], bottomRight[i]);
+		triangle[i]->Initialize(
+			pastorale_->GetDirectXCommon(),
+			bottomLeft[i],
+			top[i],
+			bottomRight[i]);
 	}
 
 
@@ -92,7 +93,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// 三角形描画
 		for (int i = 0; i < MaxTriangle; i++) {
-			triangle[i]->DrawTriangle();
+			triangle[i]->Draw();
 		}
 
 		///

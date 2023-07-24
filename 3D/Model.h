@@ -8,7 +8,15 @@ public:
 
 	~Model();
 
-	void Initialize(DirectXCommon* directX);
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
+	void Initialize(DirectXCommon* directX, Vector4 bottomLeft, Vector4 top, Vector4 bottomRight);
+
+	/// <summary>
+	/// 三角形の描画
+	/// </summary>
+	void Draw();
 
 	/// <summary>
 	/// 頂点リソース用のヒープ設定
@@ -26,14 +34,7 @@ public:
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottoomRight);
-
-
-	/// <summary>
-	/// 三角形の描画
-	/// </summary>
-	void DrawTriangle();
-
+	void SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight);
 
 
 private:
