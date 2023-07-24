@@ -6,19 +6,17 @@
 Model::~Model() {
 
 	vertexResource_->Release();
-	commandList_->Release();
-	device_->Release();
-
+	dXCommon_->Release();
 }
 
 
 
 // 初期化処理
-void Model::Initialize(ID3D12Device* device, ID3D12GraphicsCommandList* commandList) {
+void Model::Initialize(DirectXCommon* dXCommon, Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
 
-	// デバイスとコマンドリストを設定
-	SetDirectXDevice(device);
-	SetDirectXCommandList(commandList);
+	dXCommon_ = dXCommon;
+
+	SetVertex(bottomLeft, top, bottomRight, color);
 }
 
 
@@ -91,7 +89,7 @@ D3D12_VERTEX_BUFFER_VIEW Model::MakeBufferView(ID3D12Resource* resource, size_t 
 void Model::MakeMaterialResource() {
 
 	// マテリアル用のリソースを作る。今回はcolor1つ分サイズを用意する
-	materialResource_ = CreateBufferResource(device_, sizeof(Vector4));
+	materialResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Vector4));
 
 	// マテリアルにデータを書き込む
 	// 書き込むためのアドレスを取得
@@ -99,10 +97,11 @@ void Model::MakeMaterialResource() {
 }
 
 
+
 void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
 
 	// VertexResourceを生成する
-	vertexResource_ = CreateBufferResource(device_, sizeof(Vector4) * 3);
+	vertexResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Vector4) * 3);
 	// Material用のResourceを作る
 	MakeMaterialResource();
 	// vertexBufferViewを作成する
@@ -121,24 +120,22 @@ void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsi
 }
 
 
+
 // 三角形の描画
-void Model::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
-
-
-	SetVertex(bottomLeft, top, bottomRight, color);
+void Model::Draw() {
 
 	///// いざ描画！！！！！
 	// VBVを設定
-	commandList_->IASetVertexBuffers(0, 1, &vertexBufferView_);
+	dXCommon_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferView_);
 
 	// 形状を設定
-	commandList_->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	dXCommon_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// CBVを設定する
-	commandList_->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
+	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-	commandList_->DrawInstanced(3, 1, 0, 0);
+	dXCommon_->GetCommandList()->DrawInstanced(3, 1, 0, 0);
 }
 
 
@@ -157,11 +154,3 @@ Vector4 Model::FloatColor(unsigned int color) {
 }
 
 
-
-// アクセッサ
-void Model::SetDirectXDevice(ID3D12Device* device) {
-	device_ = device;
-}
-void Model::SetDirectXCommandList(ID3D12GraphicsCommandList* commandList) {
-	commandList_ = commandList;
-}

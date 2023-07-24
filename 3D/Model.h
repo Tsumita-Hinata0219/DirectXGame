@@ -11,7 +11,12 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(ID3D12Device* device, ID3D12GraphicsCommandList* commandList);
+	void Initialize(DirectXCommon* dXCommon, Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color);
+
+	/// <summary>
+	/// 三角形の描画
+	/// </summary>
+	void Draw();
 
 	/// <summary>
 	/// 頂点リソース用のヒープ設定
@@ -37,31 +42,14 @@ public:
 	void SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color);
 
 	/// <summary>
-	/// 三角形の描画
-	/// </summary>
-	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color);
-	
-	/// <summary>
 	/// 色の変換
 	/// </summary>
 	Vector4 FloatColor(unsigned int color);
 
 
-	/// <summary>
-	/// アクセッサ
-	/// </summary>
-	void SetDirectXDevice(ID3D12Device* device);
-	void SetDirectXCommandList(ID3D12GraphicsCommandList* commandList);
-
-
-
-
 private:
 
-	// 使用するアダプタ
-	ID3D12Device* device_ = nullptr;
-	// コマンドリスト
-	ID3D12GraphicsCommandList* commandList_ = nullptr;
+	DirectXCommon* dXCommon_ = nullptr;
 
 
 	HRESULT hr_;

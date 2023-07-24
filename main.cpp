@@ -1,4 +1,5 @@
 #include "Pastorale.h"
+#include "Model.h"
 
 
 const wchar_t* kWindowTitle = L"LE2B_20_ツミタ_ヒナタ_CG2";
@@ -27,7 +28,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 三角形を複数用意
 	// 各要素を決めていく
 	const int MaxTriangle = 10;
-	TriangleElement triangle[MaxTriangle] = {
+	Model* triangle[MaxTriangle]{};
+
+	TriangleElement triangleEle[MaxTriangle] = {
 		// 1
 		{{-0.4f,0.7f,0.0f,1.0f},
 		{-0.3f,0.8f,0.0f,1.0f},
@@ -91,7 +94,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// 頂点の初期化
 	for (int i = 0; i < MaxTriangle; i++) {
-		pastorale_->TriangleVertexIni(triangle[i].bottomLeft, triangle[i].top, triangle[i].bottomRight, triangle[i].color);
+
+		// 生成
+		triangle[i] = new Model();
+
+		// 初期化処理
+		triangle[i]->Initialize(
+			pastorale_->GetDirectXCommon(), 
+			triangleEle[i].bottomLeft, 
+			triangleEle[i].top, 
+			triangleEle[i].bottomRight, 
+			triangleEle[i].color);
 	}
 
 
@@ -115,7 +128,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// 三角形複数描画
 		for (int i = 0; i < MaxTriangle; i++) {
-			pastorale_->DrawTriangle(triangle[i].bottomLeft, triangle[i].top, triangle[i].bottomRight, triangle[i].color);
+			triangle[i]->Draw();
 		}
 		
 		///

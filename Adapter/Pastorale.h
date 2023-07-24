@@ -45,22 +45,10 @@ public:
 	/// </summary>
 	void EndFrame();
 
-	/// <summary>
-	/// 頂点の初期化
-	/// </summary>
-	/// <param name="bottomLeft"></param>
-	/// <param name="top"></param>
-	/// <param name="bottoomRight"></param>
-	/// <param name="color"></param>
-	void TriangleVertexIni(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color);
 
-	/// <summary>
-	/// 三角形の描画
-	/// </summary>
-	/// <param name="bottomLeft"></param>
-	/// <param name="top"></param>
-	/// <param name="bottoomRight"></param>
-	void DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color);
+
+	DirectXCommon* GetDirectXCommon() { return dXCommon_; };
+
 
 private:
 
@@ -68,10 +56,6 @@ private:
 	WinApp* winApp_ = nullptr;
 	// DirectXCommonの生成
 	DirectXCommon* dXCommon_ = nullptr;
-	// Modelの生成
-	Model* model_ = nullptr;
-
-
 
 
 	// 頂点リソースにデータを書き込む
