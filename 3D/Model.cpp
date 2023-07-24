@@ -100,7 +100,7 @@ void Model::MakeMaterialResource() {
 
 
 void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
-	
+
 	// VertexResourceを生成する
 	vertexResource_ = CreateBufferResource(device_, sizeof(Vector4) * 3);
 	// Material用のResourceを作る
@@ -124,7 +124,7 @@ void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsi
 // 三角形の描画
 void Model::DrawTriangle(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
 
-	
+
 	SetVertex(bottomLeft, top, bottomRight, color);
 
 	///// いざ描画！！！！！
