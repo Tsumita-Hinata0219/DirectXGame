@@ -11,11 +11,11 @@ Model::~Model() {
 
 
 // 初期化処理
-void Model::Initialize(DirectXCommon* directX, Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
+void Model::Initialize(DirectXCommon* directX) {
 
 	directX_ = directX;
 
-	SetVertex(bottomLeft, top, bottomRight);
+	SetVertex();
 
 }
 
@@ -87,16 +87,11 @@ void Model::MakeVertexBufferView() {
 
 
 // 頂点の初期化
-void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight) {
+void Model::SetVertex() {
 
 	// 頂点データの作成とビュー
 	CreateVertexResource();
 	MakeVertexBufferView();
-
-
-	vertexData_[0] = bottomLeft;   // 左下
-	vertexData_[1] = top;          // 上
-	vertexData_[2] = bottomRight; // 右下
 
 }
 

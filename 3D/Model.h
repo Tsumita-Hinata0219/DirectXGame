@@ -2,6 +2,15 @@
 #include "Function.h"
 
 
+
+struct  Transform {
+
+	Vector4 left = { 0.0f, 0.0f, 0.0f, 0.0f };
+	Vector4 top = { 0.0f, 0.0f, 0.0f, 0.0f };
+	Vector4 right = { 0.0f, 0.0f, 0.0f, 0.0f };
+};
+
+
 class Model {
 
 public:
@@ -11,7 +20,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(DirectXCommon* directX, Vector4 bottomLeft, Vector4 top, Vector4 bottomRight);
+	void Initialize(DirectXCommon* directX);
 
 	/// <summary>
 	/// 三角形の描画
@@ -31,11 +40,14 @@ public:
 	/// <summary>
 	/// 頂点の初期化
 	/// </summary>
-	/// <param name="bottomLeft"></param>
-	/// <param name="top"></param>
-	/// <param name="bottoomRight"></param>
-	void SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight);
+	void SetVertex();
 
+public:
+
+	Transform transform_;
+
+	// 頂点リソースにデータを書き込む
+	Vector4* vertexData_ = nullptr;
 
 private:
 
@@ -44,10 +56,6 @@ private:
 
 
 	HRESULT hr_;
-
-
-	// 頂点リソースにデータを書き込む
-	Vector4* vertexData_ = nullptr;
 
 
 	// 頂点リソース用のヒープ設定
@@ -62,4 +70,3 @@ private:
 	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_{};
 
 };
-

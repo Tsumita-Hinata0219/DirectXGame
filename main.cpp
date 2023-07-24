@@ -18,60 +18,62 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 	// 三角形
-	const int MaxTriangle = 10;
-	Model* triangle[MaxTriangle]{};
+	//const int MaxTriangle = 10;
+	//Model* triangle[MaxTriangle]{};
 
-	// 三角形の各要素を用意(左下、上、右下)
-	Vector4 bottomLeft[MaxTriangle] = {
-		{-0.4f,0.7f,0.0f,1.0f},
-		{-0.4f,0.5f,0.0f,1.0f},
-		{0.2f,0.7f,0.0f,1.0f},
-		{0.2f,0.5f,0.0f,1.0f},
-		{-0.1f,0.6f,0.0f,1.0f},
-		{-0.4f,0.2f,0.0f,1.0f},
-		{-0.4f,0.0f,0.0f,1.0f},
-		{0.2f,0.2f,0.0f,1.0f},
-		{0.2f,0.0f,0.0f,1.0f},
-		{-0.1f,0.1f,0.0f,1.0f}
-	};
-	Vector4 top[MaxTriangle] = {
-		{-0.3f,0.8f,0.0f,1.0f},
-		{-0.3f,0.6f,0.0f,1.0f},
-		{0.3f,0.8f,0.0f,1.0f},
-		{0.3f,0.6f,0.0f,1.0f},
-		{0.0f,0.7f,0.0f,1.0f},
-		{-0.3f,0.3f,0.0f,1.0f},
-		{-0.3f,0.1f,0.0f,1.0f},
-		{0.3f,0.3f,0.0f,1.0f},
-		{0.3f,0.1f,0.0f,1.0f},
-		{0.0f,0.2f,0.0f,1.0f}
-	};
-	Vector4 bottomRight[MaxTriangle] = {
-		{-0.2f,0.7f,0.0f,1.0f},
-		{-0.2f,0.5f,0.0f,1.0f},
-		{0.4f,0.7f,0.0f,1.0f},
-		{0.4f,0.5f,0.0f,1.0f},
-		{0.1f,0.6f,0.0f,1.0f},
-		{-0.2f,0.2f,0.0f,1.0f},
-		{-0.2f,0.0f,0.0f,1.0f},
-		{0.4f,0.2f,0.0f,1.0f},
-		{0.4f,0.0f,0.0f,1.0f},
-		{0.1f,0.1f,0.0f,1.0f},
-	};
-	for (int i = 0; i < MaxTriangle; i++) {
-
-		// 生成
-		triangle[i] = new Model();
-
-		// 初期化処理	
-		triangle[i]->Initialize(
-			pastorale_->GetDirectXCommon(),
-			bottomLeft[i],
-			top[i],
-			bottomRight[i]);
-	}
+	////Model* triangle = new Model();
+	////triangle->transform_.left = { 0.0f, 0.0f, 0.0f, 0.0f };
+	////triangle->transform_.top = { 0.0f, 0.0f, 0.0f, 0.0f };
+	////triangle->transform_.right = { 0.0f, 0.0f, 0.0f, 0.0f };
+	////triangle->Initialize(pastorale_->GetDirectXCommon(), triangle->transform_);
 
 
+	//// 三角形の各要素を用意(左下、上、右下)
+	//triangle[MaxTriangle]->vertexData_[0] = {
+	//	{-0.4f,0.7f,0.0f,1.0f},
+	//	{-0.4f,0.5f,0.0f,1.0f},
+	//	{0.2f,0.7f,0.0f,1.0f},
+	//	{0.2f,0.5f,0.0f,1.0f},
+	//	{-0.1f,0.6f,0.0f,1.0f},
+	//	{-0.4f,0.2f,0.0f,1.0f},
+	//	{-0.4f,0.0f,0.0f,1.0f},
+	//	{0.2f,0.2f,0.0f,1.0f},
+	//	{0.2f,0.0f,0.0f,1.0f},
+	//	{-0.1f,0.1f,0.0f,1.0f}
+	//};
+	//Vector4 top[MaxTriangle] = {
+	//	{-0.3f,0.8f,0.0f,1.0f},
+	//	{-0.3f,0.6f,0.0f,1.0f},
+	//	{0.3f,0.8f,0.0f,1.0f},
+	//	{0.3f,0.6f,0.0f,1.0f},
+	//	{0.0f,0.7f,0.0f,1.0f},
+	//	{-0.3f,0.3f,0.0f,1.0f},
+	//	{-0.3f,0.1f,0.0f,1.0f},
+	//	{0.3f,0.3f,0.0f,1.0f},
+	//	{0.3f,0.1f,0.0f,1.0f},
+	//	{0.0f,0.2f,0.0f,1.0f}
+	//};
+	//Vector4 bottomRight[MaxTriangle] = {
+	//	{-0.2f,0.7f,0.0f,1.0f},
+	//	{-0.2f,0.5f,0.0f,1.0f},
+	//	{0.4f,0.7f,0.0f,1.0f},
+	//	{0.4f,0.5f,0.0f,1.0f},
+	//	{0.1f,0.6f,0.0f,1.0f},
+	//	{-0.2f,0.2f,0.0f,1.0f},
+	//	{-0.2f,0.0f,0.0f,1.0f},
+	//	{0.4f,0.2f,0.0f,1.0f},
+	//	{0.4f,0.0f,0.0f,1.0f},
+	//	{0.1f,0.1f,0.0f,1.0f},
+	//};
+	//for (int i = 0; i < MaxTriangle; i++) {
+	//
+	//}
+
+	Model* triangle = new Model;
+	triangle->Initialize(pastorale_->GetDirectXCommon());
+	triangle->vertexData_[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+	triangle->vertexData_[1] = { 0.0f, 0.5f, 0.0f, 1.0f };
+	triangle->vertexData_[2] = { 0.5f, -0.5f, 0.0f, 1.0f };
 
 
 	// ウィンドウの×ボタンが押されるまでループ
@@ -92,9 +94,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		// 三角形描画
-		for (int i = 0; i < MaxTriangle; i++) {
-			triangle[i]->Draw();
-		}
+		triangle->Draw();
 
 		///
 		/// ↑描画処理ここまで
@@ -104,7 +104,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		pastorale_->EndFrame();
 	}
 
-	// 解放処理
 	delete pastorale_;
 }
 
