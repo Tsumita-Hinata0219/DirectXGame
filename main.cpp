@@ -85,7 +85,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 頂点の初期化
 	for (int i = 0; i < MaxTriangle; i++) {
 
-		// 生成
 		triangle[i] = new Model();
 
 		// 初期化処理
