@@ -12,11 +12,11 @@ Model::~Model() {
 
 
 // 初期化処理
-void Model::Initialize(DirectXCommon* dXCommon, Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
+void Model::Initialize(DirectXCommon* dXCommon, Triangle element) {
 
 	dXCommon_ = dXCommon;
 
-	SetVertex(bottomLeft, top, bottomRight, color);
+	SetVertex(element);
 }
 
 
@@ -98,7 +98,7 @@ void Model::MakeMaterialResource() {
 
 
 
-void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color) {
+void Model::SetVertex(Triangle element) {
 
 	// VertexResourceを生成する
 	vertexResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Vector4) * 3);
@@ -108,15 +108,15 @@ void Model::SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsi
 	vertexBufferView_ = MakeBufferView(vertexResource_, sizeof(Vector4) * 3);
 
 	// 引数の色コードをVector4に変換してmaterialDate_に送る
-	*materialDate_ = FloatColor(color);
+	*materialDate_ = FloatColor(element.color);
 
 	// 書き込むためのアドレスを取得
 	vertexResource_->Map(0, nullptr, reinterpret_cast<void**>(&vertexData_));
 	materialResource_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
 
-	vertexData_[0] = bottomLeft;   // 左下
-	vertexData_[1] = top;          // 上
-	vertexData_[2] = bottomRight; // 右下
+	vertexData_[0] = element.bottomLeft;   // 左下
+	vertexData_[1] = element.top;          // 上
+	vertexData_[2] = element.bottomRight; // 右下
 }
 
 

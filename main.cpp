@@ -17,20 +17,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
 
-	// 三角形描画の各要素
-	struct TriangleElement {
-		Vector4 bottomLeft;  // 左下座標
-		Vector4 top;		 // 上座標
-		Vector4 bottomRight; // 右下座標
-		unsigned int color;	 // 色
-	};
-
 	// 三角形を複数用意
 	// 各要素を決めていく
 	const int MaxTriangle = 10;
 	Model* triangle[MaxTriangle]{};
 
-	TriangleElement triangleEle[MaxTriangle] = {
+	Triangle element[MaxTriangle] = {
+
 		// 1
 		{{-0.4f,0.7f,0.0f,1.0f},
 		{-0.3f,0.8f,0.0f,1.0f},
@@ -101,10 +94,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// 初期化処理
 		triangle[i]->Initialize(
 			pastorale_->GetDirectXCommon(), 
-			triangleEle[i].bottomLeft, 
-			triangleEle[i].top, 
-			triangleEle[i].bottomRight, 
-			triangleEle[i].color);
+			element[i]);
 	}
 
 

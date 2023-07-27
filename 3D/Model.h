@@ -2,6 +2,15 @@
 #include "Function.h"
 
 
+// 三角形描画の各要素
+struct Triangle {
+	Vector4 bottomLeft;  // 左下座標
+	Vector4 top;		 // 上座標
+	Vector4 bottomRight; // 右下座標
+	unsigned int color;	 // 色
+};
+
+
 class Model {
 
 public:
@@ -11,7 +20,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(DirectXCommon* dXCommon, Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color);
+	void Initialize(DirectXCommon* dXCommon, Triangle element);
 
 	/// <summary>
 	/// 三角形の描画
@@ -39,12 +48,17 @@ public:
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void SetVertex(Vector4 bottomLeft, Vector4 top, Vector4 bottomRight, unsigned int color);
+	void SetVertex(Triangle element);
 
 	/// <summary>
 	/// 色の変換
 	/// </summary>
 	Vector4 FloatColor(unsigned int color);
+
+
+public:
+
+	Triangle element;
 
 
 private:
