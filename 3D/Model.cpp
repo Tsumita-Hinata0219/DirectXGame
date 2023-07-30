@@ -12,11 +12,17 @@ Model::~Model() {
 
 
 // 初期化処理
-void Model::Initialize(DirectXCommon* dXCommon, Triangle element) {
+void Model::Initialize(DirectXCommon* dXCommon) {
 
 	dXCommon_ = dXCommon;
+}
 
-	SetVertex(element);
+
+
+// 更新処理
+void Model::Update(Triangle element, Transform& transform) {
+
+	SetVertex(element, transform);
 }
 
 
@@ -98,21 +104,46 @@ void Model::MakeMaterialResource() {
 
 
 
-void Model::SetVertex(Triangle element) {
+// TransformationMatrix用のResoureを作る
+void Model::MakeTransformationMatResource() {
+
+	// WVP用のリソースを作る。Matrix4x4 1つ分のサイズを用意する
+	wvpResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Matrix4x4));
+
+	// データを書き込む
+	// 書き込むためのアドレスを取得
+	wvpResource_->Map(0, nullptr, reinterpret_cast<void**>(&wvpData_));
+
+}
+
+
+
+void Model::SetVertex(Triangle element, Transform& transform) {
+
+	//行列を作る
+	worldMatrix_ = MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);
+
 
 	// VertexResourceを生成する
 	vertexResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Vector4) * 3);
 	// Material用のResourceを作る
 	MakeMaterialResource();
+	// TransformationMatrix用のResourceを作る
+	MakeTransformationMatResource();
 	// vertexBufferViewを作成する
 	vertexBufferView_ = MakeBufferView(vertexResource_, sizeof(Vector4) * 3);
+	
 
 	// 引数の色コードをVector4に変換してmaterialDate_に送る
 	*materialDate_ = FloatColor(element.color);
+	// 単位行列を書き込んでおく
+	*wvpData_ = worldMatrix_;
+
 
 	// 書き込むためのアドレスを取得
 	vertexResource_->Map(0, nullptr, reinterpret_cast<void**>(&vertexData_));
 	materialResource_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
+
 
 	vertexData_[0] = element.bottomLeft;   // 左下
 	vertexData_[1] = element.top;          // 上
@@ -133,6 +164,9 @@ void Model::Draw() {
 
 	// CBVを設定する
 	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
+
+	// wvp用のCBufferの場所を設定
+	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, wvpResource_->GetGPUVirtualAddress());
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
 	dXCommon_->GetCommandList()->DrawInstanced(3, 1, 0, 0);

@@ -101,6 +101,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Common\DirectXCommon.h" />
     <ClInclude Include="Common\WinApp.h" />
     <ClInclude Include="math\Function.h" />
+    <ClInclude Include="math\Matrix4x4.h" />
+    <ClInclude Include="math\Transform.h" />
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />

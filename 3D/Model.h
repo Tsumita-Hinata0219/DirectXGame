@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "Function.h"
+#include <Matrix4x4.h>
+#include "Transform.h"
 
 
 // 三角形描画の各要素
@@ -20,7 +22,12 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(DirectXCommon* dXCommon, Triangle element);
+	void Initialize(DirectXCommon* dXCommon);
+
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	void Update(Triangle element, Transform& transform);
 
 	/// <summary>
 	/// 三角形の描画
@@ -43,12 +50,17 @@ public:
 	void MakeMaterialResource();
 
 	/// <summary>
+	/// TransformationMatrix用のResoureを作る
+	/// </summary>
+	void MakeTransformationMatResource();
+
+	/// <summary>
 	/// 頂点の初期化
 	/// </summary>
 	/// <param name="bottomLeft"></param>
 	/// <param name="top"></param>
 	/// <param name="bottoomRight"></param>
-	void SetVertex(Triangle element);
+	void SetVertex(Triangle element, Transform& transform);
 
 	/// <summary>
 	/// 色の変換
@@ -56,10 +68,12 @@ public:
 	Vector4 FloatColor(unsigned int color);
 
 
+	Matrix4x4 SetWorldMatrix(Matrix4x4 worldMatrix) { worldMatrix_ = worldMatrix; }
+
+
 public:
 
 	Triangle element;
-
 
 private:
 
@@ -87,6 +101,13 @@ private:
 
 	ID3D12Resource* materialResource_ = nullptr;
 	Vector4* materialDate_ = nullptr;
+
+
+	ID3D12Resource* wvpResource_ = nullptr;
+	Matrix4x4* wvpData_ = nullptr;
+
+
+	Matrix4x4 worldMatrix_;
 
 };
 

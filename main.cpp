@@ -1,5 +1,6 @@
 #include "Pastorale.h"
 #include "Model.h"
+#include "Transform.h"
 
 
 const wchar_t* kWindowTitle = L"LE2B_20_ツミタ_ヒナタ_CG2";
@@ -16,11 +17,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	pastorale_->Initialize(kWindowTitle, ClientWidth, ClientHeight);
 
 
-
 	// 三角形を複数用意
 	// 各要素を決めていく
 	const int MaxTriangle = 10;
 	Model* triangle[MaxTriangle]{};
+	Transform transform[MaxTriangle]{};
 
 	Triangle element[MaxTriangle] = {
 
@@ -91,10 +92,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// 生成
 		triangle[i] = new Model();
 
+		transform[i] = {
+			{1.0f,1.0f,1.0f},
+			{0.0f,0.0f,0.0f},
+			{0.0f,0.0f,0.0f},
+		};
+
 		// 初期化処理
 		triangle[i]->Initialize(
-			pastorale_->GetDirectXCommon(), 
-			element[i]);
+			pastorale_->GetDirectXCommon());
 	}
 
 
@@ -107,6 +113,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
+
+		for (int i = 0; i < MaxTriangle; i++) {
+
+			transform[i].rotate.y += 0.03f;
+
+			triangle[i]->Update(element[i], transform[i]);
+		}
 
 		///
 		/// ↑更新処理ここまで
