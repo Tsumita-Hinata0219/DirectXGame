@@ -90,6 +90,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
   <ItemGroup>
     <ClCompile Include="3D\Model.cpp" />
     <ClCompile Include="Adapter\Pastorale.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Common\DirectXCommon.cpp" />
     <ClCompile Include="Common\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
@@ -98,6 +99,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
   <ItemGroup>
     <ClInclude Include="3D\Model.h" />
     <ClInclude Include="Adapter\Pastorale.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Common\DirectXCommon.h" />
     <ClInclude Include="Common\WinApp.h" />
     <ClInclude Include="math\Function.h" />
