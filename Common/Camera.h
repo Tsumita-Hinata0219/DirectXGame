@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Matrix4x4.h"
 #include "Transform.h"
 #include "Function.h"
@@ -9,12 +9,12 @@ class Camera {
 public:
 
 	/// <summary>
-	/// ‰Šú‰»ˆ—
+	/// åˆæœŸåŒ–å‡¦ç†
 	/// </summary>
 	void Initialize(int32_t ClientWidth_, int32_t ClientHeight_);
 
 	/// <summary>
-	/// XVˆ—
+	/// æ›´æ–°å‡¦ç†
 	/// </summary>
 	void Update();
 
@@ -32,7 +32,7 @@ private:
 	Transform cameraTransform{
 		{1.0f,1.0f,1.0f},
 		{0.0f,0.0f,0.0f},
-		{0.0f,0.0f,-5.0f},
+		{0.0f,0.0f,-50.0f},
 	};
 	Transform transform{
 		{1.0f,1.0f,1.0f},
