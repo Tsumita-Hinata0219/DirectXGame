@@ -2,6 +2,7 @@
 #include "WinApp.h"
 #include "DirectXCommon.h"
 #include "Model.h"
+#include "Camera.h"
 
 
 //Pastorale//パストラーレ
@@ -31,6 +32,11 @@ public:
 	void Initialize(const wchar_t* title, const int32_t Width, const int32_t Height);
 
 	/// <summary>
+	/// 更新処理
+	/// </summary>
+	void Update();
+
+	/// <summary>
 	/// メッセージの処理
 	/// </summary>
 	bool ProcessMessage();
@@ -49,6 +55,8 @@ public:
 
 	DirectXCommon* GetDirectXCommon() { return dXCommon_; };
 
+	Camera* GetCamera() { return camera_; };
+
 
 private:
 
@@ -56,6 +64,8 @@ private:
 	WinApp* winApp_ = nullptr;
 	// DirectXCommonの生成
 	DirectXCommon* dXCommon_ = nullptr;
+	// Cameraの生成
+	Camera* camera_ = nullptr;
 
 
 	// 頂点リソースにデータを書き込む

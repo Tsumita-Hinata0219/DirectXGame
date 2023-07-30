@@ -118,7 +118,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 			transform[i].rotate.y += 0.03f;
 
-			triangle[i]->Update(element[i], transform[i]);
+			triangle[i]->Update(
+				element[i], transform[i], pastorale_->GetCamera()->transformationMatrixData_);
 		}
 
 		///

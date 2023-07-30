@@ -27,7 +27,7 @@ public:
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update(Triangle element, Transform& transform);
+	void Update(Triangle element, Transform& transform, Matrix4x4& ViewMatrix);
 
 	/// <summary>
 	/// 三角形の描画
@@ -57,10 +57,7 @@ public:
 	/// <summary>
 	/// 頂点の初期化
 	/// </summary>
-	/// <param name="bottomLeft"></param>
-	/// <param name="top"></param>
-	/// <param name="bottoomRight"></param>
-	void SetVertex(Triangle element, Transform& transform);
+	void SetVertex(Triangle element, Transform& transform, Matrix4x4& ViewMatrix);
 
 	/// <summary>
 	/// 色の変換

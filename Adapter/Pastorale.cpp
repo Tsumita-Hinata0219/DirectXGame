@@ -9,6 +9,7 @@ Pastorale::Pastorale() {
 
 	winApp_ = new WinApp();
 	dXCommon_ = new DirectXCommon();
+	camera_ = new Camera();
 }
 
 
@@ -21,6 +22,7 @@ Pastorale::~Pastorale() {
 	// 解放処理
 	delete winApp_;
 	delete dXCommon_;
+	delete camera_;
 }
 
 
@@ -36,6 +38,17 @@ void Pastorale::Initialize(const wchar_t* title, const int32_t Width, const int3
 	// DirectXCommonの初期化処理
 	dXCommon_->Initialize(Width, Height, winApp_->GetHwnd());
 
+	// Cameraの初期化処理
+	camera_->Initialize(Width, Height);
+}
+
+
+
+// 更新処理
+void Pastorale::Update() {
+
+	// Cameraの更新処理
+	camera_->Update();
 }
 
 

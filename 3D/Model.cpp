@@ -20,9 +20,9 @@ void Model::Initialize(DirectXCommon* dXCommon) {
 
 
 // 更新処理
-void Model::Update(Triangle element, Transform& transform) {
+void Model::Update(Triangle element, Transform& transform, Matrix4x4& ViewMatrix) {
 
-	SetVertex(element, transform);
+	SetVertex(element, transform, ViewMatrix);
 }
 
 
@@ -118,7 +118,7 @@ void Model::MakeTransformationMatResource() {
 
 
 
-void Model::SetVertex(Triangle element, Transform& transform) {
+void Model::SetVertex(Triangle element, Transform& transform, Matrix4x4& ViewMatrix) {
 
 	//行列を作る
 	worldMatrix_ = MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);
@@ -137,7 +137,7 @@ void Model::SetVertex(Triangle element, Transform& transform) {
 	// 引数の色コードをVector4に変換してmaterialDate_に送る
 	*materialDate_ = FloatColor(element.color);
 	// 単位行列を書き込んでおく
-	*wvpData_ = worldMatrix_;
+	*wvpData_ = Multiply(worldMatrix_, ViewMatrix);
 
 
 	// 書き込むためのアドレスを取得
