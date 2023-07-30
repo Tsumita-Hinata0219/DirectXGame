@@ -32,7 +32,7 @@ private:
 	Transform cameraTransform{
 		{1.0f,1.0f,1.0f},
 		{0.0f,0.0f,0.0f},
-		{0.0f,0.0f,-50.0f},
+		{0.0f,0.0f,-5.0f},
 	};
 	Transform transform{
 		{1.0f,1.0f,1.0f},
