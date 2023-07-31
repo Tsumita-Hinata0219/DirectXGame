@@ -12,8 +12,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Pastorale* pastorale_ = new Pastorale();
 
 	// クライアント領域を設定
-	const int32_t ClientWidth = 500;
-	const int32_t ClientHeight = 500;
+	const int32_t ClientWidth = 1280;
+	const int32_t ClientHeight = 720;
 	pastorale_->Initialize(kWindowTitle, ClientWidth, ClientHeight);
 
 
