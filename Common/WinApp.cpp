@@ -2,7 +2,6 @@
 
 
 
-
 /// <summary>
 /// 初期化
 /// </summary>
@@ -95,9 +94,13 @@ bool WinApp::ProcessMessage() {
 LRESULT WinApp::WindowProc(HWND hwnd, UINT msg,
 	WPARAM wparam, LPARAM lparam) {
 
+	
+	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam)) {
+		return true;
+	}
 	// メッセージが来てたら最優先で処理させる
-	switch (msg)
-	{
+	switch (msg) {
+
 		// ウィンドウが破棄された
 	case WM_DESTROY:
 

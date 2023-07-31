@@ -45,7 +45,7 @@ void DirectXCommon::Initialize(int32_t ClientWidth, int32_t ClientHeight, HWND h
 	CreateSwapChain();
 
 	// ディスクリプタヒープの生成
-	CreateRtvDescriptorHeap();
+	SetDescriptorHeap();
 
 	// フェンスを作る
 	MakeFence();
@@ -131,7 +131,9 @@ void DirectXCommon::PreDraw() {
 		clearColor,
 		0, nullptr);
 
-	// いざ描画！！！！！
+	ID3D12DescriptorHeap* descriptorHeaps_[] = { srvDescriptorHeap_ };
+
+	commandList_->SetDescriptorHeaps(1, descriptorHeaps_);
 	commandList_->RSSetViewports(1, &viewport_); // Viewportを設定
 	commandList_->RSSetScissorRects(1, &scissorRect_); // Scissorを設定
 	// RootSignatureを設定。PSOに設定してるけど別途設定が必要
@@ -141,6 +143,9 @@ void DirectXCommon::PreDraw() {
 
 
 void DirectXCommon::PostDraw() {
+
+	//実際のCommandListのImGuiの描画コマンドを進む
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList_);
 
 	// 状態を遷移
 	// 画面に描く処理はすべて終わり、画面に映すので、状態を遷移
@@ -373,21 +378,19 @@ void DirectXCommon::CreateCommandList() {
 
 void DirectXCommon::CreateSwapChain() {
 
-	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
-
-	swapChainDesc.Width = ClientWidth_;	  // 画面の幅、ウィンドウのクライアント領域を同じものにしてく
-	swapChainDesc.Height = ClientHeight_; // 画面の高さ、ウィンドウのクライアント領域を同じものにしておく
-	swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // 色の形式
-	swapChainDesc.SampleDesc.Count = 1; // マルチサンプルしない
-	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 描画のターゲットとして利用する
-	swapChainDesc.BufferCount = 2; // ダブルバッファ
-	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // モニタにうつしたら、中身を破棄
+	swapChainDesc_.Width = ClientWidth_;	  // 画面の幅、ウィンドウのクライアント領域を同じものにしてく
+	swapChainDesc_.Height = ClientHeight_; // 画面の高さ、ウィンドウのクライアント領域を同じものにしておく
+	swapChainDesc_.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // 色の形式
+	swapChainDesc_.SampleDesc.Count = 1; // マルチサンプルしない
+	swapChainDesc_.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 描画のターゲットとして利用する
+	swapChainDesc_.BufferCount = 2; // ダブルバッファ
+	swapChainDesc_.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD; // モニタにうつしたら、中身を破棄
 
 	// コマンドキュー、ウィンドウハンドル、設定を渡して生成する
 	hr_ = dxgiFactory_->CreateSwapChainForHwnd(
 		commandQueue_, 
 		hwnd_,
-		&swapChainDesc, 
+		&swapChainDesc_, 
 		nullptr, 
 		nullptr, 
 		reinterpret_cast<IDXGISwapChain1**>(&swapChain_));
@@ -399,21 +402,13 @@ void DirectXCommon::CreateSwapChain() {
 
 /* ----- ディスクリプタヒープの生成 ----- */
 
-void DirectXCommon::CreateRtvDescriptorHeap() {
+void DirectXCommon::SetDescriptorHeap() {
 
-	D3D12_DESCRIPTOR_HEAP_DESC rtvDescriptorHeapDesc{};
+	rtvDescriptorHeap_ = CreateDescriptorHeap(
+		device_, D3D12_DESCRIPTOR_HEAP_TYPE_RTV, 2, false);
 
-	// レンダーターゲットビュー用
-	rtvDescriptorHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV; 
-
-	// ダブルバッファように二つ。多くても別に構わない
-	rtvDescriptorHeapDesc.NumDescriptors = 2; 
-	hr_ = device_->CreateDescriptorHeap(
-		&rtvDescriptorHeapDesc, 
-		IID_PPV_ARGS(&rtvDescriptorHeap_));
-
-	// ディスクリプタヒープが作れなかったので起動できない
-	assert(SUCCEEDED(hr_));
+	srvDescriptorHeap_ = CreateDescriptorHeap(
+		device_, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 128, true);
 
 
 	// SwapChainからResourceを引っ張ってくる
@@ -786,3 +781,20 @@ void DirectXCommon::SetScissor() {
 	scissorRect_.bottom = ClientHeight_;
 }
 
+
+
+
+ID3D12DescriptorHeap* DirectXCommon::CreateDescriptorHeap(
+	ID3D12Device* device, 
+	D3D12_DESCRIPTOR_HEAP_TYPE heapType, 
+	UINT numDescriptors, 
+	bool shaderVisible) {
+
+	DescriptorHeapDesc_.Type = heapType;
+	DescriptorHeapDesc_.NumDescriptors = numDescriptors;
+	DescriptorHeapDesc_.Flags = shaderVisible ? D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE : D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+	hr_ = device->CreateDescriptorHeap(&DescriptorHeapDesc_, IID_PPV_ARGS(&descriptorHeap_));
+	//ディスクリプタヒープの生成ができないので起動できない
+	assert(SUCCEEDED(hr_));
+	return descriptorHeap_;
+}

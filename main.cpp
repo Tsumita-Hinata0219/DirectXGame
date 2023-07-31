@@ -29,61 +29,61 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{{-0.4f,0.7f,0.0f,1.0f},
 		{-0.3f,0.8f,0.0f,1.0f},
 		{-0.2f,0.7f,0.0f,1.0f},
-		{0xffffffff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 
 		// 2
 		{{-0.4f,0.5f,0.0f,1.0f},
 		{-0.3f,0.6f,0.0f,1.0f},
 		{-0.2f,0.5f,0.0f,1.0f},
-		{0xff0000ff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 
 		// 3
 		{{0.2f,0.7f,0.0f,1.0f},
 		{0.3f,0.8f,0.0f,1.0f},
 		{0.4f,0.7f,0.0f,1.0f},
-		{0x0000ffff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 
 		// 4
 		{{0.2f,0.5f,0.0f,1.0f},
 		{0.3f,0.6f,0.0f,1.0f},
 		{0.4f,0.5f,0.0f,1.0f},
-		{0xffff00ff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 
 		// 5
 		{{-0.1f,0.6f,0.0f,1.0f},
 		{0.0f,0.7f,0.0f,1.0f},
 		{0.1f,0.6f,0.0f,1.0f},
-		{0xff7f00ff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 
 		// 6
 		{{-0.4f,0.2f,0.0f,1.0f},
 		{-0.3f,0.3f,0.0f,1.0f},
 		{-0.2f,0.2f,0.0f,1.0f},
-		{0x00ff00ff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 
 		// 7
 		{{-0.4f,0.0f,0.0f,1.0f},
 		{-0.3f,0.1f,0.0f,1.0f},
 		{-0.2f,0.0f,0.0f,1.0f},
-		{0xff33ccff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 
 		// 8
 		{{0.2f,0.2f,0.0f,1.0f},
 		{0.3f,0.3f,0.0f,1.0f},
 		{0.4f,0.2f,0.0f,1.0f},
-		{0x7f00ffff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 
 		// 9
 		{{0.2f,0.0f,0.0f,1.0f},
 		{0.3f,0.1f,0.0f,1.0f},
 		{0.4f,0.0f,0.0f,1.0f},
-		{0x000000ff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 
 		// 10
 		{{-0.1f,0.1f,0.0f,1.0f},
 		{0.0f,0.2f,0.0f,1.0f},
 		{0.1f,0.1f,0.0f,1.0f},
-		{0x663300ff}},
+		{0.0f, 0.0f, 0.0f, 1.0f}},
 	};
 
 	// 頂点の初期化
@@ -114,6 +114,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
+		pastorale_->Update();
+
 		for (int i = 0; i < MaxTriangle; i++) {
 
 			transform[i].rotate.y += 0.03f;
@@ -121,6 +123,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			triangle[i]->Update(
 				element[i], transform[i], pastorale_->GetCamera()->transformationMatrixData_);
 		}
+
+
+		ImGui::Begin("TriangleColor");
+
+		for (int i = 0; i < MaxTriangle; i++) {
+
+			ImGui::ColorEdit4("color", &element[i].color.x);
+
+		}
+
+		ImGui::End();
 
 		///
 		/// ↑更新処理ここまで

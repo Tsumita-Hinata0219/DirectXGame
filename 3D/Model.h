@@ -9,7 +9,7 @@ struct Triangle {
 	Vector4 bottomLeft;  // 左下座標
 	Vector4 top;		 // 上座標
 	Vector4 bottomRight; // 右下座標
-	unsigned int color;	 // 色
+	Vector4 color;	 // 色
 };
 
 

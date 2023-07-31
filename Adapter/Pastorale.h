@@ -3,6 +3,7 @@
 #include "DirectXCommon.h"
 #include "Model.h"
 #include "Camera.h"
+#include "ImGuiManager.h"
 
 
 //Pastorale//パストラーレ
@@ -66,6 +67,8 @@ private:
 	DirectXCommon* dXCommon_ = nullptr;
 	// Cameraの生成
 	Camera* camera_ = nullptr;
+	//
+	ImGuiManager* imguiManager_ = nullptr;
 
 
 	// 頂点リソースにデータを書き込む

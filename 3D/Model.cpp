@@ -135,7 +135,7 @@ void Model::SetVertex(Triangle element, Transform& transform, Matrix4x4& ViewMat
 	
 
 	// 引数の色コードをVector4に変換してmaterialDate_に送る
-	*materialDate_ = FloatColor(element.color);
+	*materialDate_ = element.color;
 	// 単位行列を書き込んでおく
 	*wvpData_ = Multiply(worldMatrix_, ViewMatrix);
 

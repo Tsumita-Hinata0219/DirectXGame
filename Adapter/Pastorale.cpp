@@ -10,6 +10,7 @@ Pastorale::Pastorale() {
 	winApp_ = new WinApp();
 	dXCommon_ = new DirectXCommon();
 	camera_ = new Camera();
+	imguiManager_ = new ImGuiManager();
 }
 
 
@@ -23,6 +24,7 @@ Pastorale::~Pastorale() {
 	delete winApp_;
 	delete dXCommon_;
 	delete camera_;
+	delete imguiManager_;
 }
 
 
@@ -40,6 +42,9 @@ void Pastorale::Initialize(const wchar_t* title, const int32_t Width, const int3
 
 	// Cameraの初期化処理
 	camera_->Initialize(Width, Height);
+
+	// 
+	imguiManager_->Initialize(winApp_, dXCommon_);
 }
 
 
@@ -49,6 +54,8 @@ void Pastorale::Update() {
 
 	// Cameraの更新処理
 	camera_->Update();
+
+	
 }
 
 
@@ -58,6 +65,7 @@ void Pastorale::Update() {
 /// </summary>
 void Pastorale::BeginFrame() {
 
+	imguiManager_->BeginFrame();
 	dXCommon_->PreDraw();
 }
 
@@ -68,6 +76,7 @@ void Pastorale::BeginFrame() {
 /// </summary>
 void Pastorale::EndFrame() {
 
+	imguiManager_->EndFrame();
 	dXCommon_->PostDraw();
 }
 

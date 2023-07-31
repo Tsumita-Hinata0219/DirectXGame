@@ -1,23 +1,15 @@
-﻿#pragma once
-#include"WinApp.h"
-#include"DirectXCommon.h"
+#pragma once
+#include "WinApp.h"
+#include "DirectXCommon.h"
 
+class ImGuiManager {
 
-class ImGuiManager
-{
 public:
 
-	void Initialize(WinApp* winApp, DirectXCommon* dxCommon);
-
+	void Initialize(WinApp* winApp, DirectXCommon* dXcommon);
 	void Update();
-
 	void Draw();
 
 	void BeginFrame();
-
 	void EndFrame();
-
-private:
-
-
 };

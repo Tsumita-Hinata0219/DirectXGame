@@ -50,7 +50,7 @@ public:
 	void CreateSwapChain();
 
 	// ディスクリプタヒープを生成する
-	void CreateRtvDescriptorHeap();
+	void SetDescriptorHeap();
 
 	// SwapChainからResourceを引っ張ってくる
 	void CreateSwapChainResources();
@@ -105,12 +105,22 @@ public:
 	void SetScissor();
 
 
+	ID3D12DescriptorHeap* CreateDescriptorHeap(
+		ID3D12Device* device, 
+		D3D12_DESCRIPTOR_HEAP_TYPE heapType,
+		UINT numDescriptors, 
+		bool shaderVisible);
+
+
 	/// <summary>
 	/// アクセッサ
 	/// </summary>
 	ID3D12Device* const GetDevice() { return device_; };
 	ID3D12GraphicsCommandList* const GetCommandList() { return commandList_; };
 
+	DXGI_SWAP_CHAIN_DESC1 GetSwapChainDesc()const { return swapChainDesc_; }
+	D3D12_RENDER_TARGET_VIEW_DESC GetrtvDesc()const { return rtvDesc_; }
+	ID3D12DescriptorHeap* GetsrvDescriptorHeap()const { return srvDescriptorHeap_; }
 
 private:
 
@@ -168,9 +178,13 @@ private:
 	// ディスクリプタヒープ
 	ID3D12DescriptorHeap* rtvDescriptorHeap_ = nullptr;
 
+	ID3D12DescriptorHeap* srvDescriptorHeap_ = nullptr;
+
 	// スワップチェーンリソース
 	ID3D12Resource* swapChainResources_[2] = { nullptr };
 
+
+	DXGI_SWAP_CHAIN_DESC1 swapChainDesc_{};
 
 	// RTV
 	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc_{};
@@ -243,4 +257,11 @@ private:
 	// シザー矩形
 	D3D12_RECT scissorRect_{};
 
+
+	// 
+	D3D12_DESCRIPTOR_HEAP_DESC rtvDescriptorHeapDesc_{};
+
+	ID3D12DescriptorHeap* descriptorHeap_ = nullptr;
+
+	D3D12_DESCRIPTOR_HEAP_DESC DescriptorHeapDesc_{};
 };
