@@ -23,17 +23,19 @@ public:
 
 	Matrix4x4 transformationMatrixData_;
 
-private:
-
-	int32_t ClientWidth_;
-	int32_t ClientHeight_;
-
 
 	Transform cameraTransform{
 		{1.0f,1.0f,1.0f},
 		{0.0f,0.0f,0.0f},
 		{0.0f,0.0f,-5.0f},
 	};
+
+private:
+
+	int32_t ClientWidth_;
+	int32_t ClientHeight_;
+
+
 	Transform transform{
 		{1.0f,1.0f,1.0f},
 		{0.0f,0.0f,0.0f},

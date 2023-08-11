@@ -86,6 +86,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{0.0f, 0.0f, 0.0f, 1.0f}},
 	};
 
+	const char* rabel[] = {
+		"triangle1",
+		"triangle2",
+		"triangle3",
+		"triangle4",
+		"triangle5",
+		"triangle6",
+		"triangle7",
+		"triangle8",
+		"triangle9",
+		"triangle10",
+	};
+
 	// 頂点の初期化
 	for (int i = 0; i < MaxTriangle; i++) {
 
@@ -116,24 +129,37 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		pastorale_->Update();
 
+		for (int i = 1; i < MaxTriangle; i++) {
+
+			//transform[i].rotate.y += 0.03f;
+		}
+
 		for (int i = 0; i < MaxTriangle; i++) {
-
-			transform[i].rotate.y += 0.03f;
-
 			triangle[i]->Update(
 				element[i], transform[i], pastorale_->GetCamera()->transformationMatrixData_);
 		}
 
 
-		ImGui::Begin("TriangleColor");
+
+		ImGui::Begin("Translation");
+
+		ImGui::SliderFloat4("scale", &transform[0].scale.x, -1.0f, 1.0f);
+		ImGui::SliderFloat4("rotate", &transform[0].rotate.x, -1.0f, 1.0f);
+		ImGui::SliderFloat4("translation", &transform[0].translate.x, -1.0f, 1.0f);
+
+		ImGui::End();
+
+
+
+		ImGui::Begin("Color");
 
 		for (int i = 0; i < MaxTriangle; i++) {
 
-			ImGui::ColorEdit4("color", &element[i].color.x);
-
+			ImGui::ColorEdit4(rabel[i], &element[i].color.x);
 		}
 
 		ImGui::End();
+
 
 		///
 		/// ↑更新処理ここまで

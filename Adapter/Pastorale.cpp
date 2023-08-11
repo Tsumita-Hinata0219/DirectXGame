@@ -55,6 +55,12 @@ void Pastorale::Update() {
 	// Cameraの更新処理
 	camera_->Update();
 
+	ImGui::Begin("Camera");
+
+	ImGui::SliderFloat4("translation", &camera_->cameraTransform.translate.x, -30.0f, 10.0f);
+
+
+	ImGui::End();
 	
 }
 
