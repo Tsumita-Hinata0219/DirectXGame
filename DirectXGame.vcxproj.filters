@@ -49,6 +49,12 @@
     <Filter Include="utilities">
       <UniqueIdentifier>{35fd5c43-0792-41e2-9111-efd5c582b3cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\scene">
+      <UniqueIdentifier>{9dc1e3b0-6166-46ad-b348-dea1c5c76a68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scene">
+      <UniqueIdentifier>{368246c1-11f3-4b99-a37f-c58b42a970da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3D\Model.cpp">
@@ -95,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="Common\Camera.cpp">
       <Filter>ソース ファイル\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\GameScene.cpp">
+      <Filter>ソース ファイル\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="math\Transform.h">
       <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\GameScene.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
