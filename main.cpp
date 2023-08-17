@@ -7,6 +7,9 @@ const wchar_t* kWindowTitle = L"LE2B_20_ツミタ_ヒナタ_CG2";
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
+	// COMの初期化
+	CoInitializeEx(0, COINIT_MULTITHREADED);
+
 	//Pastorale* pastorale_ = new Pastorale();
 	GameScene* gameScene = new GameScene();
 
@@ -47,4 +50,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// 解放処理
 	delete gameScene;
+
+	// COMの終了処理
+	CoUninitialize();
 }
