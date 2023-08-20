@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "ImGuiManager.h"
 #include "Transform.h"
+#include "TextureManager.h"
 
 
 class GameScene {
@@ -62,6 +63,8 @@ private:
 	Camera* camera_ = nullptr;
 	//　ImGuiの生成
 	ImGuiManager* imguiManager_ = nullptr;
+	// TextureManagerの生成
+	TextureManager* textureManager_ = nullptr;
 
 	// Triangle
 	Triangle element_{};

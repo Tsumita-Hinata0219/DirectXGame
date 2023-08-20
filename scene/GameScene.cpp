@@ -13,6 +13,7 @@ GameScene::GameScene() {
 	model_ = new Model();
 	camera_ = new Camera();
 	imguiManager_ = new ImGuiManager();
+	textureManager_ = new TextureManager();
 }
 
 
@@ -28,6 +29,7 @@ GameScene::~GameScene() {
 	delete model_;
 	delete camera_;
 	delete imguiManager_;
+	delete textureManager_;
 }
 
 
@@ -51,6 +53,9 @@ void GameScene::Initialize(const wchar_t* title, const int32_t Width, const int3
 
 	// ImGuiの初期化処理
 	imguiManager_->Initialize(winApp_, dXCommon_);
+
+	// TextureManagerの初期化処理
+	textureManager_->Initialize(dXCommon_);
 
 
 	// 三角形の各要素を決める
@@ -82,12 +87,8 @@ void GameScene::Update() {
 
 
 
-
-
 	// Cameraの更新処理
 	camera_->Update();
-
-
 
 
 
@@ -110,8 +111,6 @@ void GameScene::Update() {
 	ImGui::SliderFloat4("translation", &camera_->cameraTransform.translate.x, -30.0f, 10.0f);
 
 	ImGui::End();
-
-
 }
 
 
@@ -134,7 +133,6 @@ void GameScene::BeginFrame() {
 
 	imguiManager_->BeginFrame();
 	dXCommon_->PreDraw();
-
 }
 
 

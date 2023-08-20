@@ -233,7 +233,7 @@ private:
 	
 	ID3D12RootSignature* rootSignature_ = nullptr;
 
-	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[1] = {};
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[2] = {};
 
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc_{};
 

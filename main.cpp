@@ -10,7 +10,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// COMの初期化
 	CoInitializeEx(0, COINIT_MULTITHREADED);
 
-	//Pastorale* pastorale_ = new Pastorale();
 	GameScene* gameScene = new GameScene();
 
 	// クライアント領域を設定

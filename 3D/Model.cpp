@@ -125,13 +125,13 @@ void Model::SetVertex(Triangle element, Transform& transform, Matrix4x4& ViewMat
 
 
 	// VertexResourceを生成する
-	vertexResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Vector4) * 3);
+	vertexResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(VertexData) * 3);
 	// Material用のResourceを作る
 	MakeMaterialResource();
 	// TransformationMatrix用のResourceを作る
 	MakeTransformationMatResource();
 	// vertexBufferViewを作成する
-	vertexBufferView_ = MakeBufferView(vertexResource_, sizeof(Vector4) * 3);
+	vertexBufferView_ = MakeBufferView(vertexResource_, sizeof(VertexData) * 3);
 	
 
 	// 引数の色コードをVector4に変換してmaterialDate_に送る
@@ -145,9 +145,15 @@ void Model::SetVertex(Triangle element, Transform& transform, Matrix4x4& ViewMat
 	materialResource_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
 
 
-	vertexData_[0] = element.bottomLeft;   // 左下
-	vertexData_[1] = element.top;          // 上
-	vertexData_[2] = element.bottomRight; // 右下
+	// Triangle
+	vertexData_[0].position = element.bottomLeft;   // 左下
+	vertexData_[1].position = element.top;          // 上
+	vertexData_[2].position = element.bottomRight; // 右下
+
+	// Texture
+	vertexData_[0].texCoord = { 0.0f, 1.0f };  // 左下
+	vertexData_[1].texCoord = { 0.5f, 0.0f };  // 上
+	vertexData_[2].texCoord = { 1.0f, 1.0f }; // 右下
 }
 
 

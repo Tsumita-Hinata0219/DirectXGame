@@ -13,6 +13,13 @@ struct Triangle {
 };
 
 
+// 頂点データ
+struct VertexData {
+	Vector4 position;
+	Vector2 texCoord;
+};
+
+
 class Model {
 
 public:
@@ -81,7 +88,7 @@ private:
 
 
 	// 頂点リソースにデータを書き込む
-	Vector4* vertexData_ = nullptr;
+	VertexData* vertexData_ = nullptr;
 
 
 	// 頂点リソース用のヒープ設定
