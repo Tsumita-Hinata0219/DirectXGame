@@ -11,9 +11,10 @@ Model::~Model() {
 
 
 // 初期化処理
-void Model::Initialize(DirectXCommon* dXCommon) {
+void Model::Initialize(DirectXCommon* dXCommon, TextureManager* textureManager) {
 
 	dXCommon_ = dXCommon;
+	textureManager_ = textureManager;
 }
 
 
@@ -172,6 +173,9 @@ void Model::Draw() {
 
 	// wvp用のCBufferの場所を設定
 	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, wvpResource_->GetGPUVirtualAddress());
+
+	// DescriptorTableを設定する
+	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager_->GetTextureSrvHandleGPU());
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
 	dXCommon_->GetCommandList()->DrawInstanced(3, 1, 0, 0);

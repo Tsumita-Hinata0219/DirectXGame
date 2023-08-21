@@ -220,12 +220,14 @@ private:
 	IDxcBlobUtf8* shaderError_ = nullptr;
 
 	IDxcBlob* shaderBlob_ = nullptr;
-
+	
 
 	// PSOを生成する
 	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature_{};
 
-	D3D12_ROOT_PARAMETER rootParameters_[2] = {};
+	D3D12_ROOT_PARAMETER rootParameters_[3]{};
+
+	D3D12_DESCRIPTOR_RANGE descriptorRange_[1]{};
 
 	ID3DBlob* signatureBlob_ = nullptr;
 	
@@ -233,7 +235,7 @@ private:
 	
 	ID3D12RootSignature* rootSignature_ = nullptr;
 
-	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[2] = {};
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[2]{};
 
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc_{};
 
@@ -248,6 +250,8 @@ private:
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc_{};
 
 	ID3D12PipelineState* graphicsPipelineState_ = nullptr;
+
+	D3D12_STATIC_SAMPLER_DESC staticSamplers_[1]{};
 
 
 	// ビューポート

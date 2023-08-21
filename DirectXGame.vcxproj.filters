@@ -196,4 +196,9 @@
       <Filter>externals\imgui</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shaders\Object3d.hlsli">
+      <Filter>リソース ファイル\shaders</Filter>
+    </None>
+  </ItemGroup>
 </Project>

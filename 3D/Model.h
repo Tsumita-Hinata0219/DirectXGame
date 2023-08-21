@@ -2,6 +2,7 @@
 #include "Function.h"
 #include <Matrix4x4.h>
 #include "Transform.h"
+#include "TextureManager.h"
 
 
 // 三角形描画の各要素
@@ -29,7 +30,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(DirectXCommon* dXCommon);
+	void Initialize(DirectXCommon* dXCommon, TextureManager* textureManager);
 
 	/// <summary>
 	/// 更新処理
@@ -82,6 +83,8 @@ public:
 private:
 
 	DirectXCommon* dXCommon_ = nullptr;
+
+	TextureManager* textureManager_ = nullptr;
 
 
 	HRESULT hr_;

@@ -45,8 +45,11 @@ void GameScene::Initialize(const wchar_t* title, const int32_t Width, const int3
 	// DirectXCommonの初期化処理
 	dXCommon_->Initialize(Width, Height, winApp_->GetHwnd());
 
+	// TextureManagerの初期化処理
+	textureManager_->Initialize(dXCommon_);
+
 	// Modelの初期化処理
-	model_->Initialize(dXCommon_);
+	model_->Initialize(dXCommon_, textureManager_);
 
 	// Cameraの初期化処理
 	camera_->Initialize(Width, Height);
@@ -54,8 +57,7 @@ void GameScene::Initialize(const wchar_t* title, const int32_t Width, const int3
 	// ImGuiの初期化処理
 	imguiManager_->Initialize(winApp_, dXCommon_);
 
-	// TextureManagerの初期化処理
-	textureManager_->Initialize(dXCommon_);
+	
 
 
 	// 三角形の各要素を決める
