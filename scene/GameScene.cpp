@@ -93,23 +93,23 @@ void GameScene::Update() {
 
 	/* ---------- ImGui ---------- */
 
-	// Triangle
-	ImGui::Begin("Triangle");
+	//// Triangle
+	//ImGui::Begin("Triangle");
 
-	ImGui::SliderFloat4("scale", &triangleTransform_.scale.x, -1.0f, 1.0f);
-	ImGui::SliderFloat4("rotate", &triangleTransform_.rotate.x, -1.0f, 1.0f);
-	ImGui::SliderFloat4("translation", &triangleTransform_.translate.x, -1.0f, 1.0f);
-	ImGui::ColorEdit4("color", &element_.color.x);
+	//ImGui::SliderFloat4("scale", &triangleTransform_.scale.x, -1.0f, 1.0f);
+	//ImGui::SliderFloat4("rotate", &triangleTransform_.rotate.x, -1.0f, 1.0f);
+	//ImGui::SliderFloat4("translation", &triangleTransform_.translate.x, -1.0f, 1.0f);
+	//ImGui::ColorEdit4("color", &element_.color.x);
 
-	ImGui::End();
+	//ImGui::End();
 
 
-	// Camera
-	ImGui::Begin("Camera");
+	//// Camera
+	//ImGui::Begin("Camera");
 
-	ImGui::SliderFloat4("translation", &camera_->cameraTransform.translate.x, -30.0f, 10.0f);
+	//ImGui::SliderFloat4("translation", &camera_->cameraTransform.translate.x, -30.0f, 10.0f);
 
-	ImGui::End();
+	//ImGui::End();
 
 
 }
@@ -133,7 +133,7 @@ void GameScene::Draw() {
 void GameScene::BeginFrame() {
 
 	dXCommon_->PreDraw();
-	imguiManager_->BeginFrame();
+	imguiManager_->BeginFrame(dXCommon_);
 
 }
 
@@ -144,7 +144,7 @@ void GameScene::BeginFrame() {
 /// </summary>
 void GameScene::EndFrame() {
 
-	imguiManager_->EndFrame();
+	imguiManager_->EndFrame(dXCommon_);
 	dXCommon_->PostDraw();
 }
 

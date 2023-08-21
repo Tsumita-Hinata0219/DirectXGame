@@ -6,7 +6,6 @@
 Model::~Model() {
 
 	vertexResource_->Release();
-	dXCommon_->Release();
 }
 
 
