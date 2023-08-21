@@ -131,9 +131,6 @@ void DirectXCommon::PreDraw() {
 		clearColor,
 		0, nullptr);
 
-	ID3D12DescriptorHeap* descriptorHeaps_[] = { srvDescriptorHeap_ };
-
-	commandList_->SetDescriptorHeaps(1, descriptorHeaps_);
 	commandList_->RSSetViewports(1, &viewport_); // Viewportを設定
 	commandList_->RSSetScissorRects(1, &scissorRect_); // Scissorを設定
 	// RootSignatureを設定。PSOに設定してるけど別途設定が必要
@@ -143,9 +140,6 @@ void DirectXCommon::PreDraw() {
 
 
 void DirectXCommon::PostDraw() {
-
-	//実際のCommandListのImGuiの描画コマンドを進む
-	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList_);
 
 	// 状態を遷移
 	// 画面に描く処理はすべて終わり、画面に映すので、状態を遷移

@@ -17,13 +17,19 @@ void ImGuiManager::Initialize(WinApp* winApp, DirectXCommon* dXcommon) {
 }
 
 
-void ImGuiManager::BeginFrame() {
+void ImGuiManager::BeginFrame(DirectXCommon* dXcommon) {
 	ImGui_ImplDX12_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+
+	ID3D12DescriptorHeap* descriptorHeap[] = { dXcommon->GetsrvDescriptorHeap() };
+	dXcommon->GetCommandList()->SetDescriptorHeaps(1, descriptorHeap);
 }
 
 
-void ImGuiManager::EndFrame() {
+void ImGuiManager::EndFrame(DirectXCommon* dXcommon) {
 	ImGui::Render();
+
+	//実際のCommandListのImGuiの描画コマンドを進む
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), dXcommon->GetCommandList());
 }
