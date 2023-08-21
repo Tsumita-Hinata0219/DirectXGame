@@ -132,8 +132,8 @@ void GameScene::Draw() {
 /// </summary>
 void GameScene::BeginFrame() {
 
-	imguiManager_->BeginFrame();
 	dXCommon_->PreDraw();
+	imguiManager_->BeginFrame();
 
 }
 
