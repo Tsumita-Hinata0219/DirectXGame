@@ -11,16 +11,15 @@ Model::~Model() {
 
 
 // 初期化処理
-void Model::Initialize(DirectXCommon* dXCommon, TextureManager* textureManager) {
+void Model::Initialize(DirectXCommon* dXCommon) {
 
 	dXCommon_ = dXCommon;
-	textureManager_ = textureManager;
 }
 
 
 
 // 更新処理
-void Model::Update(Triangle element, Transform& transform, Matrix4x4& ViewMatrix) {
+void Model::Update(TriangleElement element, Transform& transform, Matrix4x4& ViewMatrix) {
 
 	SetVertex(element, transform, ViewMatrix);
 }
@@ -118,7 +117,7 @@ void Model::MakeTransformationMatResource() {
 
 
 
-void Model::SetVertex(Triangle element, Transform& transform, Matrix4x4& ViewMatrix) {
+void Model::SetVertex(TriangleElement element, Transform& transform, Matrix4x4& ViewMatrix) {
 
 	//行列を作る
 	worldMatrix_ = MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);
@@ -159,7 +158,7 @@ void Model::SetVertex(Triangle element, Transform& transform, Matrix4x4& ViewMat
 
 
 // 三角形の描画
-void Model::Draw() {
+void Model::Draw(TextureManager* textureManager) {
 
 	///// いざ描画！！！！！
 	// VBVを設定
@@ -175,7 +174,7 @@ void Model::Draw() {
 	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, wvpResource_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager_->GetTextureSrvHandleGPU());
+	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU());
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
 	dXCommon_->GetCommandList()->DrawInstanced(3, 1, 0, 0);

@@ -6,7 +6,7 @@
 
 
 // 三角形描画の各要素
-struct Triangle {
+struct TriangleElement {
 	Vector4 bottomLeft;  // 左下座標
 	Vector4 top;		 // 上座標
 	Vector4 bottomRight; // 右下座標
@@ -30,17 +30,17 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(DirectXCommon* dXCommon, TextureManager* textureManager);
+	void Initialize(DirectXCommon* dXCommon);
 
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update(Triangle element, Transform& transform, Matrix4x4& ViewMatrix);
+	void Update(TriangleElement element, Transform& transform, Matrix4x4& ViewMatrix);
 
 	/// <summary>
 	/// 三角形の描画
 	/// </summary>
-	void Draw();
+	void Draw(TextureManager* textureManager);
 
 	/// <summary>
 	/// 頂点リソース用のヒープ設定
@@ -65,7 +65,7 @@ public:
 	/// <summary>
 	/// 頂点の初期化
 	/// </summary>
-	void SetVertex(Triangle element, Transform& transform, Matrix4x4& ViewMatrix);
+	void SetVertex(TriangleElement element, Transform& transform, Matrix4x4& ViewMatrix);
 
 	/// <summary>
 	/// 色の変換
@@ -78,7 +78,7 @@ public:
 
 public:
 
-	Triangle element;
+	TriangleElement element;
 
 private:
 

@@ -6,6 +6,8 @@
 #include "ImGuiManager.h"
 #include "Transform.h"
 #include "TextureManager.h"
+#include "Pastorale.h"
+#include "Triangle.h"
 
 
 class GameScene {
@@ -57,17 +59,17 @@ private:
 	WinApp* winApp_ = nullptr;
 	// DirectXCommonの生成
 	DirectXCommon* dXCommon_ = nullptr;
-	// Modelの生成
-	Model* model_ = nullptr;
 	// Cameraの生成
 	Camera* camera_ = nullptr;
 	//　ImGuiの生成
 	ImGuiManager* imguiManager_ = nullptr;
-	// TextureManagerの生成
-	TextureManager* textureManager_ = nullptr;
+	// Pastoraleの生成
+	Pastorale* pastorale_ = nullptr;
+	// Triangleの生成
+	Triangle* triangle_ = nullptr;
 
 	// Triangle
-	Triangle element_{};
+	TriangleElement element_{};
 	Transform triangleTransform_{};
 
 };

@@ -52,7 +52,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)math;$(ProjectDir)3D;$(ProjectDir)shaders;$(ProjectDir)Adapter;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)utilities;$(ProjectDir)scene;$(ProjectDir)externals\DirectXtex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)math;$(ProjectDir)3D;$(ProjectDir)shaders;$(ProjectDir)Adapter;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)utilities;$(ProjectDir)scene;$(ProjectDir)externals\DirectXtex;$(ProjectDir)GameObject;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -74,7 +74,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)math;$(ProjectDir)3D;$(ProjectDir)shaders;$(ProjectDir)Adapter;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)utilities;$(ProjectDir)scene;$(ProjectDir)externals\DirectXtex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Common;$(ProjectDir)math;$(ProjectDir)3D;$(ProjectDir)shaders;$(ProjectDir)Adapter;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)utilities;$(ProjectDir)scene;$(ProjectDir)externals\DirectXtex;$(ProjectDir)GameObject;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -102,6 +102,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="externals\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="externals\imgui\imgui_tables.cpp" />
     <ClCompile Include="externals\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="GameObject\Triangle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\Function.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
@@ -123,6 +124,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="externals\imgui\imstb_rectpack.h" />
     <ClInclude Include="externals\imgui\imstb_textedit.h" />
     <ClInclude Include="externals\imgui\imstb_truetype.h" />
+    <ClInclude Include="GameObject\Triangle.h" />
     <ClInclude Include="math\Function.h" />
     <ClInclude Include="math\Matrix4x4.h" />
     <ClInclude Include="math\Transform.h" />
