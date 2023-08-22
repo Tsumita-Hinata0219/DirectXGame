@@ -22,17 +22,23 @@ public:
 	/// </summary>
 	~TextureManager();
 
-	
+
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
 	void Initialize(DirectXCommon* dXCommon);
 
-
+	
 	/// <summary>
 	/// Textuerデータを読み込む
 	/// </summary>
-	DirectX::ScratchImage LoadTexture(const std::string& filePath);
+	void LoadTexture(const std::string& filePath);
+
+
+	/// <summary>
+	/// Textureファイルを開く
+	/// </summary>
+	DirectX::ScratchImage ImageFileOpen(const std::string& filePath);
 
 
 	/// <summary>
@@ -51,6 +57,8 @@ public:
 
 
 private:
+
+	DirectXCommon* dXCommon_;
 
 	D3D12_CPU_DESCRIPTOR_HANDLE textureSrvHandleCPU_;
 	D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU_;

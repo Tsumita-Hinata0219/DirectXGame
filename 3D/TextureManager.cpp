@@ -16,15 +16,23 @@ TextureManager::~TextureManager(){}
 
 
 
-/// <summary>
-/// 初期化処理
-/// </summary>
 void TextureManager::Initialize(DirectXCommon* dXCommon) {
 
+	dXCommon_ = dXCommon;
+
+}
+
+
+
+/// <summary>
+/// Textuerデータを読み込む
+/// </summary>
+void TextureManager::LoadTexture(const std::string& filePath) {
+
 	// Textureを読んで転送する
-	DirectX::ScratchImage mipImages = LoadTexture("Resources/uvChecker.png");
+	DirectX::ScratchImage mipImages = ImageFileOpen(filePath);
 	const DirectX::TexMetadata& metadata = mipImages.GetMetadata();
-	ID3D12Resource* textureResource = CreateTextureResource(dXCommon->GetDevice(), metadata);
+	ID3D12Resource* textureResource = CreateTextureResource(dXCommon_->GetDevice(), metadata);
 	UpdateTextureData(textureResource, mipImages);
 
 
@@ -37,25 +45,25 @@ void TextureManager::Initialize(DirectXCommon* dXCommon) {
 
 	// SRVを作成するDescriptorHeapの場所を決める
 	textureSrvHandleCPU_ =
-		dXCommon->GetsrvDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
+		dXCommon_->GetsrvDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
 	textureSrvHandleGPU_ =
-		dXCommon->GetsrvDescriptorHeap()->GetGPUDescriptorHandleForHeapStart();
+		dXCommon_->GetsrvDescriptorHeap()->GetGPUDescriptorHandleForHeapStart();
 
 	// 先頭はImGuiが使っているのでその次を使う
-	textureSrvHandleCPU_.ptr += dXCommon->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	textureSrvHandleGPU_.ptr += dXCommon->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	textureSrvHandleCPU_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	textureSrvHandleGPU_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	// SRVの生成
-	dXCommon->GetDevice()->CreateShaderResourceView(textureResource, &srvDesc, textureSrvHandleCPU_);
+	dXCommon_->GetDevice()->CreateShaderResourceView(textureResource, &srvDesc, textureSrvHandleCPU_);
 
 };
 
 
 
 /// <summary>
-/// Textureを読み込む
+/// Textureファイルを開く
 /// </summary>
-DirectX::ScratchImage TextureManager::LoadTexture(const std::string& filePath) {
+DirectX::ScratchImage TextureManager::ImageFileOpen(const std::string& filePath) {
 
 	// テクスチャファイルを読み込んでプログラムで扱えるようにする
 	// Textureデータを読み込む

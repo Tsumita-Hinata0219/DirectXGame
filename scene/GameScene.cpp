@@ -47,6 +47,7 @@ void GameScene::Initialize(const wchar_t* title, const int32_t Width, const int3
 
 	// TextureManagerの初期化処理
 	textureManager_->Initialize(dXCommon_);
+	textureManager_->LoadTexture("Resources/uvChecker.png");
 
 	// Modelの初期化処理
 	model_->Initialize(dXCommon_, textureManager_);
@@ -66,7 +67,7 @@ void GameScene::Initialize(const wchar_t* title, const int32_t Width, const int3
 		-0.5f, -0.5f, 0.0f, 1.0f,
 		0.0f, 0.5f, 0.0f, 1.0f,
 		0.5f, -0.5f, 0.0f, 1.0f,
-		0.0f, 0.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
 	};
 	// SRT
 	triangleTransform_ = {
@@ -124,6 +125,7 @@ void GameScene::Draw() {
 
 	// Triangleの描画
 	model_->Draw();
+
 }
 
 
