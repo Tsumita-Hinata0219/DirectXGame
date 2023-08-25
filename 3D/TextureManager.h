@@ -44,7 +44,7 @@ public:
 	/// <summary>
 	/// DirectX12のTExtureResourceを作る
 	/// </summary>
-	ID3D12Resource* CreateTextureResource(ID3D12Device* device, const DirectX::TexMetadata& metadata);
+	ID3D12Resource* CreateTextureResource(const DirectX::TexMetadata& metadata);
 
 
 	/// <summary>
@@ -53,6 +53,9 @@ public:
 	void UpdateTextureData(ID3D12Resource* texture, const DirectX::ScratchImage& mipImage);
 
 
+	/// <summary>
+	/// アクセッサ
+	/// </summary>
 	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureSrvHandleGPU() { return textureSrvHandleGPU_; }
 
 

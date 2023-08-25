@@ -32,7 +32,7 @@ void TextureManager::LoadTexture(const std::string& filePath) {
 	// Textureを読んで転送する
 	DirectX::ScratchImage mipImages = ImageFileOpen(filePath);
 	const DirectX::TexMetadata& metadata = mipImages.GetMetadata();
-	ID3D12Resource* textureResource = CreateTextureResource(dXCommon_->GetDevice(), metadata);
+	ID3D12Resource* textureResource = CreateTextureResource(metadata);
 	UpdateTextureData(textureResource, mipImages);
 
 
@@ -88,7 +88,7 @@ DirectX::ScratchImage TextureManager::ImageFileOpen(const std::string& filePath)
 /// <summary>
 /// DirectX12のTExtureResourceを作る
 /// </summary>
-ID3D12Resource* TextureManager::CreateTextureResource(ID3D12Device* device, const DirectX::TexMetadata& metadata) {
+ID3D12Resource* TextureManager::CreateTextureResource(const DirectX::TexMetadata& metadata) {
 
 	// 1.metadataを基にResourceの設定
 	// metadataを基にResourceの設定
@@ -111,7 +111,7 @@ ID3D12Resource* TextureManager::CreateTextureResource(ID3D12Device* device, cons
 	// 3. Resourceを作る
 	// Resourceを生成する
 	ID3D12Resource* resource;
-	HRESULT hr = device->CreateCommittedResource(
+	HRESULT hr = dXCommon_->GetDevice()->CreateCommittedResource(
 		&heapProperties,				   // Heapの設定
 		D3D12_HEAP_FLAG_NONE,			   // Heapの特殊な設定。特になし
 		&resourceDesc,					   // Resourceの設定
@@ -150,5 +150,7 @@ void TextureManager::UpdateTextureData(ID3D12Resource* texture, const DirectX::S
 		assert(SUCCEEDED(hr_));
 	}
 }
+
+
 
 

@@ -82,7 +82,7 @@ D3D12_VERTEX_BUFFER_VIEW Model::MakeBufferView(ID3D12Resource* resource, size_t 
 	resultBufferView.SizeInBytes = UINT(sizeInBytes);
 
 	// 1頂点あたりのサイズ
-	resultBufferView.StrideInBytes = UINT(sizeInBytes / 3);
+	resultBufferView.StrideInBytes = UINT(sizeInBytes / 6);
 
 
 	return resultBufferView;
@@ -124,13 +124,13 @@ void Model::SetVertex(TriangleElement element, Transform& transform, Matrix4x4& 
 
 
 	// VertexResourceを生成する
-	vertexResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(VertexData) * 3);
+	vertexResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(VertexData) * 6);
 	// Material用のResourceを作る
 	MakeMaterialResource();
 	// TransformationMatrix用のResourceを作る
 	MakeTransformationMatResource();
 	// vertexBufferViewを作成する
-	vertexBufferView_ = MakeBufferView(vertexResource_, sizeof(VertexData) * 3);
+	vertexBufferView_ = MakeBufferView(vertexResource_, sizeof(VertexData) * 6);
 	
 
 	// 引数の色コードをVector4に変換してmaterialDate_に送る
@@ -145,14 +145,24 @@ void Model::SetVertex(TriangleElement element, Transform& transform, Matrix4x4& 
 
 
 	// Triangle
-	vertexData_[0].position = element.bottomLeft;   // 左下
-	vertexData_[1].position = element.top;          // 上
+	// 1枚目
+	vertexData_[0].position = element.bottomLeft;  // 左下
+	vertexData_[1].position = element.top;         // 上
 	vertexData_[2].position = element.bottomRight; // 右下
+	// 2枚目
+	vertexData_[3].position = { -0.5f, -0.5,0.5f,1.0f };  // 左下
+	vertexData_[4].position = { 0.0f, 0.0f,  0.0f,1.0f }; // 上
+	vertexData_[5].position = { 0.5f,-0.5f,-0.5f,1.0f };  // 右下
 
 	// Texture
-	vertexData_[0].texCoord = { 0.0f, 1.0f };  // 左下
-	vertexData_[1].texCoord = { 0.5f, 0.0f };  // 上
+	// 1枚目
+	vertexData_[0].texCoord = { 0.0f, 1.0f }; // 左下
+	vertexData_[1].texCoord = { 0.5f, 0.0f }; // 上
 	vertexData_[2].texCoord = { 1.0f, 1.0f }; // 右下
+	// 2枚目
+	vertexData_[3].texCoord = { 0.0f, 1.0f }; // 左下
+	vertexData_[4].texCoord = { 0.5f, 0.0f }; // 上
+	vertexData_[5].texCoord = { 1.0f, 1.0f }; // 右下
 }
 
 
@@ -177,7 +187,7 @@ void Model::Draw(TextureManager* textureManager) {
 	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU());
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-	dXCommon_->GetCommandList()->DrawInstanced(3, 1, 0, 0);
+	dXCommon_->GetCommandList()->DrawInstanced(6, 1, 0, 0);
 }
 
 

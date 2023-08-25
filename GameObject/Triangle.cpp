@@ -35,6 +35,8 @@ void Triangle::Initialize(Pastorale* pastorale){
 /// </summary>
 void Triangle::Update(Matrix4x4& ViewMatrix){
 
+	transform_.rotate.y += 0.03f;
+
 	pastorale_->GetModel()->Update(element_, transform_, ViewMatrix);
 }
 

@@ -105,11 +105,20 @@ public:
 	void SetScissor();
 
 
+	// 
 	ID3D12DescriptorHeap* CreateDescriptorHeap(
 		ID3D12Device* device, 
 		D3D12_DESCRIPTOR_HEAP_TYPE heapType,
 		UINT numDescriptors, 
 		bool shaderVisible);
+
+
+	// Textureの深度の設定をしていく
+	ID3D12Resource* CreateDepthStencilTexturerResource(int32_t width, int32_t height);
+
+
+	// depthStencilResourceを作る
+	void CreateDepthStencilResource();
 
 
 	/// <summary>
@@ -268,4 +277,14 @@ private:
 	ID3D12DescriptorHeap* descriptorHeap_ = nullptr;
 
 	D3D12_DESCRIPTOR_HEAP_DESC DescriptorHeapDesc_{};
+
+
+	// 深度
+	ID3D12Resource* depthStencilResource_ = nullptr;
+
+
+	// DepthStencilState
+	D3D12_DEPTH_STENCIL_DESC depthStencilDesc_{};
+
+	ID3D12DescriptorHeap* dsvDescriptorHeap_ = nullptr;
 };
