@@ -5,7 +5,6 @@
 #include "Camera.h"
 #include "ImGuiManager.h"
 #include "Transform.h"
-#include "TextureManager.h"
 #include "Pastorale.h"
 #include "Triangle.h"
 
@@ -70,6 +69,6 @@ private:
 
 	// Triangle
 	TriangleElement element_{};
-	Transform triangleTransform_{};
+	WorldTransform triangleTransform_{};
 
 };

@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Function.h"
-#include <Matrix4x4.h>
 #include "Transform.h"
 #include "TextureManager.h"
 
@@ -35,7 +34,7 @@ public:
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update(TriangleElement element, Transform& transform, Matrix4x4& ViewMatrix);
+	void Update(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix);
 
 	/// <summary>
 	/// 三角形の描画
@@ -65,7 +64,7 @@ public:
 	/// <summary>
 	/// 頂点の初期化
 	/// </summary>
-	void SetVertex(TriangleElement element, Transform& transform, Matrix4x4& ViewMatrix);
+	void SetVertex(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix);
 
 	/// <summary>
 	/// 色の変換

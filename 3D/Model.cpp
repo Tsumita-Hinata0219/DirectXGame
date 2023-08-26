@@ -19,7 +19,7 @@ void Model::Initialize(DirectXCommon* dXCommon) {
 
 
 // 更新処理
-void Model::Update(TriangleElement element, Transform& transform, Matrix4x4& ViewMatrix) {
+void Model::Update(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix) {
 
 	SetVertex(element, transform, ViewMatrix);
 }
@@ -117,7 +117,7 @@ void Model::MakeTransformationMatResource() {
 
 
 
-void Model::SetVertex(TriangleElement element, Transform& transform, Matrix4x4& ViewMatrix) {
+void Model::SetVertex(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix) {
 
 	//行列を作る
 	worldMatrix_ = MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);

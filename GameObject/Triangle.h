@@ -28,5 +28,5 @@ private:
 
 
 	TriangleElement element_{};
-	Transform transform_;
+	WorldTransform transform_;
 };

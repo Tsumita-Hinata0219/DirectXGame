@@ -1,5 +1,8 @@
 ﻿#pragma once
-#include "Function.h"
+#include <Windows.h>
+#include <cstdint>
+#include <string>
+#include <format>
 #include "imgui.h"
 #include "imgui_impl_dx12.h"
 #include "imgui_impl_win32.h"

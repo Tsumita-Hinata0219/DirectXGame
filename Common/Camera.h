@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "Matrix4x4.h"
 #include "Transform.h"
 #include "Function.h"
 
@@ -24,7 +23,7 @@ public:
 	Matrix4x4 transformationMatrixData_;
 
 
-	Transform cameraTransform{
+	WorldTransform cameraTransform{
 		{1.0f,1.0f,1.0f},
 		{0.0f,0.0f,0.0f},
 		{0.0f,0.0f,-5.0f},
@@ -36,7 +35,7 @@ private:
 	int32_t ClientHeight_;
 
 
-	Transform transform{
+	WorldTransform transform{
 		{1.0f,1.0f,1.0f},
 		{0.0f,0.0f,0.0f},
 		{0.0f,0.0f,0.0f},
