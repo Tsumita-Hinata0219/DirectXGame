@@ -5,7 +5,6 @@
 // 解放処理
 Model::~Model() {
 
-	vertexResource_->Release();
 }
 
 

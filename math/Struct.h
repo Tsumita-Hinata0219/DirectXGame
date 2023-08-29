@@ -2,7 +2,25 @@
 #include <vector>
 #include <Vector2.h>
 #include <Vector3.h>
+#include <Vector4.h>
 #include <Matrix4x4.h>
+
+
+
+// 頂点データ
+struct VertexData {
+	Vector4 position;
+	Vector2 texCoord;
+};
+
+
+// スプライト構造体
+struct SpriteData {
+	Vector4 topLeft;
+	Vector4 bottomLeft;
+	Vector4 topRight;
+	Vector4 bottomRight;
+};
 
 
 //// 球

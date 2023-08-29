@@ -61,6 +61,12 @@
     <Filter Include="ヘッダー ファイル\GameObject">
       <UniqueIdentifier>{365edf16-1d6d-4a2f-8627-f9c7f82dd7de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\2D">
+      <UniqueIdentifier>{e3e0a1b2-9251-47d9-9220-2ac00ee77efe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\2D">
+      <UniqueIdentifier>{322fb35e-c71a-4b0e-b597-8ad63aad9fce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3D\Model.cpp">
@@ -119,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="GameObject\Triangle.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="2D\Sprite.cpp">
+      <Filter>ソース ファイル\2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="math\Struct.h">
       <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="2D\Sprite.h">
+      <Filter>ヘッダー ファイル\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,13 +1,28 @@
-﻿#include "Triangle.h"
+#include "Triangle.h"
 
+
+
+
+
+Triangle::Triangle() {
+
+	sprite_ = new Sprite();
+}
+
+
+
+Triangle::~Triangle() {
+
+	delete sprite_;
+}
 
 
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Triangle::Initialize(Pastorale* pastorale){
+void Triangle::Initialize(Pastorale* pastorale, DirectXCommon* dXCommon){
 
-	pastorale_ = pastorale;
+  	pastorale_ = pastorale;
 
 	pastorale_->GetATextureManager()->LoadTexture("Resources/uvChecker.png");
 
@@ -26,6 +41,21 @@ void Triangle::Initialize(Pastorale* pastorale){
 		{0.0f,0.0f,0.0f},
 		{0.0f,0.0f,0.0f},
 	};
+
+
+	// スプライト
+	sprite_->Initialize(1280, 720, dXCommon);
+	spriteTransform_ = {
+		{1.0f, 1.0f, 1.0f},
+		{0.0f, 0.0f, 0.0f},
+		{0.0f, 0.0f, 1000.0f},
+	};
+	vertex_ = {
+		{ 0.0f, 0.0f, 0.0f, 1.0f },
+		{ 0.0f, 360.0f, 0.0f, 1.0f },
+		{ 640.0f, 0.0f, 0.0f, 1.0f },
+		{ 640.0f, 360.0f, 0.0f, 1.0f }
+	};
 }
 
 
@@ -38,6 +68,19 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 	transform_.rotate.y += 0.03f;
 
 	pastorale_->GetModel()->Update(element_, transform_, ViewMatrix);
+
+	sprite_->Update(spriteTransform_, vertex_);
+
+
+
+
+
+	ImGui::Begin("Sprite");
+
+	ImGui::DragFloat3("Translate", &spriteTransform_.translate.x, 0.0f);
+
+	ImGui::End();
+
 }
 
 
@@ -48,6 +91,8 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 void Triangle::Draw() {
 
 	pastorale_->GetModel()->Draw(pastorale_->GetATextureManager());
+
+	sprite_->DrawSprite(pastorale_->GetATextureManager());
 }
 
 

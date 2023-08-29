@@ -7,6 +7,7 @@
 #include "Transform.h"
 #include "Pastorale.h"
 #include "Triangle.h"
+#include "Sprite.h"
 
 
 class GameScene {
@@ -66,6 +67,8 @@ private:
 	Pastorale* pastorale_ = nullptr;
 	// Triangleの生成
 	Triangle* triangle_ = nullptr;
+	// Spriteの生成
+	Sprite* sprite_ = nullptr;
 
 	// Triangle
 	TriangleElement element_{};

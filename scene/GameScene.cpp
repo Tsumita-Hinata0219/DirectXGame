@@ -14,6 +14,7 @@ GameScene::GameScene() {
 	imguiManager_ = new ImGuiManager();
 	pastorale_ = new Pastorale();
 	triangle_ = new Triangle();
+	sprite_ = new Sprite();
 }
 
 
@@ -30,6 +31,7 @@ GameScene::~GameScene() {
 	delete imguiManager_;
 	delete pastorale_;
 	delete triangle_;
+	delete sprite_;
 }
 
 
@@ -49,13 +51,16 @@ void GameScene::Initialize(const wchar_t* title, const int32_t Width, const int3
 	pastorale_->Initialize(dXCommon_);
 
 	// Triangleの初期化処理
-	triangle_->Initialize(pastorale_);
+	triangle_->Initialize(pastorale_, dXCommon_);
 
 	// Cameraの初期化処理
 	camera_->Initialize(Width, Height);
 
 	// ImGuiの初期化処理
 	imguiManager_->Initialize(winApp_, dXCommon_);
+
+	// Spriteの初期化処理
+	WorldTransform transformSprite{ {1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f} };
 	
 }
 
@@ -68,7 +73,6 @@ void GameScene::Update() {
 
 	// Triangleの更新処理
 	triangle_->Update(camera_->transformationMatrixData_);
-
 
 	// Cameraの更新処理
 	camera_->Update();
@@ -91,7 +95,7 @@ void GameScene::Update() {
 /// </summary>
 void GameScene::Draw() {
 
-	// Triangleの描画
+	// Triangleの描画処理
 	triangle_->Draw();
 
 }

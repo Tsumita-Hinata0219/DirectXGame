@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Function.h"
+#include "Struct.h"
 #include "Transform.h"
 #include "TextureManager.h"
 
@@ -10,13 +11,6 @@ struct TriangleElement {
 	Vector4 top;		 // 上座標
 	Vector4 bottomRight; // 右下座標
 	Vector4 color;	 // 色
-};
-
-
-// 頂点データ
-struct VertexData {
-	Vector4 position;
-	Vector2 texCoord;
 };
 
 
