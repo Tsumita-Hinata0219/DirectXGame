@@ -93,11 +93,16 @@ void GameScene::Update() {
 /// <summary>
 /// 描画処理
 /// </summary>
-void GameScene::Draw() {
+void GameScene::Draw3D() {
 
 	// Triangleの描画処理
-	triangle_->Draw();
+	triangle_->Draw3D();
+}
 
+void GameScene::Draw2D() {
+
+	// Spriteの描画処理
+	triangle_->Draw2D();
 }
 
 

@@ -77,7 +77,9 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 
 	ImGui::Begin("Sprite");
 
-	ImGui::DragFloat3("Translate", &spriteTransform_.translate.x, 0.0f);
+	ImGui::SliderFloat3("Scale", &spriteTransform_.scale.x, -2.0f, 2.0f);
+	ImGui::SliderFloat3("Rotate", &spriteTransform_.rotate.x, -4.0f, 4.0f);
+	ImGui::SliderFloat3("Translate", &spriteTransform_.translate.x, 0.0f, 1000);
 
 	ImGui::End();
 
@@ -88,11 +90,13 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 /// <summary>
 /// 描画処理
 /// </summary>
-void Triangle::Draw() {
+void Triangle::Draw3D() {
 
 	pastorale_->GetModel()->Draw(pastorale_->GetATextureManager());
-
-	sprite_->DrawSprite(pastorale_->GetATextureManager());
 }
 
 
+void Triangle::Draw2D() {
+
+	sprite_->DrawSprite(pastorale_->GetATextureManager());
+}

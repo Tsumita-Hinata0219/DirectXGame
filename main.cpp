@@ -36,7 +36,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 
-		gameScene->Draw();
+		gameScene->Draw3D();
+		gameScene->Draw2D();
 
 		///
 		/// ↑描画処理ここまで

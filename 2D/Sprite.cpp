@@ -44,19 +44,16 @@ void Sprite::Update(WorldTransform transform, SpriteData vertex){
 /// </summary>
 void Sprite::DrawSprite(TextureManager* textureManager) {
 
-	// Spriteの描画。変更が必要なものだけ変更する
+	// 頂点の設定
 	dXCommon_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferViewSprite_); // VBVを設定
 
 	// 形状を設定
 	dXCommon_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	// wvp用のCBufferの場所を設定
-	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSprite_->GetGPUVirtualAddress());
-
-	// CBVを設定
+	// 色用のCBufferの場所を設定
 	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
 
-	// TransformationMatrixCBufferの場所を設定
+	// wvp用のCBufferの場所を設定
 	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSprite_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する

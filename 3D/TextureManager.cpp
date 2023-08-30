@@ -104,9 +104,9 @@ ID3D12Resource* TextureManager::CreateTextureResource(const DirectX::TexMetadata
 	// 2. 利用するHeapの設定
 	// 利用するHeapの設定。非常に特殊な運用 ※02_04exで一般的なケース版がある
 	D3D12_HEAP_PROPERTIES heapProperties{};
-	heapProperties.Type = D3D12_HEAP_TYPE_CUSTOM;						  // 細かい設定を行う
+	heapProperties.Type = D3D12_HEAP_TYPE_CUSTOM; // 細かい設定を行う
 	heapProperties.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_WRITE_BACK; // WriteBackポリシーでCPUアクセス可能
-	heapProperties.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;		  // プロセッサの近くに配置
+	heapProperties.MemoryPoolPreference = D3D12_MEMORY_POOL_L0;	// プロセッサの近くに配置
 
 	// 3. Resourceを作る
 	// Resourceを生成する

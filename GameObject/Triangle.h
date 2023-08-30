@@ -21,7 +21,9 @@ public:
 
 	void Update(Matrix4x4& ViewMatrix);
 
-	void Draw();
+	void Draw3D();
+
+	void Draw2D();
 
 private:
 
