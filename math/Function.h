@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <cassert>
 #include "imgui.h"
+#include <numbers>
 
 
 // string->wstring

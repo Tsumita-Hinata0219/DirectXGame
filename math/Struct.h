@@ -23,11 +23,11 @@ struct SpriteData {
 };
 
 
-//// 球
-//struct Sphere {
-//	Vector3 center;
-//	float radius;
-//};
+// 球
+struct SphereData {
+	Vector3 center;
+	float radius;
+};
 //
 //// 直線
 //struct Line {
