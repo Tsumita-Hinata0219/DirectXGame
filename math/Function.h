@@ -33,8 +33,6 @@ std::string ConvertString(const std::wstring& str);
 void Log(const std::string& message);
 
 
-
-
 ///// 3次元ベクトル
 // 加算
 Vector3 Add(const Vector3 v1, const Vector3 v2);

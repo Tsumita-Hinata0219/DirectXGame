@@ -26,25 +26,25 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(DirectXCommon* dXCommon);
+	void Initialize(const int32_t Width, const int32_t Height, DirectXCommon* dXCommon, WorldTransform transform);
 
 
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update();
+	void Update(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix,TextureManager* textureManager);
 
 
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw(SphereData sphere, Matrix4x4 viewMatrix);
+	void Draw(TextureManager* textureManager);
 
 
 	/// <summary>
 	/// 頂点データを設定する
 	/// </summary>
-	void SetVertex();
+	void SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix, TextureManager* textureManager);
 
 
 	/// <summary>
@@ -60,15 +60,15 @@ public:
 
 
 	/// <summary>
-	/// TransformationMatrix用のResourceを作る
+	/// TransformationMatrix用のResoureを作る
 	/// </summary>
-	void CreateTransformationMatrix();
+	void CreateTransformationMatrixResource();
 
 
 	/// <summary>
 	/// Sphere用のWorldViewProjectonMatrixを作る
 	/// </summary>
-	void CreateWVPMatrix(WorldTransform transform);
+	void CreateWVPMatrix(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix);
 
 
 	/// <summary>

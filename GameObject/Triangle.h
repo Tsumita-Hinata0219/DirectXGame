@@ -6,6 +6,7 @@
 #include "Pastorale.h"
 #include "Sprite.h"
 #include "ImGuiManager.h"
+#include "Sphere.h"
 
 
 
@@ -36,6 +37,8 @@ private:
 	Sprite* sprite_ = nullptr;
 	// TextureManagerの生成
 	TextureManager* textureManager_ = nullptr;
+	// Sphereの生成
+	Sphere* sphere_ = nullptr;
 
 
 	TriangleElement element_{};
@@ -44,4 +47,8 @@ private:
 
 	WorldTransform spriteTransform_;
 	SpriteData vertex_;
+
+	
+	WorldTransform sphereTransform_;
+	SphereData sphereElemnt_;
 };

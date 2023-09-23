@@ -19,19 +19,12 @@ Sphere::~Sphere(){}
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Sphere::Initialize(DirectXCommon* dXCommon) {
+void Sphere::Initialize(const int32_t Width, const int32_t Height, DirectXCommon* dXCommon, WorldTransform transform) {
+
+	ClientWidth_ = 0;
+	ClientHeight_ = 0;
 
 	dXCommon_ = dXCommon;
-
-
-	vertexResourceSphere_ = CreateBufferResource(sizeof(VertexData) * subdivision_ * subdivision_ * 6);
-
-	materialResourceSphere_ = CreateBufferResource(sizeof(Vector4) * 3);
-
-
-	transformationMatrixResourceSphere_ = CreateBufferResource(sizeof(Matrix4x4));
-
-	vertexBufferViewSphere_ = CreateBufferView(vertexResourceSphere_);
 }
 
 
@@ -39,7 +32,9 @@ void Sphere::Initialize(DirectXCommon* dXCommon) {
 /// <summary>
 /// 更新処理
 /// </summary>
-void Sphere::Update() {
+void Sphere::Update(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix, TextureManager* textureManager) {
+
+	SetVertex(sphere, transform, viewMatrix,textureManager);
 
 }
 
@@ -48,9 +43,54 @@ void Sphere::Update() {
 /// <summary>
 /// 描画処理
 /// </summary>
-void Sphere::Draw(SphereData sphere, Matrix4x4 viewMatrix) {
+void Sphere::Draw(TextureManager* textureManager) {
 
+	/// コマンドを積む
+	// 頂点の設定 (VBVを設定)
+	dXCommon_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferViewSphere_);
+
+	//形状を設定
+	dXCommon_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// 色用のCBufferの場所を設定
+	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResourceSphere_->GetGPUVirtualAddress());
+	
+	// wvp用のCBufferの場所を設定
+	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSphere_->GetGPUVirtualAddress());
+
+	// DescriptorTableを設定する
+	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU());
+
+	// 描画！ (DrawCall / ドローコール)
+	dXCommon_->GetCommandList()->DrawInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0);
+}
+
+
+
+/// <summary>
+/// 頂点データを設定する
+/// </summary>
+void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix, TextureManager* textureManager) {
+
+	// vertexResourceを生成する
+	vertexResourceSphere_ = CreateBufferResource(sizeof(VertexData) * subdivision_ * subdivision_ * 6);
+	// Material用のResourceを作る
+	CreateMaterialResource();
+	// vertexBufferViewを生成する
+	vertexBufferViewSphere_ = CreateBufferView(vertexResourceSphere_);
+	// TransformationMatrix用のResourceを作る
+	CreateTransformationMatrixResource();
+	// Sphere用のWorldViewProjectionMatrixを作る
+	CreateWVPMatrix(sphere, transform, viewMatrix);
+
+
+	// 色の設定
+	*materialDate_ = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+
+	// 書き込むためのアドレスを用意
 	vertexResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&vertexDataSphere_));
+	materialResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
 
 
 	// 経度分割の1つ分の角度
@@ -60,13 +100,13 @@ void Sphere::Draw(SphereData sphere, Matrix4x4 viewMatrix) {
 
 
 	// 緯度方向に分割
-	for (uint32_t latIndex = 0; latIndex < subdivision_; ++latIndex) {
+	for (int32_t latIndex = 0; latIndex < subdivision_; ++latIndex) {
 
 		float lat = -float(std::numbers::pi) / 2.0f + latEvery * latIndex;
 		float uvLength = 1.0f / subdivision_;
 
 		// 経度方向に分割
-		for (uint32_t lonIndex = 0; lonIndex < subdivision_; ++lonIndex) {
+		for (int32_t lonIndex = 0; lonIndex < subdivision_; ++lonIndex) {
 
 			uint32_t start_ = (latIndex * subdivision_ + lonIndex) * 6;
 			float lon = lonIndex * lonEvery;
@@ -77,23 +117,23 @@ void Sphere::Draw(SphereData sphere, Matrix4x4 viewMatrix) {
 #pragma region Trinagle１枚目
 
 			// 点A(左下)
-			vertexDataSphere_[start_].position.x = cos(lat) * cos(lon) + sphere.center.x;
-			vertexDataSphere_[start_].position.y = sin(lat) + sphere.center.y;
-			vertexDataSphere_[start_].position.z = cos(lat) * sin(lon) + sphere.center.z;
+			vertexDataSphere_[start_].position.x = sphere.radius * (cos(lat) * cos(lon));
+			vertexDataSphere_[start_].position.y = sphere.radius * (sin(lat));
+			vertexDataSphere_[start_].position.z = sphere.radius * (cos(lat) * sin(lon));
 			vertexDataSphere_[start_].position.w = 1.0f;
-			vertexDataSphere_[start_].texCoord = { u,v + uvLength };
+			vertexDataSphere_[start_].texCoord = { u, v + uvLength };
 
 			// 点B(左上)
-			vertexDataSphere_[start_ + 1].position.x = cos(lat + latEvery) * cos(lon) + sphere.center.x;
-			vertexDataSphere_[start_ + 1].position.y = sin(lat + latEvery) + sphere.center.y;
-			vertexDataSphere_[start_ + 1].position.z = cos(lat + latEvery) * sin(lon) + sphere.center.z;
+			vertexDataSphere_[start_ + 1].position.x = sphere.radius * (cos(lat + latEvery)) * cos(lon);
+			vertexDataSphere_[start_ + 1].position.y = sphere.radius * (sin(lat + latEvery));
+			vertexDataSphere_[start_ + 1].position.z = sphere.radius * (cos(lat + latEvery)) * sin(lon);
 			vertexDataSphere_[start_ + 1].position.w = 1.0f;
-			vertexDataSphere_[start_ + 1].texCoord = { u,v };
+			vertexDataSphere_[start_ + 1].texCoord = { u, v };
 
 			// 点C(右下)
-			vertexDataSphere_[start_ + 2].position.x = cos(lat) * cos(lon + lonEvery) + sphere.center.x;
-			vertexDataSphere_[start_ + 2].position.y = sin(lat) + sphere.center.y;
-			vertexDataSphere_[start_ + 2].position.z = cos(lat) * sin(lon + lonEvery) + sphere.center.z;
+			vertexDataSphere_[start_ + 2].position.x = sphere.radius * (cos(lat) * cos(lon + lonEvery));
+			vertexDataSphere_[start_ + 2].position.y = sphere.radius * (sin(lat));
+			vertexDataSphere_[start_ + 2].position.z = sphere.radius * (cos(lat) * sin(lon + lonEvery));
 			vertexDataSphere_[start_ + 2].position.w = 1.0f;
 			vertexDataSphere_[start_ + 2].texCoord = { u + uvLength, v + uvLength };
 
@@ -102,45 +142,31 @@ void Sphere::Draw(SphereData sphere, Matrix4x4 viewMatrix) {
 #pragma region Triangle２枚目
 
 			// 点D(右上)
-			vertexDataSphere_[start_ + 3].position.x = cos(lat + latEvery) * cos(lon + lonEvery) + sphere.center.x;
-			vertexDataSphere_[start_ + 3].position.y = sin(lat + latEvery) + sphere.center.y;
-			vertexDataSphere_[start_ + 3].position.z = cos(lat + latEvery) * sin(lon + lonEvery) + sphere.center.z;
+			vertexDataSphere_[start_ + 3].position.x = sphere.radius * (cos(lat + latEvery) * cos(lon + lonEvery));
+			vertexDataSphere_[start_ + 3].position.y = sphere.radius * (sin(lat + latEvery));
+			vertexDataSphere_[start_ + 3].position.z = sphere.radius * (cos(lat + latEvery) * sin(lon + lonEvery));
 			vertexDataSphere_[start_ + 3].position.w = 1.0f;
-			vertexDataSphere_[start_ + 3].texCoord = { u + uvLength,v };
+			vertexDataSphere_[start_ + 3].texCoord = { u + uvLength, v };
 
 			// 点C(右下)
-			vertexDataSphere_[start_ + 4].position.x = cos(lat) * cos(lon + lonEvery) + sphere.center.x;
-			vertexDataSphere_[start_ + 4].position.y = sin(lat) + sphere.center.y;
-			vertexDataSphere_[start_ + 4].position.z = cos(lat) * sin(lon + lonEvery) + sphere.center.z;
+			vertexDataSphere_[start_ + 4].position.x = sphere.radius * (cos(lat) * cos(lon + lonEvery));
+			vertexDataSphere_[start_ + 4].position.y = sphere.radius * (sin(lat));
+			vertexDataSphere_[start_ + 4].position.z = sphere.radius * (cos(lat) * sin(lon + lonEvery));
 			vertexDataSphere_[start_ + 4].position.w = 1.0f;
 			vertexDataSphere_[start_ + 4].texCoord = { u + uvLength, v + uvLength };
-			
+
 			// 点B(左上)
-			vertexDataSphere_[start_ + 5].position.x = cos(lat + latEvery) * cos(lon) + sphere.center.x;
-			vertexDataSphere_[start_ + 5].position.y = sin(lat + latEvery) + sphere.center.y;
-			vertexDataSphere_[start_ + 5].position.z = cos(lat + latEvery) * sin(lon) + sphere.center.z;
+			vertexDataSphere_[start_ + 5].position.x = sphere.radius * (cos(lat + latEvery) * cos(lon));
+			vertexDataSphere_[start_ + 5].position.y = sphere.radius * (sin(lat + latEvery));
+			vertexDataSphere_[start_ + 5].position.z = sphere.radius * (cos(lat + latEvery) * sin(lon));
 			vertexDataSphere_[start_ + 5].position.w = 1.0f;
-			vertexDataSphere_[start_ + 5].texCoord = { u,v };
+			vertexDataSphere_[start_ + 5].texCoord = { u, v };
 
 #pragma endregion
 
 		}
 	}
-
-	transformationMatrixResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&transfomationMatrixDataSphere_));
-
-
-	CreateTransformationMatrix();
-}
-
-
-
-/// <summary>
-/// 頂点データを設定する
-/// </summary>
-void Sphere::SetVertex() {
-
-
+	Draw(textureManager);
 }
 
 
@@ -214,18 +240,16 @@ D3D12_VERTEX_BUFFER_VIEW Sphere::CreateBufferView(ID3D12Resource* resource) {
 
 
 /// <summary>
-/// TransformationMatrix用のResourceを作る
+/// TransformationMatrix用のResoureを作る
 /// </summary>
-void Sphere::CreateTransformationMatrix() {
-
-	// Sprite用のTransfomationMatrix用のリソースを作る。Matrix4x4 １つ分のサイズを用意する
+void Sphere::CreateTransformationMatrixResource() {
+	
+	// WVP用のリソースを作る。Matrix4x4 1つ分のサイズを用意する
 	transformationMatrixResourceSphere_ = CreateBufferResource(sizeof(Matrix4x4));
 
-	/// データを書き込む
 	// 書き込むためのアドレスを取得
 	transformationMatrixResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&transfomationMatrixDataSphere_));
-	// 単位行列を書き込んでおく
-	*transfomationMatrixDataSphere_ = MakeIdentity4x4();
+
 }
 
 
@@ -233,17 +257,14 @@ void Sphere::CreateTransformationMatrix() {
 /// <summary>
 /// Sphere用のWorldViewProjectonMatrixを作る
 /// </summary>
-void Sphere::CreateWVPMatrix(WorldTransform transform) {
+void Sphere::CreateWVPMatrix(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix) {
 
 	// Sprite用のWorldViewProjectonMatrixを作る
-	worldMatrixSphere = MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);
-	viewMatrixSphere = MakeIdentity4x4();
-	projectionMatrixSphere =
-		MakeOrthographicMatrix(0.0f, 0.0f, float(ClientWidth_), float(ClientHeight_), 0.0f, 100.0f);
-	worldProjectionMatrixSphere =
-		Multiply(worldMatrixSphere, Multiply(viewMatrixSphere, projectionMatrixSphere));
+	worldMatrixSphere = MakeAffineMatrix(transform.scale, transform.rotate, Add(transform.translate, sphere.center));
 
-	*transfomationMatrixDataSphere_ = worldProjectionMatrixSphere;
+
+	*transfomationMatrixDataSphere_ = Multiply(MakeIdentity4x4(), viewMatrix);// Multiply(worldMatrixSphere, viewMatrix);
+
 }
 
 

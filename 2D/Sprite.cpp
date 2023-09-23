@@ -34,6 +34,7 @@ void Sprite::Initialize(const int32_t Width, const int32_t Height, DirectXCommon
 /// </summary>
 void Sprite::Update(WorldTransform transform, SpriteData vertex){
 
+	//transform.translate.z = 0.0f;
 	SetVertex(transform, vertex);
 }
 

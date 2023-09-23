@@ -7,6 +7,7 @@
 Triangle::Triangle() {
 
 	sprite_ = new Sprite();
+	sphere_ = new Sphere();
 }
 
 
@@ -14,6 +15,7 @@ Triangle::Triangle() {
 Triangle::~Triangle() {
 
 	delete sprite_;
+	delete sphere_;
 }
 
 
@@ -56,6 +58,19 @@ void Triangle::Initialize(Pastorale* pastorale, DirectXCommon* dXCommon){
 		{ 640.0f, 0.0f, 0.0f, 1.0f },
 		{ 640.0f, 360.0f, 0.0f, 1.0f }
 	};
+
+
+	// スフィア
+	sphereTransform_ = {
+		{1.0f, 1.0f, 1.0f},
+		{0.0f, 0.0f, 0.0f},
+		{640.0f, 360.0f, 50.0f},
+	};
+	sphereElemnt_ = {
+		{0.0f, 0.0f, 20.0f},
+		{200.0f},
+	};
+	sphere_->Initialize(1280, 720, dXCommon, sphereTransform_);
 }
 
 
@@ -71,7 +86,7 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 
 	sprite_->Update(spriteTransform_, vertex_);
 
-
+	sphere_->Update(sphereElemnt_, sphereTransform_, ViewMatrix,pastorale_->GetATextureManager());
 
 
 
@@ -92,11 +107,12 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 /// </summary>
 void Triangle::Draw3D() {
 
-	pastorale_->GetModel()->Draw(pastorale_->GetATextureManager());
+	//pastorale_->GetModel()->Draw(pastorale_->GetATextureManager());
+	sphere_->Draw(pastorale_->GetATextureManager());
 }
 
 
 void Triangle::Draw2D() {
 
-	sprite_->DrawSprite(pastorale_->GetATextureManager());
+	//sprite_->DrawSprite(pastorale_->GetATextureManager());
 }
