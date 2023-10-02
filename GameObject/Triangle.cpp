@@ -64,11 +64,11 @@ void Triangle::Initialize(Pastorale* pastorale, DirectXCommon* dXCommon){
 	sphereTransform_ = {
 		{1.0f, 1.0f, 1.0f},
 		{0.0f, 0.0f, 0.0f},
-		{640.0f, 360.0f, 50.0f},
+		{0.0f, 0.0f, 150.0f},
 	};
 	sphereElemnt_ = {
 		{0.0f, 0.0f, 20.0f},
-		{200.0f},
+		{20.0f},
 	};
 	sphere_->Initialize(1280, 720, dXCommon, sphereTransform_);
 }
@@ -86,7 +86,7 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 
 	sprite_->Update(spriteTransform_, vertex_);
 
-	sphere_->Update(sphereElemnt_, sphereTransform_, ViewMatrix,pastorale_->GetATextureManager());
+	sphere_->Update(sphereElemnt_, sphereTransform_, ViewMatrix);
 
 
 
@@ -95,6 +95,16 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 	ImGui::SliderFloat3("Scale", &spriteTransform_.scale.x, -2.0f, 2.0f);
 	ImGui::SliderFloat3("Rotate", &spriteTransform_.rotate.x, -4.0f, 4.0f);
 	ImGui::SliderFloat3("Translate", &spriteTransform_.translate.x, 0.0f, 1000);
+
+	ImGui::End();
+
+
+
+	ImGui::Begin("sphere");
+
+	ImGui::SliderFloat3("Scale", &sphereTransform_.scale.x, -2.0f, 2.0f);
+	ImGui::SliderFloat3("Rotate", &sphereTransform_.rotate.x, -4.0f, 4.0f);
+	ImGui::SliderFloat3("Translate", &sphereTransform_.translate.x, 0.0f, 1000);
 
 	ImGui::End();
 
@@ -114,5 +124,5 @@ void Triangle::Draw3D() {
 
 void Triangle::Draw2D() {
 
-	//sprite_->DrawSprite(pastorale_->GetATextureManager());
+	sprite_->DrawSprite(pastorale_->GetATextureManager());
 }

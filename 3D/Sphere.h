@@ -32,7 +32,7 @@ public:
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix,TextureManager* textureManager);
+	void Update(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix);
 
 
 	/// <summary>
@@ -44,7 +44,7 @@ public:
 	/// <summary>
 	/// 頂点データを設定する
 	/// </summary>
-	void SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix, TextureManager* textureManager);
+	void SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix);
 
 
 	/// <summary>

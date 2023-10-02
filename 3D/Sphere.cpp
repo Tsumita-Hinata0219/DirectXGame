@@ -32,9 +32,9 @@ void Sphere::Initialize(const int32_t Width, const int32_t Height, DirectXCommon
 /// <summary>
 /// 更新処理
 /// </summary>
-void Sphere::Update(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix, TextureManager* textureManager) {
+void Sphere::Update(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix) {
 
-	SetVertex(sphere, transform, viewMatrix,textureManager);
+	SetVertex(sphere, transform, viewMatrix);
 
 }
 
@@ -70,7 +70,7 @@ void Sphere::Draw(TextureManager* textureManager) {
 /// <summary>
 /// 頂点データを設定する
 /// </summary>
-void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix, TextureManager* textureManager) {
+void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix) {
 
 	// vertexResourceを生成する
 	vertexResourceSphere_ = CreateBufferResource(sizeof(VertexData) * subdivision_ * subdivision_ * 6);
@@ -85,7 +85,7 @@ void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& v
 
 
 	// 色の設定
-	*materialDate_ = { 0.0f, 0.0f, 0.0f, 1.0f };
+	*materialDate_ = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 
 	// 書き込むためのアドレスを用意
@@ -166,7 +166,7 @@ void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& v
 
 		}
 	}
-	Draw(textureManager);
+
 }
 
 
@@ -263,7 +263,7 @@ void Sphere::CreateWVPMatrix(SphereData sphere, WorldTransform transform, Matrix
 	worldMatrixSphere = MakeAffineMatrix(transform.scale, transform.rotate, Add(transform.translate, sphere.center));
 
 
-	*transfomationMatrixDataSphere_ = Multiply(MakeIdentity4x4(), viewMatrix);// Multiply(worldMatrixSphere, viewMatrix);
+	*transfomationMatrixDataSphere_ = Multiply(worldMatrixSphere, viewMatrix);
 
 }
 
