@@ -37,6 +37,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg,
 
 
 
+
 /* -----プロトタイプ宣言----- */
 
 //string  -> wstring
