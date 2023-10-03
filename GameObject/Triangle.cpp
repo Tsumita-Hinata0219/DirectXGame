@@ -129,3 +129,4 @@ void Triangle::Draw2D() {
 	sprite_->DrawSprite(pastorale_->GetATextureManager());
 }
 
+
