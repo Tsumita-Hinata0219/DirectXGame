@@ -44,7 +44,7 @@ public:
 	/// <summary>
 	/// テクスチャファイルを読み込む
 	/// </summary>
-	void Loadtexture(const std::string& filePath);
+	void Loadtexture(const std::string& filePath1, const std::string& filePath2);
 
 
 

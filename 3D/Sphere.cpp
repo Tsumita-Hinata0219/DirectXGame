@@ -36,6 +36,10 @@ void Sphere::Update(SphereData sphere, WorldTransform transform, Matrix4x4& view
 
 	SetVertex(sphere, transform, viewMatrix);
 
+	ImGui::Begin("ShpereTexture");
+	ImGui::Checkbox("useMonsterBall", &useMonsterBall);
+	ImGui::End();
+
 }
 
 
@@ -59,7 +63,7 @@ void Sphere::Draw(TextureManager* textureManager) {
 	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSphere_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU());
+	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, useMonsterBall ? textureManager->GetTextureSrvHandleGPU1() : textureManager->GetTextureSrvHandleGPU2());
 
 	// 描画！ (DrawCall / ドローコール)
 	dXCommon_->GetCommandList()->DrawInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0);

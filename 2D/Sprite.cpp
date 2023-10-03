@@ -58,7 +58,7 @@ void Sprite::DrawSprite(TextureManager* textureManager) {
 	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSprite_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU());
+	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU1());
 
 	// 描画！(DrawCall/ドローコール)
 	dXCommon_->GetCommandList()->DrawInstanced(6, 1, 0, 0);

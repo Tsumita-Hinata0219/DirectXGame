@@ -26,7 +26,7 @@ void Triangle::Initialize(Pastorale* pastorale, DirectXCommon* dXCommon){
 
   	pastorale_ = pastorale;
 
-	pastorale_->GetATextureManager()->LoadTexture("Resources/uvChecker.png");
+	pastorale_->GetATextureManager()->LoadTexture("Resources/uvChecker.png", "Resources/monsterBall.png");
 
 
 	// 三角形の各要素を決める
@@ -82,6 +82,8 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 
 	transform_.rotate.y += 0.03f;
 
+	sphereTransform_.rotate.y += 0.02f;
+
 	pastorale_->GetModel()->Update(element_, transform_, ViewMatrix);
 
 	sprite_->Update(spriteTransform_, vertex_);
@@ -126,3 +128,4 @@ void Triangle::Draw2D() {
 
 	sprite_->DrawSprite(pastorale_->GetATextureManager());
 }
+

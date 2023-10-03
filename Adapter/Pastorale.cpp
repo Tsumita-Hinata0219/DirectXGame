@@ -59,8 +59,8 @@ void Pastorale::Draw(){}
 /// <summary>
 /// テクスチャファイルを読み込む
 /// </summary>
-void Pastorale::Loadtexture(const std::string& filePath){
+void Pastorale::Loadtexture(const std::string& filePath1, const std::string& filePath2){
 
-	textureManager_->LoadTexture(filePath);
+	textureManager_->LoadTexture(filePath1, filePath2);
 }
 

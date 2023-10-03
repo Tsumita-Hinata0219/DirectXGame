@@ -27,34 +27,65 @@ void TextureManager::Initialize(DirectXCommon* dXCommon) {
 /// <summary>
 /// Textuerデータを読み込む
 /// </summary>
-void TextureManager::LoadTexture(const std::string& filePath) {
+void TextureManager::LoadTexture(const std::string& filePath1, const std::string& filePath2) {
 
 	// Textureを読んで転送する
-	DirectX::ScratchImage mipImages = ImageFileOpen(filePath);
-	const DirectX::TexMetadata& metadata = mipImages.GetMetadata();
-	ID3D12Resource* textureResource = CreateTextureResource(metadata);
-	UpdateTextureData(textureResource, mipImages);
+	// 1枚目のTextureを読んで転送する
+	DirectX::ScratchImage mipImages1 = ImageFileOpen(filePath1);
+	const DirectX::TexMetadata& metadata1 = mipImages1.GetMetadata();
+	ID3D12Resource* textureResource1 = CreateTextureResource(metadata1);
+	UpdateTextureData(textureResource1, mipImages1);
+
+	// 2枚目のTextureを読んで転送する
+	DirectX::ScratchImage mipImages2 = ImageFileOpen(filePath2);
+	const DirectX::TexMetadata& metadata2 = mipImages2.GetMetadata();
+	ID3D12Resource* textureResource2 = CreateTextureResource(metadata2);
+	UpdateTextureData(textureResource2, mipImages2);
 
 
 	// metaDataを基にSRVの設定
-	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
-	srvDesc.Format = metadata.format;
-	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2Dテクスチャ
-	srvDesc.Texture2D.MipLevels = UINT(metadata.mipLevels);
+	// 1枚目
+	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc1{};
+	srvDesc1.Format = metadata1.format;
+	srvDesc1.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	srvDesc1.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2Dテクスチャ
+	srvDesc1.Texture2D.MipLevels = UINT(metadata1.mipLevels);
+
+	// 2枚目
+	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc2{};
+	srvDesc2.Format = metadata2.format;
+	srvDesc2.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	srvDesc2.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D; // 2Dテクスチャ
+	srvDesc2.Texture2D.MipLevels = UINT(metadata2.mipLevels);
+
 
 	// SRVを作成するDescriptorHeapの場所を決める
-	textureSrvHandleCPU_ =
-		dXCommon_->GetsrvDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
-	textureSrvHandleGPU_ =
-		dXCommon_->GetsrvDescriptorHeap()->GetGPUDescriptorHandleForHeapStart();
+	// 1枚目
+	textureSrvHandleCPU1_ =
+		dXCommon_->GetCPUDescriptorHandle(dXCommon_->GetsrvDescriptorHeap(), dXCommon_->GetDescriptorSizeSRV(), 1);
+	textureSrvHandleGPU1_ =
+		dXCommon_->GetGPUDescriptorHandle(dXCommon_->GetsrvDescriptorHeap(), dXCommon_->GetDescriptorSizeSRV(), 1);
+
+	// 2枚目
+	textureSrvHandleCPU2_ =
+		dXCommon_->GetCPUDescriptorHandle(dXCommon_->GetsrvDescriptorHeap(), dXCommon_->GetDescriptorSizeSRV(), 2);
+	textureSrvHandleGPU2_ =
+		dXCommon_->GetGPUDescriptorHandle(dXCommon_->GetsrvDescriptorHeap(), dXCommon_->GetDescriptorSizeSRV(), 2);
+
 
 	// 先頭はImGuiが使っているのでその次を使う
-	textureSrvHandleCPU_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	textureSrvHandleGPU_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	// 1枚目
+	textureSrvHandleCPU1_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	textureSrvHandleGPU1_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	
+	// 2枚目
+	textureSrvHandleCPU2_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	textureSrvHandleGPU2_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
 
 	// SRVの生成
-	dXCommon_->GetDevice()->CreateShaderResourceView(textureResource, &srvDesc, textureSrvHandleCPU_);
+	dXCommon_->GetDevice()->CreateShaderResourceView(textureResource1, &srvDesc1, textureSrvHandleCPU1_);
+	dXCommon_->GetDevice()->CreateShaderResourceView(textureResource2, &srvDesc2, textureSrvHandleCPU2_);
 
 };
 

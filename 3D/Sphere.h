@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "TextureManager.h"
 #include "DirectXCommon.h"
+#include "ImGuiManager.h"
 
 
 
@@ -128,5 +129,9 @@ private:
 	ID3D12Resource* materialResourceSphere_ = nullptr;
 
 	Vector4* materialDate_ = nullptr;
+
+
+	// テクスチャの切り替え
+	bool useMonsterBall = true;
 
 };

@@ -32,7 +32,7 @@ public:
 	/// <summary>
 	/// Textuerデータを読み込む
 	/// </summary>
-	void LoadTexture(const std::string& filePath);
+	void LoadTexture(const std::string& filePath1, const std::string& filePath2);
 
 
 	/// <summary>
@@ -56,16 +56,18 @@ public:
 	/// <summary>
 	/// アクセッサ
 	/// </summary>
-	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureSrvHandleGPU() { return textureSrvHandleGPU_; }
+	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureSrvHandleGPU1() { return textureSrvHandleGPU1_; }
+	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureSrvHandleGPU2() { return textureSrvHandleGPU2_; }
 
 
 private:
 
 	DirectXCommon* dXCommon_;
 
-	D3D12_CPU_DESCRIPTOR_HANDLE textureSrvHandleCPU_;
-	D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU_;
+	D3D12_CPU_DESCRIPTOR_HANDLE textureSrvHandleCPU1_;
+	D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU1_;
 
-
+	D3D12_CPU_DESCRIPTOR_HANDLE textureSrvHandleCPU2_;
+	D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU2_;
 };
 

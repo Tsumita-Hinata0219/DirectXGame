@@ -140,6 +140,11 @@ public:
 	void CreateDepthStencilResource();
 
 
+	// DescriptorHandleを取得する
+	D3D12_CPU_DESCRIPTOR_HANDLE GetCPUDescriptorHandle(ID3D12DescriptorHeap* descriptorHeap, uint32_t descriptorSize, uint32_t index);
+	D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandle(ID3D12DescriptorHeap* descriptorHeap, uint32_t descriptorSize, uint32_t index);
+
+
 	/// <summary>
 	/// アクセッサ
 	/// </summary>
@@ -149,6 +154,10 @@ public:
 	DXGI_SWAP_CHAIN_DESC1 GetSwapChainDesc()const { return swapChainDesc_; }
 	D3D12_RENDER_TARGET_VIEW_DESC GetrtvDesc()const { return rtvDesc_; }
 	ID3D12DescriptorHeap* GetsrvDescriptorHeap()const { return srvDescriptorHeap_; }
+
+	uint32_t const GetDescriptorSizeSRV() { return descriptorSizeSRV_; }
+	uint32_t const GetDescriptorSizeRTV() { return descriptorSizeRTV_; }
+	uint32_t const GetDescriptorSizeDSV() { return descriptorSizeDSV_; }
 
 private:
 
@@ -306,4 +315,10 @@ private:
 	D3D12_DEPTH_STENCIL_DESC depthStencilDesc_{};
 
 	ID3D12DescriptorHeap* dsvDescriptorHeap_ = nullptr;
+
+	// DescriptorSize
+	uint32_t descriptorSizeSRV_;
+	uint32_t descriptorSizeRTV_;
+	uint32_t descriptorSizeDSV_;
+
 };

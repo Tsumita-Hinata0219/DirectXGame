@@ -51,4 +51,6 @@ private:
 	
 	WorldTransform sphereTransform_;
 	SphereData sphereElemnt_;
+
+
 };
