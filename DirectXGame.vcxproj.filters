@@ -67,30 +67,6 @@
     <Filter Include="ヘッダー ファイル\2D">
       <UniqueIdentifier>{322fb35e-c71a-4b0e-b597-8ad63aad9fce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale">
-      <UniqueIdentifier>{b449ef3a-3088-4f66-9fb0-2d8acf3ec724}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\2D">
-      <UniqueIdentifier>{2b67d632-97a6-42d4-b785-eef4f669f684}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\3D">
-      <UniqueIdentifier>{9c8c8e20-22a7-48ba-8d73-04924039376c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Adapter">
-      <UniqueIdentifier>{6e26df64-3821-4b21-bcfc-dfd87f381002}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Common">
-      <UniqueIdentifier>{0ded1b9f-341e-4224-8bca-53484e79875e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\GameObject">
-      <UniqueIdentifier>{51dcc637-fb71-43bb-8992-670f0daa978a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\math">
-      <UniqueIdentifier>{e7861a3e-a43c-4c8a-9b5d-4e65cffd36c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Scene">
-      <UniqueIdentifier>{e9f8bdd6-fea8-4e1f-8a86-c70207ebc790}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3D\Model.cpp">
