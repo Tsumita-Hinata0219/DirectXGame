@@ -63,7 +63,7 @@ void Sphere::Draw(TextureManager* textureManager) {
 	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSphere_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, useMonsterBall ? textureManager->GetTextureSrvHandleGPU1() : textureManager->GetTextureSrvHandleGPU2());
+	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, useMonsterBall ? textureManager->GetTextureSrvHandleGPU2() : textureManager->GetTextureSrvHandleGPU1());
 
 	// 描画！ (DrawCall / ドローコール)
 	dXCommon_->GetCommandList()->DrawInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0);
