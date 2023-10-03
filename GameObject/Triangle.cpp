@@ -126,7 +126,7 @@ void Triangle::Draw3D() {
 
 void Triangle::Draw2D() {
 
-	sprite_->DrawSprite(pastorale_->GetATextureManager());
+	//sprite_->DrawSprite(pastorale_->GetATextureManager());
 }
 
 
