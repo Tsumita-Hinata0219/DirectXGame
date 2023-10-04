@@ -13,26 +13,8 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル\math">
-      <UniqueIdentifier>{9b94b799-c38f-48d6-bc02-a67d2d21ae51}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Common">
-      <UniqueIdentifier>{dbfc0062-ee6d-4462-9a4b-ced86a26162e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Common">
-      <UniqueIdentifier>{495ab7c0-ffcc-4bad-8014-af36abb44d9a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="リソース ファイル\shaders">
       <UniqueIdentifier>{00b8048a-8066-4c78-aced-9b5a9c8cdc9b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Adapter">
-      <UniqueIdentifier>{b20da67c-7433-4d3f-ad36-d7d7a00ac254}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Adapter">
-      <UniqueIdentifier>{70f8ec1a-1f5f-4068-9bfe-df0eb3ac64e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\math">
-      <UniqueIdentifier>{e6d799be-513d-4853-973b-20ca0a206000}</UniqueIdentifier>
     </Filter>
     <Filter Include="externals">
       <UniqueIdentifier>{a71d56a4-0df8-4b8d-80ad-ae62242eaef2}</UniqueIdentifier>
@@ -67,16 +49,16 @@
     <Filter Include="Pastorale\Common">
       <UniqueIdentifier>{b95c9fe0-a84d-4fff-8f47-e2bc2969d7d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pastorale\Adapter">
+      <UniqueIdentifier>{a7a98e80-4670-414b-ba9c-8526865249f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\math">
+      <UniqueIdentifier>{01563a38-1fa1-4a1b-be1b-4756c5a1837b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="math\Function.cpp">
-      <Filter>ソース ファイル\math</Filter>
-    </ClCompile>
-    <ClCompile Include="Adapter\Pastorale.cpp">
-      <Filter>ソース ファイル\Adapter</Filter>
     </ClCompile>
     <ClCompile Include="externals\imgui\imgui.cpp">
       <Filter>externals\imgui</Filter>
@@ -135,23 +117,14 @@
     <ClCompile Include="Pastorale\Common\WinApp.cpp">
       <Filter>Pastorale\Common</Filter>
     </ClCompile>
+    <ClCompile Include="Pastorale\Adapter\Pastorale.cpp">
+      <Filter>Pastorale\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\math\Function.cpp">
+      <Filter>Pastorale\math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="math\Function.h">
-      <Filter>ヘッダー ファイル\math</Filter>
-    </ClInclude>
-    <ClInclude Include="math\Vector4.h">
-      <Filter>ヘッダー ファイル\math</Filter>
-    </ClInclude>
-    <ClInclude Include="math\Vector2.h">
-      <Filter>ヘッダー ファイル\math</Filter>
-    </ClInclude>
-    <ClInclude Include="math\Vector3.h">
-      <Filter>ヘッダー ファイル\math</Filter>
-    </ClInclude>
-    <ClInclude Include="Adapter\Pastorale.h">
-      <Filter>ヘッダー ファイル\Adapter</Filter>
-    </ClInclude>
     <ClInclude Include="externals\imgui\imconfig.h">
       <Filter>externals\imgui</Filter>
     </ClInclude>
@@ -179,20 +152,11 @@
     <ClInclude Include="utilities\ImGuiManager.h">
       <Filter>utilities</Filter>
     </ClInclude>
-    <ClInclude Include="math\Matrix4x4.h">
-      <Filter>ヘッダー ファイル\math</Filter>
-    </ClInclude>
-    <ClInclude Include="math\Transform.h">
-      <Filter>ヘッダー ファイル\math</Filter>
-    </ClInclude>
     <ClInclude Include="scene\GameScene.h">
       <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\Triangle.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="math\Struct.h">
-      <Filter>ヘッダー ファイル\math</Filter>
     </ClInclude>
     <ClInclude Include="Pastorale\2D\Sprite.h">
       <Filter>Pastorale\2D</Filter>
@@ -220,6 +184,27 @@
     </ClInclude>
     <ClInclude Include="Pastorale\Common\WinApp.h">
       <Filter>Pastorale\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Adapter\Pastorale.h">
+      <Filter>Pastorale\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\math\Function.h">
+      <Filter>Pastorale\math</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\math\Matrix4x4.h">
+      <Filter>Pastorale\math</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\math\Struct.h">
+      <Filter>Pastorale\math</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\math\Vector2.h">
+      <Filter>Pastorale\math</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\math\Vector3.h">
+      <Filter>Pastorale\math</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\math\Vector4.h">
+      <Filter>Pastorale\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
