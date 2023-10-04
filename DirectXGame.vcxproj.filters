@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -21,21 +13,6 @@
     </Filter>
     <Filter Include="externals\imgui">
       <UniqueIdentifier>{d46bcfbd-ff0b-454e-ac17-083e2c39cda5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utilities">
-      <UniqueIdentifier>{35fd5c43-0792-41e2-9111-efd5c582b3cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\scene">
-      <UniqueIdentifier>{9dc1e3b0-6166-46ad-b348-dea1c5c76a68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\scene">
-      <UniqueIdentifier>{368246c1-11f3-4b99-a37f-c58b42a970da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\GameObject">
-      <UniqueIdentifier>{3900cb5c-5c00-4b86-b311-731ed4af0ab8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\GameObject">
-      <UniqueIdentifier>{365edf16-1d6d-4a2f-8627-f9c7f82dd7de}</UniqueIdentifier>
     </Filter>
     <Filter Include="Pastorale">
       <UniqueIdentifier>{7f336eca-0916-4e0d-a05a-189c691263c9}</UniqueIdentifier>
@@ -52,14 +29,47 @@
     <Filter Include="Pastorale\Adapter">
       <UniqueIdentifier>{a7a98e80-4670-414b-ba9c-8526865249f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\math">
-      <UniqueIdentifier>{01563a38-1fa1-4a1b-be1b-4756c5a1837b}</UniqueIdentifier>
+    <Filter Include="Project">
+      <UniqueIdentifier>{e0f3d3c5-5509-4775-9db0-88613708bb4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\GameObject">
+      <UniqueIdentifier>{d4c3b252-12fa-45d0-a8df-ed30ab616ed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\math">
+      <UniqueIdentifier>{54521541-bbdb-4dfd-9717-5f6e364402b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\scene">
+      <UniqueIdentifier>{eb91259a-e1e9-43f0-80bc-00de21024378}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\utilities">
+      <UniqueIdentifier>{2c32b687-6c19-47a6-aa68-8e00d4109980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\3D\Model">
+      <UniqueIdentifier>{7f960782-1a91-4d97-85d4-4a5f9e20b87b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\3D\Sphere">
+      <UniqueIdentifier>{67945ac2-1de7-4b83-881f-054c1a92d7eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\3D\TextureManager">
+      <UniqueIdentifier>{cf98b914-21be-4f44-b32c-215d0bc94bfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\3D\WorldTransform">
+      <UniqueIdentifier>{a68cf07b-d670-44af-87fc-ec28500e5ea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\Common\Camera">
+      <UniqueIdentifier>{d4e16e2b-7232-4a38-bb28-58010b34c1b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\Common\DirectXCommon">
+      <UniqueIdentifier>{144e7bb1-83e2-44c6-a907-90ff98247bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\Common\WinApp">
+      <UniqueIdentifier>{3b9bc143-678c-447a-8965-000f4081707c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\Common\SceneSetup">
+      <UniqueIdentifier>{52392543-1e15-47f2-8bfc-d68fbdeff3ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="externals\imgui\imgui.cpp">
       <Filter>externals\imgui</Filter>
     </ClCompile>
@@ -81,47 +91,48 @@
     <ClCompile Include="externals\imgui\imgui_widgets.cpp">
       <Filter>externals\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="utilities\ImGuiManager.cpp">
-      <Filter>utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="scene\GameScene.cpp">
-      <Filter>ソース ファイル\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Triangle.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Pastorale\2D\Sprite.cpp">
       <Filter>Pastorale\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\Model.cpp">
-      <Filter>Pastorale\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\Sphere.cpp">
-      <Filter>Pastorale\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\TextureManager.cpp">
-      <Filter>Pastorale\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\WorldTransform.cpp">
-      <Filter>Pastorale\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\Camera.cpp">
-      <Filter>Pastorale\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\DirectXCommon.cpp">
-      <Filter>Pastorale\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\SceneSetup.cpp">
-      <Filter>Pastorale\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\WinApp.cpp">
-      <Filter>Pastorale\Common</Filter>
     </ClCompile>
     <ClCompile Include="Pastorale\Adapter\Pastorale.cpp">
       <Filter>Pastorale\Adapter</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\math\Function.cpp">
-      <Filter>Pastorale\math</Filter>
+    <ClCompile Include="Project\GameObject\Triangle.cpp">
+      <Filter>Project\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\math\Function.cpp">
+      <Filter>Project\math</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\scene\GameScene.cpp">
+      <Filter>Project\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\utilities\ImGuiManager.cpp">
+      <Filter>Pastorale\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pastorale\3D\Model\Model.cpp">
+      <Filter>Pastorale\3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\3D\Sphere\Sphere.cpp">
+      <Filter>Pastorale\3D\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\3D\TextureManager\TextureManager.cpp">
+      <Filter>Pastorale\3D\TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\3D\WorldTransform\WorldTransform.cpp">
+      <Filter>Pastorale\3D\WorldTransform</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\Camera\Camera.cpp">
+      <Filter>Pastorale\Common\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\DirectXCommon\DirectXCommon.cpp">
+      <Filter>Pastorale\Common\DirectXCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\WinApp\WinApp.cpp">
+      <Filter>Pastorale\Common\WinApp</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\SceneSetup\SceneSetup.cpp">
+      <Filter>Pastorale\Common\SceneSetup</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,62 +160,62 @@
     <ClInclude Include="externals\imgui\imstb_truetype.h">
       <Filter>externals\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="utilities\ImGuiManager.h">
-      <Filter>utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="scene\GameScene.h">
-      <Filter>ヘッダー ファイル\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Triangle.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Pastorale\2D\Sprite.h">
       <Filter>Pastorale\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\Model.h">
-      <Filter>Pastorale\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\Sphere.h">
-      <Filter>Pastorale\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\TextureManager.h">
-      <Filter>Pastorale\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\WorldTransform.h">
-      <Filter>Pastorale\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\Camera.h">
-      <Filter>Pastorale\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\DirectXCommon.h">
-      <Filter>Pastorale\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\SceneSetup.h">
-      <Filter>Pastorale\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\WinApp.h">
-      <Filter>Pastorale\Common</Filter>
     </ClInclude>
     <ClInclude Include="Pastorale\Adapter\Pastorale.h">
       <Filter>Pastorale\Adapter</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\math\Function.h">
-      <Filter>Pastorale\math</Filter>
+    <ClInclude Include="Project\GameObject\Triangle.h">
+      <Filter>Project\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\math\Matrix4x4.h">
-      <Filter>Pastorale\math</Filter>
+    <ClInclude Include="Project\math\Function.h">
+      <Filter>Project\math</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\math\Struct.h">
-      <Filter>Pastorale\math</Filter>
+    <ClInclude Include="Project\math\Matrix4x4.h">
+      <Filter>Project\math</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\math\Vector2.h">
-      <Filter>Pastorale\math</Filter>
+    <ClInclude Include="Project\math\Struct.h">
+      <Filter>Project\math</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\math\Vector3.h">
-      <Filter>Pastorale\math</Filter>
+    <ClInclude Include="Project\math\Vector2.h">
+      <Filter>Project\math</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\math\Vector4.h">
-      <Filter>Pastorale\math</Filter>
+    <ClInclude Include="Project\math\Vector3.h">
+      <Filter>Project\math</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\math\Vector4.h">
+      <Filter>Project\math</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\scene\GameScene.h">
+      <Filter>Project\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\utilities\ImGuiManager.h">
+      <Filter>Pastorale\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\Model\Model.h">
+      <Filter>Pastorale\3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\Sphere\Sphere.h">
+      <Filter>Pastorale\3D\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\TextureManager\TextureManager.h">
+      <Filter>Pastorale\3D\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\WorldTransform\WorldTransform.h">
+      <Filter>Pastorale\3D\WorldTransform</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\Camera\Camera.h">
+      <Filter>Pastorale\Common\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\DirectXCommon\DirectXCommon.h">
+      <Filter>Pastorale\Common\DirectXCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\WinApp\WinApp.h">
+      <Filter>Pastorale\Common\WinApp</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\SceneSetup\SceneSetup.h">
+      <Filter>Pastorale\Common\SceneSetup</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
