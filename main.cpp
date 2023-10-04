@@ -54,5 +54,3 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// COMの終了処理
 	CoUninitialize();
 }
-
-
