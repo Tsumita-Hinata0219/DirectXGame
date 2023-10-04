@@ -80,9 +80,9 @@ void Triangle::Initialize(Pastorale* pastorale, DirectXCommon* dXCommon){
 /// </summary>
 void Triangle::Update(Matrix4x4& ViewMatrix){
 
-	transform_.rotate.y += 0.03f;
+	transform_.rotate_.y += 0.03f;
 
-	sphereTransform_.rotate.y += 0.02f;
+	sphereTransform_.rotate_.y += 0.02f;
 
 	pastorale_->GetModel()->Update(element_, transform_, ViewMatrix);
 
@@ -94,9 +94,9 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 
 	ImGui::Begin("Sprite");
 
-	ImGui::SliderFloat3("Scale", &spriteTransform_.scale.x, -2.0f, 2.0f);
-	ImGui::SliderFloat3("Rotate", &spriteTransform_.rotate.x, -4.0f, 4.0f);
-	ImGui::SliderFloat3("Translate", &spriteTransform_.translate.x, 0.0f, 1000);
+	ImGui::SliderFloat3("Scale", &spriteTransform_.scale_.x, -2.0f, 2.0f);
+	ImGui::SliderFloat3("Rotate", &spriteTransform_.rotate_.x, -4.0f, 4.0f);
+	ImGui::SliderFloat3("Translate", &spriteTransform_.translation_.x, 0.0f, 1000);
 
 	ImGui::End();
 
@@ -104,9 +104,9 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 
 	ImGui::Begin("sphere");
 
-	ImGui::SliderFloat3("Scale", &sphereTransform_.scale.x, -2.0f, 2.0f);
-	ImGui::SliderFloat3("Rotate", &sphereTransform_.rotate.x, -4.0f, 4.0f);
-	ImGui::SliderFloat3("Translate", &sphereTransform_.translate.x, 0.0f, 1000);
+	ImGui::SliderFloat3("Scale", &sphereTransform_.scale_.x, -2.0f, 2.0f);
+	ImGui::SliderFloat3("Rotate", &sphereTransform_.rotate_.x, -4.0f, 4.0f);
+	ImGui::SliderFloat3("Translate", &sphereTransform_.translation_.x, 0.0f, 1000);
 
 	ImGui::End();
 

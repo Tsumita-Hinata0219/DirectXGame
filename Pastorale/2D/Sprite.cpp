@@ -208,7 +208,7 @@ void Sprite::CreateTransformationMatrix() {
 void Sprite::CreateWVPMatrix(WorldTransform transform) {
 
 	// Sprite用のWorldViewProjectonMatrixを作る
-	worldMatrixSprite = MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);
+	worldMatrixSprite = MakeAffineMatrix(transform.scale_, transform.rotate_, transform.translation_);
 	viewMatrixSprite = MakeIdentity4x4();
 	projectionMatrixSprite = 
 		MakeOrthographicMatrix(0.0f, 0.0f, float(ClientWidth_), float(ClientHeight_), 0.0f, 100.0f);

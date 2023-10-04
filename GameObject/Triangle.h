@@ -2,7 +2,7 @@
 #include "DirectXCommon.h"
 #include "Model.h"
 #include "TextureManager.h"
-#include "Transform.h"
+#include "WorldTransform.h"
 #include "Pastorale.h"
 #include "Sprite.h"
 #include "ImGuiManager.h"

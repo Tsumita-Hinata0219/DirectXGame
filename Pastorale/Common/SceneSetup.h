@@ -10,7 +10,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(const int32_t Width, const int32_t Height, Transform cameraTransform);
+	void Initialize(const int32_t Width, const int32_t Height, WorldTransform cameraTransform);
 
 	/// <summary>
 	/// 更新処理
@@ -35,7 +35,7 @@ private:
 	int32_t Height_;
 
 	// カメラのTransform変数
-	Transform cameraTransform_;
+	WorldTransform cameraTransform_;
 
 	Matrix4x4 worldMatrix_;
 	Matrix4x4 cameraMatrix_;

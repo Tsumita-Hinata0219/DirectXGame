@@ -76,3 +76,4 @@ private:
 	WorldTransform triangleTransform_{};
 
 };
+

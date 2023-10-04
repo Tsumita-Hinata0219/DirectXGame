@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Function.h"
 #include "Struct.h"
-#include "Transform.h"
+#include "WorldTransform.h"
 #include "TextureManager.h"
 #include "DirectXCommon.h"
 #include "ImGuiManager.h"

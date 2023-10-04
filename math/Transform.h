@@ -2,9 +2,9 @@
 #include"Vector3.h"
 
 
-struct WorldTransform {
+struct Transform {
 	Vector3 scale;
 	Vector3 rotate;
-	Vector3 translate;
+	Vector3 translation;
 };
 

@@ -264,7 +264,7 @@ void Sphere::CreateTransformationMatrixResource() {
 void Sphere::CreateWVPMatrix(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix) {
 
 	// Sprite用のWorldViewProjectonMatrixを作る
-	worldMatrixSphere = MakeAffineMatrix(transform.scale, transform.rotate, Add(transform.translate, sphere.center));
+	worldMatrixSphere = MakeAffineMatrix(transform.scale_, transform.rotate_, Add(transform.translation_, sphere.center));
 
 
 	*transfomationMatrixDataSphere_ = Multiply(worldMatrixSphere, viewMatrix);

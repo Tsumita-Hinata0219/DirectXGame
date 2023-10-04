@@ -3,7 +3,7 @@
 
 
 // 初期化処理
-void SceneSetup::Initialize(const int32_t Width, const int32_t Height, Transform cameraTransform) {
+void SceneSetup::Initialize(const int32_t Width, const int32_t Height, WorldTransform cameraTransform) {
 
 	Width_ = Width;
 	Height_ = Height;

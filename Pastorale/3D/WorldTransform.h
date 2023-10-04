@@ -5,7 +5,7 @@
 /// <summary>
 /// ワールド変換データ
 /// </summary>
-struct Transform {
+struct WorldTransform {
 
 	// ローカルスケール
 	Vector3 scale_ = { 1.0f, 1.0f, 1.0f };

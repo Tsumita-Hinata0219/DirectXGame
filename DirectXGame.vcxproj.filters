@@ -22,12 +22,6 @@
     <Filter Include="ヘッダー ファイル\Common">
       <UniqueIdentifier>{495ab7c0-ffcc-4bad-8014-af36abb44d9a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\3D">
-      <UniqueIdentifier>{ba7f33b4-f7f0-402d-9b35-43053dfb401b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\3D">
-      <UniqueIdentifier>{cd32b072-7b7f-4053-8bc3-a9c9c52547ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="リソース ファイル\shaders">
       <UniqueIdentifier>{00b8048a-8066-4c78-aced-9b5a9c8cdc9b}</UniqueIdentifier>
     </Filter>
@@ -61,23 +55,20 @@
     <Filter Include="ヘッダー ファイル\GameObject">
       <UniqueIdentifier>{365edf16-1d6d-4a2f-8627-f9c7f82dd7de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\2D">
-      <UniqueIdentifier>{e3e0a1b2-9251-47d9-9220-2ac00ee77efe}</UniqueIdentifier>
+    <Filter Include="Pastorale">
+      <UniqueIdentifier>{7f336eca-0916-4e0d-a05a-189c691263c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\2D">
-      <UniqueIdentifier>{322fb35e-c71a-4b0e-b597-8ad63aad9fce}</UniqueIdentifier>
+    <Filter Include="Pastorale\2D">
+      <UniqueIdentifier>{29a466d3-6a06-4240-a76c-8fafb8b3092d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\3D">
+      <UniqueIdentifier>{84ba9a78-87c4-458b-8c08-7f338e692b21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\Common">
+      <UniqueIdentifier>{b95c9fe0-a84d-4fff-8f47-e2bc2969d7d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3D\Model.cpp">
-      <Filter>ソース ファイル\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\DirectXCommon.cpp">
-      <Filter>ソース ファイル\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\WinApp.cpp">
-      <Filter>ソース ファイル\Common</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -111,26 +102,38 @@
     <ClCompile Include="utilities\ImGuiManager.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Common\Camera.cpp">
-      <Filter>ソース ファイル\Common</Filter>
-    </ClCompile>
     <ClCompile Include="scene\GameScene.cpp">
       <Filter>ソース ファイル\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\TextureManager.cpp">
-      <Filter>ソース ファイル\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\WorldTransform.cpp">
-      <Filter>ソース ファイル\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\Triangle.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="2D\Sprite.cpp">
-      <Filter>ソース ファイル\2D</Filter>
+    <ClCompile Include="Pastorale\2D\Sprite.cpp">
+      <Filter>Pastorale\2D</Filter>
     </ClCompile>
-    <ClCompile Include="3D\Sphere.cpp">
-      <Filter>ソース ファイル\3D</Filter>
+    <ClCompile Include="Pastorale\3D\Model.cpp">
+      <Filter>Pastorale\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\3D\Sphere.cpp">
+      <Filter>Pastorale\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\3D\TextureManager.cpp">
+      <Filter>Pastorale\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\3D\WorldTransform.cpp">
+      <Filter>Pastorale\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\Camera.cpp">
+      <Filter>Pastorale\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\DirectXCommon.cpp">
+      <Filter>Pastorale\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\SceneSetup.cpp">
+      <Filter>Pastorale\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\WinApp.cpp">
+      <Filter>Pastorale\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,15 +142,6 @@
     </ClInclude>
     <ClInclude Include="math\Vector4.h">
       <Filter>ヘッダー ファイル\math</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\Model.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\DirectXCommon.h">
-      <Filter>ヘッダー ファイル\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\WinApp.h">
-      <Filter>ヘッダー ファイル\Common</Filter>
     </ClInclude>
     <ClInclude Include="math\Vector2.h">
       <Filter>ヘッダー ファイル\math</Filter>
@@ -185,9 +179,6 @@
     <ClInclude Include="utilities\ImGuiManager.h">
       <Filter>utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Common\Camera.h">
-      <Filter>ヘッダー ファイル\Common</Filter>
-    </ClInclude>
     <ClInclude Include="math\Matrix4x4.h">
       <Filter>ヘッダー ファイル\math</Filter>
     </ClInclude>
@@ -197,23 +188,38 @@
     <ClInclude Include="scene\GameScene.h">
       <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
-    <ClInclude Include="3D\TextureManager.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\WorldTransform.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject\Triangle.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="math\Struct.h">
       <Filter>ヘッダー ファイル\math</Filter>
     </ClInclude>
-    <ClInclude Include="2D\Sprite.h">
-      <Filter>ヘッダー ファイル\2D</Filter>
+    <ClInclude Include="Pastorale\2D\Sprite.h">
+      <Filter>Pastorale\2D</Filter>
     </ClInclude>
-    <ClInclude Include="3D\Sphere.h">
-      <Filter>ヘッダー ファイル\3D</Filter>
+    <ClInclude Include="Pastorale\3D\Model.h">
+      <Filter>Pastorale\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\Sphere.h">
+      <Filter>Pastorale\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\TextureManager.h">
+      <Filter>Pastorale\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\WorldTransform.h">
+      <Filter>Pastorale\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\Camera.h">
+      <Filter>Pastorale\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\DirectXCommon.h">
+      <Filter>Pastorale\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\SceneSetup.h">
+      <Filter>Pastorale\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\WinApp.h">
+      <Filter>Pastorale\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

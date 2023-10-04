@@ -119,7 +119,7 @@ void Model::MakeTransformationMatResource() {
 void Model::SetVertex(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix) {
 
 	//行列を作る
-	worldMatrix_ = MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);
+	worldMatrix_ = MakeAffineMatrix(transform.scale_, transform.rotate_, transform.translation_);
 
 
 	// VertexResourceを生成する
