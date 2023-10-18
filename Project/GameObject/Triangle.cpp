@@ -95,21 +95,21 @@ void Triangle::Update(Matrix4x4& ViewMatrix) {
 	ImGui::Begin("DrawObject");
 
 	ImGui::Text("TriangleModel");
-	ImGui::DragFloat3("Scale", &modelTransform_.scale_.x, 0.1f);
-	ImGui::DragFloat3("Rotate", &modelTransform_.rotate_.x, 0.1f);
-	ImGui::DragFloat3("Translate", &modelTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat3("modelScale", &modelTransform_.scale_.x, 0.1f);
+	ImGui::DragFloat3("modelRotate", &modelTransform_.rotate_.x, 0.1f);
+	ImGui::DragFloat3("modelTranslate", &modelTransform_.translation_.x, 0.1f);
 
 	ImGui::Text("");
 	ImGui::Text("Sprite");
-	ImGui::DragFloat3("Scale", &spriteTransform_.scale_.x, 0.1f);
-	ImGui::DragFloat3("Rotate", &spriteTransform_.rotate_.x, 0.1f);
-	ImGui::DragFloat3("Translate", &spriteTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat3("spriteScale", &spriteTransform_.scale_.x, 0.1f);
+	ImGui::DragFloat3("spriteRotate", &spriteTransform_.rotate_.x, 0.1f);
+	ImGui::DragFloat3("spriteTranslate", &spriteTransform_.translation_.x, 0.1f);
 
 	ImGui::Text("");
 	ImGui::Text("Sphere");
-	ImGui::DragFloat3("Scale", &sphereTransform_.scale_.x, 0.1f);
-	ImGui::DragFloat3("Rotate", &sphereTransform_.rotate_.x, 0.1f);
-	ImGui::DragFloat3("Translate", &sphereTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
+	ImGui::DragFloat3("sphereRotate", &sphereTransform_.rotate_.x, 0.1f);
+	ImGui::DragFloat3("sphereTranslate", &sphereTransform_.translation_.x, 0.1f);
 	ImGui::DragFloat("Radius", &sphereElemnt_.radius, 0.1f, 1.0f);
 
 	ImGui::Text("");
