@@ -5,67 +5,106 @@
 #include <cassert>
 
 
+struct TextureDescriptorHandle {
+	D3D12_CPU_DESCRIPTOR_HANDLE srvHandle_CPU;
+	D3D12_GPU_DESCRIPTOR_HANDLE srvHandle_GPU;
+	ID3D12Resource* Resource;
+};
+
 
 
 class TextureManager {
 
-public:
+public: // メンバ関数
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	TextureManager();
-
+	TextureManager() {};
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~TextureManager();
+	~TextureManager() {};
+
+
+	/// <summary>
+	/// TextureManagerのインスタンス取得
+	/// </summary>
+	static TextureManager* GetInstance();
 
 
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize();
+	static void Initialize();
 
-	
+
 	/// <summary>
 	/// Textuerデータを読み込む
 	/// </summary>
-	void LoadTexture(const std::string& filePath1, const std::string& filePath2);
+	static uint32_t LoadTexture(const std::string& filePath);
 
+
+	/// <summary>
+	/// DescriptorTableを設定する
+	/// </summary>
+	static void SetGraphicsRootDescriptorTable(UINT rootPatramerterIndex, uint32_t texhandle);
+
+
+	/// <summary>
+	/// DescriptorHandleを取得する
+	/// </summary>
+	static D3D12_CPU_DESCRIPTOR_HANDLE GetCPUDescriptorHandle(ID3D12DescriptorHeap* descriptorHeap, uint32_t descriptorSize, uint32_t index);
+	static D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandle(ID3D12DescriptorHeap* descriptorHeap, uint32_t descriptorSize, uint32_t index);
+
+
+private: // メンバ関数
 
 	/// <summary>
 	/// Textureファイルを開く
 	/// </summary>
-	DirectX::ScratchImage ImageFileOpen(const std::string& filePath);
+	static DirectX::ScratchImage CreateMipImage(const std::string& filePath);
 
 
 	/// <summary>
 	/// DirectX12のTExtureResourceを作る
 	/// </summary>
-	ID3D12Resource* CreateTextureResource(const DirectX::TexMetadata& metadata);
+	static ID3D12Resource* CreateTextureResource(const DirectX::TexMetadata& metadata);
 
 
 	/// <summary>
 	/// TextureResourceにデータを転送する
 	/// </summary>
-	void UpdateTextureData(ID3D12Resource* texture, const DirectX::ScratchImage& mipImage);
+	static void UpdateTextureData(const DirectX::ScratchImage& mipImage);
 
 
 	/// <summary>
-	/// アクセッサ
+	/// metadataを基にResourceの設定
 	/// </summary>
-	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureSrvHandleGPU1() { return textureSrvHandleGPU1_; }
-	D3D12_GPU_DESCRIPTOR_HANDLE GetTextureSrvHandleGPU2() { return textureSrvHandleGPU2_; }
+	static D3D12_RESOURCE_DESC SettingResource(const DirectX::TexMetadata& metadata);
 
 
-private:
+	/// <summary>
+	/// 利用するHeapの設定
+	/// </summary>
+	static D3D12_HEAP_PROPERTIES SettingUseHeap();
 
-	D3D12_CPU_DESCRIPTOR_HANDLE textureSrvHandleCPU1_;
-	D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU1_;
 
-	D3D12_CPU_DESCRIPTOR_HANDLE textureSrvHandleCPU2_;
-	D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU2_;
+	/// <summary>
+	/// Resourceを生成する
+	/// </summary>
+	static ID3D12Resource* CreateResource(D3D12_RESOURCE_DESC resourceDesc, D3D12_HEAP_PROPERTIES heapProperties);
+
+
+
+private: // メンバ変数
+
+	// ロードできるテクスチャの最大数
+	const static uint32_t TexLoadMax = 128;
+	// デスクリプターヒープの場所指定のインデックス
+	uint32_t LoadTextureIndex_ = 0;
+	// テクスチャの情報持っているやつ
+	TextureDescriptorHandle tex_[TexLoadMax];
 };
 
