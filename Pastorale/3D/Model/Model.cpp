@@ -10,10 +10,7 @@ Model::~Model() {
 
 
 // 初期化処理
-void Model::Initialize(DirectXCommon* dXCommon) {
-
-	dXCommon_ = dXCommon;
-}
+void Model::Initialize() {}
 
 
 
@@ -93,7 +90,7 @@ D3D12_VERTEX_BUFFER_VIEW Model::MakeBufferView(ID3D12Resource* resource, size_t 
 void Model::MakeMaterialResource() {
 
 	// マテリアル用のリソースを作る。今回はcolor1つ分サイズを用意する
-	materialResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Vector4));
+	materialResource_ = CreateBufferResource(DirectXCommon::GetInstance()->GetDevice(), sizeof(Vector4));
 
 	// マテリアルにデータを書き込む
 	// 書き込むためのアドレスを取得
@@ -106,7 +103,7 @@ void Model::MakeMaterialResource() {
 void Model::MakeTransformationMatResource() {
 
 	// WVP用のリソースを作る。Matrix4x4 1つ分のサイズを用意する
-	wvpResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Matrix4x4));
+	wvpResource_ = CreateBufferResource(DirectXCommon::GetInstance()->GetDevice(), sizeof(Matrix4x4));
 
 	// データを書き込む
 	// 書き込むためのアドレスを取得
@@ -123,7 +120,7 @@ void Model::SetVertex(TriangleElement element, WorldTransform& transform, Matrix
 
 
 	// VertexResourceを生成する
-	vertexResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(VertexData) * 6);
+	vertexResource_ = CreateBufferResource(DirectXCommon::GetInstance()->GetDevice(), sizeof(VertexData) * 6);
 	// Material用のResourceを作る
 	MakeMaterialResource();
 	// TransformationMatrix用のResourceを作る
@@ -171,22 +168,22 @@ void Model::Draw(TextureManager* textureManager) {
 
 	///// いざ描画！！！！！
 	// VBVを設定
-	dXCommon_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferView_);
+	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &vertexBufferView_);
 
 	// 形状を設定
-	dXCommon_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	DirectXCommon::GetInstance()->GetCommands().List->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// CBVを設定する
-	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
 
 	// wvp用のCBufferの場所を設定
-	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, wvpResource_->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, wvpResource_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU1());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU1());
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-	dXCommon_->GetCommandList()->DrawInstanced(6, 1, 0, 0);
+	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(6, 1, 0, 0);
 }
 
 

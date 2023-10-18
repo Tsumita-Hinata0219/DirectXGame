@@ -23,7 +23,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(DirectXCommon* dXCommon);
+	void Initialize();
 
 	/// <summary>
 	/// 更新処理
@@ -75,7 +75,6 @@ public:
 
 private:
 
-	DirectXCommon* dXCommon_ = nullptr;
 
 	TextureManager* textureManager_ = nullptr;
 
