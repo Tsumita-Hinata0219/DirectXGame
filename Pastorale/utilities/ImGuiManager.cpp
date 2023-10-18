@@ -1,12 +1,12 @@
 #include "ImGuiManager.h"
 
 
-void ImGuiManager::Initialize(WinApp* winApp, DirectXCommon* dXcommon) {
+void ImGuiManager::Initialize(DirectXCommon* dXcommon) {
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
-	ImGui_ImplWin32_Init(winApp->GetHwnd());
+	ImGui_ImplWin32_Init(WinApp::GetInstance()->GetHwnd());
 	ImGui_ImplDX12_Init(
 		dXcommon->GetDevice(), 
 		dXcommon->GetSwapChainDesc().BufferCount,

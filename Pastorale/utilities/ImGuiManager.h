@@ -6,7 +6,7 @@ class ImGuiManager {
 
 public:
 
-	void Initialize(WinApp* winApp, DirectXCommon* dXcommon);
+	void Initialize(DirectXCommon* dXcommon);
 
 	void BeginFrame(DirectXCommon* dXcommon);
 	void EndFrame(DirectXCommon* dXcommon);
