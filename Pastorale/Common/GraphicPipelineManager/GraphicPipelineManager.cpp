@@ -106,6 +106,10 @@ void GraphicPipelineManager::SetInputLayout() {
 	GraphicPipelineManager::GetInstance()->usePso_.inputElementDescs[1].SemanticIndex = 0;
 	GraphicPipelineManager::GetInstance()->usePso_.inputElementDescs[1].Format = DXGI_FORMAT_R32G32_FLOAT;
 	GraphicPipelineManager::GetInstance()->usePso_.inputElementDescs[1].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	GraphicPipelineManager::GetInstance()->usePso_.inputElementDescs[2].SemanticName = "NORMAL";
+	GraphicPipelineManager::GetInstance()->usePso_.inputElementDescs[2].SemanticIndex = 0;
+	GraphicPipelineManager::GetInstance()->usePso_.inputElementDescs[2].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	GraphicPipelineManager::GetInstance()->usePso_.inputElementDescs[2].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
 	GraphicPipelineManager::GetInstance()->usePso_.inputLayoutDesc.pInputElementDescs = GraphicPipelineManager::GetInstance()->usePso_.inputElementDescs;
 	GraphicPipelineManager::GetInstance()->usePso_.inputLayoutDesc.NumElements = _countof(GraphicPipelineManager::GetInstance()->usePso_.inputElementDescs);
 }
