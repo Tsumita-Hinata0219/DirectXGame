@@ -32,34 +32,25 @@ public:
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update();
+	void Update() {};
 
 
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw();
-
-
-	/// <summary>
-	/// テクスチャファイルを読み込む
-	/// </summary>
-	void Loadtexture(const std::string& filePath1, const std::string& filePath2);
-
+	void Draw() {};
 
 
 	/// <summary>
 	/// アクセッサ 取得
 	/// </summary>
 	Model* GetModel() { return model_; }
-	TextureManager* GetATextureManager() { return textureManager_; }
+
 
 
 private:
 
 	// Modelの生成
 	Model* model_ = nullptr;
-	// TextureManagerの生成
-	TextureManager* textureManager_ = nullptr;
 };
 

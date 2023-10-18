@@ -5,11 +5,10 @@
 /// <summary>
 /// コンストラク
 /// </summary>
-Pastorale::Pastorale(){
+Pastorale::Pastorale() {
 
 	// 生成
 	model_ = new Model();
-	textureManager_ = new TextureManager();
 }
 
 
@@ -17,11 +16,10 @@ Pastorale::Pastorale(){
 /// <summary>
 /// デストラクタ
 /// </summary>
-Pastorale::~Pastorale(){
+Pastorale::~Pastorale() {
 
 	// 解放処理
 	delete model_;
-	delete textureManager_;
 }
 
 
@@ -29,36 +27,12 @@ Pastorale::~Pastorale(){
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Pastorale::Initialize(){
+void Pastorale::Initialize() {
 
 	// TextureManagerの初期化処理
-	textureManager_->Initialize();
+	TextureManager::Initialize();
 
 	// Modelの初期化処理
 	model_->Initialize();
-}
-
-
-
-/// <summary>
-/// 更新処理
-/// </summary>
-void Pastorale::Update(){}
-
-
-
-/// <summary>
-/// 描画処理
-/// </summary>
-void Pastorale::Draw(){}
-
-
-
-/// <summary>
-/// テクスチャファイルを読み込む
-/// </summary>
-void Pastorale::Loadtexture(const std::string& filePath1, const std::string& filePath2){
-
-	textureManager_->LoadTexture(filePath1, filePath2);
 }
 
