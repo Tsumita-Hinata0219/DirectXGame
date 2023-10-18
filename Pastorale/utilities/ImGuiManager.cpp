@@ -1,35 +1,42 @@
 #include "ImGuiManager.h"
 
 
-void ImGuiManager::Initialize(DirectXCommon* dXcommon) {
+ImGuiManager* ImGuiManager::GetInstance() {
+
+	static ImGuiManager instance;
+	return &instance;
+}
+
+
+void ImGuiManager::Initialize() {
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
 	ImGui_ImplWin32_Init(WinApp::GetInstance()->GetHwnd());
 	ImGui_ImplDX12_Init(
-		dXcommon->GetDevice(), 
-		dXcommon->GetSwapChainDesc().BufferCount,
-		dXcommon->GetrtvDesc().Format,
-		dXcommon->GetsrvDescriptorHeap(),
-		dXcommon->GetsrvDescriptorHeap()->GetCPUDescriptorHandleForHeapStart(),
-		dXcommon->GetsrvDescriptorHeap()->GetGPUDescriptorHandleForHeapStart());
+		DirectXCommon::GetInstance()->GetDevice(),
+		DirectXCommon::GetInstance()->GetSwapChains().Desc.BufferCount,
+		DirectXCommon::GetInstance()->GetRTV().Desc.Format,
+		DirectXCommon::GetInstance()->GetSrvDescriptorHeap(),
+		DirectXCommon::GetInstance()->GetSrvDescriptorHeap()->GetCPUDescriptorHandleForHeapStart(),
+		DirectXCommon::GetInstance()->GetSrvDescriptorHeap()->GetGPUDescriptorHandleForHeapStart());
 }
 
 
-void ImGuiManager::BeginFrame(DirectXCommon* dXcommon) {
+void ImGuiManager::BeginFrame() {
 	ImGui_ImplDX12_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	ID3D12DescriptorHeap* descriptorHeap[] = { dXcommon->GetsrvDescriptorHeap() };
-	dXcommon->GetCommandList()->SetDescriptorHeaps(1, descriptorHeap);
+	ID3D12DescriptorHeap* descriptorHeap[] = { DirectXCommon::GetInstance()->GetSrvDescriptorHeap() };
+	DirectXCommon::GetInstance()->GetCommands().List->SetDescriptorHeaps(1, descriptorHeap);
 }
 
 
-void ImGuiManager::EndFrame(DirectXCommon* dXcommon) {
+void ImGuiManager::EndFrame() {
 	ImGui::Render();
 
 	//実際のCommandListのImGuiの描画コマンドを進む
-	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), dXcommon->GetCommandList());
+	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), DirectXCommon::GetInstance()->GetCommands().List);
 }

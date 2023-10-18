@@ -6,8 +6,8 @@ class ImGuiManager {
 
 public:
 
-	void Initialize(DirectXCommon* dXcommon);
-
-	void BeginFrame(DirectXCommon* dXcommon);
-	void EndFrame(DirectXCommon* dXcommon);
+	static ImGuiManager* GetInstance();
+	static void Initialize();
+	static void BeginFrame();
+	static void EndFrame();
 };
