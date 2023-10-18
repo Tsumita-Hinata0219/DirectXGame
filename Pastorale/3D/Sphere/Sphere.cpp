@@ -12,7 +12,7 @@ Sphere::Sphere() {}
 /// <summary>
 /// デストラクタ
 /// </summary>
-Sphere::~Sphere(){}
+Sphere::~Sphere() {}
 
 
 
@@ -29,11 +29,6 @@ void Sphere::Initialize() {}
 void Sphere::Update(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix) {
 
 	SetVertex(sphere, transform, viewMatrix);
-
-	ImGui::Begin("ShpereTexture");
-	ImGui::Checkbox("useMonsterBall", &useMonsterBall);
-	ImGui::End();
-
 }
 
 
@@ -41,7 +36,7 @@ void Sphere::Update(SphereData sphere, WorldTransform transform, Matrix4x4& view
 /// <summary>
 /// 描画処理
 /// </summary>
-void Sphere::Draw(TextureManager* textureManager) {
+void Sphere::Draw(uint32_t texhandle) {
 
 	/// コマンドを積む
 	// 頂点の設定 (VBVを設定)
@@ -52,12 +47,15 @@ void Sphere::Draw(TextureManager* textureManager) {
 
 	// 色用のCBufferの場所を設定
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(0, materialResourceSphere_->GetGPUVirtualAddress());
-	
+
 	// wvp用のCBufferの場所を設定
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSphere_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, useMonsterBall ? textureManager->GetTextureSrvHandleGPU2() : textureManager->GetTextureSrvHandleGPU1());
+	if (!texhandle == 0) {
+		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, texhandle);
+	}
+
 
 	// 描画！ (DrawCall / ドローコール)
 	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0);
@@ -241,7 +239,7 @@ D3D12_VERTEX_BUFFER_VIEW Sphere::CreateBufferView(ID3D12Resource* resource) {
 /// TransformationMatrix用のResoureを作る
 /// </summary>
 void Sphere::CreateTransformationMatrixResource() {
-	
+
 	// WVP用のリソースを作る。Matrix4x4 1つ分のサイズを用意する
 	transformationMatrixResourceSphere_ = CreateBufferResource(sizeof(Matrix4x4));
 

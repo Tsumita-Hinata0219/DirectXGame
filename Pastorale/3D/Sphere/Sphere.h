@@ -40,7 +40,7 @@ public:
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw(TextureManager* textureManager);
+	void Draw(uint32_t texhandle);
 
 
 	/// <summary>
