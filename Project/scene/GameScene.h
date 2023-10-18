@@ -56,8 +56,6 @@ public:
 
 private:
 
-	// DirectXCommonの生成
-	DirectXCommon* dXCommon_ = nullptr;
 	// Cameraの生成
 	Camera* camera_ = nullptr;
 	//　ImGuiの生成

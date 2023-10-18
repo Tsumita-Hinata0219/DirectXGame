@@ -8,7 +8,6 @@
 GameScene::GameScene() {
 
 	// 生成
-	dXCommon_ = new DirectXCommon();
 	camera_ = new Camera();
 	imguiManager_ = new ImGuiManager();
 	pastorale_ = new Pastorale();
@@ -24,7 +23,6 @@ GameScene::GameScene() {
 GameScene::~GameScene() {
 
 	// 解放処理
-	delete dXCommon_;
 	delete camera_;
 	delete imguiManager_;
 	delete pastorale_;
@@ -43,19 +41,19 @@ void GameScene::Initialize(const wchar_t* title) {
 	WinApp::Initialize(title);
 
 	// DirectXCommonの初期化処理
-	dXCommon_->Initialize();
+	DirectXCommon::Initialize();
 
 	// Pastoraleの初期化書影
-	pastorale_->Initialize(dXCommon_);
+	pastorale_->Initialize();
 
 	// Triangleの初期化処理
-	triangle_->Initialize(pastorale_, dXCommon_);
+	triangle_->Initialize(pastorale_);
 
 	// Cameraの初期化処理
 	camera_->Initialize();
 
 	// ImGuiの初期化処理
-	imguiManager_->Initialize(dXCommon_);
+	imguiManager_->Initialize();
 
 	// Spriteの初期化処理
 	WorldTransform transformSprite{ {1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f} };
@@ -110,8 +108,8 @@ void GameScene::Draw2D() {
 /// </summary>
 void GameScene::BeginFrame() {
 
-	dXCommon_->PreDraw();
-	imguiManager_->BeginFrame(dXCommon_);
+	DirectXCommon::PreDraw();
+	imguiManager_->BeginFrame();
 }
 
 
@@ -121,8 +119,8 @@ void GameScene::BeginFrame() {
 /// </summary>
 void GameScene::EndFrame() {
 
-	imguiManager_->EndFrame(dXCommon_);
-	dXCommon_->PostDraw();
+	imguiManager_->EndFrame();
+	DirectXCommon::PostDraw();
 }
 
 
