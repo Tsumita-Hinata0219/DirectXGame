@@ -18,7 +18,7 @@ public:
 	~Triangle();
 
 
-	void Initialize(Pastorale* pastorale, DirectXCommon* dXCommon);
+	void Initialize(Pastorale* pastorale);
 
 	void Update(Matrix4x4& ViewMatrix);
 

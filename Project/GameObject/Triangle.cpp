@@ -22,7 +22,7 @@ Triangle::~Triangle() {
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Triangle::Initialize(Pastorale* pastorale, DirectXCommon* dXCommon){
+void Triangle::Initialize(Pastorale* pastorale){
 
   	pastorale_ = pastorale;
 
@@ -46,7 +46,7 @@ void Triangle::Initialize(Pastorale* pastorale, DirectXCommon* dXCommon){
 
 
 	// スプライト
-	sprite_->Initialize(1280, 720, dXCommon);
+	sprite_->Initialize();
 	spriteTransform_ = {
 		{1.0f, 1.0f, 1.0f},
 		{0.0f, 0.0f, 0.0f},
@@ -70,7 +70,7 @@ void Triangle::Initialize(Pastorale* pastorale, DirectXCommon* dXCommon){
 		{0.0f, 0.0f, 20.0f},
 		{20.0f},
 	};
-	sphere_->Initialize(1280, 720, dXCommon, sphereTransform_);
+	sphere_->Initialize(sphereTransform_);
 }
 
 
