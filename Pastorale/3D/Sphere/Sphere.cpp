@@ -118,6 +118,9 @@ void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& v
 			vertexDataSphere_[start_].position.z = sphere.radius * (cos(lat) * sin(lon));
 			vertexDataSphere_[start_].position.w = 1.0f;
 			vertexDataSphere_[start_].texCoord = { u, v + uvLength };
+			vertexDataSphere_[start_].normal.x = vertexDataSphere_[start_].position.x;
+			vertexDataSphere_[start_].normal.y = vertexDataSphere_[start_].position.y;
+			vertexDataSphere_[start_].normal.z = vertexDataSphere_[start_].position.z;
 
 			// 点B(左上)
 			vertexDataSphere_[start_ + 1].position.x = sphere.radius * (cos(lat + latEvery)) * cos(lon);
@@ -125,6 +128,9 @@ void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& v
 			vertexDataSphere_[start_ + 1].position.z = sphere.radius * (cos(lat + latEvery)) * sin(lon);
 			vertexDataSphere_[start_ + 1].position.w = 1.0f;
 			vertexDataSphere_[start_ + 1].texCoord = { u, v };
+			vertexDataSphere_[start_ + 1].normal.x = vertexDataSphere_[start_ + 1].position.x;
+			vertexDataSphere_[start_ + 1].normal.y = vertexDataSphere_[start_ + 1].position.y;
+			vertexDataSphere_[start_ + 1].normal.z = vertexDataSphere_[start_ + 1].position.z;
 
 			// 点C(右下)
 			vertexDataSphere_[start_ + 2].position.x = sphere.radius * (cos(lat) * cos(lon + lonEvery));
@@ -132,6 +138,9 @@ void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& v
 			vertexDataSphere_[start_ + 2].position.z = sphere.radius * (cos(lat) * sin(lon + lonEvery));
 			vertexDataSphere_[start_ + 2].position.w = 1.0f;
 			vertexDataSphere_[start_ + 2].texCoord = { u + uvLength, v + uvLength };
+			vertexDataSphere_[start_ + 2].normal.x = vertexDataSphere_[start_ + 2].position.x;
+			vertexDataSphere_[start_ + 2].normal.y = vertexDataSphere_[start_ + 2].position.y;
+			vertexDataSphere_[start_ + 2].normal.z = vertexDataSphere_[start_ + 2].position.z;
 
 #pragma endregion
 
@@ -143,6 +152,9 @@ void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& v
 			vertexDataSphere_[start_ + 3].position.z = sphere.radius * (cos(lat + latEvery) * sin(lon + lonEvery));
 			vertexDataSphere_[start_ + 3].position.w = 1.0f;
 			vertexDataSphere_[start_ + 3].texCoord = { u + uvLength, v };
+			vertexDataSphere_[start_ + 3].normal.x = vertexDataSphere_[start_ + 3].position.x;
+			vertexDataSphere_[start_ + 3].normal.y = vertexDataSphere_[start_ + 3].position.y;
+			vertexDataSphere_[start_ + 3].normal.z = vertexDataSphere_[start_ + 3].position.z;
 
 			// 点C(右下)
 			vertexDataSphere_[start_ + 4].position.x = sphere.radius * (cos(lat) * cos(lon + lonEvery));
@@ -150,6 +162,9 @@ void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& v
 			vertexDataSphere_[start_ + 4].position.z = sphere.radius * (cos(lat) * sin(lon + lonEvery));
 			vertexDataSphere_[start_ + 4].position.w = 1.0f;
 			vertexDataSphere_[start_ + 4].texCoord = { u + uvLength, v + uvLength };
+			vertexDataSphere_[start_ + 4].normal.x = vertexDataSphere_[start_ + 4].position.x;
+			vertexDataSphere_[start_ + 4].normal.y = vertexDataSphere_[start_ + 4].position.y;
+			vertexDataSphere_[start_ + 4].normal.z = vertexDataSphere_[start_ + 4].position.z;
 
 			// 点B(左上)
 			vertexDataSphere_[start_ + 5].position.x = sphere.radius * (cos(lat + latEvery) * cos(lon));
@@ -157,6 +172,9 @@ void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& v
 			vertexDataSphere_[start_ + 5].position.z = sphere.radius * (cos(lat + latEvery) * sin(lon));
 			vertexDataSphere_[start_ + 5].position.w = 1.0f;
 			vertexDataSphere_[start_ + 5].texCoord = { u, v };
+			vertexDataSphere_[start_ + 5].normal.x = vertexDataSphere_[start_ + 5].position.x;
+			vertexDataSphere_[start_ + 5].normal.y = vertexDataSphere_[start_ + 5].position.y;
+			vertexDataSphere_[start_ + 5].normal.z = vertexDataSphere_[start_ + 5].position.z;
 
 #pragma endregion
 

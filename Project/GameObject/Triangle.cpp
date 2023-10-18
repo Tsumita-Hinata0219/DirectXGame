@@ -94,7 +94,7 @@ void Triangle::Update(Matrix4x4& ViewMatrix) {
 
 	ImGui::Begin("DrawObject");
 
-	ImGui::Text("TriangleModel");
+	/*ImGui::Text("TriangleModel");
 	ImGui::DragFloat3("modelScale", &modelTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("modelRotate", &modelTransform_.rotate_.x, 0.1f);
 	ImGui::DragFloat3("modelTranslate", &modelTransform_.translation_.x, 0.1f);
@@ -103,7 +103,7 @@ void Triangle::Update(Matrix4x4& ViewMatrix) {
 	ImGui::Text("Sprite");
 	ImGui::DragFloat3("spriteScale", &spriteTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("spriteRotate", &spriteTransform_.rotate_.x, 0.1f);
-	ImGui::DragFloat3("spriteTranslate", &spriteTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat3("spriteTranslate", &spriteTransform_.translation_.x, 0.1f);*/
 
 	ImGui::Text("");
 	ImGui::Text("Sphere");
@@ -124,7 +124,7 @@ void Triangle::Update(Matrix4x4& ViewMatrix) {
 /// </summary>
 void Triangle::Draw3D() {
 
-	pastorale_->GetModel()->Draw(texhandle1_);
+	//pastorale_->GetModel()->Draw(texhandle1_);
 
 	sphere_->Draw(useTex_ ? texhandle3_ : texhandle1_);
 }
@@ -132,7 +132,7 @@ void Triangle::Draw3D() {
 
 void Triangle::Draw2D() {
 
-	sprite_->DrawSprite(useTex_ ? texhandle4_ : texhandle1_);
+	//sprite_->DrawSprite(useTex_ ? texhandle4_ : texhandle1_);
 }
 
 
