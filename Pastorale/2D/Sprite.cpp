@@ -19,13 +19,7 @@ Sprite::~Sprite(){}
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Sprite::Initialize(const int32_t Width, const int32_t Height, DirectXCommon* dXCommon){
-
-	ClientWidth_ = Width;
-	ClientHeight_ = Height;
-
-	dXCommon_ = dXCommon;
-}
+void Sprite::Initialize(){}
 
 
 
@@ -46,22 +40,22 @@ void Sprite::Update(WorldTransform transform, SpriteData vertex){
 void Sprite::DrawSprite(TextureManager* textureManager) {
 
 	// 頂点の設定
-	dXCommon_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferViewSprite_); // VBVを設定
+	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &vertexBufferViewSprite_); // VBVを設定
 
 	// 形状を設定
-	dXCommon_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	DirectXCommon::GetInstance()->GetCommands().List->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// 色用のCBufferの場所を設定
-	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
 
 	// wvp用のCBufferの場所を設定
-	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSprite_->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSprite_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU1());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU1());
 
 	// 描画！(DrawCall/ドローコール)
-	dXCommon_->GetCommandList()->DrawInstanced(6, 1, 0, 0);
+	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(6, 1, 0, 0);
 }
 
 
@@ -72,7 +66,7 @@ void Sprite::DrawSprite(TextureManager* textureManager) {
 void Sprite::SetVertex(WorldTransform transform, SpriteData vertex) {
 
 	// Sprite用の頂点リソースを作る
-	vertexResourceSprite_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(VertexData) * 6);
+	vertexResourceSprite_ = CreateBufferResource(DirectXCommon::GetInstance()->GetDevice(), sizeof(VertexData) * 6);
 	// Material用のResourceを作る
 	CreateMaterialResource();
 	// TransformationMatrix用のResourceを作る
@@ -191,7 +185,7 @@ D3D12_VERTEX_BUFFER_VIEW Sprite::CreateBufferView(ID3D12Resource* resource, size
 void Sprite::CreateTransformationMatrix() {
 
 	// Sprite用のTransfomationMatrix用のリソースを作る。Matrix4x4 １つ分のサイズを用意する
-	transformationMatrixResourceSprite_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Matrix4x4));
+	transformationMatrixResourceSprite_ = CreateBufferResource(DirectXCommon::GetInstance()->GetDevice(), sizeof(Matrix4x4));
 
 	/// データを書き込む
 	// 書き込むためのアドレスを取得
@@ -211,7 +205,7 @@ void Sprite::CreateWVPMatrix(WorldTransform transform) {
 	worldMatrixSprite = MakeAffineMatrix(transform.scale_, transform.rotate_, transform.translation_);
 	viewMatrixSprite = MakeIdentity4x4();
 	projectionMatrixSprite = 
-		MakeOrthographicMatrix(0.0f, 0.0f, float(ClientWidth_), float(ClientHeight_), 0.0f, 100.0f);
+		MakeOrthographicMatrix(0.0f, 0.0f, float(WinApp::GetInstance()->GetClientWidth()), float(WinApp::GetInstance()->GetCliendHeight()), 0.0f, 100.0f);
 	worldProjectionMatrixSprite = 
 		Multiply(worldMatrixSprite, Multiply(viewMatrixSprite, projectionMatrixSprite));
 
@@ -226,7 +220,7 @@ void Sprite::CreateWVPMatrix(WorldTransform transform) {
 void Sprite::CreateMaterialResource() {
 
 	// マテリアル用のリソースを作る。今回はcolor1つ分サイズを用意する
-	materialResource_ = CreateBufferResource(dXCommon_->GetDevice(), sizeof(Vector4));
+	materialResource_ = CreateBufferResource(DirectXCommon::GetInstance()->GetDevice(), sizeof(Vector4));
 
 	// マテリアルにデータを書き込む
 	// 書き込むためのアドレスを取得

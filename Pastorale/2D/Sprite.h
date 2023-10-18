@@ -4,9 +4,7 @@
 #include "WorldTransform.h"
 #include "TextureManager.h"
 #include "DirectXCommon.h"
-
-
-
+#include "WinApp.h"
 
 
 
@@ -29,7 +27,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(const int32_t Width, const int32_t Height, DirectXCommon* dXCommon);
+	void Initialize();
 
 
 	/// <summary>
@@ -89,12 +87,6 @@ public:
 
 
 private:
-
-	int32_t ClientWidth_;
-	int32_t ClientHeight_;
-
-	DirectXCommon* dXCommon_ = nullptr;
-
 
 	SpriteData vertex_;
 
