@@ -104,6 +104,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Pastorale\Adapter\Pastorale.cpp" />
     <ClCompile Include="Pastorale\Common\Camera\Camera.cpp" />
     <ClCompile Include="Pastorale\Common\DirectXCommon\DirectXCommon.cpp" />
+    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.cpp" />
     <ClCompile Include="Pastorale\Common\SceneSetup\SceneSetup.cpp" />
     <ClCompile Include="Pastorale\Common\WinApp\WinApp.cpp" />
     <ClCompile Include="Pastorale\utilities\ImGuiManager.cpp" />
@@ -128,6 +129,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Pastorale\Adapter\Pastorale.h" />
     <ClInclude Include="Pastorale\Common\Camera\Camera.h" />
     <ClInclude Include="Pastorale\Common\DirectXCommon\DirectXCommon.h" />
+    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.h" />
     <ClInclude Include="Pastorale\Common\SceneSetup\SceneSetup.h" />
     <ClInclude Include="Pastorale\Common\WinApp\WinApp.h" />
     <ClInclude Include="Pastorale\utilities\ImGuiManager.h" />

@@ -16,7 +16,7 @@
 
 #include "WinApp.h"
 #include "DirectXCommon.h"
-//#include "GraphicPipelineManager.h"
+#include "GraphicPipelineManager.h"
 #include "Function.h"
 #include "Struct.h"
 

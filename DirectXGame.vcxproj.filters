@@ -68,6 +68,9 @@
     <Filter Include="Pastorale\Common\SceneSetup">
       <UniqueIdentifier>{52392543-1e15-47f2-8bfc-d68fbdeff3ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pastorale\Common\GraphicPipelineManager">
+      <UniqueIdentifier>{b576a69f-3e5a-4d05-9c23-713f76000b65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="Pastorale\Common\SceneSetup\SceneSetup.cpp">
       <Filter>Pastorale\Common\SceneSetup</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.cpp">
+      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +222,9 @@
     </ClInclude>
     <ClInclude Include="Pastorale\Common\SceneSetup\SceneSetup.h">
       <Filter>Pastorale\Common\SceneSetup</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.h">
+      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
