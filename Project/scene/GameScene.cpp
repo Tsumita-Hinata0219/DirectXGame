@@ -129,7 +129,7 @@ void GameScene::EndFrame() {
 /// </summary>
 bool GameScene::ProcessMessage() {
 
-	if (winApp_->ProcessMessage()) {
+	if (WinApp::ProcessMessage()) {
 		return true;
 	}
 	else {
