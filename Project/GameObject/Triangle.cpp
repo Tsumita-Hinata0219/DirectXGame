@@ -1,9 +1,6 @@
 #include "Triangle.h"
 
 
-
-
-
 Triangle::Triangle() {
 
 	sprite_ = new Sprite();
@@ -22,23 +19,26 @@ Triangle::~Triangle() {
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Triangle::Initialize(Pastorale* pastorale){
+void Triangle::Initialize(Pastorale* pastorale) {
 
-  	pastorale_ = pastorale;
+	pastorale_ = pastorale;
 
-	pastorale_->GetATextureManager()->LoadTexture("Resources/uvChecker.png", "Resources/monsterBall.png");
+	texhandle1_ = TextureManager::LoadTexture("Resources/uvChecker.png");
+	texhandle2_ = TextureManager::LoadTexture("Resources/monsterBall.png");
+	texhandle3_ = TextureManager::LoadTexture("Resources/asanoha.png");
+	texhandle4_ = TextureManager::LoadTexture("Resources/sky.png");
 
 
 	// 三角形の各要素を決める
 	// Left Top Right Color
-	element_ = {
+	modelElement_ = {
 		{ -0.5f, -0.5f, 0.0f, 1.0f},
 		{0.0f, 0.5f, 0.0f, 1.0f},
 		{0.5f, -0.5f, 0.0f, 1.0f},
 		{1.0f, 1.0f, 1.0f, 1.0f},
 	};
 	// SRT
-	transform_ = {
+	modelTransform_ = {
 		{1.0f,1.0f,1.0f},
 		{0.0f,0.0f,0.0f},
 		{0.0f,0.0f,0.0f},
@@ -46,11 +46,10 @@ void Triangle::Initialize(Pastorale* pastorale){
 
 
 	// スプライト
-	sprite_->Initialize();
 	spriteTransform_ = {
 		{1.0f, 1.0f, 1.0f},
 		{0.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 1000.0f},
+		{0.0f, 0.0f, 0.0f},
 	};
 	vertex_ = {
 		{ 0.0f, 0.0f, 0.0f, 1.0f },
@@ -70,7 +69,6 @@ void Triangle::Initialize(Pastorale* pastorale){
 		{0.0f, 0.0f, 20.0f},
 		{20.0f},
 	};
-	sphere_->Initialize();
 }
 
 
@@ -78,13 +76,15 @@ void Triangle::Initialize(Pastorale* pastorale){
 /// <summary>
 /// 更新処理
 /// </summary>
-void Triangle::Update(Matrix4x4& ViewMatrix){
+void Triangle::Update(Matrix4x4& ViewMatrix) {
 
-	transform_.rotate_.y += 0.03f;
+	modelTransform_.rotate_.y += 0.03f;
 
+	sphereTransform_.rotate_.x -= 0.02f;
 	sphereTransform_.rotate_.y += 0.02f;
+	sphereTransform_.rotate_.z += 0.02f;
 
-	pastorale_->GetModel()->Update(element_, transform_, ViewMatrix);
+	pastorale_->GetModel()->Update(modelElement_, modelTransform_, ViewMatrix);
 
 	sprite_->Update(spriteTransform_, vertex_);
 
@@ -92,24 +92,29 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 
 
 
-	ImGui::Begin("Sprite");
+	ImGui::Begin("DrawObject");
 
-	ImGui::SliderFloat3("Scale", &spriteTransform_.scale_.x, -2.0f, 2.0f);
-	ImGui::SliderFloat3("Rotate", &spriteTransform_.rotate_.x, -4.0f, 4.0f);
-	ImGui::SliderFloat3("Translate", &spriteTransform_.translation_.x, 0.0f, 1000);
+	ImGui::Text("TriangleModel");
+	ImGui::DragFloat3("Scale", &modelTransform_.scale_.x, 0.1f);
+	ImGui::DragFloat3("Rotate", &modelTransform_.rotate_.x, 0.1f);
+	ImGui::DragFloat3("Translate", &modelTransform_.translation_.x, 0.1f);
 
+	ImGui::Text("");
+	ImGui::Text("Sprite");
+	ImGui::DragFloat3("Scale", &spriteTransform_.scale_.x, 0.1f);
+	ImGui::DragFloat3("Rotate", &spriteTransform_.rotate_.x, 0.1f);
+	ImGui::DragFloat3("Translate", &spriteTransform_.translation_.x, 0.1f);
+
+	ImGui::Text("");
+	ImGui::Text("Sphere");
+	ImGui::DragFloat3("Scale", &sphereTransform_.scale_.x, 0.1f);
+	ImGui::DragFloat3("Rotate", &sphereTransform_.rotate_.x, 0.1f);
+	ImGui::DragFloat3("Translate", &sphereTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat("Radius", &sphereElemnt_.radius, 0.1f, 1.0f);
+
+	ImGui::Text("");
+	ImGui::Checkbox("useMonsterBall", &useTex_);
 	ImGui::End();
-
-
-
-	ImGui::Begin("sphere");
-
-	ImGui::SliderFloat3("Scale", &sphereTransform_.scale_.x, -2.0f, 2.0f);
-	ImGui::SliderFloat3("Rotate", &sphereTransform_.rotate_.x, -4.0f, 4.0f);
-	ImGui::SliderFloat3("Translate", &sphereTransform_.translation_.x, 0.0f, 1000);
-
-	ImGui::End();
-
 }
 
 
@@ -119,14 +124,15 @@ void Triangle::Update(Matrix4x4& ViewMatrix){
 /// </summary>
 void Triangle::Draw3D() {
 
-	//pastorale_->GetModel()->Draw(pastorale_->GetATextureManager());
-	sphere_->Draw(pastorale_->GetATextureManager());
+	pastorale_->GetModel()->Draw(texhandle1_);
+
+	sphere_->Draw(useTex_ ? texhandle3_ : texhandle1_);
 }
 
 
 void Triangle::Draw2D() {
 
-	//sprite_->DrawSprite(pastorale_->GetATextureManager());
+	sprite_->DrawSprite(useTex_ ? texhandle4_ : texhandle1_);
 }
 
 

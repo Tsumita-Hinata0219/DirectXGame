@@ -35,20 +35,23 @@ private:
 	Model* model_ = nullptr;
 	// Spriteの生成
 	Sprite* sprite_ = nullptr;
-	// TextureManagerの生成
-	TextureManager* textureManager_ = nullptr;
 	// Sphereの生成
 	Sphere* sphere_ = nullptr;
 
 
-	TriangleElement element_{};
-	WorldTransform transform_;
+	uint32_t texhandle1_;
+	uint32_t texhandle2_;
+	uint32_t texhandle3_;
+	uint32_t texhandle4_;
+	bool useTex_;
 
+
+	TriangleElement modelElement_{};
+	WorldTransform modelTransform_;
 
 	WorldTransform spriteTransform_;
 	SpriteData vertex_;
 
-	
 	WorldTransform sphereTransform_;
 	SphereData sphereElemnt_;
 
