@@ -26,7 +26,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(DirectXCommon* dXCommon);
+	void Initialize();
 
 	
 	/// <summary>
@@ -61,8 +61,6 @@ public:
 
 
 private:
-
-	DirectXCommon* dXCommon_;
 
 	D3D12_CPU_DESCRIPTOR_HANDLE textureSrvHandleCPU1_;
 	D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU1_;

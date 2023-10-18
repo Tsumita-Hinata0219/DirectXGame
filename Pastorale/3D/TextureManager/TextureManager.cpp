@@ -16,11 +16,7 @@ TextureManager::~TextureManager(){}
 
 
 
-void TextureManager::Initialize(DirectXCommon* dXCommon) {
-
-	dXCommon_ = dXCommon;
-
-}
+void TextureManager::Initialize() {}
 
 
 
@@ -61,32 +57,34 @@ void TextureManager::LoadTexture(const std::string& filePath1, const std::string
 
 	// SRVを作成するDescriptorHeapの場所を決める
 	// 1枚目
-	textureSrvHandleCPU1_ =
-		dXCommon_->GetCPUDescriptorHandle(dXCommon_->GetsrvDescriptorHeap(), dXCommon_->GetDescriptorSizeSRV(), 1);
-	textureSrvHandleGPU1_ =
-		dXCommon_->GetGPUDescriptorHandle(dXCommon_->GetsrvDescriptorHeap(), dXCommon_->GetDescriptorSizeSRV(), 1);
+	textureSrvHandleCPU1_ = DirectXCommon::GetInstance()->GetCPUDescriptorHandle(
+		DirectXCommon::GetInstance()->GetSrvDescriptorHeap(), 
+		DirectXCommon::GetInstance()->GetDescriptorSize().SRV, 1);
+	textureSrvHandleGPU1_ = DirectXCommon::GetInstance()->GetGPUDescriptorHandle(
+		DirectXCommon::GetInstance()->GetSrvDescriptorHeap(), 
+		DirectXCommon::GetInstance()->GetDescriptorSize().SRV, 1);
 
 	// 2枚目
-	textureSrvHandleCPU2_ =
-		dXCommon_->GetCPUDescriptorHandle(dXCommon_->GetsrvDescriptorHeap(), dXCommon_->GetDescriptorSizeSRV(), 2);
-	textureSrvHandleGPU2_ =
-		dXCommon_->GetGPUDescriptorHandle(dXCommon_->GetsrvDescriptorHeap(), dXCommon_->GetDescriptorSizeSRV(), 2);
+	textureSrvHandleCPU2_ = DirectXCommon::GetInstance()->GetCPUDescriptorHandle(
+		DirectXCommon::GetInstance()->GetSrvDescriptorHeap(), 
+		DirectXCommon::GetInstance()->GetDescriptorSize().SRV, 2);
+	textureSrvHandleGPU2_ = DirectXCommon::GetInstance()->GetGPUDescriptorHandle(
+		DirectXCommon::GetInstance()->GetSrvDescriptorHeap(), 
+		DirectXCommon::GetInstance()->GetDescriptorSize().SRV, 2);
 
 
 	// 先頭はImGuiが使っているのでその次を使う
 	// 1枚目
-	textureSrvHandleCPU1_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	textureSrvHandleGPU1_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	textureSrvHandleCPU1_.ptr += DirectXCommon::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	textureSrvHandleGPU1_.ptr += DirectXCommon::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 	
 	// 2枚目
-	textureSrvHandleCPU2_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	textureSrvHandleGPU2_.ptr += dXCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-
+	textureSrvHandleCPU2_.ptr += DirectXCommon::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	textureSrvHandleGPU2_.ptr += DirectXCommon::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 	// SRVの生成
-	dXCommon_->GetDevice()->CreateShaderResourceView(textureResource1, &srvDesc1, textureSrvHandleCPU1_);
-	dXCommon_->GetDevice()->CreateShaderResourceView(textureResource2, &srvDesc2, textureSrvHandleCPU2_);
-
+	DirectXCommon::GetInstance()->GetDevice()->CreateShaderResourceView(textureResource1, &srvDesc1, textureSrvHandleCPU1_);
+	DirectXCommon::GetInstance()->GetDevice()->CreateShaderResourceView(textureResource2, &srvDesc2, textureSrvHandleCPU2_);
 };
 
 
@@ -142,7 +140,7 @@ ID3D12Resource* TextureManager::CreateTextureResource(const DirectX::TexMetadata
 	// 3. Resourceを作る
 	// Resourceを生成する
 	ID3D12Resource* resource;
-	HRESULT hr = dXCommon_->GetDevice()->CreateCommittedResource(
+	HRESULT hr = DirectXCommon::GetInstance()->GetDevice()->CreateCommittedResource(
 		&heapProperties,				   // Heapの設定
 		D3D12_HEAP_FLAG_NONE,			   // Heapの特殊な設定。特になし
 		&resourceDesc,					   // Resourceの設定
