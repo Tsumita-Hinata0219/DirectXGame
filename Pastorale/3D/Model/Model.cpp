@@ -127,7 +127,7 @@ void Model::SetVertex(TriangleElement element, WorldTransform& transform, Matrix
 	MakeTransformationMatResource();
 	// vertexBufferViewを作成する
 	vertexBufferView_ = MakeBufferView(vertexResource_, sizeof(VertexData) * 6);
-	
+
 
 	// 引数の色コードをVector4に変換してmaterialDate_に送る
 	*materialDate_ = element.color;
@@ -164,7 +164,7 @@ void Model::SetVertex(TriangleElement element, WorldTransform& transform, Matrix
 
 
 // 三角形の描画
-void Model::Draw(TextureManager* textureManager) {
+void Model::Draw(uint32_t texhandle) {
 
 	///// いざ描画！！！！！
 	// VBVを設定
@@ -180,7 +180,10 @@ void Model::Draw(TextureManager* textureManager) {
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, wvpResource_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU1());
+	//DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU());
+	if (!texhandle == 0) {
+		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, texhandle);
+	}
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
 	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(6, 1, 0, 0);

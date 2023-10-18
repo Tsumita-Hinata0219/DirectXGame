@@ -3,6 +3,7 @@
 #include "Struct.h"
 #include "WorldTransform.h"
 #include "TextureManager.h"
+#include "DirectXCommon.h"
 
 
 // 三角形描画の各要素
@@ -33,7 +34,7 @@ public:
 	/// <summary>
 	/// 三角形の描画
 	/// </summary>
-	void Draw(TextureManager* textureManager);
+	void Draw(uint32_t texhandle);
 
 	/// <summary>
 	/// 頂点リソース用のヒープ設定
@@ -74,10 +75,6 @@ public:
 	TriangleElement element;
 
 private:
-
-
-	TextureManager* textureManager_ = nullptr;
-
 
 	HRESULT hr_;
 
