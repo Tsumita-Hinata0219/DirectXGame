@@ -105,19 +105,19 @@ struct CompileShaders {
 
 // PSO
 struct UsePSO {
-	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature_{};
-	D3D12_ROOT_PARAMETER rootParameters_[3]{};
-	D3D12_DESCRIPTOR_RANGE descriptorRange_[1]{};
-	ID3DBlob* signatureBlob_ = nullptr;
-	ID3DBlob* errorBlob_ = nullptr;
-	ID3D12RootSignature* rootSignature_ = nullptr;
-	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[2]{};
-	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc_{};
-	D3D12_BLEND_DESC blendDesc_{};
-	D3D12_RASTERIZER_DESC rasterizerDesc_{};
-	IDxcBlob* vertexShaderBlob_;
-	IDxcBlob* pixelShaderBlob_;
-	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc_{};
-	ID3D12PipelineState* graphicsPipelineState_ = nullptr;
-	D3D12_STATIC_SAMPLER_DESC staticSamplers_[1]{};
+	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature{};
+	D3D12_ROOT_PARAMETER rootParameters[3]{};
+	D3D12_DESCRIPTOR_RANGE descriptorRange[1]{};
+	ID3DBlob* signatureBlob = nullptr;
+	ID3DBlob* errorBlob = nullptr;
+	ID3D12RootSignature* rootSignature = nullptr;
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs[2]{};
+	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
+	D3D12_BLEND_DESC blendDesc{};
+	D3D12_RASTERIZER_DESC rasterizerDesc{};
+	IDxcBlob* vertexShaderBlob;
+	IDxcBlob* pixelShaderBlob;
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc{};
+	ID3D12PipelineState* graphicsPipelineState = nullptr;
+	D3D12_STATIC_SAMPLER_DESC staticSamplers[1]{};
 };
