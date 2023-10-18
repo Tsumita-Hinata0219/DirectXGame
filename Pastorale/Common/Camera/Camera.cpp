@@ -2,11 +2,9 @@
 
 
 
-// 初期化処理
-void Camera::Initialize(int32_t ClientWidth, int32_t ClientHeight) {
 
-	ClientWidth_ = ClientWidth;
-	ClientHeight_ = ClientHeight;
+// 初期化処理
+void Camera::Initialize() {
 
 	worldMatrix_ = MakeAffineMatrix(
 		transform.scale_, transform.rotate_, transform.translation_);
@@ -16,8 +14,8 @@ void Camera::Initialize(int32_t ClientWidth, int32_t ClientHeight) {
 
 	viewMatrix_ = Inverse(cameraMatrix_);
 
-	projectionMatrix_ = 
-		MakePerspectiveFovMatrix(0.45f, float(ClientWidth_) / float(ClientHeight_), 0.1f, 100.0f);
+	projectionMatrix_ =
+		MakePerspectiveFovMatrix(0.45f, float(WinApp::GetInstance()->GetClientWidth()) / float(WinApp::GetInstance()->GetCliendHeight()), 0.1f, 100.0f);
 
 	worldViewProjectionMatrix_ = Multiply(worldMatrix_, Multiply(viewMatrix_, projectionMatrix_));
 
@@ -38,7 +36,7 @@ void Camera::Update() {
 	viewMatrix_ = Inverse(cameraMatrix_);
 
 	projectionMatrix_ =
-		MakePerspectiveFovMatrix(0.45f, float(ClientWidth_) / float(ClientHeight_), 0.1f, 100.0f);
+		MakePerspectiveFovMatrix(0.45f, float(WinApp::GetInstance()->GetClientWidth()) / float(WinApp::GetInstance()->GetCliendHeight()), 0.1f, 100.0f);
 
 	worldViewProjectionMatrix_ = Multiply(worldMatrix_, Multiply(viewMatrix_, projectionMatrix_));
 

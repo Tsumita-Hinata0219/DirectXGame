@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "WorldTransform.h"
 #include "Function.h"
+#include "WinApp.h"
 
 
 class Camera {
@@ -10,7 +11,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(int32_t ClientWidth_, int32_t ClientHeight_);
+	void Initialize();
 
 	/// <summary>
 	/// 更新処理
