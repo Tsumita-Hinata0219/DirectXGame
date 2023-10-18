@@ -8,65 +8,83 @@
 #include "imgui_impl_win32.h"
 
 
+
+// ImGuiのなんか。忘れた。なにこれ
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 
 class WinApp
 {
-public:
+public: ///// メンバ関数 /////
+
+	/// <summary>
+	/// WinAppのインスタンスの取得
+	/// </summary>
+	static WinApp* GetInstance();
 
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(const wchar_t* title, int32_t ClientWidth, int32_t ClientHeight);
-
-
-	/// <summary>
-	/// ウィンドウプロシージャ
-	/// </summary>
-	static LRESULT WindowProc(
-		HWND hwnd, 
-		UINT msg,
-		WPARAM wparam, 
-		LPARAM lparam);
-
-
-	/// <summary>
-	/// ゲームウィンドウの作成
-	/// </summary>
-	void CreateGameWindow();
-
+	static void Initialize(const wchar_t* title);
 
 	/// <summary>
 	/// メッセージの処理
 	/// </summary>
 	/// <returns>終了かどうか</returns>
-	bool ProcessMessage();
+	static bool ProcessMessage();
 
+
+#pragma region Get 取得
+
+	/// <summary>
+	/// クライアントサイズの取得
+	/// </summary>
+	static int32_t GetClientWidth() { return WinApp::GetInstance()->ClientWidth_; }
+	static int32_t GetCliendHeight() { return WinApp::GetInstance()->ClientHeight_; }
 
 	/// <summary>
 	/// ウィンドウハンドルの取得
 	/// </summary>
-	/// <returns></returns>
-	HWND GetHwnd() const { return hwnd_; };
+	static HWND GetHwnd() { return WinApp::GetInstance()->hwnd_; };
+
+	/// <summary>
+	/// ウィンドウクラスの取得
+	/// </summary>
+	static WNDCLASS GetWc() { return WinApp::GetInstance()->wc_; }
+
+#pragma endregion
 
 
-private: // メンバ変数
+private: ///// メンバ関数 /////
+
+	/// <summary>
+	/// ウィンドウプロシージャ
+	/// </summary>
+	static LRESULT CALLBACK WindowProc(
+		HWND hwnd,
+		UINT msg,
+		WPARAM wparam,
+		LPARAM lparam);
+
+	/// <summary>
+	/// ゲームウィンドウの作成
+	/// </summary>
+	static void CreateGameWindow();
+
+
+
+private: ///// メンバ変数 /////
 
 	// タイトルバー
 	const wchar_t* title_;
-
 	// クライアントサイズ
-	int32_t ClientWidth_;
-	int32_t ClientHeight_;
-	
-	// メッセージ
-	MSG msg{};
+	static const int32_t ClientWidth_ = 1280;
+	static const int32_t ClientHeight_ = 720;
 
+	// メッセージ
+	MSG msg_{};
 	// ウィンドウクラス
 	WNDCLASS wc_{};
-
 	// ウィンドウハンドル
 	HWND hwnd_ = nullptr;
-
 };
