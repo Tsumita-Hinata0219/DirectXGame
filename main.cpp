@@ -13,9 +13,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	GameScene* gameScene = new GameScene();
 
 	// クライアント領域を設定
-	const int32_t ClientWidth = 1280;
-	const int32_t ClientHeight = 720;
-	gameScene->Initialize(kWindowTitle, ClientWidth, ClientHeight);
+	gameScene->Initialize(kWindowTitle);
 
 
 	while (gameScene->ProcessMessage() == 0) {

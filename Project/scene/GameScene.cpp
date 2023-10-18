@@ -37,7 +37,10 @@ GameScene::~GameScene() {
 /// <summary>
 /// 初期化処理
 /// </summary>
-void GameScene::Initialize() {
+void GameScene::Initialize(const wchar_t* title) {
+
+	// WinAppの初期化処理
+	WinApp::Initialize(title);
 
 	// DirectXCommonの初期化処理
 	dXCommon_->Initialize();
