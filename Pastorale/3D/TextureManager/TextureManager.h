@@ -10,7 +10,11 @@ struct TextureDescriptorHandle {
 	D3D12_GPU_DESCRIPTOR_HANDLE srvHandle_GPU;
 	ID3D12Resource* Resource;
 };
-
+struct DescriptorSize {
+	uint32_t SRV;
+	uint32_t RTV;
+	uint32_t DSV;
+};
 
 
 class TextureManager {

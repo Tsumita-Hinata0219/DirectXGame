@@ -13,12 +13,16 @@ TextureManager* TextureManager::GetInstance() {
 
 
 static uint32_t texIndex;
+static DescriptorSize descriptorSize;
 
 /// <summary>
 /// 初期化処理
 /// </summary>
 void TextureManager::Initialize() {
 
+	descriptorSize.SRV = DirectXCommon::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+	descriptorSize.RTV = DirectXCommon::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+	descriptorSize.DSV = DirectXCommon::GetInstance()->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
 	texIndex = 0;
 }
 
@@ -49,9 +53,9 @@ uint32_t TextureManager::LoadTexture(const std::string& filePath) {
 
 	// SRVを作成するDescriptorHeapの場所を決める
 	TextureManager::GetInstance()->tex_[texIndex].srvHandle_CPU = GetCPUDescriptorHandle(
-		DirectXCommon::GetInstance()->GetSrvDescriptorHeap(), DirectXCommon::GetInstance()->GetDescriptorSize().SRV, texIndex);
+		DirectXCommon::GetInstance()->GetSrvDescriptorHeap(), descriptorSize.SRV, texIndex);
 	TextureManager::GetInstance()->tex_[texIndex].srvHandle_GPU =
-		GetGPUDescriptorHandle(DirectXCommon::GetInstance()->GetSrvDescriptorHeap(), DirectXCommon::GetInstance()->GetDescriptorSize().SRV, texIndex);
+		GetGPUDescriptorHandle(DirectXCommon::GetInstance()->GetSrvDescriptorHeap(), descriptorSize.SRV, texIndex);
 
 
 	// 先頭はImGuiが使っているのでその次を使う

@@ -103,13 +103,6 @@ struct CompileShaders {
 	IDxcBlob* Blob;
 };
 
-// DescriptorSize
-struct DescriptorSize {
-	uint32_t SRV;
-	uint32_t RTV;
-	uint32_t DSV;
-};
-
 // PSO
 struct UsePSO {
 	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature_{};

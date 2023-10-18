@@ -458,15 +458,6 @@ void DirectXCommon::SetDescriptorHeap() {
 		DirectXCommon::GetInstance()->device_, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 128, true);
 
 
-	// DescriptorSizeを取得しておく
-	DirectXCommon::GetInstance()->descriptorSize_.SRV =
-		DirectXCommon::GetInstance()->device_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
-	DirectXCommon::GetInstance()->descriptorSize_.RTV =
-		DirectXCommon::GetInstance()->device_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-	DirectXCommon::GetInstance()->descriptorSize_.DSV =
-		DirectXCommon::GetInstance()->device_->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
-
-
 	// SwapChainからResourceを引っ張ってくる
 	CreateSwapChainResources();
 

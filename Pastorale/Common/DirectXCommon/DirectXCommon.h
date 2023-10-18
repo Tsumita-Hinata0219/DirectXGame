@@ -99,11 +99,6 @@ public: // メンバ関数
 	/// <summary>
 	/// 
 	/// </summary>
-	DescriptorSize const GetDescriptorSize() { return DirectXCommon::GetInstance()->descriptorSize_; }
-
-	/// <summary>
-	/// 
-	/// </summary>
 	D3D12_DEPTH_STENCIL_DESC const GetDepthStencilDesc() { return DirectXCommon::GetInstance()->depthStencilDesc_; }
 
 	/// <summary>
@@ -303,7 +298,4 @@ private: // メンバ変数
 	D3D12_DEPTH_STENCIL_DESC depthStencilDesc_{};
 
 	ID3D12DescriptorHeap* dsvDescriptorHeap_ = nullptr;
-
-	// DescriptorSize
-	DescriptorSize descriptorSize_;
 };
