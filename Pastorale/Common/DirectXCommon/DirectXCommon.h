@@ -16,78 +16,49 @@
 
 #include "WinApp.h"
 #include "DirectXCommon.h"
+//#include "GraphicPipelineManager.h"
 #include "Function.h"
+#include "Struct.h"
 
 
 
 
+/// <summary>
+/// DirectXCommonクラス
+/// </summary>
 class DirectXCommon {
 
-public:
+public: // メンバ関数
+
+	/// <summary>
+	/// DirectXCommonのインスタンスの取得
+	/// </summary>
+	static DirectXCommon* GetInstance();
 
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize();
+	static void Initialize();
 
 	/// <summary>
 	/// 描画前処理
 	/// </summary>
-	void PreDraw();
+	static void PreDraw();
 
 	/// <summary>
 	/// 描画後処理
 	/// </summary>
-	void PostDraw();
+	static void PostDraw();
 
 	/// <summary>
 	/// 解放処理
 	/// </summary>
-	void Release();
+	static void Release();
 
-
-
-	// DXGIファクトリーの生成
-	void CreateDxgiFactory();
-
-	// D3D12Deviceの生成
-	void CreateDevice();
-
-	// コマンドキューを生成する
-	void CreateCommandQueue();
-
-	// エラーと警告の抑制
-	void DebugErrorInfoQueue();
-
-	// コマンドアロケータを作成
-	void CreateCommandAllocator();
-
-	// コマンドリストを生成する
-	void CreateCommandList();
-
-	// スワップチェーンを生成する
-	void CreateSwapChain();
-
-	// ディスクリプタヒープを生成する
-	void SetDescriptorHeap();
-
-	// SwapChainからResourceを引っ張ってくる
-	void CreateSwapChainResources();
-
-	// RTVを作る
-	void SettingRTV();
-
-	// 状態を遷移する
-	void ChanegResourceState();
-
-	// Fenceを生成する
-	void MakeFence();
-
-	// DXCの初期化
-	void InitializeDXC();
-
-	// CompileShader関数
-	IDxcBlob* CompileShader(
+	/// <summary>
+	/// CompileShader関数
+	/// </summary>
+	static IDxcBlob* CompileShader(
 		// CompilerするShaderファイルへのパス
 		const std::wstring& filePath,
 		// Compilerに使用するProfile
@@ -97,69 +68,144 @@ public:
 		IDxcCompiler3* dxcCompiler,
 		IDxcIncludeHandler* includeHandler);
 
-	// RootSignatureを作成
-	void MakeRootSignature();
 
-	// InputLayoutを設定する
-	void SetInputLayout();
+#pragma region Get 取得
 
-	// BlendStateを設定する
-	void SetBlendState();
+	/// <summary>
+	/// 
+	/// </summary>
+	ID3D12Device* const GetDevice() { return DirectXCommon::GetInstance()->device_; };
 
-	// RasiterzerStateを設定する
-	void SetRasiterzerState();
+	/// <summary>
+	/// 
+	/// </summary>
+	Commands const GetCommands() { return DirectXCommon::GetInstance()->commands_; }
 
-	// Shaderをcompileする
-	void SetShaderCompile();
+	/// <summary>
+	/// 
+	/// </summary>
+	SwapChains const GetSwapChains() { return DirectXCommon::GetInstance()->swapChains_; }
 
-	// PSOを生成する
-	void CreatePipelineStateObject();
+	/// <summary>
+	/// 
+	/// </summary>
+	RTV const GetRTV() { return DirectXCommon::GetInstance()->rtv_; }
 
-	// PSOを設定するする
-	void SetPSO();
+	/// <summary>
+	/// 
+	/// </summary>
+	ID3D12DescriptorHeap* const GetSrvDescriptorHeap() { return DirectXCommon::GetInstance()->srvDescriptorHeap_; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	DescriptorSize const GetDescriptorSize() { return DirectXCommon::GetInstance()->descriptorSize_; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	D3D12_DEPTH_STENCIL_DESC const GetDepthStencilDesc() { return DirectXCommon::GetInstance()->depthStencilDesc_; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <returns></returns>
+	IDxcUtils* const GetDxcUtils() { return DirectXCommon::GetInstance()->dxcUtils_; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	IDxcCompiler3* const GetDxcCompiler() { return DirectXCommon::GetInstance()->dxcCompiler_; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	IDxcIncludeHandler* const GetIncludeHandler() { return DirectXCommon::GetInstance()->includeHandler_; }
+
+
+#pragma endregion
+
+
+#pragma region Set 設定
+
+	/// <summary>
+	/// 
+	/// </summary>
+	void SetDepthStencilDesc(D3D12_DEPTH_STENCIL_DESC depthStencilDesc) { DirectXCommon::GetInstance()->depthStencilDesc_ = depthStencilDesc; }
+
+	/// <summary>
+	/// 
+	/// </summary>
+	void SetUsePso(UsePSO usePso) { DirectXCommon::GetInstance()->usePso_ = usePso; }
+
+#pragma endregion
+
+
+private: // メンバ関数
+
+	// DXGIファクトリーの生成
+	static void CreateDxgiFactory();
+
+	// D3D12Deviceの生成
+	static void CreateDevice();
+
+	// コマンドキューを生成する
+	static void CreateCommandQueue();
+
+	// エラーと警告の抑制
+	static void DebugErrorInfoQueue();
+
+	// コマンドアロケータを作成
+	static void CreateCommandAllocator();
+
+	// コマンドリストを生成する
+	static void CreateCommandList();
+
+	// スワップチェーンを生成する
+	static void CreateSwapChain();
+
+	// ディスクリプタヒープを生成する
+	static void SetDescriptorHeap();
+
+	// SwapChainからResourceを引っ張ってくる
+	static void CreateSwapChainResources();
+
+	// RTVを作る
+	static void SettingRTV();
+
+	// 状態を遷移する
+	static void ChanegResourceState();
+
+	// Fenceを生成する
+	static void MakeFence();
+
+	// DXCの初期化
+	static void InitializeDXC();
+
 
 	// ViewportとScissor
-	void SetViewport();
+	static void SetViewport();
 
-	void SetScissor();
+	static void SetScissor();
 
 
 	// 
-	ID3D12DescriptorHeap* CreateDescriptorHeap(
-		ID3D12Device* device, 
+	static ID3D12DescriptorHeap* CreateDescriptorHeap(
+		ID3D12Device* device,
 		D3D12_DESCRIPTOR_HEAP_TYPE heapType,
-		UINT numDescriptors, 
+		UINT numDescriptors,
 		bool shaderVisible);
 
 
 	// Textureの深度の設定をしていく
-	ID3D12Resource* CreateDepthStencilTexturerResource(int32_t width, int32_t height);
+	static ID3D12Resource* CreateDepthStencilTexturerResource(int32_t width, int32_t height);
 
 
 	// depthStencilResourceを作る
-	void CreateDepthStencilResource();
+	static void CreateDepthStencilResource();
 
 
-	// DescriptorHandleを取得する
-	D3D12_CPU_DESCRIPTOR_HANDLE GetCPUDescriptorHandle(ID3D12DescriptorHeap* descriptorHeap, uint32_t descriptorSize, uint32_t index);
-	D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandle(ID3D12DescriptorHeap* descriptorHeap, uint32_t descriptorSize, uint32_t index);
-
-
-	/// <summary>
-	/// アクセッサ
-	/// </summary>
-	ID3D12Device* const GetDevice() { return device_; };
-	ID3D12GraphicsCommandList* const GetCommandList() { return commandList_; };
-
-	DXGI_SWAP_CHAIN_DESC1 GetSwapChainDesc()const { return swapChainDesc_; }
-	D3D12_RENDER_TARGET_VIEW_DESC GetrtvDesc()const { return rtvDesc_; }
-	ID3D12DescriptorHeap* GetsrvDescriptorHeap()const { return srvDescriptorHeap_; }
-
-	uint32_t const GetDescriptorSizeSRV() { return descriptorSizeSRV_; }
-	uint32_t const GetDescriptorSizeRTV() { return descriptorSizeRTV_; }
-	uint32_t const GetDescriptorSizeDSV() { return descriptorSizeDSV_; }
-
-private:
+private: // メンバ変数
 
 	// デバッグレイヤー
 	ID3D12Debug1* debugController_ = nullptr;
@@ -167,10 +213,6 @@ private:
 
 	// DXGIFactory
 	IDXGIFactory7* dxgiFactory_ = nullptr;
-
-
-	// なにこれ↓
-	HRESULT hr_;
 
 
 	// 使用するアダプタ用の変数
@@ -185,15 +227,9 @@ private:
 	// なにこれ↓
 	D3D12_INFO_QUEUE_FILTER filter_{};
 
+	// コマンド
+	Commands commands_;
 
-	// コマンドキュー
-	ID3D12CommandQueue* commandQueue_ = nullptr;
-
-	// コマンドアロケータ
-	ID3D12CommandAllocator* commandAllocator_ = nullptr;
-
-	// コマンドリスト
-	ID3D12GraphicsCommandList* commandList_ = nullptr;
 
 	// バックバッファインデックス
 	UINT backBufferIndex_;
@@ -204,24 +240,15 @@ private:
 
 
 	// スワップチェーン
-	IDXGISwapChain4* swapChain_ = nullptr;
+	SwapChains swapChains_;
+
 
 	// ディスクリプタヒープ
-	ID3D12DescriptorHeap* rtvDescriptorHeap_ = nullptr;
-
 	ID3D12DescriptorHeap* srvDescriptorHeap_ = nullptr;
 
-	// スワップチェーンリソース
-	ID3D12Resource* swapChainResources_[2] = { nullptr };
-
-
-	DXGI_SWAP_CHAIN_DESC1 swapChainDesc_{};
 
 	// RTV
-	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc_{};
-
-	// RTVを2つ作るのでディスクリプタを2つ用意
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandles_[2] = {};
+	RTV rtv_;
 
 
 	// Fence
@@ -242,47 +269,11 @@ private:
 
 
 	// CompileShader関数
-	IDxcBlobEncoding* shaderSource_ = nullptr;
+	CompileShaders shaders_;
 
-	DxcBuffer shaderSourceBuffer_{};
-
-	IDxcResult* shaderResult_ = nullptr;
-
-	IDxcBlobUtf8* shaderError_ = nullptr;
-
-	IDxcBlob* shaderBlob_ = nullptr;
-	
 
 	// PSOを生成する
-	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature_{};
-
-	D3D12_ROOT_PARAMETER rootParameters_[3]{};
-
-	D3D12_DESCRIPTOR_RANGE descriptorRange_[1]{};
-
-	ID3DBlob* signatureBlob_ = nullptr;
-	
-	ID3DBlob* errorBlob_ = nullptr;
-	
-	ID3D12RootSignature* rootSignature_ = nullptr;
-
-	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[2]{};
-
-	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc_{};
-
-	D3D12_BLEND_DESC blendDesc_{};
-
-	D3D12_RASTERIZER_DESC rasterizerDesc_{};
-
-	IDxcBlob* vertexShaderBlob_;
-
-	IDxcBlob* pixelShaderBlob_;
-
-	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc_{};
-
-	ID3D12PipelineState* graphicsPipelineState_ = nullptr;
-
-	D3D12_STATIC_SAMPLER_DESC staticSamplers_[1]{};
+	UsePSO usePso_;
 
 
 	// ビューポート
@@ -294,8 +285,6 @@ private:
 
 
 	// 
-	D3D12_DESCRIPTOR_HEAP_DESC rtvDescriptorHeapDesc_{};
-
 	ID3D12DescriptorHeap* descriptorHeap_ = nullptr;
 
 	D3D12_DESCRIPTOR_HEAP_DESC DescriptorHeapDesc_{};
@@ -311,8 +300,5 @@ private:
 	ID3D12DescriptorHeap* dsvDescriptorHeap_ = nullptr;
 
 	// DescriptorSize
-	uint32_t descriptorSizeSRV_;
-	uint32_t descriptorSizeRTV_;
-	uint32_t descriptorSizeDSV_;
-
+	DescriptorSize descriptorSize_;
 };

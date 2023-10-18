@@ -1,4 +1,10 @@
 ﻿#pragma once
+
+#include <d3d12.h>
+#include <dxgi1_6.h>
+#include <dxgidebug.h>
+#include <dxcapi.h>
+
 #include <vector>
 #include <Vector2.h>
 #include <Vector3.h>
@@ -63,3 +69,62 @@ struct SphereData {
 //	Vector3 max; // !< 最大点
 //};
 //
+
+
+
+// コマンド
+struct Commands {
+	ID3D12CommandQueue* Queue;		   // コマンドキュー
+	ID3D12CommandAllocator* Allocator; // コマンドアロケータ
+	ID3D12GraphicsCommandList* List;   // コマンドリスト
+};
+
+// スワップチェーン
+struct SwapChains {
+	IDXGISwapChain4* swapChain;				// スワップチェーン
+	ID3D12Resource* Resources[2];	// スワップチェーンリソース
+	DXGI_SWAP_CHAIN_DESC1 Desc{}; // スワップチェーンデスク
+};
+
+// RTV
+struct RTV {
+	ID3D12DescriptorHeap* DescriptorHeap;
+	D3D12_RENDER_TARGET_VIEW_DESC Desc{};
+	D3D12_CPU_DESCRIPTOR_HANDLE Handles[2];
+	D3D12_CPU_DESCRIPTOR_HANDLE StartHandle;
+};
+
+// CompileShader
+struct CompileShaders {
+	IDxcBlobEncoding* Source;
+	DxcBuffer SourceBuffer{};
+	IDxcResult* Result;
+	IDxcBlobUtf8* Error;
+	IDxcBlob* Blob;
+};
+
+// DescriptorSize
+struct DescriptorSize {
+	uint32_t SRV;
+	uint32_t RTV;
+	uint32_t DSV;
+};
+
+// PSO
+struct UsePSO {
+	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature_{};
+	D3D12_ROOT_PARAMETER rootParameters_[3]{};
+	D3D12_DESCRIPTOR_RANGE descriptorRange_[1]{};
+	ID3DBlob* signatureBlob_ = nullptr;
+	ID3DBlob* errorBlob_ = nullptr;
+	ID3D12RootSignature* rootSignature_ = nullptr;
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[2]{};
+	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc_{};
+	D3D12_BLEND_DESC blendDesc_{};
+	D3D12_RASTERIZER_DESC rasterizerDesc_{};
+	IDxcBlob* vertexShaderBlob_;
+	IDxcBlob* pixelShaderBlob_;
+	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc_{};
+	ID3D12PipelineState* graphicsPipelineState_ = nullptr;
+	D3D12_STATIC_SAMPLER_DESC staticSamplers_[1]{};
+};
