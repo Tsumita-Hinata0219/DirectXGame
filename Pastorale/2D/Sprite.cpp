@@ -5,28 +5,28 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-Sprite::Sprite(){}
+Sprite::Sprite() {}
 
 
 
 /// <summary>
 /// デストラクタ
 /// </summary>
-Sprite::~Sprite(){}
+Sprite::~Sprite() {}
 
 
 
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Sprite::Initialize(){}
+void Sprite::Initialize() {}
 
 
 
 /// <summary>
 /// 更新処理
 /// </summary>
-void Sprite::Update(WorldTransform transform, SpriteData vertex){
+void Sprite::Update(WorldTransform transform, SpriteData vertex) {
 
 	//transform.translate.z = 0.0f;
 	SetVertex(transform, vertex);
@@ -37,7 +37,7 @@ void Sprite::Update(WorldTransform transform, SpriteData vertex){
 /// <summary>
 /// 描画処理
 /// </summary>
-void Sprite::DrawSprite(TextureManager* textureManager) {
+void Sprite::DrawSprite(uint32_t texhandle) {
 
 	// 頂点の設定
 	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &vertexBufferViewSprite_); // VBVを設定
@@ -52,7 +52,11 @@ void Sprite::DrawSprite(TextureManager* textureManager) {
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSprite_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU1());
+	//DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU());
+	if (!texhandle == 0) {
+		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, texhandle);
+	}
+
 
 	// 描画！(DrawCall/ドローコール)
 	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(6, 1, 0, 0);
@@ -73,7 +77,7 @@ void Sprite::SetVertex(WorldTransform transform, SpriteData vertex) {
 	CreateTransformationMatrix();
 	// 頂点バッファビューを作成する
 	vertexBufferViewSprite_ = CreateBufferView(vertexResourceSprite_, sizeof(VertexData) * 6);
-	
+
 	// Sprite用のWorldViewProjectonMatrixを作る
 	CreateWVPMatrix(transform);
 
@@ -204,9 +208,9 @@ void Sprite::CreateWVPMatrix(WorldTransform transform) {
 	// Sprite用のWorldViewProjectonMatrixを作る
 	worldMatrixSprite = MakeAffineMatrix(transform.scale_, transform.rotate_, transform.translation_);
 	viewMatrixSprite = MakeIdentity4x4();
-	projectionMatrixSprite = 
+	projectionMatrixSprite =
 		MakeOrthographicMatrix(0.0f, 0.0f, float(WinApp::GetInstance()->GetClientWidth()), float(WinApp::GetInstance()->GetCliendHeight()), 0.0f, 100.0f);
-	worldProjectionMatrixSprite = 
+	worldProjectionMatrixSprite =
 		Multiply(worldMatrixSprite, Multiply(viewMatrixSprite, projectionMatrixSprite));
 
 	*transfomationMatrixDataSprite_ = worldProjectionMatrixSprite;

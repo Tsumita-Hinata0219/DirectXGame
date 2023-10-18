@@ -3,8 +3,11 @@
 #include "Struct.h"
 #include "WorldTransform.h"
 #include "TextureManager.h"
-#include "DirectXCommon.h"
 #include "WinApp.h"
+#include "DirectXCommon.h"
+
+
+
 
 
 
@@ -39,7 +42,7 @@ public:
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void DrawSprite(TextureManager* textureManager);
+	void DrawSprite(uint32_t texhandle);
 
 
 	/// <summary>
