@@ -19,13 +19,7 @@ Sphere::~Sphere(){}
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Sphere::Initialize(const int32_t Width, const int32_t Height, DirectXCommon* dXCommon, WorldTransform transform) {
-
-	ClientWidth_ = 0;
-	ClientHeight_ = 0;
-
-	dXCommon_ = dXCommon;
-}
+void Sphere::Initialize() {}
 
 
 
@@ -51,22 +45,22 @@ void Sphere::Draw(TextureManager* textureManager) {
 
 	/// コマンドを積む
 	// 頂点の設定 (VBVを設定)
-	dXCommon_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferViewSphere_);
+	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &vertexBufferViewSphere_);
 
 	//形状を設定
-	dXCommon_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	DirectXCommon::GetInstance()->GetCommands().List->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// 色用のCBufferの場所を設定
-	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResourceSphere_->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(0, materialResourceSphere_->GetGPUVirtualAddress());
 	
 	// wvp用のCBufferの場所を設定
-	dXCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSphere_->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSphere_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	dXCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, useMonsterBall ? textureManager->GetTextureSrvHandleGPU2() : textureManager->GetTextureSrvHandleGPU1());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, useMonsterBall ? textureManager->GetTextureSrvHandleGPU2() : textureManager->GetTextureSrvHandleGPU1());
 
 	// 描画！ (DrawCall / ドローコール)
-	dXCommon_->GetCommandList()->DrawInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0);
+	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0);
 }
 
 
@@ -208,7 +202,7 @@ ID3D12Resource* Sphere::CreateBufferResource(size_t sizeInBytes) {
 
 	// 実際に頂点リソースを作る
 	HRESULT hr_;
-	hr_ = dXCommon_->GetDevice()->CreateCommittedResource(&uploadHeapProperties_, D3D12_HEAP_FLAG_NONE,
+	hr_ = DirectXCommon::GetInstance()->GetDevice()->CreateCommittedResource(&uploadHeapProperties_, D3D12_HEAP_FLAG_NONE,
 		&vertexResourceDesc_, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
 		IID_PPV_ARGS(&resultResource));
 	assert(SUCCEEDED(hr_));

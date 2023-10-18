@@ -3,6 +3,7 @@
 #include "Struct.h"
 #include "WorldTransform.h"
 #include "TextureManager.h"
+#include "WinApp.h"
 #include "DirectXCommon.h"
 #include "ImGuiManager.h"
 
@@ -27,7 +28,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(const int32_t Width, const int32_t Height, DirectXCommon* dXCommon, WorldTransform transform);
+	void Initialize();
 
 
 	/// <summary>
@@ -85,11 +86,6 @@ public:
 
 
 private:
-
-	int32_t ClientWidth_;
-	int32_t ClientHeight_;
-
-	DirectXCommon* dXCommon_ = nullptr;
 
 	WorldTransform transformSphere_;
 
