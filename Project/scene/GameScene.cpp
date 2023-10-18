@@ -8,7 +8,6 @@
 GameScene::GameScene() {
 
 	// 生成
-	winApp_ = new WinApp();
 	dXCommon_ = new DirectXCommon();
 	camera_ = new Camera();
 	imguiManager_ = new ImGuiManager();
@@ -25,7 +24,6 @@ GameScene::GameScene() {
 GameScene::~GameScene() {
 
 	// 解放処理
-	delete winApp_;
 	delete dXCommon_;
 	delete camera_;
 	delete imguiManager_;
@@ -39,13 +37,10 @@ GameScene::~GameScene() {
 /// <summary>
 /// 初期化処理
 /// </summary>
-void GameScene::Initialize(const wchar_t* title, const int32_t Width, const int32_t Height) {
-
-	// WinAppの初期化処理
-	winApp_->Initialize(title, Width, Height);
+void GameScene::Initialize() {
 
 	// DirectXCommonの初期化処理
-	dXCommon_->Initialize(Width, Height, winApp_->GetHwnd());
+	dXCommon_->Initialize();
 
 	// Pastoraleの初期化書影
 	pastorale_->Initialize(dXCommon_);
@@ -54,10 +49,10 @@ void GameScene::Initialize(const wchar_t* title, const int32_t Width, const int3
 	triangle_->Initialize(pastorale_, dXCommon_);
 
 	// Cameraの初期化処理
-	camera_->Initialize(Width, Height);
+	camera_->Initialize();
 
 	// ImGuiの初期化処理
-	imguiManager_->Initialize(winApp_, dXCommon_);
+	imguiManager_->Initialize(dXCommon_);
 
 	// Spriteの初期化処理
 	WorldTransform transformSprite{ {1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f} };

@@ -2,12 +2,7 @@
 
 
 
-void DirectXCommon::Initialize(int32_t ClientWidth, int32_t ClientHeight, HWND hwnd) {
-
-	ClientWidth_ = ClientWidth;
-	ClientHeight_ = ClientHeight;
-	hwnd_ = hwnd;
-
+void DirectXCommon::Initialize() {
 
 	/* ----- デバッグレイヤー -----*/
 #ifdef _DEBUG
@@ -383,8 +378,10 @@ void DirectXCommon::CreateCommandList() {
 
 void DirectXCommon::CreateSwapChain() {
 
-	swapChainDesc_.Width = ClientWidth_;	  // 画面の幅、ウィンドウのクライアント領域を同じものにしてく
-	swapChainDesc_.Height = ClientHeight_; // 画面の高さ、ウィンドウのクライアント領域を同じものにしておく
+	HWND hwnd_ = WinApp::GetInstance()->GetHwnd();
+
+	swapChainDesc_.Width = WinApp::GetInstance()->GetClientWidth();	  // 画面の幅、ウィンドウのクライアント領域を同じものにしてく
+	swapChainDesc_.Height = WinApp::GetInstance()->GetCliendHeight(); // 画面の高さ、ウィンドウのクライアント領域を同じものにしておく
 	swapChainDesc_.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // 色の形式
 	swapChainDesc_.SampleDesc.Count = 1; // マルチサンプルしない
 	swapChainDesc_.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 描画のターゲットとして利用する
@@ -815,8 +812,8 @@ void DirectXCommon::SetViewport() {
 
 	// ビューポート
 	// クライアント領域のサイズと一緒にして画面全体に表示
-	viewport_.Width = float(ClientWidth_);
-	viewport_.Height = float(ClientHeight_);
+	viewport_.Width = float(WinApp::GetInstance()->GetClientWidth());
+	viewport_.Height = float(WinApp::GetInstance()->GetCliendHeight());
 	viewport_.TopLeftX = 0;
 	viewport_.TopLeftY = 0;
 	viewport_.MinDepth = 0.0f;
@@ -828,9 +825,9 @@ void DirectXCommon::SetScissor() {
 	// シザー矩形
 	// 基本的にビューポートと同じ矩形が構成されるようにする
 	scissorRect_.left = 0;
-	scissorRect_.right = ClientWidth_;
+	scissorRect_.right = WinApp::GetInstance()->GetClientWidth();
 	scissorRect_.top = 0;
-	scissorRect_.bottom = ClientHeight_;
+	scissorRect_.bottom = WinApp::GetInstance()->GetCliendHeight();
 }
 
 
@@ -898,7 +895,8 @@ ID3D12Resource* DirectXCommon::CreateDepthStencilTexturerResource(int32_t width,
 void DirectXCommon::CreateDepthStencilResource() {
 
 	// DepthStencilTextureをウィンドウサイズで作成
-	depthStencilResource_ = CreateDepthStencilTexturerResource(ClientWidth_, ClientHeight_);
+	depthStencilResource_ = CreateDepthStencilTexturerResource(
+		WinApp::GetInstance()->GetClientWidth(), WinApp::GetInstance()->GetCliendHeight());
 
 
 	// DSV用のヒープでディスクリプタのの数は1。DSVはShader内で触るものではないので、ShaderVisibleはfalse

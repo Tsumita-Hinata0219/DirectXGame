@@ -28,7 +28,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(int32_t ClientWidth, int32_t ClientHeight, HWND hwnd);
+	void Initialize();
 
 	/// <summary>
 	/// 描画前処理
@@ -160,12 +160,6 @@ public:
 	uint32_t const GetDescriptorSizeDSV() { return descriptorSizeDSV_; }
 
 private:
-
-	// クライアントサイズとウィンドウハンドル
-	int32_t ClientWidth_;
-	int32_t ClientHeight_;
-	HWND hwnd_;
-
 
 	// デバッグレイヤー
 	ID3D12Debug1* debugController_ = nullptr;

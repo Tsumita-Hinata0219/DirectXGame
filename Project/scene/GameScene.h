@@ -20,7 +20,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(const wchar_t* title, const int32_t Width, const int32_t Height);
+	void Initialize();
 
 
 	/// <summary>
@@ -56,8 +56,6 @@ public:
 
 private:
 
-	// WinAppの生成
-	WinApp* winApp_ = nullptr;
 	// DirectXCommonの生成
 	DirectXCommon* dXCommon_ = nullptr;
 	// Cameraの生成
