@@ -26,7 +26,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(DirectXCommon* dXCommon);
+	void Initialize();
 
 
 	/// <summary>
@@ -55,16 +55,11 @@ public:
 	TextureManager* GetATextureManager() { return textureManager_; }
 
 
-
 private:
 
-	// DirectXCommonの生成
-	DirectXCommon* dXCommon_ = nullptr;
 	// Modelの生成
 	Model* model_ = nullptr;
 	// TextureManagerの生成
 	TextureManager* textureManager_ = nullptr;
-
-
 };
 

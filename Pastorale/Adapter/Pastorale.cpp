@@ -29,15 +29,13 @@ Pastorale::~Pastorale(){
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Pastorale::Initialize(DirectXCommon* dXCommon){
-
-	dXCommon_ = dXCommon;
+void Pastorale::Initialize(){
 
 	// TextureManagerの初期化処理
-	textureManager_->Initialize(dXCommon_);
+	textureManager_->Initialize();
 
 	// Modelの初期化処理
-	model_->Initialize(dXCommon_);
+	model_->Initialize();
 }
 
 
