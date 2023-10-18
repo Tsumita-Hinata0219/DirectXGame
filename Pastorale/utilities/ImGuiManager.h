@@ -3,9 +3,7 @@
 #include "DirectXCommon.h"
 
 class ImGuiManager {
-
 public:
-
 	static ImGuiManager* GetInstance();
 	static void Initialize();
 	static void BeginFrame();
