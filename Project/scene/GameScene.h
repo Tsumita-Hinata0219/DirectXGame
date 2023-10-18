@@ -58,8 +58,6 @@ private:
 
 	// Cameraの生成
 	Camera* camera_ = nullptr;
-	//　ImGuiの生成
-	ImGuiManager* imguiManager_ = nullptr;
 	// Pastoraleの生成
 	Pastorale* pastorale_ = nullptr;
 	// Triangleの生成

@@ -9,7 +9,6 @@ GameScene::GameScene() {
 
 	// 生成
 	camera_ = new Camera();
-	imguiManager_ = new ImGuiManager();
 	pastorale_ = new Pastorale();
 	triangle_ = new Triangle();
 	sprite_ = new Sprite();
@@ -24,7 +23,6 @@ GameScene::~GameScene() {
 
 	// 解放処理
 	delete camera_;
-	delete imguiManager_;
 	delete pastorale_;
 	delete triangle_;
 	delete sprite_;
@@ -53,7 +51,7 @@ void GameScene::Initialize(const wchar_t* title) {
 	camera_->Initialize();
 
 	// ImGuiの初期化処理
-	imguiManager_->Initialize();
+	ImGuiManager::Initialize();
 
 	// Spriteの初期化処理
 	WorldTransform transformSprite{ {1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f} };
@@ -109,7 +107,7 @@ void GameScene::Draw2D() {
 void GameScene::BeginFrame() {
 
 	DirectXCommon::PreDraw();
-	imguiManager_->BeginFrame();
+	ImGuiManager::BeginFrame();
 }
 
 
@@ -119,7 +117,7 @@ void GameScene::BeginFrame() {
 /// </summary>
 void GameScene::EndFrame() {
 
-	imguiManager_->EndFrame();
+	ImGuiManager::EndFrame();
 	DirectXCommon::PostDraw();
 }
 
