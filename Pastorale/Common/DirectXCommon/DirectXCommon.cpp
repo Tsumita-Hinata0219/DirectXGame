@@ -59,11 +59,11 @@ void DirectXCommon::Initialize() {
 	MakeFence();
 
 	// DXCの初期化
-	InitializeDXC();
+	//InitializeDXC();
 
-	// PSOを設定する
-	GraphicPipelineManager::GetInstance()->SetPSO();
-	DirectXCommon::GetInstance()->SetUsePso(GraphicPipelineManager::GetInstance()->GetUsePSO());
+	//// PSOを設定する
+	//GraphicPipelineManager::GetInstance()->SetPSO();
+	//DirectXCommon::GetInstance()->SetUsePso(GraphicPipelineManager::GetInstance()->GetUsePSO());
 
 	// ViewportとScissor
 	SetViewport();
@@ -567,22 +567,22 @@ void DirectXCommon::MakeFence() {
 
 /* ----- DXCの初期化 ----- */
 
-void DirectXCommon::InitializeDXC() {
-
-	// dxcCompilerを初期化
-	HRESULT hr = DxcCreateInstance(
-		CLSID_DxcUtils, IID_PPV_ARGS(&DirectXCommon::GetInstance()->dxcUtils_));
-	assert(SUCCEEDED(hr));
-	hr = DxcCreateInstance(
-		CLSID_DxcCompiler, IID_PPV_ARGS(&DirectXCommon::GetInstance()->dxcCompiler_));
-	assert(SUCCEEDED(hr));
-
-
-	// 現時点でincludeはしないが、includeに対応するための設定を行っておく
-	hr = DirectXCommon::GetInstance()->dxcUtils_->CreateDefaultIncludeHandler(
-		&DirectXCommon::GetInstance()->includeHandler_);
-	assert(SUCCEEDED(hr));
-}
+//void DirectXCommon::InitializeDXC() {
+//
+//	// dxcCompilerを初期化
+//	HRESULT hr = DxcCreateInstance(
+//		CLSID_DxcUtils, IID_PPV_ARGS(&DirectXCommon::GetInstance()->dxcUtils_));
+//	assert(SUCCEEDED(hr));
+//	hr = DxcCreateInstance(
+//		CLSID_DxcCompiler, IID_PPV_ARGS(&DirectXCommon::GetInstance()->dxcCompiler_));
+//	assert(SUCCEEDED(hr));
+//
+//
+//	// 現時点でincludeはしないが、includeに対応するための設定を行っておく
+//	hr = DirectXCommon::GetInstance()->dxcUtils_->CreateDefaultIncludeHandler(
+//		&DirectXCommon::GetInstance()->includeHandler_);
+//	assert(SUCCEEDED(hr));
+//}
 
 
 

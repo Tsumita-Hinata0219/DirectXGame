@@ -38,9 +38,6 @@
     <Filter Include="Project\math">
       <UniqueIdentifier>{54521541-bbdb-4dfd-9717-5f6e364402b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project\scene">
-      <UniqueIdentifier>{eb91259a-e1e9-43f0-80bc-00de21024378}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pastorale\utilities">
       <UniqueIdentifier>{2c32b687-6c19-47a6-aa68-8e00d4109980}</UniqueIdentifier>
     </Filter>
@@ -70,6 +67,12 @@
     </Filter>
     <Filter Include="Pastorale\Common\GraphicPipelineManager">
       <UniqueIdentifier>{b576a69f-3e5a-4d05-9c23-713f76000b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\Common\ShaderManager">
+      <UniqueIdentifier>{76df0818-cd97-44c8-b1f6-f0c4fd4ae667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\math\scene">
+      <UniqueIdentifier>{eb91259a-e1e9-43f0-80bc-00de21024378}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -107,7 +110,7 @@
       <Filter>Project\math</Filter>
     </ClCompile>
     <ClCompile Include="Project\scene\GameScene.cpp">
-      <Filter>Project\scene</Filter>
+      <Filter>Project\math\scene</Filter>
     </ClCompile>
     <ClCompile Include="Pastorale\utilities\ImGuiManager.cpp">
       <Filter>Pastorale\utilities</Filter>
@@ -139,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.cpp">
       <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\ShaderManager\ShaderManager.cpp">
+      <Filter>Pastorale\Common\ShaderManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,7 +200,7 @@
       <Filter>Project\math</Filter>
     </ClInclude>
     <ClInclude Include="Project\scene\GameScene.h">
-      <Filter>Project\scene</Filter>
+      <Filter>Project\math\scene</Filter>
     </ClInclude>
     <ClInclude Include="Pastorale\utilities\ImGuiManager.h">
       <Filter>Pastorale\utilities</Filter>
@@ -226,12 +232,27 @@
     <ClInclude Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.h">
       <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
     </ClInclude>
+    <ClInclude Include="Pastorale\Common\ShaderManager\ShaderManager.h">
+      <Filter>Pastorale\Common\ShaderManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\shaders\Object3d.PS.hlsl">
+    <FxCompile Include="Resources\shaders\NormalObject3D.PS.hlsl">
       <Filter>リソース ファイル\shaders</Filter>
     </FxCompile>
-    <FxCompile Include="Resources\shaders\Object3d.VS.hlsl">
+    <FxCompile Include="Resources\shaders\NormalObject3D.VS.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\SpriteObject3d.PS.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\SpriteObject3d.VS.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\LightObject.VS.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\LightObject.PS.hlsl">
       <Filter>リソース ファイル\shaders</Filter>
     </FxCompile>
   </ItemGroup>
@@ -241,7 +262,10 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\shaders\Object3d.hlsli">
+    <None Include="Resources\shaders\LightObject.hlsli">
+      <Filter>リソース ファイル\shaders</Filter>
+    </None>
+    <None Include="Resources\shaders\SpriteObject3d.hlsli">
       <Filter>リソース ファイル\shaders</Filter>
     </None>
   </ItemGroup>

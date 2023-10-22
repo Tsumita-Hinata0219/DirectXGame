@@ -8,6 +8,7 @@
 #include "Pastorale.h"
 #include "Triangle.h"
 #include "Sprite.h"
+#include "ShaderManager.h"
 
 
 class GameScene {

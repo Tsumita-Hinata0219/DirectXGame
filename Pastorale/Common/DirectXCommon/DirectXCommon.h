@@ -180,7 +180,7 @@ private: // メンバ関数
 	static void MakeFence();
 
 	// DXCの初期化
-	static void InitializeDXC();
+	//static void InitializeDXC();
 
 
 	// ViewportとScissor

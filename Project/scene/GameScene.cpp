@@ -41,7 +41,13 @@ void GameScene::Initialize(const wchar_t* title) {
 	// DirectXCommonの初期化処理
 	DirectXCommon::Initialize();
 
-	// Pastoraleの初期化書影
+	// ShaderManagerの初期化処理
+	ShaderManager::Initialize();
+
+	// GraphicPiplelineManagerの初期化処理
+	GraphicPipelineManager::Initialize();
+
+	// Pastoraleの初期化処理
 	pastorale_->Initialize();
 
 	// Triangleの初期化処理
