@@ -1,48 +1,48 @@
-#include "NormalGraphicPipeline.h"
+#include "LightGraphicPipeline.h"
 
 
 
 /// <summary>
-/// NormalGraphicPipelineクラスのインスタンス取得
+/// LightGraphicPipelineクラスのインスタンス取得
 /// </summary>
-NormalGraphicPipeline* NormalGraphicPipeline::GetInstance() {
-	static NormalGraphicPipeline instance;
+LightGraphicPipeline* LightGraphicPipeline::GetInstance() {
+	static LightGraphicPipeline instance;
 	return &instance;
 }
 
 
 
 // 初期化処理
-void NormalGraphicPipeline::Initialize() {}
+void LightGraphicPipeline::Initialize() {}
 
 
 
 /* --- PSOを設定する --- */
-void NormalGraphicPipeline::SetNormalPso() {
+void LightGraphicPipeline::SetLightPso() {
 
 	// RootSignatureを作成
-	NormalGraphicPipeline::MakeRootSignature();
+	LightGraphicPipeline::MakeRootSignature();
 
 	// InputLayoutを設定する
-	NormalGraphicPipeline::SetInputLayout();
+	LightGraphicPipeline::SetInputLayout();
 
 	// BlendStateを設定する
-	NormalGraphicPipeline::SetBlendState();
+	LightGraphicPipeline::SetBlendState();
 
 	// RasiterzerStateを設定する
-	NormalGraphicPipeline::SetRasiterzerState();
+	LightGraphicPipeline::SetRasiterzerState();
 
 	// Shaderをcompileする
-	NormalGraphicPipeline::SetShaderCompile();
+	LightGraphicPipeline::SetShaderCompile();
 
 	// PSOを生成する
-	NormalGraphicPipeline::CreatePipelineStateObject();
+	LightGraphicPipeline::CreatePipelineStateObject();
 }
 
 
 
 /* --- RootSignatureを作成 --- */
-void NormalGraphicPipeline::MakeRootSignature() {
+void LightGraphicPipeline::MakeRootSignature() {
 
 	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature{};
 	D3D12_ROOT_PARAMETER rootParameters[3]{};
@@ -89,36 +89,36 @@ void NormalGraphicPipeline::MakeRootSignature() {
 	// シリアライズしてバイナリにする
 	HRESULT hr_ = D3D12SerializeRootSignature(
 		&descriptionRootSignature,
-		D3D_ROOT_SIGNATURE_VERSION_1,
-		&NormalGraphicPipeline::GetInstance()->normalPso_.signatureBlob,
-		&NormalGraphicPipeline::GetInstance()->normalPso_.errorBlob);
+		D3D_ROOT_SIGNATURE_VERSION_1, 
+		&LightGraphicPipeline::GetInstance()->lightPso_.signatureBlob, 
+		&LightGraphicPipeline::GetInstance()->lightPso_.errorBlob);
 	if (FAILED(hr_)) {
-		Log(reinterpret_cast<char*>(NormalGraphicPipeline::GetInstance()->normalPso_.errorBlob->GetBufferPointer()));
+		Log(reinterpret_cast<char*>(LightGraphicPipeline::GetInstance()->lightPso_.errorBlob->GetBufferPointer()));
 		assert(false);
 	}
 
 	// バイナリを元に生成
 	hr_ = DirectXCommon::GetInstance()->GetDevice()->CreateRootSignature(
-		0,
-		NormalGraphicPipeline::GetInstance()->normalPso_.signatureBlob->GetBufferPointer(),
-		NormalGraphicPipeline::GetInstance()->normalPso_.signatureBlob->GetBufferSize(),
-		IID_PPV_ARGS(&NormalGraphicPipeline::GetInstance()->normalPso_.rootSignature));
+		0, 
+		LightGraphicPipeline::GetInstance()->lightPso_.signatureBlob->GetBufferPointer(),
+		LightGraphicPipeline::GetInstance()->lightPso_.signatureBlob->GetBufferSize(), 
+		IID_PPV_ARGS(&LightGraphicPipeline::GetInstance()->lightPso_.rootSignature));
 	assert(SUCCEEDED(hr_));
 
 
 
-	NormalGraphicPipeline::GetInstance()->descriptionRootSignature_ = descriptionRootSignature;
+	LightGraphicPipeline::GetInstance()->descriptionRootSignature_ = descriptionRootSignature;
 	for (int i = 0; i < 3; i++) {
-		NormalGraphicPipeline::GetInstance()->rootParameters_[i] = rootParameters[i];
+		LightGraphicPipeline::GetInstance()->rootParameters_[i] = rootParameters[i];
 	}
-	NormalGraphicPipeline::GetInstance()->descriptorRange_[0] = descriptorRange[0];
-	NormalGraphicPipeline::GetInstance()->staticSamplers_[0] = staticSamplers[0];
+	LightGraphicPipeline::GetInstance()->descriptorRange_[0] = descriptorRange[0];
+	LightGraphicPipeline::GetInstance()->staticSamplers_[0] = staticSamplers[0];
 }
 
 
 
 /* --- InputLayoutを設定する --- */
-void NormalGraphicPipeline::SetInputLayout() {
+void LightGraphicPipeline::SetInputLayout() {
 
 	D3D12_INPUT_ELEMENT_DESC inputElementDescs[3]{};
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
@@ -138,15 +138,15 @@ void NormalGraphicPipeline::SetInputLayout() {
 
 
 	for (int i = 0; i < 3; i++) {
-		NormalGraphicPipeline::GetInstance()->inputElementDescs_[i] = inputElementDescs[i];
+		LightGraphicPipeline::GetInstance()->inputElementDescs_[i] = inputElementDescs[i];
 	}
-	NormalGraphicPipeline::GetInstance()->inputLayoutDesc_ = inputLayoutDesc;
+	LightGraphicPipeline::GetInstance()->inputLayoutDesc_ = inputLayoutDesc;
 }
 
 
 
 /* --- BlendStateを設定する --- */
-void NormalGraphicPipeline::SetBlendState() {
+void LightGraphicPipeline::SetBlendState() {
 
 	D3D12_BLEND_DESC blendDesc{};
 
@@ -157,13 +157,13 @@ void NormalGraphicPipeline::SetBlendState() {
 
 
 
-	NormalGraphicPipeline::GetInstance()->blendDesc_ = blendDesc;
+	LightGraphicPipeline::GetInstance()->blendDesc_ = blendDesc;
 }
 
 
 
 /* --- RasiterzerStateを設定する --- */
-void NormalGraphicPipeline::SetRasiterzerState() {
+void LightGraphicPipeline::SetRasiterzerState() {
 
 	D3D12_RASTERIZER_DESC rasterizerDesc{};
 
@@ -175,49 +175,49 @@ void NormalGraphicPipeline::SetRasiterzerState() {
 
 
 
-	NormalGraphicPipeline::GetInstance()->rasterizerDesc_ = rasterizerDesc;
+	LightGraphicPipeline::GetInstance()->rasterizerDesc_ = rasterizerDesc;
 }
 
 
 
 /* --- Shaderをcompileする --- */
-void NormalGraphicPipeline::SetShaderCompile() {
+void LightGraphicPipeline::SetShaderCompile() {
 
 	IDxcBlob* vertexShaderBlob = nullptr;
 	IDxcBlob* pixelShaderBlob = nullptr;
 
 	// Shaderをコンパイルする
-	vertexShaderBlob = ShaderManager::GetInstance()->GetShaderType().Noraml.VertexBlob;
+	vertexShaderBlob = ShaderManager::GetInstance()->GetShaderType().Light.VertexBlob;
 	assert(vertexShaderBlob != nullptr);
 
-	pixelShaderBlob = ShaderManager::GetInstance()->GetShaderType().Noraml.PixelBlob;
+	pixelShaderBlob = ShaderManager::GetInstance()->GetShaderType().Light.PixelBlob;
 	assert(pixelShaderBlob != nullptr);
 
 
 
-	NormalGraphicPipeline::GetInstance()->vertexShaderBlob_ = vertexShaderBlob;
-	NormalGraphicPipeline::GetInstance()->pixelShaderBlob_ = pixelShaderBlob;
+	LightGraphicPipeline::GetInstance()->vertexShaderBlob_ = vertexShaderBlob;
+	LightGraphicPipeline::GetInstance()->pixelShaderBlob_ = pixelShaderBlob;
 }
 
 
 
 /* --- PSOを生成する --- */
 
-void NormalGraphicPipeline::CreatePipelineStateObject() {
+void LightGraphicPipeline::CreatePipelineStateObject() {
 
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc{};
 	D3D12_DEPTH_STENCIL_DESC depthStencilDesc = DirectXCommon::GetInstance()->GetDepthStencilDesc();
 
-	graphicsPipelineStateDesc.pRootSignature = NormalGraphicPipeline::GetInstance()->normalPso_.rootSignature; // RootSignature
-	graphicsPipelineStateDesc.InputLayout = NormalGraphicPipeline::GetInstance()->inputLayoutDesc_; // InputLayout
-	graphicsPipelineStateDesc.VS = {
-		NormalGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferPointer(),
-	NormalGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferSize() }; // VertexShader
-	graphicsPipelineStateDesc.PS = {
-		NormalGraphicPipeline::GetInstance()->pixelShaderBlob_->GetBufferPointer(),
-	NormalGraphicPipeline::GetInstance()->pixelShaderBlob_->GetBufferSize() }; // PixelShader
-	graphicsPipelineStateDesc.BlendState = NormalGraphicPipeline::GetInstance()->blendDesc_; // BlendState
-	graphicsPipelineStateDesc.RasterizerState = NormalGraphicPipeline::GetInstance()->rasterizerDesc_; // RasterizeState
+	graphicsPipelineStateDesc.pRootSignature = LightGraphicPipeline::GetInstance()->lightPso_.rootSignature; // RootSignature
+	graphicsPipelineStateDesc.InputLayout = LightGraphicPipeline::GetInstance()->inputLayoutDesc_; // InputLayout
+	graphicsPipelineStateDesc.VS = { 
+		LightGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferPointer(),
+	LightGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferSize() }; // VertexShader
+	graphicsPipelineStateDesc.PS = { 
+		LightGraphicPipeline::GetInstance()->pixelShaderBlob_->GetBufferPointer(),
+	LightGraphicPipeline::GetInstance()->pixelShaderBlob_->GetBufferSize() }; // PixelShader
+	graphicsPipelineStateDesc.BlendState = LightGraphicPipeline::GetInstance()->blendDesc_; // BlendState
+	graphicsPipelineStateDesc.RasterizerState = LightGraphicPipeline::GetInstance()->rasterizerDesc_; // RasterizeState
 
 
 	// 書き込むRTVの情報
@@ -253,10 +253,10 @@ void NormalGraphicPipeline::CreatePipelineStateObject() {
 	// 実際に生成
 	HRESULT hr_ = DirectXCommon::GetInstance()->GetDevice()->CreateGraphicsPipelineState(
 		&graphicsPipelineStateDesc,
-		IID_PPV_ARGS(&NormalGraphicPipeline::GetInstance()->normalPso_.graphicsPipelineState));
+		IID_PPV_ARGS(&LightGraphicPipeline::GetInstance()->lightPso_.graphicsPipelineState));
 	assert(SUCCEEDED(hr_));
 
 
 
-	NormalGraphicPipeline::GetInstance()->graphicsPipelineStateDesc_ = graphicsPipelineStateDesc;
+	LightGraphicPipeline::GetInstance()->graphicsPipelineStateDesc_ = graphicsPipelineStateDesc;
 }

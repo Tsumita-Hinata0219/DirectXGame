@@ -16,14 +16,19 @@ class SpriteGraphicPipeline {
 public: // メンバ関数
 
 	/// <summary>
+	/// SpriteGraphicPipelineクラスのインスタンス取得
+	/// </summary>
+	static SpriteGraphicPipeline* GetInstance();
+
+	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize();
+	static void Initialize();
 
 	/// <summary>
 	/// PSOを設定する
 	/// </summary>
-	void SetSpritePso();
+	static void SetSpritePso();
 
 
 private: // メンバ関数
@@ -31,32 +36,32 @@ private: // メンバ関数
 	/// <summary>
 	/// RootSignatureを作成
 	/// </summary>
-	void MakeRootSignature();
+	static void MakeRootSignature();
 
 	/// <summary>
 	/// InputLayoutを設定する
 	/// </summary>
-	void SetInputLayout();
+	static void SetInputLayout();
 
 	/// <summary>
 	/// BlendStateを設定する
 	/// </summary>
-	void SetBlendState();
+	static void SetBlendState();
 
 	/// <summary>
 	/// RasiterzerStateを設定する
 	/// </summary>
-	void SetRasiterzerState();
+	static void SetRasiterzerState();
 
 	/// <summary>
 	/// Shaderをcompileする
 	/// </summary>
-	void SetShaderCompile();
+	static void SetShaderCompile();
 
 	/// <summary>
 	/// PSOを生成する
 	/// </summary>
-	void CreatePipelineStateObject();
+	static void CreatePipelineStateObject();
 
 
 private: // メンバ変数

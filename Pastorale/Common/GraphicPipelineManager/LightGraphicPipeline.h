@@ -11,14 +11,14 @@
 
 
 
-class NormalGraphicPipeline {
+class LightGraphicPipeline {
 
 public: // メンバ関数
 
 	/// <summary>
-	/// NormalGraphicPipelineクラスのインスタンス取得
+	/// LightGraphicPipelineクラスのインスタンス取得
 	/// </summary>
-	static NormalGraphicPipeline* GetInstance();
+	static LightGraphicPipeline* GetInstance();
 
 	/// <summary>
 	/// 初期化処理
@@ -28,7 +28,7 @@ public: // メンバ関数
 	/// <summary>
 	/// PSOを設定する
 	/// </summary>
-	static void SetNormalPso();
+	static void SetLightPso();
 
 
 private: // メンバ関数
@@ -66,7 +66,7 @@ private: // メンバ関数
 
 private: // メンバ変数
 
-	PsoProperty normalPso_;
+	PsoProperty lightPso_;
 
 
 	/* --- RootSignatureを作成 --- */
