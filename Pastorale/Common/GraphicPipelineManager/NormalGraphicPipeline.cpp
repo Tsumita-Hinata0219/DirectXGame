@@ -8,7 +8,7 @@ void NormalGraphicPipeline::Initialize() {}
 
 
 /* --- PSOを設定する --- */
-void NormalGraphicPipeline::SetNormaPso() {
+void NormalGraphicPipeline::SetNormalPso() {
 
 	// RootSignatureを作成
 	MakeRootSignature();
@@ -111,6 +111,18 @@ void NormalGraphicPipeline::SetBlendState() {
 	// 全ての色要素を書き込む
 	blendDesc_.RenderTarget[0].RenderTargetWriteMask =
 		D3D12_COLOR_WRITE_ENABLE_ALL;
+}
+
+
+
+/* --- RasiterzerStateを設定する --- */
+void NormalGraphicPipeline::SetRasiterzerState() {
+
+	// RasiterzerStateの設定
+	// 裏面(時計回り)を表示しない
+	rasterizerDesc_.CullMode = D3D12_CULL_MODE_BACK;
+	// 三角形の中を塗りつぶす
+	rasterizerDesc_.FillMode = D3D12_FILL_MODE_SOLID;
 }
 
 

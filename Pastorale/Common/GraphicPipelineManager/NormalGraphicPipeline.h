@@ -22,7 +22,7 @@ public: // ƒƒ“ƒoŠÖ”
 	/// <summary>
 	/// PSO‚ğİ’è‚·‚é
 	/// </summary>
-	void SetNormaPso();
+	void SetNormalPso();
 
 
 private: // ƒƒ“ƒoŠÖ”
