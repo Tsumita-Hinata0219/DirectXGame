@@ -133,11 +133,6 @@ public: // メンバ関数
 	/// </summary>
 	void SetDepthStencilDesc(D3D12_DEPTH_STENCIL_DESC depthStencilDesc) { DirectXCommon::GetInstance()->depthStencilDesc_ = depthStencilDesc; }
 
-	/// <summary>
-	/// 
-	/// </summary>
-	void SetUsePso(UsePSO usePso) { DirectXCommon::GetInstance()->usePso_ = usePso; }
-
 #pragma endregion
 
 
@@ -273,7 +268,7 @@ private: // メンバ変数
 
 
 	// PSOを生成する
-	UsePSO usePso_;
+	//UsePSO usePso_;
 
 
 	// ビューポート

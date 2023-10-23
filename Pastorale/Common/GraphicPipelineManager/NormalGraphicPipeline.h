@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 #include <d3dx12.h>
@@ -13,87 +13,87 @@
 
 class NormalGraphicPipeline {
 
-public: // ƒƒ“ƒoŠÖ”
+public: // ãƒ¡ãƒ³ãƒé–¢æ•°
 
 	/// <summary>
-	/// NormalGraphicPipelineƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒXæ“¾
+	/// NormalGraphicPipelineã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å–å¾—
 	/// </summary>
 	static NormalGraphicPipeline* GetInstance();
 
 	/// <summary>
-	/// ‰Šú‰»ˆ—
+	/// åˆæœŸåŒ–å‡¦ç†
 	/// </summary>
 	static void Initialize();
 
 	/// <summary>
-	/// PSO‚ğİ’è‚·‚é
+	/// PSOã‚’è¨­å®šã™ã‚‹
 	/// </summary>
 	static void SetNormalPso();
 
 
-private: // ƒƒ“ƒoŠÖ”
+private: // ãƒ¡ãƒ³ãƒé–¢æ•°
 
 	/// <summary>
-	/// RootSignature‚ğì¬
+	/// RootSignatureã‚’ä½œæˆ
 	/// </summary>
 	static void MakeRootSignature();
 
 	/// <summary>
-	/// InputLayout‚ğİ’è‚·‚é
+	/// InputLayoutã‚’è¨­å®šã™ã‚‹
 	/// </summary>
 	static void SetInputLayout();
 
 	/// <summary>
-	/// BlendState‚ğİ’è‚·‚é
+	/// BlendStateã‚’è¨­å®šã™ã‚‹
 	/// </summary>
 	static void SetBlendState();
 
 	/// <summary>
-	/// RasiterzerState‚ğİ’è‚·‚é
+	/// RasiterzerStateã‚’è¨­å®šã™ã‚‹
 	/// </summary>
 	static void SetRasiterzerState();
 
 	/// <summary>
-	/// Shader‚ğcompile‚·‚é
+	/// Shaderã‚’compileã™ã‚‹
 	/// </summary>
 	static void SetShaderCompile();
 
 	/// <summary>
-	/// PSO‚ğ¶¬‚·‚é
+	/// PSOã‚’ç”Ÿæˆã™ã‚‹
 	/// </summary>
 	static void CreatePipelineStateObject();
 
 
-private: // ƒƒ“ƒo•Ï”
+private: // ãƒ¡ãƒ³ãƒå¤‰æ•°
 
 	PsoProperty normalPso_;
 
 
-	/* --- RootSignature‚ğì¬ --- */
+	/* --- RootSignatureã‚’ä½œæˆ --- */
 	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature_{};
 	D3D12_ROOT_PARAMETER rootParameters_[3]{};
 	D3D12_DESCRIPTOR_RANGE descriptorRange_[1]{};
 	D3D12_STATIC_SAMPLER_DESC staticSamplers_[1]{};
 
 
-	/* --- InputLayout‚ğİ’è‚·‚é --- */
+	/* --- InputLayoutã‚’è¨­å®šã™ã‚‹ --- */
 	D3D12_INPUT_ELEMENT_DESC inputElementDescs_[3]{};
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc_{};
 
 
-	/* --- BlendState‚ğİ’è‚·‚é --- */
+	/* --- BlendStateã‚’è¨­å®šã™ã‚‹ --- */
 	D3D12_BLEND_DESC blendDesc_{};
 
 
-	/* --- RasiterzerState‚ğİ’è‚·‚é --- */
+	/* --- RasiterzerStateã‚’è¨­å®šã™ã‚‹ --- */
 	D3D12_RASTERIZER_DESC rasterizerDesc_{};
 
 
-	/* --- Shader‚ğcompile‚·‚é --- */
+	/* --- Shaderã‚’compileã™ã‚‹ --- */
 	IDxcBlob* vertexShaderBlob_ = nullptr;
 	IDxcBlob* pixelShaderBlob_ = nullptr;
 
 
-	/* --- PSO‚ğ¶¬‚·‚é --- */
+	/* --- PSOã‚’ç”Ÿæˆã™ã‚‹ --- */
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc_{};
 };

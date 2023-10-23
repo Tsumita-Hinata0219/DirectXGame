@@ -1,4 +1,4 @@
-﻿#include "ShaderManager.h"
+#include "ShaderManager.h"
 
 
 
@@ -116,7 +116,6 @@ void ShaderManager::InitializeDXC() {
 
 	hr = DxcCreateInstance(CLSID_DxcCompiler, IID_PPV_ARGS(&ShaderManager::GetInstance()->dxc_.Compiler));
 	assert(SUCCEEDED(hr));
-
 }
 
 
@@ -159,6 +158,7 @@ void ShaderManager::NormalShader() {
 
 	ShaderManager::GetInstance()->shaders_.Noraml = shader;
 }
+
 
 
 /// <summary>

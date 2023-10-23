@@ -71,9 +71,6 @@
     <Filter Include="Pastorale\Common\ShaderManager">
       <UniqueIdentifier>{76df0818-cd97-44c8-b1f6-f0c4fd4ae667}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project\math\scene">
-      <UniqueIdentifier>{eb91259a-e1e9-43f0-80bc-00de21024378}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project\scene">
       <UniqueIdentifier>{a87e714d-6ef3-47aa-aa3d-6789d4bb2b0a}</UniqueIdentifier>
     </Filter>
@@ -111,9 +108,6 @@
     </ClCompile>
     <ClCompile Include="Project\math\Function.cpp">
       <Filter>Project\math</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\scene\GameScene.cpp">
-      <Filter>Project\math\scene</Filter>
     </ClCompile>
     <ClCompile Include="Pastorale\utilities\ImGuiManager.cpp">
       <Filter>Pastorale\utilities</Filter>
@@ -157,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="Pastorale\Common\GraphicPipelineManager\LightGraphicPipeline.cpp">
       <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\scene\GameScene.cpp">
+      <Filter>Project\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,9 +208,6 @@
     <ClInclude Include="Project\math\Vector4.h">
       <Filter>Project\math</Filter>
     </ClInclude>
-    <ClInclude Include="Project\scene\GameScene.h">
-      <Filter>Project\math\scene</Filter>
-    </ClInclude>
     <ClInclude Include="Pastorale\utilities\ImGuiManager.h">
       <Filter>Pastorale\utilities</Filter>
     </ClInclude>
@@ -255,6 +249,9 @@
     </ClInclude>
     <ClInclude Include="Pastorale\Common\GraphicPipelineManager\LightGraphicPipeline.h">
       <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\scene\GameScene.h">
+      <Filter>Project\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -127,9 +127,9 @@ struct Plane {
 
 
 // 三角形
-struct Triangle {
-	Vector3 vertices[3]; // !< 頂点
-};
+//struct Triangle {
+//	Vector3 vertices[3]; // !< 頂点
+//};
 
 
 // AABB

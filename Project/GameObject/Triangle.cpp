@@ -107,10 +107,10 @@ void Triangle::Update(Matrix4x4& ViewMatrix) {
 
 	ImGui::Text("");
 	ImGui::Text("Sphere");
-	ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
+	/*ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("sphereRotate", &sphereTransform_.rotate_.x, 0.1f);
 	ImGui::DragFloat3("sphereTranslate", &sphereTransform_.translation_.x, 0.1f);
-	ImGui::DragFloat("Radius", &sphereElemnt_.radius, 0.1f, 1.0f);
+	ImGui::DragFloat("Radius", &sphereElemnt_.radius, 0.1f, 1.0f);*/
 
 	ImGui::Text("");
 	ImGui::Checkbox("useMonsterBall", &useTex_);
