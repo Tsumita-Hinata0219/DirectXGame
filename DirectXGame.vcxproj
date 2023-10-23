@@ -105,6 +105,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Pastorale\Common\Camera\Camera.cpp" />
     <ClCompile Include="Pastorale\Common\DirectXCommon\DirectXCommon.cpp" />
     <ClCompile Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.cpp" />
+    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\NormalGraphicPipeline.cpp" />
+    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\SpriteGraphicPipeline.cpp" />
     <ClCompile Include="Pastorale\Common\SceneSetup\SceneSetup.cpp" />
     <ClCompile Include="Pastorale\Common\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Pastorale\Common\WinApp\WinApp.cpp" />
@@ -131,6 +133,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Pastorale\Common\Camera\Camera.h" />
     <ClInclude Include="Pastorale\Common\DirectXCommon\DirectXCommon.h" />
     <ClInclude Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.h" />
+    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\NormalGraphicPipeline.h" />
+    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\SpriteGraphicPipeline.h" />
     <ClInclude Include="Pastorale\Common\SceneSetup\SceneSetup.h" />
     <ClInclude Include="Pastorale\Common\ShaderManager\ShaderManager.h" />
     <ClInclude Include="Pastorale\Common\WinApp\WinApp.h" />

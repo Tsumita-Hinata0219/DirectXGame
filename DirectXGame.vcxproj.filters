@@ -146,6 +146,12 @@
     <ClCompile Include="Pastorale\Common\ShaderManager\ShaderManager.cpp">
       <Filter>Pastorale\Common\ShaderManager</Filter>
     </ClCompile>
+    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\NormalGraphicPipeline.cpp">
+      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\SpriteGraphicPipeline.cpp">
+      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -234,6 +240,12 @@
     </ClInclude>
     <ClInclude Include="Pastorale\Common\ShaderManager\ShaderManager.h">
       <Filter>Pastorale\Common\ShaderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\NormalGraphicPipeline.h">
+      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\SpriteGraphicPipeline.h">
+      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
