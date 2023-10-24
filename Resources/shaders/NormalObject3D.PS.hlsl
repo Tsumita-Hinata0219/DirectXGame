@@ -12,5 +12,5 @@ struct PixelShaderOutput{
 PixelShaderOutput main(){
     PixelShaderOutput output;
     output.color = gMaterial.color;
-    return output;6
+    return output;
 }
