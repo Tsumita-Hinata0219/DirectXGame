@@ -255,12 +255,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\shaders\NormalObject3D.PS.hlsl">
-      <Filter>リソース ファイル\shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\shaders\NormalObject3D.VS.hlsl">
-      <Filter>リソース ファイル\shaders</Filter>
-    </FxCompile>
     <FxCompile Include="Resources\shaders\SpriteObject3d.PS.hlsl">
       <Filter>リソース ファイル\shaders</Filter>
     </FxCompile>
@@ -271,6 +265,12 @@
       <Filter>リソース ファイル\shaders</Filter>
     </FxCompile>
     <FxCompile Include="Resources\shaders\LightObject.PS.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\NormalObject3d.VS.hlsl">
+      <Filter>リソース ファイル\shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Resources\shaders\NormalObject3d.PS.hlsl">
       <Filter>リソース ファイル\shaders</Filter>
     </FxCompile>
   </ItemGroup>
@@ -284,6 +284,9 @@
       <Filter>リソース ファイル\shaders</Filter>
     </None>
     <None Include="Resources\shaders\SpriteObject3d.hlsli">
+      <Filter>リソース ファイル\shaders</Filter>
+    </None>
+    <None Include="Resources\shaders\NormalObject3d.hlsli">
       <Filter>リソース ファイル\shaders</Filter>
     </None>
   </ItemGroup>
