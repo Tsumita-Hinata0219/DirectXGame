@@ -1,4 +1,4 @@
-﻿#include "NormalGraphicPipeline.h"
+#include "NormalGraphicPipeline.h"
 
 
 
@@ -108,9 +108,12 @@ void NormalGraphicPipeline::MakeRootSignature() {
 
 
 	NormalGraphicPipeline::GetInstance()->descriptionRootSignature_ = descriptionRootSignature;
-	for (int i = 0; i < 3; i++) {
+	/*for (int i = 0; i < 3; i++) {
 		NormalGraphicPipeline::GetInstance()->rootParameters_[i] = rootParameters[i];
-	}
+	}*/
+	NormalGraphicPipeline::GetInstance()->rootParameters_[0] = rootParameters[0];
+	NormalGraphicPipeline::GetInstance()->rootParameters_[1] = rootParameters[1];
+	NormalGraphicPipeline::GetInstance()->rootParameters_[2] = rootParameters[2];
 	NormalGraphicPipeline::GetInstance()->descriptorRange_[0] = descriptorRange[0];
 	NormalGraphicPipeline::GetInstance()->staticSamplers_[0] = staticSamplers[0];
 }
@@ -120,7 +123,7 @@ void NormalGraphicPipeline::MakeRootSignature() {
 /* --- InputLayoutを設定する --- */
 void NormalGraphicPipeline::SetInputLayout() {
 
-	D3D12_INPUT_ELEMENT_DESC inputElementDescs[3]{};
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs[2]{};
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
 
 	// InputLayout
@@ -128,16 +131,18 @@ void NormalGraphicPipeline::SetInputLayout() {
 	inputElementDescs[0].SemanticIndex = 0;
 	inputElementDescs[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 	inputElementDescs[0].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	
 	inputElementDescs[1].SemanticName = "TEXCOORD";
 	inputElementDescs[1].SemanticIndex = 0;
 	inputElementDescs[1].Format = DXGI_FORMAT_R32G32_FLOAT;
 	inputElementDescs[1].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+
 	inputLayoutDesc.pInputElementDescs = inputElementDescs;
 	inputLayoutDesc.NumElements = _countof(inputElementDescs);
 
 
 
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 2; i++) {
 		NormalGraphicPipeline::GetInstance()->inputElementDescs_[i] = inputElementDescs[i];
 	}
 	NormalGraphicPipeline::GetInstance()->inputLayoutDesc_ = inputLayoutDesc;
@@ -209,13 +214,33 @@ void NormalGraphicPipeline::CreatePipelineStateObject() {
 	D3D12_DEPTH_STENCIL_DESC depthStencilDesc = DirectXCommon::GetInstance()->GetDepthStencilDesc();
 
 	graphicsPipelineStateDesc.pRootSignature = NormalGraphicPipeline::GetInstance()->normalPso_.rootSignature; // RootSignature
-	graphicsPipelineStateDesc.InputLayout = NormalGraphicPipeline::GetInstance()->inputLayoutDesc_; // InputLayout
+
+	// InputLayout
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs[2]{};
+	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
+	inputElementDescs[0].SemanticName = "POSITION";
+	inputElementDescs[0].SemanticIndex = 0;
+	inputElementDescs[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	inputElementDescs[0].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+
+	inputElementDescs[1].SemanticName = "TEXCOORD";
+	inputElementDescs[1].SemanticIndex = 0;
+	inputElementDescs[1].Format = DXGI_FORMAT_R32G32_FLOAT;
+	inputElementDescs[1].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+
+	inputLayoutDesc.pInputElementDescs = inputElementDescs;
+	inputLayoutDesc.NumElements = _countof(inputElementDescs);
+
+	graphicsPipelineStateDesc.InputLayout = inputLayoutDesc;//NormalGraphicPipeline::GetInstance()->inputLayoutDesc_; // InputLayout
+
 	graphicsPipelineStateDesc.VS = {
 		NormalGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferPointer(),
 	NormalGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferSize() }; // VertexShader
+
 	graphicsPipelineStateDesc.PS = {
 		NormalGraphicPipeline::GetInstance()->pixelShaderBlob_->GetBufferPointer(),
 	NormalGraphicPipeline::GetInstance()->pixelShaderBlob_->GetBufferSize() }; // PixelShader
+
 	graphicsPipelineStateDesc.BlendState = NormalGraphicPipeline::GetInstance()->blendDesc_; // BlendState
 	graphicsPipelineStateDesc.RasterizerState = NormalGraphicPipeline::GetInstance()->rasterizerDesc_; // RasterizeState
 

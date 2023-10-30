@@ -127,5 +127,4 @@ private:
 
 	Vector4* materialDate_ = nullptr;
 
-
 };

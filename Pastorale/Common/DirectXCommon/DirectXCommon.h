@@ -55,19 +55,6 @@ public: // メンバ関数
 	/// </summary>
 	static void Release();
 
-	/// <summary>
-	/// CompileShader関数
-	/// </summary>
-	static IDxcBlob* CompileShader(
-		// CompilerするShaderファイルへのパス
-		const std::wstring& filePath,
-		// Compilerに使用するProfile
-		const wchar_t* profile,
-		// 初期化で生成したものを3つ
-		IDxcUtils* dxcUtils,
-		IDxcCompiler3* dxcCompiler,
-		IDxcIncludeHandler* includeHandler);
-
 
 #pragma region Get 取得
 
@@ -173,9 +160,6 @@ private: // メンバ関数
 
 	// Fenceを生成する
 	static void MakeFence();
-
-	// DXCの初期化
-	//static void InitializeDXC();
 
 
 	// ViewportとScissor

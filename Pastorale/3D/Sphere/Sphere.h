@@ -127,6 +127,8 @@ private:
 	Vector4* materialDate_ = nullptr;
 
 
+	DirectionalLight directionalLightData_{};
+
 	// テクスチャの切り替え
 	bool useMonsterBall = true;
 

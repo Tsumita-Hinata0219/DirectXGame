@@ -52,11 +52,9 @@ void Sprite::DrawSprite(uint32_t texhandle) {
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSprite_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	//DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU());
 	if (!texhandle == 0) {
 		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, texhandle);
 	}
-
 
 	// 描画！(DrawCall/ドローコール)
 	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(6, 1, 0, 0);

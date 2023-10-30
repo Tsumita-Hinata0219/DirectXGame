@@ -1,4 +1,4 @@
-﻿#include "SpriteGraphicPipeline.h"
+#include "SpriteGraphicPipeline.h"
 
 
 
@@ -209,7 +209,23 @@ void SpriteGraphicPipeline::CreatePipelineStateObject() {
 	D3D12_DEPTH_STENCIL_DESC depthStencilDesc = DirectXCommon::GetInstance()->GetDepthStencilDesc();
 
 	graphicsPipelineStateDesc.pRootSignature = SpriteGraphicPipeline::GetInstance()->spritePso_.rootSignature; // RootSignature
-	graphicsPipelineStateDesc.InputLayout = SpriteGraphicPipeline::GetInstance()->inputLayoutDesc_; // InputLayout
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs[2]{};
+	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
+
+	// InputLayout
+	inputElementDescs[0].SemanticName = "POSITION";
+	inputElementDescs[0].SemanticIndex = 0;
+	inputElementDescs[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	inputElementDescs[0].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	inputElementDescs[1].SemanticName = "TEXCOORD";
+	inputElementDescs[1].SemanticIndex = 0;
+	inputElementDescs[1].Format = DXGI_FORMAT_R32G32_FLOAT;
+	inputElementDescs[1].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	inputLayoutDesc.pInputElementDescs = inputElementDescs;
+	inputLayoutDesc.NumElements = _countof(inputElementDescs);
+
+	
+	graphicsPipelineStateDesc.InputLayout = inputLayoutDesc;//SpriteGraphicPipeline::GetInstance()->inputLayoutDesc_; // InputLayout
 	graphicsPipelineStateDesc.VS = {
 		SpriteGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferPointer(),
 	SpriteGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferSize() }; // VertexShader
@@ -255,8 +271,6 @@ void SpriteGraphicPipeline::CreatePipelineStateObject() {
 		&graphicsPipelineStateDesc,
 		IID_PPV_ARGS(&SpriteGraphicPipeline::GetInstance()->spritePso_.graphicsPipelineState));
 	assert(SUCCEEDED(hr_));
-
-
 
 	SpriteGraphicPipeline::GetInstance()->graphicsPipelineStateDesc_ = graphicsPipelineStateDesc;
 }

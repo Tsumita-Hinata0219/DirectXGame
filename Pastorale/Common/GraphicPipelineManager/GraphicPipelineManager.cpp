@@ -1,4 +1,4 @@
-﻿#include "GraphicPipelineManager.h"
+#include "GraphicPipelineManager.h"
 
 
 /// <summary>

@@ -83,6 +83,10 @@ void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& v
 	// 色の設定
 	*materialDate_ = { 1.0f, 1.0f, 1.0f, 1.0f };
 
+	// 光の設定
+	directionalLightData_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	directionalLightData_.direction = { 0.0f, -1.0f, 0.0f };
+	directionalLightData_.intensity = 1.0f;
 
 	// 書き込むためのアドレスを用意
 	vertexResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&vertexDataSphere_));

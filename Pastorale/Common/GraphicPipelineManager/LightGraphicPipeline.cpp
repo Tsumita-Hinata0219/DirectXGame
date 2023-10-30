@@ -1,4 +1,4 @@
-﻿#include "LightGraphicPipeline.h"
+#include "LightGraphicPipeline.h"
 
 
 
@@ -24,7 +24,7 @@ void LightGraphicPipeline::SetLightPso() {
 	LightGraphicPipeline::MakeRootSignature();
 
 	// InputLayoutを設定する
-	LightGraphicPipeline::SetInputLayout();
+	//LightGraphicPipeline::SetInputLayout();
 
 	// BlendStateを設定する
 	LightGraphicPipeline::SetBlendState();
@@ -45,22 +45,23 @@ void LightGraphicPipeline::SetLightPso() {
 void LightGraphicPipeline::MakeRootSignature() {
 
 	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature{};
-	D3D12_ROOT_PARAMETER rootParameters[3]{};
+	D3D12_ROOT_PARAMETER rootParameters[4]{};
 	D3D12_DESCRIPTOR_RANGE descriptorRange[1]{};
 	D3D12_STATIC_SAMPLER_DESC staticSamplers[1]{};
 
 	// RootSignature作成
 	descriptionRootSignature.Flags =
 		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
+
 	// 色に関する
 	rootParameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // CBVを使う
 	rootParameters[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixelShaderで使う
 	rootParameters[0].Descriptor.ShaderRegister = 0; // レジスタ番号0とバインド
 
 	// 頂点位置に関する
-	rootParameters[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;//CSVで使う
-	rootParameters[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX;//VERTEXShaderで使う
-	rootParameters[1].Descriptor.ShaderRegister = 0;//レジスタ番号を0にバインド
+	rootParameters[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // CBVを使う
+	rootParameters[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX;// VertexShaderで使う
+	rootParameters[1].Descriptor.ShaderRegister = 0;// レジスタ番号を0にバインド
 	descriptionRootSignature.pParameters = rootParameters; // ルートパラメータ配列へのポインタ
 	descriptionRootSignature.NumParameters = _countof(rootParameters); // 配列の長さ
 
@@ -72,6 +73,11 @@ void LightGraphicPipeline::MakeRootSignature() {
 	rootParameters[2].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixShaderで使う
 	rootParameters[2].DescriptorTable.pDescriptorRanges = descriptorRange; // Tableの中身の配列を指定
 	rootParameters[2].DescriptorTable.NumDescriptorRanges = _countof(descriptorRange); // Tableで利用する
+
+	// 多分、光に関す
+	rootParameters[3].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // CBVを使う
+	rootParameters[3].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixelShaderで使う
+	rootParameters[3].Descriptor.ShaderRegister = 1; // レジスタ番号0とバインド
 
 	// Samplerの設定
 	staticSamplers[0].Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR; // バイリニアフィルタ
@@ -132,6 +138,10 @@ void LightGraphicPipeline::SetInputLayout() {
 	inputElementDescs[1].SemanticIndex = 0;
 	inputElementDescs[1].Format = DXGI_FORMAT_R32G32_FLOAT;
 	inputElementDescs[1].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	inputElementDescs[2].SemanticName = "NORMAL";
+	inputElementDescs[2].SemanticIndex = 0;
+	inputElementDescs[2].Format = DXGI_FORMAT_R32G32_FLOAT;
+	inputElementDescs[2].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
 	inputLayoutDesc.pInputElementDescs = inputElementDescs;
 	inputLayoutDesc.NumElements = _countof(inputElementDescs);
 
@@ -206,18 +216,58 @@ void LightGraphicPipeline::SetShaderCompile() {
 void LightGraphicPipeline::CreatePipelineStateObject() {
 
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc{};
-	D3D12_DEPTH_STENCIL_DESC depthStencilDesc = DirectXCommon::GetInstance()->GetDepthStencilDesc();
 
 	graphicsPipelineStateDesc.pRootSignature = LightGraphicPipeline::GetInstance()->lightPso_.rootSignature; // RootSignature
-	graphicsPipelineStateDesc.InputLayout = LightGraphicPipeline::GetInstance()->inputLayoutDesc_; // InputLayout
+	
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs[3]{};
+	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
+
+	// InputLayout
+	inputElementDescs[0].SemanticName = "POSITION";
+	inputElementDescs[0].SemanticIndex = 0;
+	inputElementDescs[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	inputElementDescs[0].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	inputElementDescs[1].SemanticName = "TEXCOORD";
+	inputElementDescs[1].SemanticIndex = 0;
+	inputElementDescs[1].Format = DXGI_FORMAT_R32G32_FLOAT;
+	inputElementDescs[1].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	inputElementDescs[2].SemanticName = "NORMAL";
+	inputElementDescs[2].SemanticIndex = 0;
+	inputElementDescs[2].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	inputElementDescs[2].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	inputLayoutDesc.pInputElementDescs = inputElementDescs;
+	inputLayoutDesc.NumElements = _countof(inputElementDescs);
+
+	graphicsPipelineStateDesc.InputLayout = inputLayoutDesc;//LightGraphicPipeline::GetInstance()->inputLayoutDesc_; // InputLayout
+	
 	graphicsPipelineStateDesc.VS = { 
 		LightGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferPointer(),
 	LightGraphicPipeline::GetInstance()->vertexShaderBlob_->GetBufferSize() }; // VertexShader
+
 	graphicsPipelineStateDesc.PS = { 
 		LightGraphicPipeline::GetInstance()->pixelShaderBlob_->GetBufferPointer(),
 	LightGraphicPipeline::GetInstance()->pixelShaderBlob_->GetBufferSize() }; // PixelShader
-	graphicsPipelineStateDesc.BlendState = LightGraphicPipeline::GetInstance()->blendDesc_; // BlendState
-	graphicsPipelineStateDesc.RasterizerState = LightGraphicPipeline::GetInstance()->rasterizerDesc_; // RasterizeState
+
+	//graphicsPipelineStateDesc.BlendState = LightGraphicPipeline::GetInstance()->blendDesc_; // BlendState
+
+	D3D12_BLEND_DESC blendDesc{};
+
+	// BlendStateの設定
+	// 全ての色要素を書き込む
+	blendDesc.RenderTarget[0].RenderTargetWriteMask =
+		D3D12_COLOR_WRITE_ENABLE_ALL;
+	graphicsPipelineStateDesc.BlendState = blendDesc;
+
+	D3D12_RASTERIZER_DESC rasterizerDesc{};
+
+	// RasiterzerStateの設定
+	// 裏面(時計回り)を表示しない
+	rasterizerDesc.CullMode = D3D12_CULL_MODE_BACK;
+	// 三角形の中を塗りつぶす
+	rasterizerDesc.FillMode = D3D12_FILL_MODE_SOLID;
+
+
+	graphicsPipelineStateDesc.RasterizerState = rasterizerDesc;//LightGraphicPipeline::GetInstance()->rasterizerDesc_; // RasterizeState
 
 
 	// 書き込むRTVの情報
@@ -234,7 +284,7 @@ void LightGraphicPipeline::CreatePipelineStateObject() {
 	graphicsPipelineStateDesc.SampleDesc.Count = 1;
 	graphicsPipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
 
-
+	D3D12_DEPTH_STENCIL_DESC depthStencilDesc;
 	// Depthの機能を有効化する
 	depthStencilDesc.DepthEnable = true;
 	// 書き込む
@@ -247,16 +297,11 @@ void LightGraphicPipeline::CreatePipelineStateObject() {
 	graphicsPipelineStateDesc.DSVFormat = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
 
-	DirectXCommon::GetInstance()->SetDepthStencilDesc(depthStencilDesc);
-
-
 	// 実際に生成
 	HRESULT hr_ = DirectXCommon::GetInstance()->GetDevice()->CreateGraphicsPipelineState(
 		&graphicsPipelineStateDesc,
 		IID_PPV_ARGS(&LightGraphicPipeline::GetInstance()->lightPso_.graphicsPipelineState));
 	assert(SUCCEEDED(hr_));
-
-
 
 	LightGraphicPipeline::GetInstance()->graphicsPipelineStateDesc_ = graphicsPipelineStateDesc;
 }
