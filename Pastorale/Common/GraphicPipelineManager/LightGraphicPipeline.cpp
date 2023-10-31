@@ -123,35 +123,35 @@ void LightGraphicPipeline::MakeRootSignature() {
 
 
 
-/* --- InputLayoutを設定する --- */
-void LightGraphicPipeline::SetInputLayout() {
-
-	D3D12_INPUT_ELEMENT_DESC inputElementDescs[3]{};
-	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
-
-	// InputLayout
-	inputElementDescs[0].SemanticName = "POSITION";
-	inputElementDescs[0].SemanticIndex = 0;
-	inputElementDescs[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	inputElementDescs[0].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
-	inputElementDescs[1].SemanticName = "TEXCOORD";
-	inputElementDescs[1].SemanticIndex = 0;
-	inputElementDescs[1].Format = DXGI_FORMAT_R32G32_FLOAT;
-	inputElementDescs[1].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
-	inputElementDescs[2].SemanticName = "NORMAL";
-	inputElementDescs[2].SemanticIndex = 0;
-	inputElementDescs[2].Format = DXGI_FORMAT_R32G32_FLOAT;
-	inputElementDescs[2].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
-	inputLayoutDesc.pInputElementDescs = inputElementDescs;
-	inputLayoutDesc.NumElements = _countof(inputElementDescs);
-
-
-
-	for (int i = 0; i < 3; i++) {
-		LightGraphicPipeline::GetInstance()->inputElementDescs_[i] = inputElementDescs[i];
-	}
-	LightGraphicPipeline::GetInstance()->inputLayoutDesc_ = inputLayoutDesc;
-}
+///* --- InputLayoutを設定する --- */
+//void LightGraphicPipeline::SetInputLayout() {
+//
+//	D3D12_INPUT_ELEMENT_DESC inputElementDescs[3]{};
+//	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
+//
+//	// InputLayout
+//	inputElementDescs[0].SemanticName = "POSITION";
+//	inputElementDescs[0].SemanticIndex = 0;
+//	inputElementDescs[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+//	inputElementDescs[0].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+//	inputElementDescs[1].SemanticName = "TEXCOORD";
+//	inputElementDescs[1].SemanticIndex = 0;
+//	inputElementDescs[1].Format = DXGI_FORMAT_R32G32_FLOAT;
+//	inputElementDescs[1].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+//	inputElementDescs[2].SemanticName = "NORMAL";
+//	inputElementDescs[2].SemanticIndex = 0;
+//	inputElementDescs[2].Format = DXGI_FORMAT_R32G32_FLOAT;
+//	inputElementDescs[2].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+//	inputLayoutDesc.pInputElementDescs = inputElementDescs;
+//	inputLayoutDesc.NumElements = _countof(inputElementDescs);
+//
+//
+//
+//	for (int i = 0; i < 3; i++) {
+//		LightGraphicPipeline::GetInstance()->inputElementDescs_[i] = inputElementDescs[i];
+//	}
+//	LightGraphicPipeline::GetInstance()->inputLayoutDesc_ = inputLayoutDesc;
+//}
 
 
 
@@ -284,7 +284,7 @@ void LightGraphicPipeline::CreatePipelineStateObject() {
 	graphicsPipelineStateDesc.SampleDesc.Count = 1;
 	graphicsPipelineStateDesc.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
 
-	D3D12_DEPTH_STENCIL_DESC depthStencilDesc;
+	D3D12_DEPTH_STENCIL_DESC depthStencilDesc{};
 	// Depthの機能を有効化する
 	depthStencilDesc.DepthEnable = true;
 	// 書き込む

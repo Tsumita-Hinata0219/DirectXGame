@@ -222,7 +222,8 @@ ID3D12Resource* Sphere::CreateBufferResource(size_t sizeInBytes) {
 
 	// 実際に頂点リソースを作る
 	HRESULT hr_;
-	hr_ = DirectXCommon::GetInstance()->GetDevice()->CreateCommittedResource(&uploadHeapProperties_, D3D12_HEAP_FLAG_NONE,
+	hr_ = DirectXCommon::GetInstance()->GetDevice()->CreateCommittedResource(
+		&uploadHeapProperties_, D3D12_HEAP_FLAG_NONE,
 		&vertexResourceDesc_, D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
 		IID_PPV_ARGS(&resultResource));
 	assert(SUCCEEDED(hr_));
