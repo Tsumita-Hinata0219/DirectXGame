@@ -38,6 +38,9 @@ void Sphere::Update(SphereData sphere, WorldTransform transform, Matrix4x4& view
 /// </summary>
 void Sphere::Draw(uint32_t texhandle) {
 
+
+
+
 	/// コマンドを積む
 	// 頂点の設定 (VBVを設定)
 	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &vertexBufferViewSphere_);

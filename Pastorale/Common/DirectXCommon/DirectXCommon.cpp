@@ -160,8 +160,8 @@ void DirectXCommon::PreDraw() {
 	commands.List->RSSetViewports(1, &DirectXCommon::GetInstance()->viewport_); // Viewportを設定
 	commands.List->RSSetScissorRects(1, &DirectXCommon::GetInstance()->scissorRect_); // Scissorを設定
 	// RootSignatureを設定。PSOに設定してるけど別途設定が必要
-	/*commands.List->SetGraphicsRootSignature(DirectXCommon::GetInstance()->usePso_.rootSignature);
-	commands.List->SetPipelineState(DirectXCommon::GetInstance()->usePso_.graphicsPipelineState); */// PSOを設定
+	commands.List->SetGraphicsRootSignature(DirectXCommon::GetInstance()->usePso_.rootSignature);
+	commands.List->SetPipelineState(DirectXCommon::GetInstance()->usePso_.graphicsPipelineState); // PSOを設定
 	//commands.List->SetGraphicsRootSignature()
 
 	DirectXCommon::GetInstance()->commands_ = commands;
