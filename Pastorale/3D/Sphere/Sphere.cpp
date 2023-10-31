@@ -52,7 +52,7 @@ void Sphere::Draw(uint32_t texhandle) {
 
 	// 色用のCBufferの場所を設定
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(0, materialResourceSphere_->GetGPUVirtualAddress());
-
+	
 	// wvp用のCBufferの場所を設定
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSphere_->GetGPUVirtualAddress());
 
@@ -60,6 +60,9 @@ void Sphere::Draw(uint32_t texhandle) {
 	if (!texhandle == 0) {
 		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, texhandle);
 	}
+
+	// 光用のCBufferの場所を設定
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(3, directionalLightingResource_->GetGPUVirtualAddress());
 
 	// 描画！ (DrawCall / ドローコール)
 	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0);
@@ -72,30 +75,33 @@ void Sphere::Draw(uint32_t texhandle) {
 /// </summary>
 void Sphere::SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix) {
 
-	// vertexResourceを生成する
-	vertexResourceSphere_ = CreateBufferResource(sizeof(VertexData) * subdivision_ * subdivision_ * 6);
-	// Material用のResourceを作る
-	CreateMaterialResource();
-	// vertexBufferViewを生成する
-	vertexBufferViewSphere_ = CreateBufferView(vertexResourceSphere_);
-	// TransformationMatrix用のResourceを作る
-	CreateTransformationMatrixResource();
-	// Sphere用のWorldViewProjectionMatrixを作る
-	CreateWVPMatrix(sphere, transform, viewMatrix);
-
-
 	// 色の設定
-	*materialDate_ = { 1.0f, 1.0f, 1.0f, 1.0f };
+	materialDataSphere_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	// Lightingを有効にする
+	materialDataSphere_.enableLightting = true;
 
 	// 光の設定
 	directionalLightData_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	directionalLightData_.direction = { 0.0f, -1.0f, 0.0f };
 	directionalLightData_.intensity = 1.0f;
 
-	// 書き込むためのアドレスを用意
-	vertexResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&vertexDataSphere_));
-	materialResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
+	// vertexResourceを生成する
+	CreateVertexResource();
+	// TransformationMatrix用のResourceを作る
+	CreateTransformationMatrixResource();
+	// Material用のResourceを作る
+	CreateMaterialResource();
+	// DirectionalLight用のResourceを作る
+	CreateDirectionalLightingResource();
+	//vertexBufferViewを生成する
+	vertexBufferViewSphere_ = CreateBufferView(vertexResourceSphere_);
+	// Sphere用のWorldViewProjectionMatrixを作る
+	CreateWVPMatrix(sphere, transform, viewMatrix);
 
+
+	// vertexBufferViewを生成する
+	vertexResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&vertexDataSphere_));
+	
 
 	// 経度分割の1つ分の角度
 	const float lonEvery = float(std::numbers::pi) * 2.0f / float(subdivision_);
@@ -272,7 +278,6 @@ void Sphere::CreateTransformationMatrixResource() {
 
 	// 書き込むためのアドレスを取得
 	transformationMatrixResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&transfomationMatrixDataSphere_));
-
 }
 
 
@@ -290,6 +295,17 @@ void Sphere::CreateWVPMatrix(SphereData sphere, WorldTransform transform, Matrix
 }
 
 
+/// <summary>
+/// Material用のResourceを作る
+/// </summary>
+void Sphere::CreateVertexResource() {
+
+	// vertexResourceを生成する
+	vertexResourceSphere_ = CreateBufferResource(sizeof(VertexData) * subdivision_ * subdivision_ * 6);
+
+	// vertexBufferViewを生成する
+	vertexResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&vertexDataSphere_));
+}
 
 /// <summary>
 /// Material用のResourceを作る
@@ -297,11 +313,21 @@ void Sphere::CreateWVPMatrix(SphereData sphere, WorldTransform transform, Matrix
 void Sphere::CreateMaterialResource() {
 
 	// マテリアル用のリソースを作る。今回はcolor1つ分サイズを用意する
-	materialResourceSphere_ = CreateBufferResource(sizeof(Vector4));
+	materialResourceSphere_ = CreateBufferResource(sizeof(Material));
 
 	// マテリアルにデータを書き込む
 	// 書き込むためのアドレスを取得
-	materialResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&materialDate_));
+	materialResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&materialDataSphere_));
+}
+
+/// <summary>
+/// DirectionalLight用のResourceを作る
+/// </summary>
+void Sphere::CreateDirectionalLightingResource() {
+
+	directionalLightingResource_ = CreateBufferResource(sizeof(DirectionalLight));
+
+	directionalLightingResource_->Map(0, nullptr, reinterpret_cast<void**>(&directionalLightData_));
 }
 
 

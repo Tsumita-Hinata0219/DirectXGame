@@ -77,7 +77,19 @@ public:
 	/// <summary>
 	/// Material用のResourceを作る
 	/// </summary>
+	void CreateVertexResource();
+
+
+	/// <summary>
+	/// Material用のResourceを作る
+	/// </summary>
 	void CreateMaterialResource();
+
+
+	/// <summary>
+	/// DirectionalLight用のResourceを作る
+	/// </summary>
+	void CreateDirectionalLightingResource();
 
 
 	/// <summary>
@@ -125,10 +137,14 @@ private:
 	// Material用のResource
 	ID3D12Resource* materialResourceSphere_ = nullptr;
 
-	Vector4* materialDate_ = nullptr;
+	Material materialDataSphere_{};
+	
 
+	// 光
+	ID3D12Resource* directionalLightingResource_ = nullptr;
 
 	DirectionalLight directionalLightData_{};
+
 
 	// テクスチャの切り替え
 	bool useMonsterBall = true;
