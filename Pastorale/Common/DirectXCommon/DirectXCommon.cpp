@@ -58,13 +58,6 @@ void DirectXCommon::Initialize() {
 	// フェンスを作る
 	MakeFence();
 
-	// DXCの初期化
-	//InitializeDXC();
-
-	//// PSOを設定する
-	//GraphicPipelineManager::GetInstance()->SetPSO();
-	//DirectXCommon::GetInstance()->SetUsePso(GraphicPipelineManager::GetInstance()->GetUsePSO());
-
 	// ViewportとScissor
 	SetViewport();
 	SetScissor();
@@ -77,15 +70,6 @@ void DirectXCommon::Release() {
 
 	CloseHandle(DirectXCommon::GetInstance()->fenceEvent_);
 	DirectXCommon::GetInstance()->fence_->Release();
-	/*DirectXCommon::GetInstance()->usePso_.graphicsPipelineState->Release();
-	DirectXCommon::GetInstance()->usePso_.signatureBlob->Release();
-	if (DirectXCommon::GetInstance()->usePso_.errorBlob) {
-		DirectXCommon::GetInstance()->usePso_.errorBlob->Release();
-	}
-	DirectXCommon::GetInstance()->usePso_.rootSignature->Release();
-	DirectXCommon::GetInstance()->usePso_.pixelShaderBlob->Release();
-	DirectXCommon::GetInstance()->usePso_.vertexShaderBlob->Release();*/
-
 
 	DirectXCommon::GetInstance()->rtv_.DescriptorHeap->Release();
 	DirectXCommon::GetInstance()->swapChains_.Resources[0]->Release();
