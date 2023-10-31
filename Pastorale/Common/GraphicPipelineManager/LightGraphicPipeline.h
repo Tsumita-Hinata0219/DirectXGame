@@ -30,6 +30,11 @@ public: // メンバ関数
 	/// </summary>
 	static void SetLightPso();
 
+	/// <summary>
+	/// LightPSOの取得
+	/// </summary>
+	static PsoProperty GetPsoProperty() { return LightGraphicPipeline::GetInstance()->lightPso_; }
+
 
 private: // メンバ関数
 

@@ -30,6 +30,11 @@ public: // メンバ関数
 	/// </summary>
 	static void SetNormalPso();
 
+	/// <summary>
+	/// ModelPSOの取得
+	/// </summary>
+	static PsoProperty GetPsoProperty() { return NormalGraphicPipeline::GetInstance()->normalPso_; }
+
 
 private: // メンバ関数
 

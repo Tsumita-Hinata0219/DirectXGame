@@ -39,6 +39,11 @@ void Sprite::Update(WorldTransform transform, SpriteData vertex) {
 /// </summary>
 void Sprite::DrawSprite(uint32_t texhandle) {
 
+	// RootSignatureを設定。
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootSignature(SpriteGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
+	// PSOを設定
+	DirectXCommon::GetInstance()->GetCommands().List->SetPipelineState(SpriteGraphicPipeline::GetInstance()->GetPsoProperty().graphicsPipelineState);
+
 	// 頂点の設定
 	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &vertexBufferViewSprite_); // VBVを設定
 

@@ -247,14 +247,6 @@ private: // メンバ変数
 	IDxcIncludeHandler* includeHandler_ = nullptr;
 
 
-	// CompileShader関数
-	CompileShaders shaders_;
-
-
-	// PSOを生成する
-	//UsePSO usePso_;
-
-
 	// ビューポート
 	D3D12_VIEWPORT viewport_{};
 

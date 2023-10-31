@@ -5,7 +5,7 @@
 #include "TextureManager.h"
 #include "WinApp.h"
 #include "DirectXCommon.h"
-
+#include "SpriteGraphicPipeline.h"
 
 
 

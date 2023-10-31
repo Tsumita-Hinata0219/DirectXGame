@@ -30,6 +30,11 @@ public: // メンバ関数
 	/// </summary>
 	static void SetSpritePso();
 
+	/// <summary>
+	/// SpritePSOの取得
+	/// </summary>
+	static PsoProperty GetPsoProperty() { return SpriteGraphicPipeline::GetInstance()->spritePso_; }
+
 
 private: // メンバ関数
 

@@ -166,6 +166,11 @@ void Model::SetVertex(TriangleElement element, WorldTransform& transform, Matrix
 // 三角形の描画
 void Model::Draw(uint32_t texhandle) {
 
+	// RootSignatureを設定。
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootSignature(NormalGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
+	// PSOを設定
+	DirectXCommon::GetInstance()->GetCommands().List->SetPipelineState(NormalGraphicPipeline::GetInstance()->GetPsoProperty().graphicsPipelineState);
+
 	///// いざ描画！！！！！
 	// VBVを設定
 	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &vertexBufferView_);
@@ -180,7 +185,6 @@ void Model::Draw(uint32_t texhandle) {
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, wvpResource_->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	//DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(2, textureManager->GetTextureSrvHandleGPU());
 	if (!texhandle == 0) {
 		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, texhandle);
 	}

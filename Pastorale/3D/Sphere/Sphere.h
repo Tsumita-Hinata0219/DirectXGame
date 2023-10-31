@@ -6,6 +6,7 @@
 #include "WinApp.h"
 #include "DirectXCommon.h"
 #include "ImGuiManager.h"
+#include "LightGraphicPipeline.h"
 
 
 

@@ -4,6 +4,7 @@
 #include "WorldTransform.h"
 #include "TextureManager.h"
 #include "DirectXCommon.h"
+#include "NormalGraphicPipeline.h"
 
 
 // 三角形描画の各要素

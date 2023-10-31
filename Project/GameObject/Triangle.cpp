@@ -84,9 +84,9 @@ void Triangle::Update(Matrix4x4& ViewMatrix) {
 	sphereTransform_.rotate_.y += 0.02f;
 	sphereTransform_.rotate_.z += 0.02f;
 
-	pastorale_->GetModel()->Update(modelElement_, modelTransform_, ViewMatrix);
+	/*pastorale_->GetModel()->Update(modelElement_, modelTransform_, ViewMatrix);
 
-	sprite_->Update(spriteTransform_, vertex_);
+	sprite_->Update(spriteTransform_, vertex_);*/
 
 	sphere_->Update(sphereElemnt_, sphereTransform_, ViewMatrix);
 

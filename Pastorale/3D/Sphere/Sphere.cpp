@@ -38,8 +38,10 @@ void Sphere::Update(SphereData sphere, WorldTransform transform, Matrix4x4& view
 /// </summary>
 void Sphere::Draw(uint32_t texhandle) {
 
-
-
+	// RootSignatureを設定。
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootSignature(LightGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
+	// PSOを設定
+	DirectXCommon::GetInstance()->GetCommands().List->SetPipelineState(LightGraphicPipeline::GetInstance()->GetPsoProperty().graphicsPipelineState);
 
 	/// コマンドを積む
 	// 頂点の設定 (VBVを設定)
