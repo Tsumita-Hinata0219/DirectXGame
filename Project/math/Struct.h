@@ -30,6 +30,12 @@ struct SpriteData {
 };
 
 
+struct TransformationMatrix {
+	Matrix4x4 WVP;
+	Matrix4x4 World;
+};
+
+
 // 球
 struct SphereData {
 	Vector3 center;

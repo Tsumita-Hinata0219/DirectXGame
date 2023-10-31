@@ -56,7 +56,6 @@ void Sphere::Draw(uint32_t texhandle) {
 		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, texhandle);
 	}
 
-
 	// 描画！ (DrawCall / ドローコール)
 	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0);
 }
@@ -264,7 +263,7 @@ D3D12_VERTEX_BUFFER_VIEW Sphere::CreateBufferView(ID3D12Resource* resource) {
 void Sphere::CreateTransformationMatrixResource() {
 
 	// WVP用のリソースを作る。Matrix4x4 1つ分のサイズを用意する
-	transformationMatrixResourceSphere_ = CreateBufferResource(sizeof(Matrix4x4));
+	transformationMatrixResourceSphere_ = CreateBufferResource(sizeof(TransformationMatrix));
 
 	// 書き込むためのアドレスを取得
 	transformationMatrixResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&transfomationMatrixDataSphere_));
@@ -281,9 +280,8 @@ void Sphere::CreateWVPMatrix(SphereData sphere, WorldTransform transform, Matrix
 	// Sprite用のWorldViewProjectonMatrixを作る
 	worldMatrixSphere = MakeAffineMatrix(transform.scale_, transform.rotate_, Add(transform.translation_, sphere.center));
 
-
-	*transfomationMatrixDataSphere_ = Multiply(worldMatrixSphere, viewMatrix);
-
+	transfomationMatrixDataSphere_->WVP = Multiply(worldMatrixSphere, viewMatrix);
+	transfomationMatrixDataSphere_->World = MakeIdentity4x4();
 }
 
 

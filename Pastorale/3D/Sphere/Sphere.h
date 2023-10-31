@@ -108,7 +108,7 @@ private:
 	// TransformationMatrix用のResource
 	ID3D12Resource* transformationMatrixResourceSphere_ = nullptr;
 
-	Matrix4x4* transfomationMatrixDataSphere_ = nullptr;
+	TransformationMatrix* transfomationMatrixDataSphere_ = nullptr;
 
 
 	// Sphere用のworldViewProjectionMatrix
