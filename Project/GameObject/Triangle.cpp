@@ -21,9 +21,7 @@ Triangle::~Triangle() {
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Triangle::Initialize(Pastorale* pastorale) {
-
-	pastorale_ = pastorale;
+void Triangle::Initialize() {
 
 	texhandle1_ = TextureManager::LoadTexture("Resources/uvChecker.png");
 	texhandle2_ = TextureManager::LoadTexture("Resources/monsterBall.png");
@@ -34,16 +32,10 @@ void Triangle::Initialize(Pastorale* pastorale) {
 	// モデル
 	modelTransform_ = {
 		{1.0f, 1.0f, 1.0f},
-		{0.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 0.0f},
-	};
-	triElement_ = {
-		{ -0.5f, -0.5f, 0.0f, 1.0f},
-		{0.0f, 0.5f, 0.0f, 1.0f},
-		{0.5f, -0.5f, 0.0f, 1.0f},
+		{90.0f, 0.0f, 0.0f},
+		{0.0f, 0.0f, 1.0f},
 	};
 	model_->Initialize();
-	model_->SetTextureHandle(texhandle1_);
 
 	// スプライト
 	spriteTransform_ = {
@@ -51,8 +43,7 @@ void Triangle::Initialize(Pastorale* pastorale) {
 		{0.0f, 0.0f, 0.0f},
 		{0.0f, 0.0f, 0.0f},
 	};
-	sprite_->Initialize({ 0.0f, 0.0f }, { 100.0f, 100.0f });
-	sprite_->SetTextureHandle(texhandle3_);
+	sprite_->Initialize({ 0.0f, 0.0f }, { 640.0f, 360.0f });
 
 	// スフィア
 	sphereTransform_ = {
@@ -61,11 +52,6 @@ void Triangle::Initialize(Pastorale* pastorale) {
 		{0.0f, 0.0f, 10.0f},
 	};
 	sphere_->Initialize();
-	sphere_->SetIsLighting(1);
-	sphere_->SetTextureHandle(texhandle2_);
-	light_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
-	light_.direction = { 0.0f, -1.0f, 0.0f };
-	light_.intensity = 1.0f;
 }
 
 
@@ -75,14 +61,20 @@ void Triangle::Initialize(Pastorale* pastorale) {
 /// </summary>
 void Triangle::Update() {
 
-	modelTransform_.rotate_.y += 0.02f;
-
 	sphereTransform_.rotate_.x -= 0.02f;
 	sphereTransform_.rotate_.y += 0.02f;
 	sphereTransform_.rotate_.z += 0.02f;
 	sphere_->SetDirectionalLight(light_);
 
 	ImGui::Begin("DrawObject");
+	ImGui::Text("Model");
+	ImGui::DragFloat3("modelScale", &modelTransform_.scale_.x, 0.01f);
+	ImGui::DragFloat3("modelRotate", &modelTransform_.rotate_.x, 0.01f);
+	ImGui::DragFloat3("modelTranslate", &modelTransform_.translation_.x, 0.01f);
+	ImGui::Text("Sprite");
+	ImGui::DragFloat3("spriteScale", &spriteTransform_.scale_.x, 0.1f);
+	ImGui::DragFloat3("spriteRotate", &spriteTransform_.rotate_.x, 0.1f);
+	ImGui::DragFloat3("spriteTranslate", &spriteTransform_.translation_.x, 0.1f);
 	ImGui::Text("Sphere");
 	ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("sphereRotate", &sphereTransform_.rotate_.x, 0.1f);
@@ -100,12 +92,12 @@ void Triangle::Update() {
 void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
 	sphere_->Draw(sphereTransform_, ViewMatrix);
-	//model_->Draw(triElement_, modelTransform_, ViewMatrix);
+	model_->Draw(modelTransform_, ViewMatrix);
 }
 
 
 void Triangle::Draw2D() {
-	//sprite_->Draw(spriteTransform_);
+	sprite_->Draw(spriteTransform_);
 }
 
 

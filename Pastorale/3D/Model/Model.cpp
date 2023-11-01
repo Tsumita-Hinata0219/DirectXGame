@@ -2,13 +2,6 @@
 
 
 
-// 解放処理
-Model::~Model() {
-
-}
-
-
-
 // 初期化処理
 void Model::Initialize() {
 
@@ -16,6 +9,9 @@ void Model::Initialize() {
 	worldTansform_.scale_ = { 1.0f, 1.0f, 1.0f };
 	worldTansform_.rotate_ = { 0.0f, 0.0f, 0.0f };
 	worldTansform_.translation_ = { 0.0f, 0.0f, 0.0f };
+
+	// 座標の設定
+	size_ = 0.5f;
 
 	// テクスチャの設定
 	// デフォルトではuvCheckerを使う
@@ -25,19 +21,22 @@ void Model::Initialize() {
 	color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	// リソースの作成
-	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * 6);
+	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * 4);
 	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(Matrix4x4));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(Vector4));
-	resource_.BufferView = CreateResource::CreateBufferView(sizeof(VertexData) * 6, resource_.Vertex, 6);
+	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * 4, resource_.Vertex, 4);
+
+	resource_.Index = CreateResource::CreateBufferResource(sizeof(uint32_t) * 6);
+	resource_.IndexBufferView = CreateResource::CreateIndexBufferview(sizeof(uint32_t) * 6, resource_.Index);
 }
 
 
 
 // 三角形の描画
-void Model::Draw(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix) {
+void Model::Draw(WorldTransform worldTransform, Matrix4x4& viewMatrix) {
 
 	// 頂点データを設定する
-	SetVertex(element, transform, ViewMatrix);
+	SetVertex(worldTransform, viewMatrix);
 
 	// RootSignatureを設定。
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootSignature(NormalGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
@@ -46,7 +45,8 @@ void Model::Draw(TriangleElement element, WorldTransform& transform, Matrix4x4& 
 
 	///// いざ描画！！！！！
 	// VBVを設定
-	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &resource_.BufferView);
+	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &resource_.VertexBufferView);
+	DirectXCommon::GetInstance()->GetCommands().List->IASetIndexBuffer(&resource_.IndexBufferView);
 
 	// 形状を設定
 	DirectXCommon::GetInstance()->GetCommands().List->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -63,7 +63,8 @@ void Model::Draw(TriangleElement element, WorldTransform& transform, Matrix4x4& 
 	}
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(6, 1, 0, 0);
+	DirectXCommon::GetInstance()->GetCommands().List->DrawIndexedInstanced(6, 1, 0, 0, 0);
+	//DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(6, 1, 0, 0);
 }
 
 
@@ -71,42 +72,49 @@ void Model::Draw(TriangleElement element, WorldTransform& transform, Matrix4x4& 
 /// <summary>
 /// 頂点データを設定する
 /// </summary>
-void Model::SetVertex(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix) {
+void Model::SetVertex(WorldTransform worldTransform, Matrix4x4& viewMatrix) {
 
 	VertexData* vertexData = nullptr;
 	TransformationMatrix* transformaationMatData = nullptr;
 	Material* materialData = nullptr;
+	uint32_t* indexData = nullptr;
 
 	// 書き込みができるようにする
 	resource_.Vertex->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
 	resource_.TransformationMatrix->Map(0, nullptr, reinterpret_cast<void**>(&transformaationMatData));
 	resource_.Material->Map(0, nullptr, reinterpret_cast<void**>(&materialData));
+	resource_.Index->Map(0, nullptr, reinterpret_cast<void**>(&indexData));
 
-	//行列を作る
-	Matrix4x4 worldMatrix = MakeAffineMatrix(transform.scale_, transform.rotate_, transform.translation_);
-	// 単位行列を書き込んでおく
-	transformaationMatData->WVP = Multiply(worldMatrix, ViewMatrix);
+	// Sphere用のWorldViewProjectionMatrixを作る
+	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale_, worldTransform.rotate_, worldTransform.translation_);
+	transformaationMatData->WVP = Multiply(worldMatrixSphere, viewMatrix);
+	transformaationMatData->World = MakeIdentity4x4();
+	pos_ = worldTransform.translation_;
+
+	// 左下
+	vertexData[0].position = { pos_.x - size_, pos_.y, pos_.z + size_, 1.0f };
+	vertexData[0].texCoord = { 0.0f, 1.0f };
+	vertexData[0].normal = { 0.0f, 1.0f, 0.0f };
+
+	// 左上
+	vertexData[1].position = { pos_.x - size_, pos_.y, pos_.z - size_, 1.0f };
+	vertexData[1].texCoord = { 0.0f, 0.0f };
+	vertexData[1].normal = { 0.0f, 1.0f, 0.0f };
 
 
-	// Triangle
-	// 1枚目
-	vertexData[0].position = element.bottomLeft;  // 左下
-	vertexData[1].position = element.top;         // 上
-	vertexData[2].position = element.bottomRight; // 右下
-	// 2枚目
-	vertexData[3].position = { -0.5f, -0.5,0.5f,1.0f };  // 左下
-	vertexData[4].position = { 0.0f, 0.0f,  0.0f,1.0f }; // 上
-	vertexData[5].position = { 0.5f,-0.5f,-0.5f,1.0f };  // 右下
+	// 右下
+	vertexData[2].position = { pos_.x + size_, pos_.y, pos_.z + size_, 1.0f };
+	vertexData[2].texCoord = { 1.0f, 1.0f };
+	vertexData[2].normal = { 0.0f, 1.0f, 0.0f };
 
-	// Texture
-	// 1枚目
-	vertexData[0].texCoord = { 0.0f, 1.0f }; // 左下
-	vertexData[1].texCoord = { 0.5f, 0.0f }; // 上
-	vertexData[2].texCoord = { 1.0f, 1.0f }; // 右下
-	// 2枚目
-	vertexData[3].texCoord = { 0.0f, 1.0f }; // 左下
-	vertexData[4].texCoord = { 0.5f, 0.0f }; // 上
-	vertexData[5].texCoord = { 1.0f, 1.0f }; // 右下
+	// 右上
+	vertexData[3].position = { pos_.x + size_, pos_.y, pos_.z - size_, 1.0f };
+	vertexData[3].texCoord = { 1.0f, 0.0f };
+	vertexData[3].normal = { 0.0f, 1.0f, 0.0f };
+
+
+	indexData[0] = 0; indexData[1] = 1; indexData[2] = 2;
+	indexData[3] = 1; indexData[4] = 3; indexData[5] = 2;
 
 
 	// 引数の色コードをVector4に変換してmaterialDate_に送る

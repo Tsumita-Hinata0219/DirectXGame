@@ -53,7 +53,7 @@ public:
 #pragma region Set 設定
 
 	void SetWorldTransform(WorldTransform worldTransform) { worldTansform_ = worldTansform_; }
-	void SetPosition(Vector2 position) { position_ = position; }
+	void SetPosition(Vector2 position) { pos_ = position; }
 	void SetTextureHandle(uint32_t texHD) { useTexture_ = texHD; }
 	void SetSize(Vector2 size) { size_ = size; }
 	void SetColor(Vector4 color) { color_ = color; }
@@ -67,7 +67,7 @@ private:
 	WorldTransform worldTansform_;
 
 	// 座標
-	Vector2 position_;
+	Vector2 pos_;
 
 	// 画像サイズ
 	Vector2 size_;

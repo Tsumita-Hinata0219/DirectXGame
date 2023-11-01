@@ -8,10 +8,10 @@
 void Sprite::Initialize(Vector2 pos, Vector2 size) {
 
 	// 座標の設定
-	position_ = pos;
+	pos_ = pos;
 
 	// 座標の設定
-	position_ = size;
+	size_ = size;
 
 	// テクスチャの設定
 	// デフォルトではuvCheckerを使う
@@ -21,10 +21,13 @@ void Sprite::Initialize(Vector2 pos, Vector2 size) {
 	color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	// リソースの作成
-	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * 6);
+	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * 4);
 	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(Matrix4x4));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(Vector4));
-	resource_.BufferView = CreateResource::CreateBufferView(sizeof(VertexData) * 6, resource_.Vertex, 6);
+	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * 4, resource_.Vertex, 4);
+
+	resource_.Index = CreateResource::CreateBufferResource(sizeof(uint32_t) * 6);
+	resource_.IndexBufferView = CreateResource::CreateIndexBufferview(sizeof(uint32_t) * 6, resource_.Index);
 }
 
 
@@ -43,7 +46,8 @@ void Sprite::Draw(WorldTransform& transform) {
 	DirectXCommon::GetInstance()->GetCommands().List->SetPipelineState(SpriteGraphicPipeline::GetInstance()->GetPsoProperty().graphicsPipelineState);
 
 	// 頂点の設定
-	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &resource_.BufferView); // VBVを設定
+	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &resource_.VertexBufferView); // VBVを設定
+	DirectXCommon::GetInstance()->GetCommands().List->IASetIndexBuffer(&resource_.IndexBufferView);
 
 	// 形状を設定
 	DirectXCommon::GetInstance()->GetCommands().List->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -60,7 +64,8 @@ void Sprite::Draw(WorldTransform& transform) {
 	}
 
 	// 描画！(DrawCall/ドローコール)
-	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(6, 1, 0, 0);
+	DirectXCommon::GetInstance()->GetCommands().List->DrawIndexedInstanced(6, 1, 0, 0, 0);
+	//DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(6, 1, 0, 0);
 }
 
 
@@ -73,11 +78,13 @@ void Sprite::SetVertex(WorldTransform transform) {
 	VertexData* vertexData = nullptr;
 	TransformationMatrix* transformaationMatData = nullptr;
 	Material* materialData = nullptr;
+	uint32_t* indexData = nullptr;
 
 	// 書き込みができるようにする
 	resource_.Vertex->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
 	resource_.TransformationMatrix->Map(0, nullptr, reinterpret_cast<void**>(&transformaationMatData));
 	resource_.Material->Map(0, nullptr, reinterpret_cast<void**>(&materialData));
+	resource_.Index->Map(0, nullptr, reinterpret_cast<void**>(&indexData));
 
 
 	// Sprite用のWorldViewProjectonMatrixを作る
@@ -90,25 +97,27 @@ void Sprite::SetVertex(WorldTransform transform) {
 	transformaationMatData->WVP = worldProjectionMatrix;
 
 
-	/// 三角形
-	// １枚目
-	vertexData[0].position = { position_.x, position_.y + size_.y, 0.1f };           // 左下
-	vertexData[1].position = { position_.x, position_.y, 0.1f };                     // 左上
-	vertexData[2].position = { position_.x + size_.x, position_.y + size_.y, 0.1f }; // 右下
-	// ２枚目
-	vertexData[3].position = { position_.x, position_.y, 0.1f };	                    // 左上
-	vertexData[4].position = { position_.x + size_.x, position_.y, 0.1f };           // 右上
-	vertexData[5].position = { position_.x + size_.x, position_.y + size_.y, 0.1f }; // 右下
-
-	/// テクスチャ
-	// １枚目
+	// 左下
+	vertexData[0].position = { pos_.x, pos_.y + size_.y, 0.0f, 1.0f };
 	vertexData[0].texCoord = { 0.0f, 1.0f };
+
+	// 左上
+	vertexData[1].position = { pos_.x, pos_.y, 0.0f, 1.0f };
 	vertexData[1].texCoord = { 0.0f, 0.0f };
+
+
+	// 右下
+	vertexData[2].position = { pos_.x + size_.x, pos_.y + size_.y, 0.0f, 1.0f };
 	vertexData[2].texCoord = { 1.0f, 1.0f };
-	// ２枚目
-	vertexData[3].texCoord = { 0.0f, 0.0f };
-	vertexData[4].texCoord = { 1.0f, 0.0f };
-	vertexData[5].texCoord = { 1.0f, 1.0f };
+	
+	// 右上
+	vertexData[3].position = { pos_.x + size_.x, pos_.y, 0.0f, 1.0f };
+	vertexData[3].texCoord = { 1.0f, 0.0f };
+
+
+	indexData[0] = 0; indexData[1] = 1; indexData[2] = 2;
+	indexData[3] = 1; indexData[4] = 3; indexData[5] = 2;
+
 
 	materialData->color = color_;
 }

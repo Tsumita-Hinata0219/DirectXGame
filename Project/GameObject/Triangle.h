@@ -18,7 +18,7 @@ public:
 	~Triangle();
 
 
-	void Initialize(Pastorale* pastorale);
+	void Initialize();
 
 	void Update();
 
@@ -28,12 +28,8 @@ public:
 
 private:
 
-	// Pastoraleの生成
-	Pastorale* pastorale_ = nullptr;
-
 	// TriangleModelの生成
 	Model* model_ = nullptr;
-	TriangleElement triElement_{};
 	WorldTransform modelTransform_{};
 
 	// Spriteの生成

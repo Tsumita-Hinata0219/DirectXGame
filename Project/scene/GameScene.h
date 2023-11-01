@@ -67,7 +67,6 @@ private:
 	Sprite* sprite_ = nullptr;
 
 	// Triangle
-	TriangleElement element_{};
 	WorldTransform triangleTransform_{};
 
 };

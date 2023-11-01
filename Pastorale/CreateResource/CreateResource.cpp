@@ -1,4 +1,4 @@
-﻿#include "CreateResource.h"
+#include "CreateResource.h"
 
 
 
@@ -59,7 +59,7 @@ ID3D12Resource* CreateResource::CreateBufferResource(size_t sizeInBytes) {
 /// <summary>
 /// 頂点バッファビューを作成する
 /// </summary>
-D3D12_VERTEX_BUFFER_VIEW CreateResource::CreateBufferView(size_t sizeInbyte, ID3D12Resource* resource, int size) {
+D3D12_VERTEX_BUFFER_VIEW CreateResource::CreateVertexBufferView(size_t sizeInbyte, ID3D12Resource* resource, int size) {
 
 	D3D12_VERTEX_BUFFER_VIEW resultBufferView{};
 
@@ -73,6 +73,21 @@ D3D12_VERTEX_BUFFER_VIEW CreateResource::CreateBufferView(size_t sizeInbyte, ID3
 	// 1頂点あたりのサイズ
 	resultBufferView.StrideInBytes = UINT(sizeInbyte / size);
 
+
+	return resultBufferView;
+}
+D3D12_INDEX_BUFFER_VIEW CreateResource::CreateIndexBufferview(size_t sizeInbyte, ID3D12Resource* resource) {
+
+	D3D12_INDEX_BUFFER_VIEW resultBufferView{};
+
+	// リソースの先頭のアドレスから使う
+	resultBufferView.BufferLocation = resource->GetGPUVirtualAddress();
+
+	// 使用するリソースサイズはインデックス６つ分のサイズ
+	resultBufferView.SizeInBytes = UINT(sizeInbyte);
+
+	// インデックスはuint32_tとする
+	resultBufferView.Format = DXGI_FORMAT_R32_UINT;
 
 	return resultBufferView;
 }

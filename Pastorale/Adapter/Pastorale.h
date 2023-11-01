@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "DirectXCommon.h"
-#include "Model.h"
 #include "TextureManager.h"
 
 
@@ -41,16 +40,8 @@ public:
 	void Draw() {};
 
 
-	/// <summary>
-	/// アクセッサ 取得
-	/// </summary>
-	Model* GetModel() { return model_; }
-
-
 
 private:
 
-	// Modelの生成
-	Model* model_ = nullptr;
 };
 

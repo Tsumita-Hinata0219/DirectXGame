@@ -51,7 +51,7 @@ void GameScene::Initialize(const wchar_t* title) {
 	pastorale_->Initialize();
 
 	// Triangleの初期化処理
-	triangle_->Initialize(pastorale_);
+	triangle_->Initialize();
 
 	// Cameraの初期化処理
 	camera_->Initialize();

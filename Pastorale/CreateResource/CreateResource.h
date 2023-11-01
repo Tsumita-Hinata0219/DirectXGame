@@ -21,7 +21,8 @@ public:
 	/// <summary>
 	/// 頂点バッファビューを作成する
 	/// </summary>
-	static D3D12_VERTEX_BUFFER_VIEW CreateBufferView(size_t sizeInbyte, ID3D12Resource* resource, int size);
+	static D3D12_VERTEX_BUFFER_VIEW CreateVertexBufferView(size_t sizeInbyte, ID3D12Resource* resource, int size);
+	static D3D12_INDEX_BUFFER_VIEW CreateIndexBufferview(size_t sizeInbyte, ID3D12Resource* resource);
 
 private:
 
@@ -34,7 +35,11 @@ struct ResourcePeroperty {
 	// 頂点リソース用のヒープ設定
 	ID3D12Resource* Vertex;
 	// 頂点バッファビュー
-	D3D12_VERTEX_BUFFER_VIEW BufferView;
+	D3D12_VERTEX_BUFFER_VIEW VertexBufferView;
+	// 頂点バッファビュー
+	D3D12_INDEX_BUFFER_VIEW IndexBufferView;
+	// 
+	ID3D12Resource* Index;
 	// 
 	ID3D12Resource* TransformationMatrix;
 	// 

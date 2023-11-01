@@ -8,19 +8,12 @@
 #include "CreateResource.h"
 
 
-// 三角形描画の各要素
-struct TriangleElement {
-	Vector4 bottomLeft;  // 左下座標
-	Vector4 top;		 // 上座標
-	Vector4 bottomRight; // 右下座標
-};
-
 
 class Model {
 
 public:
 
-	~Model();
+	~Model() {};
 
 	/// <summary>
 	/// 初期化処理
@@ -31,13 +24,13 @@ public:
 	/// <summary>
 	/// 三角形の描画
 	/// </summary>
-	void Draw(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix);
+	void Draw(WorldTransform worldTransform, Matrix4x4& viewMatrix);
 
 
 	/// <summary>
 	/// 頂点の初期化
 	/// </summary>
-	void SetVertex(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix);
+	void SetVertex(WorldTransform worldTransform, Matrix4x4& viewMatrix);
 
 
 	/// <summary>
@@ -61,7 +54,7 @@ private:
 	WorldTransform worldTansform_;
 
 	// 座標
-	Vector3 position_{};
+	Vector3 pos_{};
 
 	// サイズ
 	float size_;
