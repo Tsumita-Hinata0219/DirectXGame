@@ -26,11 +26,11 @@ void Sphere::Initialize() {
 		{0.0f, 0.0f, 0.0f},
 		{10.0f},
 	};
+
 	// 色の設定
 	materialDataSphere_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	// Lightingを有効にする
 	materialDataSphere_.enableLightting = true;
-
 	// 光の設定
 	directionalLightData_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	directionalLightData_.direction = { 0.0f, -1.0f, 0.0f };
@@ -110,7 +110,6 @@ void Sphere::SetVertex() {
 	CreateTransformationMatrixResource();
 	// Material用のResourceを作る
 	CreateMaterialResource();
-	directionalLightData_;
 	// DirectionalLight用のResourceを作る
 	CreateDirectionalLightingResource();
 
@@ -237,7 +236,7 @@ ID3D12Resource* Sphere::CreateBufferResource(size_t sizeInBytes) {
 	// バッファリソース。テクスチャの場合はまた別の設定をする
 	vertexResourceDesc_.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 
-	// リソースのサイズ。今回はVector4を3頂点文
+	// リソースのサイズ
 	vertexResourceDesc_.Width = sizeInBytes;
 
 	// バッファの場合はこれらは1にする決まり
