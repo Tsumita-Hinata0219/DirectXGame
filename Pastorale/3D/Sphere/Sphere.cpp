@@ -110,11 +110,13 @@ void Sphere::SetVertex() {
 	CreateTransformationMatrixResource();
 	// Material用のResourceを作る
 	CreateMaterialResource();
+	directionalLightData_;
 	// DirectionalLight用のResourceを作る
 	CreateDirectionalLightingResource();
+
+
 	//vertexBufferViewを生成する
 	vertexBufferViewSphere_ = CreateBufferView(vertexResourceSphere_);
-
 	// vertexBufferViewを生成する
 	vertexResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&vertexDataSphere_));
 
