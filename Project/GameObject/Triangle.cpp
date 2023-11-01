@@ -65,10 +65,7 @@ void Triangle::Initialize(Pastorale* pastorale) {
 		{0.0f, 0.0f, 0.0f},
 		{0.0f, 0.0f, 150.0f},
 	};
-	sphereElemnt_ = {
-		{0.0f, 0.0f, 20.0f},
-		{20.0f},
-	};
+	sphere_->Initialize();
 }
 
 
