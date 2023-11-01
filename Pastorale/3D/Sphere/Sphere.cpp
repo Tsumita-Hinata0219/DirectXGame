@@ -26,6 +26,15 @@ void Sphere::Initialize() {
 		{0.0f, 0.0f, 0.0f},
 		{10.0f},
 	};
+	// 色の設定
+	materialDataSphere_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	// Lightingを有効にする
+	materialDataSphere_.enableLightting = true;
+
+	// 光の設定
+	directionalLightData_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	directionalLightData_.direction = { 0.0f, -1.0f, 0.0f };
+	directionalLightData_.intensity = 1.0f;
 
 	// 頂点の設定
 	SetVertex();
@@ -95,17 +104,6 @@ void Sphere::Draw(WorldTransform transform, Matrix4x4& viewMatrix) {
 /// </summary>
 void Sphere::SetVertex() {
 
-	// 色の設定
-	materialDataSphere_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
-	// Lightingを有効にする
-	materialDataSphere_.enableLightting = true;
-
-	// 光の設定
-	directionalLightData_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
-	directionalLightData_.direction = { 0.0f, -1.0f, 0.0f };
-	directionalLightData_.intensity = 1.0f;
-
-
 	// vertexResourceを生成する
 	CreateVertexResource();
 	// TransformationMatrix用のResourceを作る
@@ -119,6 +117,7 @@ void Sphere::SetVertex() {
 
 	// vertexBufferViewを生成する
 	vertexResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&vertexDataSphere_));
+
 	
 
 	// 経度分割の1つ分の角度
