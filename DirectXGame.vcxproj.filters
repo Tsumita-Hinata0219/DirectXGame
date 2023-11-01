@@ -187,9 +187,6 @@
     <ClInclude Include="externals\imgui\imstb_truetype.h">
       <Filter>externals\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\2D\Sprite.h">
-      <Filter>Pastorale\2D</Filter>
-    </ClInclude>
     <ClInclude Include="Pastorale\Adapter\Pastorale.h">
       <Filter>Pastorale\Adapter</Filter>
     </ClInclude>
@@ -261,6 +258,9 @@
     </ClInclude>
     <ClInclude Include="Pastorale\CreateResource\CreateResource.h">
       <Filter>Pastorale\3D\CreateResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\2D\Sprite.h">
+      <Filter>Pastorale\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

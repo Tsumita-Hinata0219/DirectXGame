@@ -31,10 +31,19 @@ private:
 	// Pastoraleの生成
 	Pastorale* pastorale_ = nullptr;
 
+	// TriangleModelの生成
+	Model* model_ = nullptr;
+	TriangleElement triElement_{};
+	WorldTransform modelTransform_{};
+
+	// Spriteの生成
+	Sprite* sprite_ = nullptr;
+	WorldTransform spriteTransform_{};
 
 	// Sphereの生成
 	Sphere* sphere_ = nullptr;
-	WorldTransform sphereTransform_;
+	WorldTransform sphereTransform_{};
+	DirectionalLight light_{};
 
 
 	uint32_t texhandle1_;

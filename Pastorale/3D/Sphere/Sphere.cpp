@@ -12,6 +12,10 @@ void Sphere::Initialize() {
 	worldTansform_.rotate_ = { 0.0f, 0.0f, 0.0f };
 	worldTansform_.translation_ = { 0.0f, 0.0f, 0.0f };
 
+	// テクスチャの設定
+	// デフォルトではuvCheckerを使う
+	useTexture_ = 1;
+
 	// 色の設定
 	material_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	// Lightingを有効にする
@@ -21,7 +25,7 @@ void Sphere::Initialize() {
 	light_.direction = { 0.0f, -1.0f, 0.0f };
 	light_.intensity = 1.0f;
 
-
+	// リソースの作成
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * subdivision_ * subdivision_ * 6);
 	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(TransformationMatrix));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(Material));

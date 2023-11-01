@@ -3,6 +3,8 @@
 
 Triangle::Triangle() {
 
+	model_ = new Model();
+	sprite_ = new Sprite();
 	sphere_ = new Sphere();
 }
 
@@ -10,6 +12,8 @@ Triangle::Triangle() {
 
 Triangle::~Triangle() {
 
+	delete model_;
+	delete sprite_;
 	delete sphere_;
 }
 
@@ -27,6 +31,29 @@ void Triangle::Initialize(Pastorale* pastorale) {
 	texhandle4_ = TextureManager::LoadTexture("Resources/sky.png");
 
 
+	// モデル
+	modelTransform_ = {
+		{1.0f, 1.0f, 1.0f},
+		{0.0f, 0.0f, 0.0f},
+		{0.0f, 0.0f, 0.0f},
+	};
+	triElement_ = {
+		{ -0.5f, -0.5f, 0.0f, 1.0f},
+		{0.0f, 0.5f, 0.0f, 1.0f},
+		{0.5f, -0.5f, 0.0f, 1.0f},
+	};
+	model_->Initialize();
+	model_->SetTextureHandle(texhandle1_);
+
+	// スプライト
+	spriteTransform_ = {
+		{1.0f, 1.0f, 1.0f},
+		{0.0f, 0.0f, 0.0f},
+		{0.0f, 0.0f, 0.0f},
+	};
+	sprite_->Initialize({ 0.0f, 0.0f }, { 100.0f, 100.0f });
+	sprite_->SetTextureHandle(texhandle3_);
+
 	// スフィア
 	sphereTransform_ = {
 		{1.0f, 1.0f, 1.0f},
@@ -34,6 +61,11 @@ void Triangle::Initialize(Pastorale* pastorale) {
 		{0.0f, 0.0f, 10.0f},
 	};
 	sphere_->Initialize();
+	sphere_->SetIsLighting(1);
+	sphere_->SetTextureHandle(texhandle2_);
+	light_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	light_.direction = { 0.0f, -1.0f, 0.0f };
+	light_.intensity = 1.0f;
 }
 
 
@@ -43,16 +75,20 @@ void Triangle::Initialize(Pastorale* pastorale) {
 /// </summary>
 void Triangle::Update() {
 
+	modelTransform_.rotate_.y += 0.02f;
+
 	sphereTransform_.rotate_.x -= 0.02f;
 	sphereTransform_.rotate_.y += 0.02f;
 	sphereTransform_.rotate_.z += 0.02f;
-
+	sphere_->SetDirectionalLight(light_);
 
 	ImGui::Begin("DrawObject");
 	ImGui::Text("Sphere");
 	ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("sphereRotate", &sphereTransform_.rotate_.x, 0.1f);
 	ImGui::DragFloat3("sphereTranslate", &sphereTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat4("LightColor", &light_.color.x, 0.01f);
+	ImGui::DragFloat3("LightDirection", &light_.direction.x, 0.01f);
 	ImGui::End();
 }
 
@@ -64,11 +100,12 @@ void Triangle::Update() {
 void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
 	sphere_->Draw(sphereTransform_, ViewMatrix);
+	//model_->Draw(triElement_, modelTransform_, ViewMatrix);
 }
 
 
 void Triangle::Draw2D() {
-
+	//sprite_->Draw(spriteTransform_);
 }
 
 

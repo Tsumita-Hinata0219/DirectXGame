@@ -54,8 +54,10 @@ public:
 
 	void SetWorldTransform(WorldTransform worldTransform) { worldTansform_ = worldTansform_; }
 	void SetRadius(float radius) { radius_ = radius; }
+	void SetTextureHandle(uint32_t texHD) { useTexture_ = texHD; }
 	void SetColor(Vector4 color) { material_.color = color; }
 	void SetIsLighting(uint32_t isLight) { material_.enableLightting = isLight; }
+	void SetDirectionalLight(DirectionalLight light) { light_ = light; }
 
 #pragma endregion
 
@@ -70,7 +72,7 @@ private:
 	float radius_ = 1.0f;
 
 	// テクスチャ
-	uint32_t useTexture_ = 1;
+	uint32_t useTexture_;
 
 	// 色データ
 	Material material_;

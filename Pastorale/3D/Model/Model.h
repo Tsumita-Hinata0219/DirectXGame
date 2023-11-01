@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "DirectXCommon.h"
 #include "NormalGraphicPipeline.h"
+#include "CreateResource.h"
 
 
 // 三角形描画の各要素
@@ -12,7 +13,6 @@ struct TriangleElement {
 	Vector4 bottomLeft;  // 左下座標
 	Vector4 top;		 // 上座標
 	Vector4 bottomRight; // 右下座標
-	Vector4 color;	 // 色
 };
 
 
@@ -27,40 +27,18 @@ public:
 	/// </summary>
 	void Initialize();
 
-	/// <summary>
-	/// 更新処理
-	/// </summary>
-	void Update(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix);
 
 	/// <summary>
 	/// 三角形の描画
 	/// </summary>
-	void Draw(uint32_t texhandle);
+	void Draw(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix);
 
-	/// <summary>
-	/// 頂点リソース用のヒープ設定
-	/// </summary>
-	static ID3D12Resource* CreateBufferResource(ID3D12Device* device, size_t sizeInBytes);
-
-	/// <summary>
-	/// 頂点バッファビューを作成する
-	/// </summary>
-	static D3D12_VERTEX_BUFFER_VIEW MakeBufferView(ID3D12Resource* resource, size_t sizeInBytes);
-
-	/// <summary>
-	/// Material用のResourceを作る
-	/// </summary>
-	void MakeMaterialResource();
-
-	/// <summary>
-	/// TransformationMatrix用のResoureを作る
-	/// </summary>
-	void MakeTransformationMatResource();
 
 	/// <summary>
 	/// 頂点の初期化
 	/// </summary>
 	void SetVertex(TriangleElement element, WorldTransform& transform, Matrix4x4& ViewMatrix);
+
 
 	/// <summary>
 	/// 色の変換
@@ -68,43 +46,34 @@ public:
 	Vector4 FloatColor(unsigned int color);
 
 
-	Matrix4x4 SetWorldMatrix(Matrix4x4 worldMatrix) { worldMatrix_ = worldMatrix; }
+#pragma region Set 設定
 
+	void SetWorldTransform(WorldTransform worldTransform) { worldTansform_ = worldTansform_; }
+	void SetTextureHandle(uint32_t texHD) { useTexture_ = texHD; }
+	void SetColor(Vector4 color) { color = color; }
 
-public:
+#pragma endregion
 
-	TriangleElement element;
 
 private:
 
-	HRESULT hr_;
+	// ワールドトランスフォーム
+	WorldTransform worldTansform_;
 
+	// 座標
+	Vector3 position_{};
 
-	// 頂点リソースにデータを書き込む
-	VertexData* vertexData_ = nullptr;
+	// サイズ
+	float size_;
 
+	// テクスチャ
+	uint32_t useTexture_ = 1;
 
-	// 頂点リソース用のヒープ設定
-	D3D12_HEAP_PROPERTIES uploadHeapProperties_{};
+	// 色データ
+	Vector4 color_;
 
-	D3D12_RESOURCE_DESC vertexResourceDesc_{};
-
-	ID3D12Resource* vertexResource_ = nullptr;
-
-
-	// 頂点リソース用のヒープ設定
-	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_{};
-
-
-	ID3D12Resource* materialResource_ = nullptr;
-	Vector4* materialDate_ = nullptr;
-
-
-	ID3D12Resource* wvpResource_ = nullptr;
-	Matrix4x4* wvpData_ = nullptr;
-
-
-	Matrix4x4 worldMatrix_;
+	// リソース
+	ResourcePeroperty resource_{};
 
 };
 
