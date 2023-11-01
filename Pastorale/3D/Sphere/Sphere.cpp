@@ -28,16 +28,20 @@ void Sphere::Initialize() {
 	};
 
 	// 色の設定
-	materialDataSphere_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	material_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	// Lightingを有効にする
-	materialDataSphere_.enableLightting = false;
+	material_.enableLightting = true;
 	// 光の設定
-	directionalLightData_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
-	directionalLightData_.direction = { 0.0f, -1.0f, 0.0f };
-	directionalLightData_.intensity = 1.0f;
+	light_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	light_.direction = { 0.0f, -1.0f, 0.0f };
+	light_.intensity = 1.0f;
 
-	// 頂点の設定
-	SetVertex();
+
+	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * subdivision_ * subdivision_ * 6);
+	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(TransformationMatrix));
+	resource_.Material = CreateResource::CreateBufferResource(sizeof(Material));
+	resource_.Lighting = CreateResource::CreateBufferResource(sizeof(DirectionalLight));
+	resource_.BufferView = CreateBufferView(resource_.Vertex);
 }
 
 
@@ -61,8 +65,8 @@ void Sphere::Update() {
 /// </summary>
 void Sphere::Draw(WorldTransform transform, Matrix4x4& viewMatrix) {
 
-	// Sphere用のWorldViewProjectionMatrixを作る
-	CreateWVPMatrix(transform, viewMatrix);
+	// 頂点の設定
+	SetVertex(transform, viewMatrix);
 
 	// RootSignatureを設定。
 	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootSignature(LightGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
@@ -71,16 +75,16 @@ void Sphere::Draw(WorldTransform transform, Matrix4x4& viewMatrix) {
 
 	/// コマンドを積む
 	// 頂点の設定 (VBVを設定)
-	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &vertexBufferViewSphere_);
+	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &resource_.BufferView);
 
 	//形状を設定
 	DirectXCommon::GetInstance()->GetCommands().List->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// 色用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(0, materialResourceSphere_->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(0, resource_.Material->GetGPUVirtualAddress());
 	
 	// wvp用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, transformationMatrixResourceSphere_->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, resource_.TransformationMatrix->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
 	if (!useTexture_ == 0) {
@@ -88,7 +92,7 @@ void Sphere::Draw(WorldTransform transform, Matrix4x4& viewMatrix) {
 	}
 
 	// 光用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(3, directionalLightingResource_->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(3, resource_.Lighting->GetGPUVirtualAddress());
 
 	// 描画！ (DrawCall / ドローコール)
 	DirectXCommon::GetInstance()->GetCommands().List->DrawInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0);
@@ -99,21 +103,23 @@ void Sphere::Draw(WorldTransform transform, Matrix4x4& viewMatrix) {
 /// <summary>
 /// 頂点データを設定する
 /// </summary>
-void Sphere::SetVertex() {
+void Sphere::SetVertex(WorldTransform transform, Matrix4x4& viewMatrix) {
 
-	// vertexResourceを生成する
-	CreateVertexResource();
-	// TransformationMatrix用のResourceを作る
-	CreateTransformationMatrixResource();
-	// Material用のResourceを作る
-	CreateMaterialResource();
-	// DirectionalLight用のResourceを作る
-	CreateDirectionalLightingResource();
+	VertexData* vertexData = nullptr;
+	TransformationMatrix* transformaationMatData = nullptr;
+	Material* materialData = nullptr;
+	DirectionalLight* lightData = nullptr;
 
+	resource_.Vertex->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
+	resource_.TransformationMatrix->Map(0, nullptr, reinterpret_cast<void**>(&transformaationMatData));
+	resource_.Material->Map(0, nullptr, reinterpret_cast<void**>(&materialData));
+	resource_.Lighting->Map(0, nullptr, reinterpret_cast<void**>(&lightData));
 
-	//vertexBufferViewを生成する
-	vertexBufferViewSphere_ = CreateBufferView(vertexResourceSphere_);
-	
+	// Sphere用のWorldViewProjectionMatrixを作る
+	worldMatrixSphere = MakeAffineMatrix(transform.scale_, transform.rotate_, Add(transform.translation_, sphereElemnt_.center));
+	transformaationMatData->WVP = Multiply(worldMatrixSphere, viewMatrix);
+	transformaationMatData->World = MakeIdentity4x4();
+
 
 	// 経度分割の1つ分の角度
 	const float lonEvery = float(std::numbers::pi) * 2.0f / float(subdivision_);
@@ -139,72 +145,77 @@ void Sphere::SetVertex() {
 #pragma region Trinagle１枚目
 
 			// 点A(左下)
-			vertexDataSphere_[start_].position.x = sphereElemnt_.radius * (cos(lat) * cos(lon));
-			vertexDataSphere_[start_].position.y = sphereElemnt_.radius * (sin(lat));
-			vertexDataSphere_[start_].position.z = sphereElemnt_.radius * (cos(lat) * sin(lon));
-			vertexDataSphere_[start_].position.w = 1.0f;
-			vertexDataSphere_[start_].texCoord = { u, v + uvLength };
-			vertexDataSphere_[start_].normal.x = vertexDataSphere_[start_].position.x;
-			vertexDataSphere_[start_].normal.y = vertexDataSphere_[start_].position.y;
-			vertexDataSphere_[start_].normal.z = vertexDataSphere_[start_].position.z;
+			vertexData[start_].position.x = sphereElemnt_.radius * (cos(lat) * cos(lon));
+			vertexData[start_].position.y = sphereElemnt_.radius * (sin(lat));
+			vertexData[start_].position.z = sphereElemnt_.radius * (cos(lat) * sin(lon));
+			vertexData[start_].position.w = 1.0f;
+			vertexData[start_].texCoord = { u, v + uvLength };
+			vertexData[start_].normal.x = vertexData[start_].position.x;
+			vertexData[start_].normal.y = vertexData[start_].position.y;
+			vertexData[start_].normal.z = vertexData[start_].position.z;
 
 			// 点B(左上)
-			vertexDataSphere_[start_ + 1].position.x = sphereElemnt_.radius * (cos(lat + latEvery)) * cos(lon);
-			vertexDataSphere_[start_ + 1].position.y = sphereElemnt_.radius * (sin(lat + latEvery));
-			vertexDataSphere_[start_ + 1].position.z = sphereElemnt_.radius * (cos(lat + latEvery)) * sin(lon);
-			vertexDataSphere_[start_ + 1].position.w = 1.0f;
-			vertexDataSphere_[start_ + 1].texCoord = { u, v };
-			vertexDataSphere_[start_ + 1].normal.x = vertexDataSphere_[start_ + 1].position.x;
-			vertexDataSphere_[start_ + 1].normal.y = vertexDataSphere_[start_ + 1].position.y;
-			vertexDataSphere_[start_ + 1].normal.z = vertexDataSphere_[start_ + 1].position.z;
+			vertexData[start_ + 1].position.x = sphereElemnt_.radius * (cos(lat + latEvery)) * cos(lon);
+			vertexData[start_ + 1].position.y = sphereElemnt_.radius * (sin(lat + latEvery));
+			vertexData[start_ + 1].position.z = sphereElemnt_.radius * (cos(lat + latEvery)) * sin(lon);
+			vertexData[start_ + 1].position.w = 1.0f;
+			vertexData[start_ + 1].texCoord = { u, v };
+			vertexData[start_ + 1].normal.x = vertexData[start_ + 1].position.x;
+			vertexData[start_ + 1].normal.y = vertexData[start_ + 1].position.y;
+			vertexData[start_ + 1].normal.z = vertexData[start_ + 1].position.z;
 
 			// 点C(右下)
-			vertexDataSphere_[start_ + 2].position.x = sphereElemnt_.radius * (cos(lat) * cos(lon + lonEvery));
-			vertexDataSphere_[start_ + 2].position.y = sphereElemnt_.radius * (sin(lat));
-			vertexDataSphere_[start_ + 2].position.z = sphereElemnt_.radius * (cos(lat) * sin(lon + lonEvery));
-			vertexDataSphere_[start_ + 2].position.w = 1.0f;
-			vertexDataSphere_[start_ + 2].texCoord = { u + uvLength, v + uvLength };
-			vertexDataSphere_[start_ + 2].normal.x = vertexDataSphere_[start_ + 2].position.x;
-			vertexDataSphere_[start_ + 2].normal.y = vertexDataSphere_[start_ + 2].position.y;
-			vertexDataSphere_[start_ + 2].normal.z = vertexDataSphere_[start_ + 2].position.z;
+			vertexData[start_ + 2].position.x = sphereElemnt_.radius * (cos(lat) * cos(lon + lonEvery));
+			vertexData[start_ + 2].position.y = sphereElemnt_.radius * (sin(lat));
+			vertexData[start_ + 2].position.z = sphereElemnt_.radius * (cos(lat) * sin(lon + lonEvery));
+			vertexData[start_ + 2].position.w = 1.0f;
+			vertexData[start_ + 2].texCoord = { u + uvLength, v + uvLength };
+			vertexData[start_ + 2].normal.x = vertexData[start_ + 2].position.x;
+			vertexData[start_ + 2].normal.y = vertexData[start_ + 2].position.y;
+			vertexData[start_ + 2].normal.z = vertexData[start_ + 2].position.z;
 
 #pragma endregion
 
 #pragma region Triangle２枚目
 
 			// 点D(右上)
-			vertexDataSphere_[start_ + 3].position.x = sphereElemnt_.radius * (cos(lat + latEvery) * cos(lon + lonEvery));
-			vertexDataSphere_[start_ + 3].position.y = sphereElemnt_.radius * (sin(lat + latEvery));
-			vertexDataSphere_[start_ + 3].position.z = sphereElemnt_.radius * (cos(lat + latEvery) * sin(lon + lonEvery));
-			vertexDataSphere_[start_ + 3].position.w = 1.0f;
-			vertexDataSphere_[start_ + 3].texCoord = { u + uvLength, v };
-			vertexDataSphere_[start_ + 3].normal.x = vertexDataSphere_[start_ + 3].position.x;
-			vertexDataSphere_[start_ + 3].normal.y = vertexDataSphere_[start_ + 3].position.y;
-			vertexDataSphere_[start_ + 3].normal.z = vertexDataSphere_[start_ + 3].position.z;
+			vertexData[start_ + 3].position.x = sphereElemnt_.radius * (cos(lat + latEvery) * cos(lon + lonEvery));
+			vertexData[start_ + 3].position.y = sphereElemnt_.radius * (sin(lat + latEvery));
+			vertexData[start_ + 3].position.z = sphereElemnt_.radius * (cos(lat + latEvery) * sin(lon + lonEvery));
+			vertexData[start_ + 3].position.w = 1.0f;
+			vertexData[start_ + 3].texCoord = { u + uvLength, v };
+			vertexData[start_ + 3].normal.x = vertexData[start_ + 3].position.x;
+			vertexData[start_ + 3].normal.y = vertexData[start_ + 3].position.y;
+			vertexData[start_ + 3].normal.z = vertexData[start_ + 3].position.z;
 
 			// 点C(右下)
-			vertexDataSphere_[start_ + 4].position.x = sphereElemnt_.radius * (cos(lat) * cos(lon + lonEvery));
-			vertexDataSphere_[start_ + 4].position.y = sphereElemnt_.radius * (sin(lat));
-			vertexDataSphere_[start_ + 4].position.z = sphereElemnt_.radius * (cos(lat) * sin(lon + lonEvery));
-			vertexDataSphere_[start_ + 4].position.w = 1.0f;
-			vertexDataSphere_[start_ + 4].texCoord = { u + uvLength, v + uvLength };
-			vertexDataSphere_[start_ + 4].normal.x = vertexDataSphere_[start_ + 4].position.x;
-			vertexDataSphere_[start_ + 4].normal.y = vertexDataSphere_[start_ + 4].position.y;
-			vertexDataSphere_[start_ + 4].normal.z = vertexDataSphere_[start_ + 4].position.z;
+			vertexData[start_ + 4].position.x = sphereElemnt_.radius * (cos(lat) * cos(lon + lonEvery));
+			vertexData[start_ + 4].position.y = sphereElemnt_.radius * (sin(lat));
+			vertexData[start_ + 4].position.z = sphereElemnt_.radius * (cos(lat) * sin(lon + lonEvery));
+			vertexData[start_ + 4].position.w = 1.0f;
+			vertexData[start_ + 4].texCoord = { u + uvLength, v + uvLength };
+			vertexData[start_ + 4].normal.x = vertexData[start_ + 4].position.x;
+			vertexData[start_ + 4].normal.y = vertexData[start_ + 4].position.y;
+			vertexData[start_ + 4].normal.z = vertexData[start_ + 4].position.z;
 
 			// 点B(左上)
-			vertexDataSphere_[start_ + 5].position.x = sphereElemnt_.radius * (cos(lat + latEvery) * cos(lon));
-			vertexDataSphere_[start_ + 5].position.y = sphereElemnt_.radius * (sin(lat + latEvery));
-			vertexDataSphere_[start_ + 5].position.z = sphereElemnt_.radius * (cos(lat + latEvery) * sin(lon));
-			vertexDataSphere_[start_ + 5].position.w = 1.0f;
-			vertexDataSphere_[start_ + 5].texCoord = { u, v };
-			vertexDataSphere_[start_ + 5].normal.x = vertexDataSphere_[start_ + 5].position.x;
-			vertexDataSphere_[start_ + 5].normal.y = vertexDataSphere_[start_ + 5].position.y;
-			vertexDataSphere_[start_ + 5].normal.z = vertexDataSphere_[start_ + 5].position.z;
+			vertexData[start_ + 5].position.x = sphereElemnt_.radius * (cos(lat + latEvery) * cos(lon));
+			vertexData[start_ + 5].position.y = sphereElemnt_.radius * (sin(lat + latEvery));
+			vertexData[start_ + 5].position.z = sphereElemnt_.radius * (cos(lat + latEvery) * sin(lon));
+			vertexData[start_ + 5].position.w = 1.0f;
+			vertexData[start_ + 5].texCoord = { u, v };
+			vertexData[start_ + 5].normal.x = vertexData[start_ + 5].position.x;
+			vertexData[start_ + 5].normal.y = vertexData[start_ + 5].position.y;
+			vertexData[start_ + 5].normal.z = vertexData[start_ + 5].position.z;
 
 #pragma endregion
 		}
 	}
+
+	materialData->color = material_.color;
+	lightData->color = light_.color;
+	lightData->direction = light_.direction;
+	lightData->intensity = light_.intensity;
 }
 
 

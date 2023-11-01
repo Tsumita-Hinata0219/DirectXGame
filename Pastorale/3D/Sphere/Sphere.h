@@ -7,6 +7,7 @@
 #include "DirectXCommon.h"
 #include "ImGuiManager.h"
 #include "LightGraphicPipeline.h"
+#include "CreateResource.h"
 
 
 
@@ -47,7 +48,7 @@ public:
 	/// <summary>
 	/// 頂点データを設定する
 	/// </summary>
-	void SetVertex();
+	void SetVertex(WorldTransform transform, Matrix4x4& viewMatrix);
 
 
 	/// <summary>
@@ -151,4 +152,11 @@ private:
 
 	SphereData sphereElemnt_;
 
+
+	ResourcePeroperty resource_{};
+
+
+
+	Material material_;
+	DirectionalLight light_;
 };
