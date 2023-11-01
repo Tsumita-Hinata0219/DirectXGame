@@ -66,6 +66,8 @@ void Triangle::Initialize(Pastorale* pastorale) {
 		{0.0f, 0.0f, 150.0f},
 	};
 	sphere_->Initialize();
+
+
 }
 
 
@@ -81,36 +83,15 @@ void Triangle::Update() {
 	sphereTransform_.rotate_.y += 0.02f;
 	sphereTransform_.rotate_.z += 0.02f;
 
-	/*pastorale_->GetModel()->Update(modelElement_, modelTransform_, ViewMatrix);
-
-	sprite_->Update(spriteTransform_, vertex_);*/
-
 	sphere_->Update();
 
 
 
 	ImGui::Begin("DrawObject");
-
-	/*ImGui::Text("TriangleModel");
-	ImGui::DragFloat3("modelScale", &modelTransform_.scale_.x, 0.1f);
-	ImGui::DragFloat3("modelRotate", &modelTransform_.rotate_.x, 0.1f);
-	ImGui::DragFloat3("modelTranslate", &modelTransform_.translation_.x, 0.1f);
-
-	ImGui::Text("");
-	ImGui::Text("Sprite");
-	ImGui::DragFloat3("spriteScale", &spriteTransform_.scale_.x, 0.1f);
-	ImGui::DragFloat3("spriteRotate", &spriteTransform_.rotate_.x, 0.1f);
-	ImGui::DragFloat3("spriteTranslate", &spriteTransform_.translation_.x, 0.1f);*/
-
-	ImGui::Text("");
 	ImGui::Text("Sphere");
 	ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("sphereRotate", &sphereTransform_.rotate_.x, 0.1f);
 	ImGui::DragFloat3("sphereTranslate", &sphereTransform_.translation_.x, 0.1f);
-	ImGui::DragFloat("Radius", &sphereElemnt_.radius, 0.1f, 1.0f);
-
-	ImGui::Text("");
-	ImGui::Checkbox("useMonsterBall", &useTex_);
 	ImGui::End();
 }
 
@@ -129,7 +110,7 @@ void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
 void Triangle::Draw2D() {
 
-	//sprite_->DrawSprite(useTex_ ? texhandle4_ : texhandle1_);
+	//sprite_->DrawSpriteuseTex_ ? texhandle4_ : texhandle1_);
 }
 
 

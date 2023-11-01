@@ -33,10 +33,17 @@ private:
 
 	// Modelの生成
 	Model* model_ = nullptr;
+	TriangleElement modelElement_{};
+	WorldTransform modelTransform_;
+
 	// Spriteの生成
 	Sprite* sprite_ = nullptr;
+	WorldTransform spriteTransform_;
+	SpriteData vertex_;
+
 	// Sphereの生成
 	Sphere* sphere_ = nullptr;
+	WorldTransform sphereTransform_;
 
 
 	uint32_t texhandle1_;
@@ -44,16 +51,4 @@ private:
 	uint32_t texhandle3_;
 	uint32_t texhandle4_;
 	bool useTex_;
-
-
-	TriangleElement modelElement_{};
-	WorldTransform modelTransform_;
-
-	WorldTransform spriteTransform_;
-	SpriteData vertex_;
-
-	WorldTransform sphereTransform_;
-	SphereData sphereElemnt_;
-
-
 };
