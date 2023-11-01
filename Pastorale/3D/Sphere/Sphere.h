@@ -35,19 +35,19 @@ public:
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix);
+	void Update();
 
 
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw(uint32_t texhandle);
+	void Draw(WorldTransform transform, Matrix4x4& viewMatrix);
 
 
 	/// <summary>
 	/// 頂点データを設定する
 	/// </summary>
-	void SetVertex(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix);
+	void SetVertex();
 
 
 	/// <summary>
@@ -71,7 +71,7 @@ public:
 	/// <summary>
 	/// Sphere用のWorldViewProjectonMatrixを作る
 	/// </summary>
-	void CreateWVPMatrix(SphereData sphere, WorldTransform transform, Matrix4x4& viewMatrix);
+	void CreateWVPMatrix(WorldTransform transform, Matrix4x4& viewMatrix);
 
 
 	/// <summary>
@@ -147,6 +147,8 @@ private:
 
 
 	// テクスチャの切り替え
-	bool useMonsterBall = true;
+	uint32_t useTexture_ = true;
+
+	SphereData sphereElemnt_;
 
 };

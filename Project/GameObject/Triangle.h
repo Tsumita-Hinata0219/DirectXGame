@@ -20,9 +20,9 @@ public:
 
 	void Initialize(Pastorale* pastorale);
 
-	void Update(Matrix4x4& ViewMatrix);
+	void Update();
 
-	void Draw3D();
+	void Draw3D(Matrix4x4& ViewMatrix);
 
 	void Draw2D();
 

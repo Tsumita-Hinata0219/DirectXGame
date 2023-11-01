@@ -76,7 +76,7 @@ void Triangle::Initialize(Pastorale* pastorale) {
 /// <summary>
 /// 更新処理
 /// </summary>
-void Triangle::Update(Matrix4x4& ViewMatrix) {
+void Triangle::Update() {
 
 	modelTransform_.rotate_.y += 0.03f;
 
@@ -88,7 +88,7 @@ void Triangle::Update(Matrix4x4& ViewMatrix) {
 
 	sprite_->Update(spriteTransform_, vertex_);*/
 
-	sphere_->Update(sphereElemnt_, sphereTransform_, ViewMatrix);
+	sphere_->Update();
 
 
 
@@ -107,10 +107,10 @@ void Triangle::Update(Matrix4x4& ViewMatrix) {
 
 	ImGui::Text("");
 	ImGui::Text("Sphere");
-	/*ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
+	ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("sphereRotate", &sphereTransform_.rotate_.x, 0.1f);
 	ImGui::DragFloat3("sphereTranslate", &sphereTransform_.translation_.x, 0.1f);
-	ImGui::DragFloat("Radius", &sphereElemnt_.radius, 0.1f, 1.0f);*/
+	ImGui::DragFloat("Radius", &sphereElemnt_.radius, 0.1f, 1.0f);
 
 	ImGui::Text("");
 	ImGui::Checkbox("useMonsterBall", &useTex_);
@@ -122,11 +122,11 @@ void Triangle::Update(Matrix4x4& ViewMatrix) {
 /// <summary>
 /// 描画処理
 /// </summary>
-void Triangle::Draw3D() {
+void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
 	//pastorale_->GetModel()->Draw(texhandle1_);
 
-	sphere_->Draw(useTex_ ? texhandle3_ : texhandle1_);
+	sphere_->Draw(sphereTransform_, ViewMatrix);
 }
 
 

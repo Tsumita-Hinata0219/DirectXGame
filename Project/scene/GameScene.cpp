@@ -72,7 +72,7 @@ void GameScene::Initialize(const wchar_t* title) {
 void GameScene::Update() {
 
 	// Triangleの更新処理
-	triangle_->Update(camera_->transformationMatrixData_);
+	triangle_->Update();
 
 	// Cameraの更新処理
 	camera_->Update();
@@ -96,7 +96,7 @@ void GameScene::Update() {
 void GameScene::Draw3D() {
 
 	// Triangleの描画処理
-	triangle_->Draw3D();
+	triangle_->Draw3D(camera_->transformationMatrixData_);
 }
 
 void GameScene::Draw2D() {
