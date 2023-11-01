@@ -81,7 +81,7 @@ private:
 	DirectionalLight light_;
 
 	// 分割数
-	int32_t subdivision_ = 16;
+	int32_t subdivision_ = 32;
 
 	// リソース
 	ResourcePeroperty resource_{};
