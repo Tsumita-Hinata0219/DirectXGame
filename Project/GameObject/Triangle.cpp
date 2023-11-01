@@ -31,10 +31,9 @@ void Triangle::Initialize(Pastorale* pastorale) {
 	sphereTransform_ = {
 		{1.0f, 1.0f, 1.0f},
 		{0.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 150.0f},
+		{0.0f, 0.0f, 10.0f},
 	};
 	sphere_->Initialize();
-
 }
 
 
@@ -47,9 +46,6 @@ void Triangle::Update() {
 	sphereTransform_.rotate_.x -= 0.02f;
 	sphereTransform_.rotate_.y += 0.02f;
 	sphereTransform_.rotate_.z += 0.02f;
-
-	sphere_->Update();
-
 
 
 	ImGui::Begin("DrawObject");
