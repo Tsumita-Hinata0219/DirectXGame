@@ -30,7 +30,7 @@ void Sphere::Initialize() {
 	// 色の設定
 	materialDataSphere_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	// Lightingを有効にする
-	materialDataSphere_.enableLightting = true;
+	materialDataSphere_.enableLightting = false;
 	// 光の設定
 	directionalLightData_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	directionalLightData_.direction = { 0.0f, -1.0f, 0.0f };
@@ -38,9 +38,6 @@ void Sphere::Initialize() {
 
 	// 頂点の設定
 	SetVertex();
-
-	// 何も設定しなかったらuvCheckerになる
-	useTexture_ = TextureManager::LoadTexture("Resources/uvChecker.png");
 }
 
 
@@ -209,10 +206,8 @@ void Sphere::SetVertex() {
 			vertexDataSphere_[start_ + 5].normal.z = vertexDataSphere_[start_ + 5].position.z;
 
 #pragma endregion
-
 		}
 	}
-
 }
 
 

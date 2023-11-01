@@ -147,7 +147,7 @@ private:
 
 
 	// テクスチャの切り替え
-	uint32_t useTexture_ = true;
+	uint32_t useTexture_ = 2;
 
 	SphereData sphereElemnt_;
 
