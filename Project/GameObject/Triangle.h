@@ -31,15 +31,6 @@ private:
 	// Pastoraleの生成
 	Pastorale* pastorale_ = nullptr;
 
-	// Modelの生成
-	Model* model_ = nullptr;
-	TriangleElement modelElement_{};
-	WorldTransform modelTransform_;
-
-	// Spriteの生成
-	Sprite* sprite_ = nullptr;
-	WorldTransform spriteTransform_;
-	SpriteData vertex_;
 
 	// Sphereの生成
 	Sphere* sphere_ = nullptr;

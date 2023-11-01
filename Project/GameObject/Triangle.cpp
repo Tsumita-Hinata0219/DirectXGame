@@ -3,7 +3,6 @@
 
 Triangle::Triangle() {
 
-	sprite_ = new Sprite();
 	sphere_ = new Sphere();
 }
 
@@ -11,7 +10,6 @@ Triangle::Triangle() {
 
 Triangle::~Triangle() {
 
-	delete sprite_;
 	delete sphere_;
 }
 
@@ -29,36 +27,6 @@ void Triangle::Initialize(Pastorale* pastorale) {
 	texhandle4_ = TextureManager::LoadTexture("Resources/sky.png");
 
 
-	// 三角形の各要素を決める
-	// Left Top Right Color
-	modelElement_ = {
-		{ -0.5f, -0.5f, 0.0f, 1.0f},
-		{0.0f, 0.5f, 0.0f, 1.0f},
-		{0.5f, -0.5f, 0.0f, 1.0f},
-		{1.0f, 1.0f, 1.0f, 1.0f},
-	};
-	// SRT
-	modelTransform_ = {
-		{1.0f,1.0f,1.0f},
-		{0.0f,0.0f,0.0f},
-		{0.0f,0.0f,0.0f},
-	};
-
-
-	// スプライト
-	spriteTransform_ = {
-		{1.0f, 1.0f, 1.0f},
-		{0.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 0.0f},
-	};
-	vertex_ = {
-		{ 0.0f, 0.0f, 0.0f, 1.0f },
-		{ 0.0f, 360.0f, 0.0f, 1.0f },
-		{ 640.0f, 0.0f, 0.0f, 1.0f },
-		{ 640.0f, 360.0f, 0.0f, 1.0f }
-	};
-
-
 	// スフィア
 	sphereTransform_ = {
 		{1.0f, 1.0f, 1.0f},
@@ -66,7 +34,6 @@ void Triangle::Initialize(Pastorale* pastorale) {
 		{0.0f, 0.0f, 150.0f},
 	};
 	sphere_->Initialize();
-
 
 }
 
@@ -76,8 +43,6 @@ void Triangle::Initialize(Pastorale* pastorale) {
 /// 更新処理
 /// </summary>
 void Triangle::Update() {
-
-	modelTransform_.rotate_.y += 0.03f;
 
 	sphereTransform_.rotate_.x -= 0.02f;
 	sphereTransform_.rotate_.y += 0.02f;
@@ -102,15 +67,12 @@ void Triangle::Update() {
 /// </summary>
 void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
-	//pastorale_->GetModel()->Draw(texhandle1_);
-
 	sphere_->Draw(sphereTransform_, ViewMatrix);
 }
 
 
 void Triangle::Draw2D() {
 
-	//sprite_->DrawSpriteuseTex_ ? texhandle4_ : texhandle1_);
 }
 
 

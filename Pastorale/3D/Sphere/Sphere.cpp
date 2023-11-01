@@ -113,9 +113,6 @@ void Sphere::SetVertex() {
 
 	//vertexBufferViewを生成する
 	vertexBufferViewSphere_ = CreateBufferView(vertexResourceSphere_);
-	// vertexBufferViewを生成する
-	vertexResourceSphere_->Map(0, nullptr, reinterpret_cast<void**>(&vertexDataSphere_));
-
 	
 
 	// 経度分割の1つ分の角度

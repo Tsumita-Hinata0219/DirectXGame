@@ -74,6 +74,9 @@
     <Filter Include="Project\scene">
       <UniqueIdentifier>{a87e714d-6ef3-47aa-aa3d-6789d4bb2b0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pastorale\3D\CreateResource">
+      <UniqueIdentifier>{a883ea59-1592-4ac7-a12f-260e02d5c059}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -154,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="Project\scene\GameScene.cpp">
       <Filter>Project\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\CreateResource\CreateResource.cpp">
+      <Filter>Pastorale\3D\CreateResource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +258,9 @@
     </ClInclude>
     <ClInclude Include="Project\scene\GameScene.h">
       <Filter>Project\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\CreateResource\CreateResource.h">
+      <Filter>Pastorale\3D\CreateResource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
