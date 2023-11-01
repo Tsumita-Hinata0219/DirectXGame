@@ -110,6 +110,7 @@ void Sphere::SetVertex(WorldTransform transform, Matrix4x4& viewMatrix) {
 	Material* materialData = nullptr;
 	DirectionalLight* lightData = nullptr;
 
+	// 書き込みができるようにする
 	resource_.Vertex->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
 	resource_.TransformationMatrix->Map(0, nullptr, reinterpret_cast<void**>(&transformaationMatData));
 	resource_.Material->Map(0, nullptr, reinterpret_cast<void**>(&materialData));
@@ -213,6 +214,7 @@ void Sphere::SetVertex(WorldTransform transform, Matrix4x4& viewMatrix) {
 	}
 
 	materialData->color = material_.color;
+	materialData->enableLightting = material_.enableLightting;
 	lightData->color = light_.color;
 	lightData->direction = light_.direction;
 	lightData->intensity = light_.intensity;
