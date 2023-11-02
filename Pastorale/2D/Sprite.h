@@ -37,13 +37,6 @@ public:
 	/// </summary>
 	void Draw(WorldTransform& transform);
 
-
-	/// <summary>
-	/// 頂点データを設定する
-	/// </summary>
-	void SetVertex(WorldTransform transform);
-
-
 	/// <summary>
 	/// 色の変換
 	/// </summary>
@@ -59,6 +52,14 @@ public:
 	void SetColor(Vector4 color) { color_ = color; }
 
 #pragma endregion
+
+
+private:
+
+	/// <summary>
+	/// 頂点データを設定する
+	/// </summary>
+	void SetVertex(WorldTransform transform);
 
 
 private:

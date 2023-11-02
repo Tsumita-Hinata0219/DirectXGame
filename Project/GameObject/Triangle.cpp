@@ -32,8 +32,8 @@ void Triangle::Initialize() {
 	// モデル
 	modelTransform_ = {
 		{1.0f, 1.0f, 1.0f},
-		{90.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 1.0f},
+		{1.0f, 0.0f, 0.0f},
+		{0.0f, 0.0f, 20.0f},
 	};
 	model_->Initialize();
 
@@ -44,6 +44,7 @@ void Triangle::Initialize() {
 		{0.0f, 0.0f, 0.0f},
 	};
 	sprite_->Initialize({ 0.0f, 0.0f }, { 640.0f, 360.0f });
+	sprite_->SetTextureHandle(texhandle4_);
 
 	// スフィア
 	sphereTransform_ = {
@@ -52,6 +53,7 @@ void Triangle::Initialize() {
 		{0.0f, 0.0f, 10.0f},
 	};
 	sphere_->Initialize();
+	sphere_->SetTextureHandle(texhandle3_);
 }
 
 
