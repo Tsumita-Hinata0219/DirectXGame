@@ -88,7 +88,7 @@ void Model::SetVertex(WorldTransform worldTransform, Matrix4x4& viewMatrix) {
 	// Sphere用のWorldViewProjectionMatrixを作る
 	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale_, worldTransform.rotate_, worldTransform.translation_);
 	transformaationMatData->WVP = Multiply(worldMatrixSphere, viewMatrix);
-	//transformaationMatData->World = MakeIdentity4x4();
+	transformaationMatData->World = MakeIdentity4x4();
 	pos_ = worldTransform.translation_;
 
 	// 左下
