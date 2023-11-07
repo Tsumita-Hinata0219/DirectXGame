@@ -46,6 +46,7 @@ public:
 #pragma region Set 設定
 
 	void SetWorldTransform(WorldTransform worldTransform) { worldTansform_ = worldTansform_; }
+	void SetUVTransform(UVTransform uvTransform) { uvTransform_ = uvTransform; }
 	void SetPosition(Vector2 position) { pos_ = position; }
 	void SetTextureHandle(uint32_t texHD) { useTexture_ = texHD; }
 	void SetSize(Vector2 size) { size_ = size; }
@@ -81,4 +82,9 @@ private:
 
 	// リソース
 	ResourcePeroperty resource_{};
+
+	// uvTransform 
+	UVTransform uvTransform_;
 };
+
+

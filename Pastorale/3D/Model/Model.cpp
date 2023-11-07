@@ -117,7 +117,6 @@ void Model::SetVertex(WorldTransform worldTransform, Matrix4x4& viewMatrix) {
 	indexData[3] = 1; indexData[4] = 3; indexData[5] = 2;
 
 
-	// 引数の色コードをVector4に変換してmaterialDate_に送る
 	materialData->color = color_;
 }
 

@@ -44,7 +44,12 @@ void Triangle::Initialize() {
 		{0.0f, 0.0f, 0.0f},
 	};
 	sprite_->Initialize({ 0.0f, 0.0f }, { 640.0f, 360.0f });
-	sprite_->SetTextureHandle(texhandle4_);
+	sprite_->SetTextureHandle(texhandle1_);
+	uvTransform_ = {
+		{ 1.0f, 1.0f, 1.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+	};
 
 	// スフィア
 	sphereTransform_ = {
@@ -67,6 +72,7 @@ void Triangle::Update() {
 	sphereTransform_.rotate_.y += 0.02f;
 	sphereTransform_.rotate_.z += 0.02f;
 	sphere_->SetDirectionalLight(light_);
+	sprite_->SetUVTransform(uvTransform_);
 
 	ImGui::Begin("DrawObject");
 	ImGui::Text("Model");
@@ -77,6 +83,9 @@ void Triangle::Update() {
 	ImGui::DragFloat3("spriteScale", &spriteTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("spriteRotate", &spriteTransform_.rotate_.x, 0.1f);
 	ImGui::DragFloat3("spriteTranslate", &spriteTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat2("uvScale", &uvTransform_.scale.x, 0.01f);
+	ImGui::DragFloat("uvRotate", &uvTransform_.rotate.z, 0.01f);
+	ImGui::DragFloat2("uvTranslate", &uvTransform_.translate.x, 0.01f);
 	ImGui::Text("Sphere");
 	ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("sphereRotate", &sphereTransform_.rotate_.x, 0.1f);

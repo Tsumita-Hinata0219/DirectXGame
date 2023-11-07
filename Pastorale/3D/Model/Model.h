@@ -67,6 +67,5 @@ private:
 
 	// リソース
 	ResourcePeroperty resource_{};
-
 };
 

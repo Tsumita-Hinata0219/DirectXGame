@@ -30,6 +30,15 @@ struct SpriteData {
 };
 
 
+// uvTransform
+struct UVTransform {
+	Vector3 scale;
+	Vector3 rotate;
+	Vector3 translate;
+};
+
+
+// 
 struct TransformationMatrix {
 	Matrix4x4 WVP;
 	Matrix4x4 World;
@@ -47,6 +56,10 @@ struct SphereData {
 struct Material {
 	Vector4 color;
 	int32_t enableLightting;
+};
+struct MaterialSprite {
+	Vector4 color;
+	Matrix4x4 uvTransform;
 };
 
 

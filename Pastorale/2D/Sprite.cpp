@@ -13,6 +13,13 @@ void Sprite::Initialize(Vector2 pos, Vector2 size) {
 	// 座標の設定
 	size_ = size;
 
+	// uvTransform 
+	uvTransform_ = {
+		{ 1.0f, 1.0f, 1.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+	};
+
 	// テクスチャの設定
 	// デフォルトではuvCheckerを使う
 	useTexture_ = 1;
@@ -23,7 +30,7 @@ void Sprite::Initialize(Vector2 pos, Vector2 size) {
 	// リソースの作成
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * 4);
 	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(Matrix4x4));
-	resource_.Material = CreateResource::CreateBufferResource(sizeof(Vector4));
+	resource_.Material = CreateResource::CreateBufferResource(sizeof(MaterialSprite));
 	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * 4, resource_.Vertex, 4);
 
 	resource_.Index = CreateResource::CreateBufferResource(sizeof(uint32_t) * 6);
@@ -77,7 +84,7 @@ void Sprite::SetVertex(WorldTransform transform) {
 
 	VertexData* vertexData = nullptr;
 	TransformationMatrix* transformaationMatData = nullptr;
-	Material* materialData = nullptr;
+	MaterialSprite* materialData = nullptr;
 	uint32_t* indexData = nullptr;
 
 	// 書き込みができるようにする
@@ -120,6 +127,7 @@ void Sprite::SetVertex(WorldTransform transform) {
 
 
 	materialData->color = color_;
+	materialData->uvTransform = MakeAffineMatrix(uvTransform_.scale, uvTransform_.rotate, uvTransform_.translate);
 }
 
 

@@ -35,6 +35,7 @@ private:
 	// Spriteの生成
 	Sprite* sprite_ = nullptr;
 	WorldTransform spriteTransform_{};
+	UVTransform uvTransform_{};
 
 	// Sphereの生成
 	Sphere* sphere_ = nullptr;
