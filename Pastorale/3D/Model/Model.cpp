@@ -19,6 +19,17 @@ void Model::Initialize(IModelState* state) {
 	// 色の設定
 	color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
 
+	// 色の設定
+	material_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	// Lightingを有効にする
+	material_.enableLightting = false;
+
+	// 光の設定
+	light_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	light_.direction = { 0.0f, -1.0f, 0.0f };
+	light_.intensity = 1.0f;
+
 	// ステートパターンの初期化処理
 	state_ = state;
 	state_->Initialize(this);

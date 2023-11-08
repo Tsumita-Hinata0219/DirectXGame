@@ -38,8 +38,8 @@ private:
 	UVTransform uvTransform_{};
 
 	// Sphereの生成
-	Sphere* sphere_ = nullptr;
-	WorldTransform sphereTransform_{};
+	Model* modelSphere_ = nullptr;
+	WorldTransform modelSphereTransform_{};
 	DirectionalLight light_{};
 
 

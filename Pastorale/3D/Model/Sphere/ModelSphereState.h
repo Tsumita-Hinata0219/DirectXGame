@@ -42,12 +42,6 @@ private: // メンバ関数
 	// リソース
 	ResourcePeroperty resource_{};
 
-	// 半径
-	float radius_ = 1.0f;
-
-	// 光データ
-	DirectionalLight light_;
-
 	// 分割数
 	int32_t subdivision_ = 16;
 };

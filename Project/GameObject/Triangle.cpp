@@ -5,7 +5,7 @@ Triangle::Triangle() {
 
 	modelPlane_ = new Model();
 	sprite_ = new Sprite();
-	sphere_ = new Sphere();
+	modelSphere_ = new Model();
 }
 
 
@@ -14,7 +14,7 @@ Triangle::~Triangle() {
 
 	delete modelPlane_;
 	delete sprite_;
-	delete sphere_;
+	delete modelSphere_;
 }
 
 
@@ -52,13 +52,18 @@ void Triangle::Initialize() {
 	};
 
 	// スフィア
-	sphereTransform_ = {
+	modelSphereTransform_ = {
 		{1.0f, 1.0f, 1.0f},
 		{0.0f, 0.0f, 0.0f},
 		{0.0f, 0.0f, 10.0f},
 	};
-	sphere_->Initialize();
-	sphere_->SetTextureHandle(texhandle3_);
+	// 光の設定
+	light_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	light_.direction = { 0.0f, -1.0f, 0.0f };
+	light_.intensity = 1.0f;
+	modelSphere_->Initialize(new ModelSphereState);
+	modelSphere_->SetTexHandle(texhandle3_);
+	modelSphere_->SetIsLighting(1);
 }
 
 
@@ -68,10 +73,10 @@ void Triangle::Initialize() {
 /// </summary>
 void Triangle::Update() {
 
-	sphereTransform_.rotate_.x -= 0.02f;
-	sphereTransform_.rotate_.y += 0.02f;
-	sphereTransform_.rotate_.z += 0.02f;
-	sphere_->SetDirectionalLight(light_);
+	modelSphereTransform_.rotate_.x -= 0.02f;
+	modelSphereTransform_.rotate_.y += 0.02f;
+	modelSphereTransform_.rotate_.z += 0.02f;
+	modelSphere_->SetDirectionalLight(light_);
 	sprite_->SetUVTransform(uvTransform_);
 
 	ImGui::Begin("DrawObject");
@@ -87,9 +92,9 @@ void Triangle::Update() {
 	ImGui::DragFloat("uvRotate", &uvTransform_.rotate.z, 0.01f);
 	ImGui::DragFloat2("uvTranslate", &uvTransform_.translate.x, 0.01f);
 	ImGui::Text("Sphere");
-	ImGui::DragFloat3("sphereScale", &sphereTransform_.scale_.x, 0.1f);
-	ImGui::DragFloat3("sphereRotate", &sphereTransform_.rotate_.x, 0.1f);
-	ImGui::DragFloat3("sphereTranslate", &sphereTransform_.translation_.x, 0.1f);
+	ImGui::DragFloat3("sphereScale", &modelSphereTransform_.scale_.x, 0.1f);
+	ImGui::DragFloat3("sphereRotate", &modelSphereTransform_.rotate_.x, 0.1f);
+	ImGui::DragFloat3("sphereTranslate", &modelSphereTransform_.translation_.x, 0.1f);
 	ImGui::DragFloat4("LightColor", &light_.color.x, 0.01f);
 	ImGui::DragFloat3("LightDirection", &light_.direction.x, 0.01f);
 	ImGui::End();
@@ -102,7 +107,7 @@ void Triangle::Update() {
 /// </summary>
 void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
-	sphere_->Draw(sphereTransform_, ViewMatrix);
+	modelSphere_->Draw(modelSphereTransform_, ViewMatrix);
 	modelPlane_->Draw(modelPlaneTransform_, ViewMatrix);
 }
 
