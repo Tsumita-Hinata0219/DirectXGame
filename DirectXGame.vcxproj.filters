@@ -80,6 +80,9 @@
     <Filter Include="Pastorale\3D\Model\Sphere">
       <UniqueIdentifier>{a41ff7e1-5fa5-4f65-a0fa-4a224d71c475}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pastorale\3D\Model\Obj">
+      <UniqueIdentifier>{7b39e762-b098-4194-8604-fd643f720b6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -166,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="Pastorale\3D\Model\Plane\ModelPlaneState.cpp">
       <Filter>Pastorale\3D\Model\Plane</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\3D\Model\Obj\ModelObjState.cpp">
+      <Filter>Pastorale\3D\Model\Obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -273,6 +279,9 @@
     </ClInclude>
     <ClInclude Include="Pastorale\3D\Model\Plane\ModelPlaneState.h">
       <Filter>Pastorale\3D\Model\Plane</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\Model\Obj\ModelObjState.h">
+      <Filter>Pastorale\3D\Model\Obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

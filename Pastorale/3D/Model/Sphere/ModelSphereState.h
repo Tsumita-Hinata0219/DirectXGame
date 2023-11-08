@@ -4,13 +4,13 @@
 #include "WorldTransform.h"
 #include "TextureManager.h"
 #include "DirectXCommon.h"
-#include "NormalGraphicPipeline.h"
+#include "LightGraphicPipeline.h"
 #include "CreateResource.h"
 #include "IModelState.h"
 
 
 
-/* ModelPlaneクラス */
+/* ModelSphereクラス */
 class ModelSphereState : public IModelState {
 
 public: // メンバ関数
