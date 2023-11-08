@@ -167,9 +167,6 @@
     <ClCompile Include="Pastorale\CreateResource\CreateResource.cpp">
       <Filter>Pastorale\3D\CreateResource</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\3D\Model\Plane\ModelPlane.cpp">
-      <Filter>Pastorale\3D\Model\Plane</Filter>
-    </ClCompile>
     <ClCompile Include="Pastorale\3D\Model\Sphere\ModelSphereState.cpp">
       <Filter>Pastorale\3D\Model\Sphere</Filter>
     </ClCompile>
@@ -279,9 +276,6 @@
     </ClInclude>
     <ClInclude Include="Pastorale\3D\Model\IModelState.h">
       <Filter>Pastorale\3D\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\Model\Plane\ModelPlane.h">
-      <Filter>Pastorale\3D\Model\Plane</Filter>
     </ClInclude>
     <ClInclude Include="Pastorale\3D\Model\Sphere\ModelSphereState.h">
       <Filter>Pastorale\3D\Model\Sphere</Filter>
