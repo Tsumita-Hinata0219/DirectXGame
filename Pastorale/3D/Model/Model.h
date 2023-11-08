@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "IModelState.h"
-#include "Plane/ModelPlaneState.h"
-#include "Sphere/ModelSphereState.h"
+#include "ModelPlaneState.h"
+#include "ModelSphereState.h"
 
 
 
