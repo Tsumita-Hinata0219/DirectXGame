@@ -40,6 +40,10 @@ private:
 	WorldTransform modelSphereTransform_{};
 	DirectionalLight light_{};
 
+	// Objの生成
+	Model* demoObj_ = nullptr;
+	WorldTransform demoObjTransform_{};
+
 
 	uint32_t texhandle1_;
 	uint32_t texhandle2_;

@@ -2,6 +2,7 @@
 #include "IModelState.h"
 #include "ModelPlaneState.h"
 #include "ModelSphereState.h"
+#include "ModelObjState.h"
 
 
 
@@ -15,6 +16,10 @@ public: // メンバ関数
 	/// </summary>
 	void Initialize(IModelState* state);
 
+	/// <summary>
+	/// Objファイルの読み込み & 初期化処理
+	/// </summary>
+	void CreateFromObj(const std::string& directoryPath);
 
 	/// <summary>
 	/// 描画処理
@@ -29,6 +34,7 @@ public: // メンバ関数
 	Material GetMaterial() { return material_; }
 	DirectionalLight GetDirectionalLight() { return light_; }
 	float GetRadius() { return radius_; }
+	const std::string GetObjeDirectoryPaht() { return directoryPath_; }
 
 #pragma endregion
 
@@ -66,5 +72,8 @@ private: // メンバ変数
 
 	// スフィアの半径
 	float radius_ = 1.0f;
+
+	// Objのファイルパス
+	std::string directoryPath_{};
 };
 
