@@ -83,7 +83,7 @@ void GameScene::Update() {
 	// Camera
 	ImGui::Begin("Camera");
 
-	ImGui::SliderFloat4("translation", &camera_->cameraTransform.translation_.x, -1000.0f, 10.0f);
+	ImGui::DragFloat3("translate", &camera_->cameraTransform.translation_.x, 0.1f);
 
 	ImGui::End();
 }

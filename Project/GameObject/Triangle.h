@@ -29,8 +29,8 @@ public:
 private:
 
 	// TriangleModelの生成
-	Model* model_ = nullptr;
-	WorldTransform modelTransform_{};
+	Model* modelPlane_ = nullptr;
+	WorldTransform modelPlaneTransform_;
 
 	// Spriteの生成
 	Sprite* sprite_ = nullptr;
@@ -38,8 +38,8 @@ private:
 	UVTransform uvTransform_{};
 
 	// Sphereの生成
-	Sphere* sphere_ = nullptr;
-	WorldTransform sphereTransform_{};
+	Model* modelSphere_ = nullptr;
+	WorldTransform modelSphereTransform_{};
 	DirectionalLight light_{};
 
 

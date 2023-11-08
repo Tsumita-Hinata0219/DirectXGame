@@ -77,6 +77,12 @@
     <Filter Include="Pastorale\3D\CreateResource">
       <UniqueIdentifier>{a883ea59-1592-4ac7-a12f-260e02d5c059}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pastorale\3D\Model\Plane">
+      <UniqueIdentifier>{56a52767-94a9-4da5-ad27-5118ab8d8c98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\3D\Model\Sphere">
+      <UniqueIdentifier>{a41ff7e1-5fa5-4f65-a0fa-4a224d71c475}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -160,6 +166,12 @@
     </ClCompile>
     <ClCompile Include="Pastorale\CreateResource\CreateResource.cpp">
       <Filter>Pastorale\3D\CreateResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\3D\Model\Sphere\ModelSphereState.cpp">
+      <Filter>Pastorale\3D\Model\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\3D\Model\Plane\ModelPlaneState.cpp">
+      <Filter>Pastorale\3D\Model\Plane</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +273,15 @@
     </ClInclude>
     <ClInclude Include="Pastorale\2D\Sprite.h">
       <Filter>Pastorale\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\Model\IModelState.h">
+      <Filter>Pastorale\3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\Model\Sphere\ModelSphereState.h">
+      <Filter>Pastorale\3D\Model\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\3D\Model\Plane\ModelPlaneState.h">
+      <Filter>Pastorale\3D\Model\Plane</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
