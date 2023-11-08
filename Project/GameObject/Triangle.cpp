@@ -30,7 +30,7 @@ void Triangle::Initialize() {
 
 
 	// 平面モデル
-	modelPlane_->Initialize(new ModelPlane);
+	modelPlane_->Initialize(new ModelPlaneState);
 	modelPlaneTransform_ = {
 		{1.0f, 1.0f, 1.0f},
 		{0.0f, 0.0f, 0.0f},

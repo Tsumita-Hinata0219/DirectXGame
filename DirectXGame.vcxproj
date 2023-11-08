@@ -99,6 +99,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Pastorale\2D\Sprite.cpp" />
     <ClCompile Include="Pastorale\3D\Model\Model.cpp" />
     <ClCompile Include="Pastorale\3D\Model\Plane\ModelPlane.cpp" />
+    <ClCompile Include="Pastorale\3D\Model\Plane\ModelPlaneState.cpp" />
+    <ClCompile Include="Pastorale\3D\Model\Sphere\ModelSphereState.cpp" />
     <ClCompile Include="Pastorale\3D\Sphere\Sphere.cpp" />
     <ClCompile Include="Pastorale\3D\TextureManager\TextureManager.cpp" />
     <ClCompile Include="Pastorale\3D\WorldTransform\WorldTransform.cpp" />
@@ -131,6 +133,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Pastorale\3D\Model\IModelState.h" />
     <ClInclude Include="Pastorale\3D\Model\Model.h" />
     <ClInclude Include="Pastorale\3D\Model\Plane\ModelPlane.h" />
+    <ClInclude Include="Pastorale\3D\Model\Plane\ModelPlaneState.h" />
+    <ClInclude Include="Pastorale\3D\Model\Sphere\ModelSphereState.h" />
     <ClInclude Include="Pastorale\3D\Sphere\Sphere.h" />
     <ClInclude Include="Pastorale\3D\TextureManager\TextureManager.h" />
     <ClInclude Include="Pastorale\3D\WorldTransform\WorldTransform.h" />
