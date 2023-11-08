@@ -29,6 +29,7 @@ public: // メンバ関数
 	Material GetMaterial() { return material_; }
 	DirectionalLight GetDirectionalLight() { return light_; }
 	float GetRadius() { return radius_; }
+	const std::string GetObjeDirectoryPaht() { return directoryPath_; }
 
 #pragma endregion
 
@@ -66,5 +67,8 @@ private: // メンバ変数
 
 	// スフィアの半径
 	float radius_ = 1.0f;
+
+	// Objのファイルパス
+	std::string directoryPath_{};
 };
 

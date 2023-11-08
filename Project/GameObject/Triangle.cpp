@@ -23,10 +23,10 @@ Triangle::~Triangle() {
 /// </summary>
 void Triangle::Initialize() {
 
-	texhandle1_ = TextureManager::LoadTexture("Resources/uvChecker.png");
-	texhandle2_ = TextureManager::LoadTexture("Resources/monsterBall.png");
-	texhandle3_ = TextureManager::LoadTexture("Resources/asanoha.png");
-	texhandle4_ = TextureManager::LoadTexture("Resources/sky.png");
+	texhandle1_ = TextureManager::LoadTexture("Resources/Texture/uvChecker.png");
+	texhandle2_ = TextureManager::LoadTexture("Resources/Texture/monsterBall.png");
+	texhandle3_ = TextureManager::LoadTexture("Resources/Texture/asanoha.png");
+	texhandle4_ = TextureManager::LoadTexture("Resources/Texture/sky.png");
 
 
 	// 平面モデル
@@ -80,23 +80,24 @@ void Triangle::Update() {
 	sprite_->SetUVTransform(uvTransform_);
 
 	ImGui::Begin("DrawObject");
-	ImGui::Text("Plane");
-	ImGui::DragFloat3("planeScale", &modelPlaneTransform_.scale_.x, 0.01f);
-	ImGui::DragFloat3("planeRotate", &modelPlaneTransform_.rotate_.x, 0.01f);
-	ImGui::DragFloat3("planeTranslate", &modelPlaneTransform_.translation_.x, 0.01f);
-	ImGui::Text("Sprite");
-	ImGui::DragFloat3("spriteScale", &spriteTransform_.scale_.x, 0.1f);
-	ImGui::DragFloat3("spriteRotate", &spriteTransform_.rotate_.x, 0.1f);
-	ImGui::DragFloat3("spriteTranslate", &spriteTransform_.translation_.x, 0.1f);
-	ImGui::DragFloat2("uvScale", &uvTransform_.scale.x, 0.01f);
-	ImGui::DragFloat("uvRotate", &uvTransform_.rotate.z, 0.01f);
-	ImGui::DragFloat2("uvTranslate", &uvTransform_.translate.x, 0.01f);
-	ImGui::Text("Sphere");
-	ImGui::DragFloat3("sphereScale", &modelSphereTransform_.scale_.x, 0.1f);
-	ImGui::DragFloat3("sphereRotate", &modelSphereTransform_.rotate_.x, 0.1f);
-	ImGui::DragFloat3("sphereTranslate", &modelSphereTransform_.translation_.x, 0.1f);
-	ImGui::DragFloat4("LightColor", &light_.color.x, 0.01f);
-	ImGui::DragFloat3("LightDirection", &light_.direction.x, 0.01f);
+	//ImGui::Text("Plane");
+	//ImGui::DragFloat3("planeScale", &modelPlaneTransform_.scale_.x, 0.01f);
+	//ImGui::DragFloat3("planeRotate", &modelPlaneTransform_.rotate_.x, 0.01f);
+	//ImGui::DragFloat3("planeTranslate", &modelPlaneTransform_.translation_.x, 0.01f);
+	//ImGui::Text("Sprite");
+	//ImGui::DragFloat3("spriteScale", &spriteTransform_.scale_.x, 0.1f);
+	//ImGui::DragFloat3("spriteRotate", &spriteTransform_.rotate_.x, 0.1f);
+	//ImGui::DragFloat3("spriteTranslate", &spriteTransform_.translation_.x, 0.1f);
+	//ImGui::DragFloat2("uvScale", &uvTransform_.scale.x, 0.01f);
+	//ImGui::DragFloat("uvRotate", &uvTransform_.rotate.z, 0.01f);
+	//ImGui::DragFloat2("uvTranslate", &uvTransform_.translate.x, 0.01f);
+	//ImGui::Text("Sphere");
+	//ImGui::DragFloat3("sphereScale", &modelSphereTransform_.scale_.x, 0.1f);
+	//ImGui::DragFloat3("sphereRotate", &modelSphereTransform_.rotate_.x, 0.1f);
+	//ImGui::DragFloat3("sphereTranslate", &modelSphereTransform_.translation_.x, 0.1f);
+	//ImGui::DragFloat4("LightColor", &light_.color.x, 0.01f);
+	//ImGui::DragFloat3("LightDirection", &light_.direction.x, 0.01f);
+
 	ImGui::End();
 }
 
@@ -107,13 +108,13 @@ void Triangle::Update() {
 /// </summary>
 void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
-	modelSphere_->Draw(modelSphereTransform_, ViewMatrix);
-	modelPlane_->Draw(modelPlaneTransform_, ViewMatrix);
+	//modelSphere_->Draw(modelSphereTransform_, ViewMatrix);
+	//modelPlane_->Draw(modelPlaneTransform_, ViewMatrix);
 }
 
 
 void Triangle::Draw2D() {
-	sprite_->Draw(spriteTransform_);
+	//sprite_->Draw(spriteTransform_);
 }
 
 

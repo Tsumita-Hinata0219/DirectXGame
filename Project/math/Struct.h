@@ -63,6 +63,12 @@ struct MaterialSprite {
 };
 
 
+// モデルデータ
+struct ModelData {
+	std::vector<VertexData> vertices;
+};
+
+
 // 平行光源
 struct DirectionalLight {
 	Vector4 color;     // ライトの色

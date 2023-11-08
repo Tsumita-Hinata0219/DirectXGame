@@ -34,12 +34,12 @@ private:
 struct ResourcePeroperty {
 	// 頂点リソース用のヒープ設定
 	ID3D12Resource* Vertex;
+	// 
+	ID3D12Resource* Index;
 	// 頂点バッファビュー
 	D3D12_VERTEX_BUFFER_VIEW VertexBufferView;
 	// 頂点バッファビュー
 	D3D12_INDEX_BUFFER_VIEW IndexBufferView;
-	// 
-	ID3D12Resource* Index;
 	// 
 	ID3D12Resource* TransformationMatrix;
 	// 
