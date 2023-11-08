@@ -63,7 +63,7 @@ void Triangle::Initialize() {
 	light_.intensity = 1.0f;
 	modelSphere_->Initialize(new ModelSphereState);
 	modelSphere_->SetTexHandle(texhandle3_);
-	modelSphere_->SetIsLighting(1);
+	modelSphere_->SetIsLighting(1); // ライティングするかしないか
 }
 
 
