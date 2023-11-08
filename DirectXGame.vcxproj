@@ -50,7 +50,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ProjectDir)Pastorale\2D;$(ProjectDir)Pastorale\3D;$(ProjectDir)Pastorale\3D\Model;$(ProjectDir)Pastorale\3D\Sphere;$(ProjectDir)Pastorale\3D\TextureManager;$(ProjectDir)Pastorale\3D\WorldTransform;$(ProjectDir)Pastorale\Adapter;$(ProjectDir)Pastorale\Common;$(ProjectDir)Pastorale\Common\Camera;$(ProjectDir)Pastorale\Common\DirectXCommon;$(ProjectDir)Pastorale\Common\PipelineStateObject;$(ProjectDir)Pastorale\Common\GraphicPipelinemanager;$(ProjectDir)Pastorale\Common\SceneSetup;$(ProjectDir)Pastorale\Common\ShaderManager;$(ProjectDir)Pastorale\Common\WinApp;$(ProjectDir)Pastorale\CreateResource;$(ProjectDir)Pastorale\utilities;$(ProjectDir)Project\math;$(ProjectDir)Project\GameObject;$(ProjectDir)Project\scene;$(ProjectDir)shaders;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)externals\DirectXtex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -72,7 +72,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <AdditionalIncludeDirectories>$(ProjectDir)Pastorale\2D;$(ProjectDir)Pastorale\3D;$(ProjectDir)Pastorale\3D\Model;$(ProjectDir)Pastorale\3D\Sphere;$(ProjectDir)Pastorale\3D\TextureManager;$(ProjectDir)Pastorale\3D\WorldTransform;$(ProjectDir)Pastorale\Adapter;$(ProjectDir)Pastorale\Common;$(ProjectDir)Pastorale\Common\Camera;$(ProjectDir)Pastorale\Common\DirectXCommon;$(ProjectDir)Pastorale\Common\PipelineStateObject;$(ProjectDir)Pastorale\Common\GraphicPipelinemanager;$(ProjectDir)Pastorale\Common\SceneSetup;$(ProjectDir)Pastorale\Common\ShaderManager;$(ProjectDir)Pastorale\Common\WinApp;$(ProjectDir)Pastorale\CreateResource;$(ProjectDir)Pastorale\utilities;$(ProjectDir)Project\math;$(ProjectDir)Project\GameObject;$(ProjectDir)Project\scene;$(ProjectDir)shaders;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)externals\DirectXtex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -98,6 +98,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pastorale\2D\Sprite.cpp" />
     <ClCompile Include="Pastorale\3D\Model\Model.cpp" />
+    <ClCompile Include="Pastorale\3D\Model\Plane\ModelPlane.cpp" />
     <ClCompile Include="Pastorale\3D\Sphere\Sphere.cpp" />
     <ClCompile Include="Pastorale\3D\TextureManager\TextureManager.cpp" />
     <ClCompile Include="Pastorale\3D\WorldTransform\WorldTransform.cpp" />
@@ -127,7 +128,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="externals\imgui\imstb_textedit.h" />
     <ClInclude Include="externals\imgui\imstb_truetype.h" />
     <ClInclude Include="Pastorale\2D\Sprite.h" />
+    <ClInclude Include="Pastorale\3D\Model\IModelState.h" />
     <ClInclude Include="Pastorale\3D\Model\Model.h" />
+    <ClInclude Include="Pastorale\3D\Model\Plane\ModelPlane.h" />
     <ClInclude Include="Pastorale\3D\Sphere\Sphere.h" />
     <ClInclude Include="Pastorale\3D\TextureManager\TextureManager.h" />
     <ClInclude Include="Pastorale\3D\WorldTransform\WorldTransform.h" />

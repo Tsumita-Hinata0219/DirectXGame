@@ -3,7 +3,7 @@
 
 Triangle::Triangle() {
 
-	model_ = new Model();
+	modelPlane_ = new Model();
 	sprite_ = new Sprite();
 	sphere_ = new Sphere();
 }
@@ -12,7 +12,7 @@ Triangle::Triangle() {
 
 Triangle::~Triangle() {
 
-	delete model_;
+	delete modelPlane_;
 	delete sprite_;
 	delete sphere_;
 }
@@ -29,13 +29,13 @@ void Triangle::Initialize() {
 	texhandle4_ = TextureManager::LoadTexture("Resources/sky.png");
 
 
-	// モデル
-	modelTransform_ = {
+	// 平面モデル
+	modelPlane_->Initialize(new ModelPlane);
+	modelPlaneTransform_ = {
 		{1.0f, 1.0f, 1.0f},
-		{1.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 20.0f},
+		{0.0f, 0.0f, 0.0f},
+		{0.0f, -5.0f, 0.0f},
 	};
-	model_->Initialize();
 
 	// スプライト
 	spriteTransform_ = {
@@ -75,10 +75,10 @@ void Triangle::Update() {
 	sprite_->SetUVTransform(uvTransform_);
 
 	ImGui::Begin("DrawObject");
-	ImGui::Text("Model");
-	ImGui::DragFloat3("modelScale", &modelTransform_.scale_.x, 0.01f);
-	ImGui::DragFloat3("modelRotate", &modelTransform_.rotate_.x, 0.01f);
-	ImGui::DragFloat3("modelTranslate", &modelTransform_.translation_.x, 0.01f);
+	ImGui::Text("Plane");
+	ImGui::DragFloat3("planeScale", &modelPlaneTransform_.scale_.x, 0.01f);
+	ImGui::DragFloat3("planeRotate", &modelPlaneTransform_.rotate_.x, 0.01f);
+	ImGui::DragFloat3("planeTranslate", &modelPlaneTransform_.translation_.x, 0.01f);
 	ImGui::Text("Sprite");
 	ImGui::DragFloat3("spriteScale", &spriteTransform_.scale_.x, 0.1f);
 	ImGui::DragFloat3("spriteRotate", &spriteTransform_.rotate_.x, 0.1f);
@@ -103,7 +103,7 @@ void Triangle::Update() {
 void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
 	sphere_->Draw(sphereTransform_, ViewMatrix);
-	model_->Draw(modelTransform_, ViewMatrix);
+	modelPlane_->Draw(modelPlaneTransform_, ViewMatrix);
 }
 
 

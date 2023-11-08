@@ -29,8 +29,8 @@ public:
 private:
 
 	// TriangleModelの生成
-	Model* model_ = nullptr;
-	WorldTransform modelTransform_{};
+	Model* modelPlane_ = nullptr;
+	WorldTransform modelPlaneTransform_;
 
 	// Spriteの生成
 	Sprite* sprite_ = nullptr;
