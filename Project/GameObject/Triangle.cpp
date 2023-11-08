@@ -72,10 +72,9 @@ void Triangle::Initialize() {
 	demoObjTransform_ = {
 		{1.0f, 1.0f, 1.0f},
 		{0.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 0.0f},
+		{0.0f, -5.0f, 10.0f},
 	};
 	demoObj_->CreateFromObj("axis");
-	demoObj_->SetTexHandle(texhandle1_);
 	modelSphere_->SetIsLighting(1);
 }
 
