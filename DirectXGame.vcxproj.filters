@@ -44,9 +44,6 @@
     <Filter Include="Pastorale\3D\Model">
       <UniqueIdentifier>{7f960782-1a91-4d97-85d4-4a5f9e20b87b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\3D\Sphere">
-      <UniqueIdentifier>{67945ac2-1de7-4b83-881f-054c1a92d7eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pastorale\3D\TextureManager">
       <UniqueIdentifier>{cf98b914-21be-4f44-b32c-215d0bc94bfa}</UniqueIdentifier>
     </Filter>
@@ -124,9 +121,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pastorale\3D\Model\Model.cpp">
       <Filter>Pastorale\3D\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\Sphere\Sphere.cpp">
-      <Filter>Pastorale\3D\Sphere</Filter>
     </ClCompile>
     <ClCompile Include="Pastorale\3D\TextureManager\TextureManager.cpp">
       <Filter>Pastorale\3D\TextureManager</Filter>
@@ -228,9 +222,6 @@
     </ClInclude>
     <ClInclude Include="Pastorale\3D\Model\Model.h">
       <Filter>Pastorale\3D\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\Sphere\Sphere.h">
-      <Filter>Pastorale\3D\Sphere</Filter>
     </ClInclude>
     <ClInclude Include="Pastorale\3D\TextureManager\TextureManager.h">
       <Filter>Pastorale\3D\TextureManager</Filter>

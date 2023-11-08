@@ -3,10 +3,8 @@
 #include "Model.h"
 #include "TextureManager.h"
 #include "WorldTransform.h"
-#include "Pastorale.h"
 #include "Sprite.h"
 #include "ImGuiManager.h"
-#include "Sphere.h"
 
 
 
