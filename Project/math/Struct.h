@@ -10,6 +10,7 @@
 #include <Vector3.h>
 #include <Vector4.h>
 #include <Matrix4x4.h>
+#include <iostream>
 
 
 
@@ -63,9 +64,16 @@ struct MaterialSprite {
 };
 
 
+// マテリアルデータ
+struct MaterialData {
+	std::string textureFilePath;
+};
+
+
 // モデルデータ
 struct ModelData {
 	std::vector<VertexData> vertices;
+	MaterialData material;
 };
 
 

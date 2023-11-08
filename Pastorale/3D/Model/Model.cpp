@@ -37,6 +37,32 @@ void Model::Initialize(IModelState* state) {
 
 
 /// <summary>
+/// Objファイルの読み込み & 初期化処理
+/// </summary>
+void Model::CreateFromObj(const std::string& directoryPath) {
+
+	// ワールドトランスフォームの設定
+	worldTansform_.scale_ = { 1.0f, 1.0f, 1.0f };
+	worldTansform_.rotate_ = { 0.0f, 0.0f, 0.0f };
+	worldTansform_.translation_ = { 0.0f, 0.0f, 0.0f };
+
+	// テクスチャの設定
+	// デフォルトではuvCheckerを使う
+	useTexture_ = 1;
+
+	// 色の設定
+	color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	// 色の設定
+	material_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	state_ = new ModelObjState();
+	directoryPath_ = directoryPath;
+	state_->Initialize(this);
+}
+
+
+/// <summary>
 /// 描画処理
 /// </summary>
 void Model::Draw(WorldTransform worldTransform, Matrix4x4& viewMatrix) {

@@ -6,6 +6,7 @@ Triangle::Triangle() {
 	modelPlane_ = new Model();
 	sprite_ = new Sprite();
 	modelSphere_ = new Model();
+	demoObj_ = new Model();
 }
 
 
@@ -15,6 +16,7 @@ Triangle::~Triangle() {
 	delete modelPlane_;
 	delete sprite_;
 	delete modelSphere_;
+	delete demoObj_;
 }
 
 
@@ -64,6 +66,17 @@ void Triangle::Initialize() {
 	modelSphere_->Initialize(new ModelSphereState);
 	modelSphere_->SetTexHandle(texhandle3_);
 	modelSphere_->SetIsLighting(1); // ライティングするかしないか
+
+
+	// デモObj
+	demoObjTransform_ = {
+		{1.0f, 1.0f, 1.0f},
+		{0.0f, 0.0f, 0.0f},
+		{0.0f, 0.0f, 0.0f},
+	};
+	demoObj_->CreateFromObj("axis");
+	demoObj_->SetTexHandle(texhandle1_);
+	modelSphere_->SetIsLighting(1);
 }
 
 
@@ -77,6 +90,7 @@ void Triangle::Update() {
 	modelSphereTransform_.rotate_.y += 0.02f;
 	modelSphereTransform_.rotate_.z += 0.02f;
 	modelSphere_->SetDirectionalLight(light_);
+	demoObj_->SetDirectionalLight(light_);
 	sprite_->SetUVTransform(uvTransform_);
 
 	ImGui::Begin("DrawObject");
@@ -97,6 +111,10 @@ void Triangle::Update() {
 	//ImGui::DragFloat3("sphereTranslate", &modelSphereTransform_.translation_.x, 0.1f);
 	//ImGui::DragFloat4("LightColor", &light_.color.x, 0.01f);
 	//ImGui::DragFloat3("LightDirection", &light_.direction.x, 0.01f);
+	ImGui::Text("DemoObj");
+	ImGui::DragFloat3("DemoObjScele", &demoObjTransform_.scale_.x, 0.01f);
+	ImGui::DragFloat3("DemoObjRotate", &demoObjTransform_.rotate_.x, 0.01f);
+	ImGui::DragFloat3("DemoObjTranslate", &demoObjTransform_.translation_.x, 0.01f);
 
 	ImGui::End();
 }
@@ -110,6 +128,7 @@ void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
 	//modelSphere_->Draw(modelSphereTransform_, ViewMatrix);
 	//modelPlane_->Draw(modelPlaneTransform_, ViewMatrix);
+	demoObj_->Draw(demoObjTransform_, ViewMatrix);
 }
 
 

@@ -2,6 +2,7 @@
 #include "IModelState.h"
 #include "ModelPlaneState.h"
 #include "ModelSphereState.h"
+#include "ModelObjState.h"
 
 
 
@@ -15,6 +16,10 @@ public: // メンバ関数
 	/// </summary>
 	void Initialize(IModelState* state);
 
+	/// <summary>
+	/// Objファイルの読み込み & 初期化処理
+	/// </summary>
+	void CreateFromObj(const std::string& directoryPath);
 
 	/// <summary>
 	/// 描画処理
