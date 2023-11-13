@@ -80,8 +80,8 @@
     <Filter Include="Pastorale\3D\Model\Sphere">
       <UniqueIdentifier>{a41ff7e1-5fa5-4f65-a0fa-4a224d71c475}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\3D\Model\Obj">
-      <UniqueIdentifier>{7b39e762-b098-4194-8604-fd643f720b6d}</UniqueIdentifier>
+    <Filter Include="Pastorale\3D\Model\ModelObj">
+      <UniqueIdentifier>{c076c4d6-ebcb-4a42-a84a-5949ee257c4c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -170,8 +170,8 @@
     <ClCompile Include="Pastorale\3D\Model\Plane\ModelPlaneState.cpp">
       <Filter>Pastorale\3D\Model\Plane</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\3D\Model\Obj\ModelObjState.cpp">
-      <Filter>Pastorale\3D\Model\Obj</Filter>
+    <ClCompile Include="Pastorale\3D\Model\ModelObj\ModelObjState.cpp">
+      <Filter>Pastorale\3D\Model\ModelObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,8 +280,8 @@
     <ClInclude Include="Pastorale\3D\Model\Plane\ModelPlaneState.h">
       <Filter>Pastorale\3D\Model\Plane</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\3D\Model\Obj\ModelObjState.h">
-      <Filter>Pastorale\3D\Model\Obj</Filter>
+    <ClInclude Include="Pastorale\3D\Model\ModelObj\ModelObjState.h">
+      <Filter>Pastorale\3D\Model\ModelObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
