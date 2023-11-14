@@ -26,8 +26,6 @@ public:
 
 private:
 
-	
-
 };
 
 
@@ -46,5 +44,4 @@ struct ResourcePeroperty {
 	ComPtr<ID3D12Resource> Material;
 	// 
 	ComPtr<ID3D12Resource> Lighting;
-
 };

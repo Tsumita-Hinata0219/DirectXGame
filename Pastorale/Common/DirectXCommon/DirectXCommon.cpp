@@ -578,7 +578,7 @@ ID3D12DescriptorHeap* DirectXCommon::CreateDescriptorHeap(
 
 
 // Textureの深度の設定をしていく
-ID3D12Resource* DirectXCommon::CreateDepthStencilTexturerResource(int32_t width, int32_t height) {
+ComPtr<ID3D12Resource> DirectXCommon::CreateDepthStencilTexturerResource(int32_t width, int32_t height) {
 	// 生成するResourceの設定
 	D3D12_RESOURCE_DESC resourceDesc{};
 	resourceDesc.Width = width; // Textureの幅
@@ -603,7 +603,7 @@ ID3D12Resource* DirectXCommon::CreateDepthStencilTexturerResource(int32_t width,
 
 
 	// Resourceの生成
-	ID3D12Resource* resource = nullptr;
+	ComPtr<ID3D12Resource> resource = nullptr;
 	HRESULT hr = DirectXCommon::GetInstance()->device_->CreateCommittedResource(
 		&heapProperties, // Heapの設定
 		D3D12_HEAP_FLAG_NONE, // Hepaの特殊な設定。特になし

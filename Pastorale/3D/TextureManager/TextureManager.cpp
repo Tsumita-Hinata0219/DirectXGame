@@ -100,7 +100,7 @@ DirectX::ScratchImage TextureManager::CreateMipImage(const std::string& filePath
 /// <summary>
 /// DirectX12のTExtureResourceを作る
 /// </summary>
-ID3D12Resource* TextureManager::CreateTextureResource(const DirectX::TexMetadata& metadata) {
+ComPtr<ID3D12Resource> TextureManager::CreateTextureResource(const DirectX::TexMetadata& metadata) {
 
 	// 1.metadataを基にResourceの設定
 	// metadataを基にResourceの設定
@@ -114,7 +114,7 @@ ID3D12Resource* TextureManager::CreateTextureResource(const DirectX::TexMetadata
 
 	// 3. Resourceを作る
 	// Resourceを生成する
-	ID3D12Resource* resource{};
+	ComPtr<ID3D12Resource> resource{};
 	resource = CreateResource(resourceDesc, heapProperties);
 
 	return resource;
@@ -159,9 +159,9 @@ D3D12_HEAP_PROPERTIES TextureManager::SettingUseHeap() {
 /// <summary>
 /// Resourceを生成する
 /// </summary>
-ID3D12Resource* TextureManager::CreateResource(D3D12_RESOURCE_DESC resourceDesc, D3D12_HEAP_PROPERTIES heapProperties) {
+ComPtr<ID3D12Resource> TextureManager::CreateResource(D3D12_RESOURCE_DESC resourceDesc, D3D12_HEAP_PROPERTIES heapProperties) {
 
-	ID3D12Resource* resource;
+	ComPtr<ID3D12Resource> resource;
 	HRESULT hr = DirectXCommon::GetInstance()->GetDevice()->CreateCommittedResource(
 		&heapProperties,				   // Heapの設定
 		D3D12_HEAP_FLAG_NONE,			   // Heapの特殊な設定。特になし

@@ -201,7 +201,7 @@ private: // メンバ関数
 
 
 	// Textureの深度の設定をしていく
-	static ID3D12Resource* CreateDepthStencilTexturerResource(int32_t width, int32_t height);
+	static ComPtr<ID3D12Resource> CreateDepthStencilTexturerResource(int32_t width, int32_t height);
 
 
 	// depthStencilResourceを作る

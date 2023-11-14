@@ -74,7 +74,7 @@ private: // メンバ関数
 	/// <summary>
 	/// DirectX12のTExtureResourceを作る
 	/// </summary>
-	static ID3D12Resource* CreateTextureResource(const DirectX::TexMetadata& metadata);
+	static ComPtr<ID3D12Resource> CreateTextureResource(const DirectX::TexMetadata& metadata);
 
 
 	/// <summary>
@@ -98,7 +98,7 @@ private: // メンバ関数
 	/// <summary>
 	/// Resourceを生成する
 	/// </summary>
-	static ID3D12Resource* CreateResource(D3D12_RESOURCE_DESC resourceDesc, D3D12_HEAP_PROPERTIES heapProperties);
+	static ComPtr<ID3D12Resource> CreateResource(D3D12_RESOURCE_DESC resourceDesc, D3D12_HEAP_PROPERTIES heapProperties);
 
 
 
