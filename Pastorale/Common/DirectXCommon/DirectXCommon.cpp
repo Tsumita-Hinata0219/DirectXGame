@@ -67,29 +67,17 @@ void DirectXCommon::Initialize() {
 
 // 解放処理
 void DirectXCommon::Release() {
-
 	CloseHandle(DirectXCommon::GetInstance()->fenceEvent_);
-	DirectXCommon::GetInstance()->fence_->Release();
-
-	DirectXCommon::GetInstance()->rtv_.DescriptorHeap->Release();
-	DirectXCommon::GetInstance()->swapChains_.Resources[0]->Release();
-	DirectXCommon::GetInstance()->swapChains_.Resources[1]->Release();
-
-	DirectXCommon::GetInstance()->swapChains_.swapChain->Release();
-	DirectXCommon::GetInstance()->commands_.List->Release();
-	DirectXCommon::GetInstance()->commands_.Allocator->Release();
-	DirectXCommon::GetInstance()->commands_.Queue->Release();
-
-	DirectXCommon::GetInstance()->device_->Release();
-	DirectXCommon::GetInstance()->useAdapter_->Release();
-	DirectXCommon::GetInstance()->dxgiFactory_->Release();
 }
 
 
 
 void DirectXCommon::PreDraw() {
 
-	SwapChains swapChains = DirectXCommon::GetInstance()->swapChains_;
+	SwapChains swapChains{};
+	swapChains.swapChain = DirectXCommon::GetInstance()->swapChains_.swapChain.Get();
+	swapChains.Resources[0] = DirectXCommon::GetInstance()->swapChains_.Resources[0].Get();
+	swapChains.Resources[1] = DirectXCommon::GetInstance()->swapChains_.Resources[1].Get();
 	Commands commands = DirectXCommon::GetInstance()->commands_;
 	D3D12_RESOURCE_BARRIER barrier = DirectXCommon::GetInstance()->barrier_;
 
@@ -104,7 +92,7 @@ void DirectXCommon::PreDraw() {
 	// Noneにしておく
 	barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
 	// バリアを張る対象のリソース。現在のバックバッファに対して行う
-	barrier.Transition.pResource = swapChains.Resources[backBufferIndex_];
+	barrier.Transition.pResource = swapChains.Resources[backBufferIndex_].Get();
 	// 遷移前(現在)のResourceState
 	barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PRESENT;
 	// 遷移後のResourceState
@@ -172,7 +160,7 @@ void DirectXCommon::PostDraw() {
 	assert(SUCCEEDED(hr));
 
 	// GPUにコマンドリストの実行を行わせる
-	ID3D12CommandList* commandLists[] = { commands.List };
+	ID3D12CommandList* commandLists[] = { commands.List.Get()};
 	commands.Queue->ExecuteCommandLists(1, commandLists);
 
 
@@ -184,7 +172,7 @@ void DirectXCommon::PostDraw() {
 	DirectXCommon::GetInstance()->fenceValue_++;
 
 	// GPUがここまで辿り着いたときに、Fenceの値を指定した値に代入するようにSignalを送る
-	commands.Queue->Signal(DirectXCommon::GetInstance()->fence_, DirectXCommon::GetInstance()->fenceValue_);
+	commands.Queue->Signal(DirectXCommon::GetInstance()->fence_.Get(), DirectXCommon::GetInstance()->fenceValue_);
 
 	// Fenceの値が指定したSignal値にたどり着いているか確認するか
 	// GetCompletedValueの初期値はFence作成時に渡した初期値
@@ -200,7 +188,7 @@ void DirectXCommon::PostDraw() {
 	// 次のフレーム用のコマンドリストを準備
 	hr = commands.Allocator->Reset();
 	assert(SUCCEEDED(hr));
-	hr = commands.List->Reset(commands.Allocator, nullptr);
+	hr = commands.List->Reset(commands.Allocator.Get(), nullptr);
 	assert(SUCCEEDED(hr));
 
 	DirectXCommon::GetInstance()->commands_ = commands;
@@ -215,8 +203,8 @@ void DirectXCommon::PostDraw() {
 
 void DirectXCommon::CreateDxgiFactory() {
 
-	IDXGIFactory7* dxgiFactory = DirectXCommon::GetInstance()->dxgiFactory_;
-	IDXGIAdapter4* useAdapter = DirectXCommon::GetInstance()->useAdapter_;
+	IDXGIFactory7* dxgiFactory = DirectXCommon::GetInstance()->dxgiFactory_.Get();
+	IDXGIAdapter4* useAdapter = DirectXCommon::GetInstance()->useAdapter_.Get();
 
 	// DXGIファクトリーの生成
 	// HRESULTはWindows系のエラーコードであり、
@@ -275,7 +263,7 @@ void DirectXCommon::CreateDevice() {
 	// 高い順に生成できるか試していく
 	for (size_t i = 0; i < _countof(featureLevels); ++i) {
 		// 採用したアダプターでデバイスを生成
-		HRESULT hr = D3D12CreateDevice(DirectXCommon::GetInstance()->useAdapter_, featureLevels[i], IID_PPV_ARGS(&DirectXCommon::GetInstance()->device_));
+		HRESULT hr = D3D12CreateDevice(DirectXCommon::GetInstance()->useAdapter_.Get(), featureLevels[i], IID_PPV_ARGS(&DirectXCommon::GetInstance()->device_));
 
 		// 指定した昨日レベルでデバイスが生成できたかを確認
 		if (SUCCEEDED(hr)) {
@@ -303,7 +291,7 @@ void DirectXCommon::DebugErrorInfoQueue() {
 
 #ifdef _DEBUG
 
-	ID3D12InfoQueue* infoQueue = DirectXCommon::GetInstance()->infoQueue_;
+	ID3D12InfoQueue* infoQueue = DirectXCommon::GetInstance()->infoQueue_.Get();
 	D3D12_INFO_QUEUE_FILTER filter = DirectXCommon::GetInstance()->filter_;
 
 	if (SUCCEEDED(DirectXCommon::GetInstance()->device_->QueryInterface(IID_PPV_ARGS(&infoQueue)))) {
@@ -386,7 +374,7 @@ void DirectXCommon::CreateCommandList() {
 	// コマンドリストを生成する
 	HRESULT hr = DirectXCommon::GetInstance()->device_->CreateCommandList(
 		0, D3D12_COMMAND_LIST_TYPE_DIRECT,
-		DirectXCommon::GetInstance()->commands_.Allocator,
+		DirectXCommon::GetInstance()->commands_.Allocator.Get(),
 		nullptr,
 		IID_PPV_ARGS(&DirectXCommon::GetInstance()->commands_.List));
 
@@ -414,12 +402,12 @@ void DirectXCommon::CreateSwapChain() {
 
 	// コマンドキュー、ウィンドウハンドル、設定を渡して生成する
 	HRESULT hr = DirectXCommon::GetInstance()->dxgiFactory_->CreateSwapChainForHwnd(
-		DirectXCommon::GetInstance()->commands_.Queue,
+		DirectXCommon::GetInstance()->commands_.Queue.Get(),
 		hwnd_,
 		&swapChains.Desc,
 		nullptr,
 		nullptr,
-		reinterpret_cast<IDXGISwapChain1**>(&swapChains.swapChain));
+		reinterpret_cast<IDXGISwapChain1**>(swapChains.swapChain.GetAddressOf()));
 
 	assert(SUCCEEDED(hr));
 
@@ -433,10 +421,10 @@ void DirectXCommon::CreateSwapChain() {
 void DirectXCommon::SetDescriptorHeap() {
 
 	DirectXCommon::GetInstance()->rtv_.DescriptorHeap = CreateDescriptorHeap(
-		DirectXCommon::GetInstance()->device_, D3D12_DESCRIPTOR_HEAP_TYPE_RTV, 2, false);
+		DirectXCommon::GetInstance()->device_.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_RTV, 2, false);
 
 	DirectXCommon::GetInstance()->srvDescriptorHeap_ = CreateDescriptorHeap(
-		DirectXCommon::GetInstance()->device_, D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 128, true);
+		DirectXCommon::GetInstance()->device_.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 128, true);
 
 
 	// SwapChainからResourceを引っ張ってくる
@@ -487,7 +475,7 @@ void DirectXCommon::SettingRTV() {
 	// まず1つ目を作る。1つ目は最初のところに作る。作る場所をこちらで指定してあげる必要がある
 	rtv.Handles[0] = rtv.StartHandle;
 	DirectXCommon::GetInstance()->device_->CreateRenderTargetView(
-		DirectXCommon::GetInstance()->swapChains_.Resources[0],
+		DirectXCommon::GetInstance()->swapChains_.Resources[0].Get(),
 		&rtv.Desc,
 		rtv.Handles[0]);
 
@@ -497,7 +485,7 @@ void DirectXCommon::SettingRTV() {
 
 	// 2つ目を作る
 	DirectXCommon::GetInstance()->device_->CreateRenderTargetView(
-		DirectXCommon::GetInstance()->swapChains_.Resources[1],
+		DirectXCommon::GetInstance()->swapChains_.Resources[1].Get(),
 		&rtv.Desc,
 		rtv.Handles[1]);
 
@@ -584,7 +572,7 @@ ID3D12DescriptorHeap* DirectXCommon::CreateDescriptorHeap(
 	HRESULT hr = device->CreateDescriptorHeap(&DirectXCommon::GetInstance()->DescriptorHeapDesc_, IID_PPV_ARGS(&DirectXCommon::GetInstance()->descriptorHeap_));
 	//ディスクリプタヒープの生成ができないので起動できない
 	assert(SUCCEEDED(hr));
-	return DirectXCommon::GetInstance()->descriptorHeap_;
+	return DirectXCommon::GetInstance()->descriptorHeap_.Get();
 }
 
 
@@ -641,7 +629,7 @@ void DirectXCommon::CreateDepthStencilResource() {
 
 	// DSV用のヒープでディスクリプタのの数は1。DSVはShader内で触るものではないので、ShaderVisibleはfalse
 	DirectXCommon::GetInstance()->dsvDescriptorHeap_ =
-		CreateDescriptorHeap(DirectXCommon::GetInstance()->device_, D3D12_DESCRIPTOR_HEAP_TYPE_DSV, 1, false);
+		CreateDescriptorHeap(DirectXCommon::GetInstance()->device_.Get(), D3D12_DESCRIPTOR_HEAP_TYPE_DSV, 1, false);
 
 
 	// DSVの設定
@@ -652,7 +640,7 @@ void DirectXCommon::CreateDepthStencilResource() {
 
 	// DSVHeapの先頭にDSVを作る
 	DirectXCommon::GetInstance()->device_->CreateDepthStencilView(
-		DirectXCommon::GetInstance()->depthStencilResource_, &dsvDesc, DirectXCommon::GetInstance()->dsvDescriptorHeap_->GetCPUDescriptorHandleForHeapStart());
+		DirectXCommon::GetInstance()->depthStencilResource_.Get(), &dsvDesc, DirectXCommon::GetInstance()->dsvDescriptorHeap_->GetCPUDescriptorHandleForHeapStart());
 }
 
 

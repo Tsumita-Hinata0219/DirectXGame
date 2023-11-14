@@ -16,10 +16,10 @@ void ModelPlaneState::Initialize(Model* pModel) {
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * 4);
 	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(Matrix4x4));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(Vector4));
-	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * 4, resource_.Vertex, 4);
+	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * 4, resource_.Vertex.Get(), 4);
 
 	resource_.Index = CreateResource::CreateBufferResource(sizeof(uint32_t) * 6);
-	resource_.IndexBufferView = CreateResource::CreateIndexBufferview(sizeof(uint32_t) * 6, resource_.Index);
+	resource_.IndexBufferView = CreateResource::CreateIndexBufferview(sizeof(uint32_t) * 6, resource_.Index.Get());
 
 }
 
@@ -87,23 +87,23 @@ void ModelPlaneState::Draw(Model* pModel, WorldTransform worldTransform, Matrix4
 void ModelPlaneState::CommandCall(uint32_t texture) {
 
 	// RootSignatureを設定。
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootSignature(NormalGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootSignature(NormalGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
 	// PSOを設定
-	DirectXCommon::GetInstance()->GetCommands().List->SetPipelineState(NormalGraphicPipeline::GetInstance()->GetPsoProperty().graphicsPipelineState);
+	DirectXCommon::GetInstance()->GetCommandList()->SetPipelineState(NormalGraphicPipeline::GetInstance()->GetPsoProperty().graphicsPipelineState);
 
 	///// いざ描画！！！！！
 	// VBVを設定
-	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &resource_.VertexBufferView);
-	DirectXCommon::GetInstance()->GetCommands().List->IASetIndexBuffer(&resource_.IndexBufferView);
+	DirectXCommon::GetInstance()->GetCommandList()->IASetVertexBuffers(0, 1, &resource_.VertexBufferView);
+	DirectXCommon::GetInstance()->GetCommandList()->IASetIndexBuffer(&resource_.IndexBufferView);
 
 	// 形状を設定
-	DirectXCommon::GetInstance()->GetCommands().List->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	DirectXCommon::GetInstance()->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// CBVを設定する
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(0, resource_.Material->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(0, resource_.Material->GetGPUVirtualAddress());
 
 	// wvp用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, resource_.TransformationMatrix->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(1, resource_.TransformationMatrix->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
 	if (!texture == 0) {
@@ -111,5 +111,5 @@ void ModelPlaneState::CommandCall(uint32_t texture) {
 	}
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-	DirectXCommon::GetInstance()->GetCommands().List->DrawIndexedInstanced(6, 1, 0, 0, 0);
+	DirectXCommon::GetInstance()->GetCommandList()->DrawIndexedInstanced(6, 1, 0, 0, 0);
 }

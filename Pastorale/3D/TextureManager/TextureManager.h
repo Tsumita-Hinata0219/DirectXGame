@@ -8,7 +8,7 @@
 struct TextureDescriptorHandle {
 	D3D12_CPU_DESCRIPTOR_HANDLE srvHandle_CPU;
 	D3D12_GPU_DESCRIPTOR_HANDLE srvHandle_GPU;
-	ID3D12Resource* Resource;
+	ComPtr<ID3D12Resource> Resource;
 };
 struct DescriptorSize {
 	uint32_t SRV;

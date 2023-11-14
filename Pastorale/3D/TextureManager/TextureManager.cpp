@@ -64,7 +64,7 @@ uint32_t TextureManager::LoadTexture(const std::string& filePath) {
 
 
 	// SRVの生成
-	DirectXCommon::GetInstance()->GetDevice()->CreateShaderResourceView(TextureManager::GetInstance()->tex_[texIndex].Resource, &srvDesc, TextureManager::GetInstance()->tex_[texIndex].srvHandle_CPU);
+	DirectXCommon::GetInstance()->GetDevice()->CreateShaderResourceView(TextureManager::GetInstance()->tex_[texIndex].Resource.Get(), &srvDesc, TextureManager::GetInstance()->tex_[texIndex].srvHandle_CPU);
 
 
 	return texIndex;
@@ -228,5 +228,5 @@ D3D12_GPU_DESCRIPTOR_HANDLE TextureManager::GetGPUDescriptorHandle(ID3D12Descrip
 /// </summary>
 void TextureManager::SetGraphicsRootDescriptorTable(UINT rootPatramerterIndex, uint32_t texHandle) {
 
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootDescriptorTable(rootPatramerterIndex, TextureManager::GetInstance()->tex_[texHandle].srvHandle_GPU);
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootDescriptorTable(rootPatramerterIndex, TextureManager::GetInstance()->tex_[texHandle].srvHandle_GPU);
 }

@@ -15,11 +15,11 @@ void ModelSphereState::Initialize(Model* pModel) {
 	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(TransformationMatrix));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(Material));
 	resource_.Lighting = CreateResource::CreateBufferResource(sizeof(DirectionalLight));
-	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * ver, resource_.Vertex, ver);
+	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * ver, resource_.Vertex.Get(), ver);
 
 	uint32_t ind = subdivision_ * subdivision_ * 6;
 	resource_.Index = CreateResource::CreateBufferResource(sizeof(uint32_t) * ind);
-	resource_.IndexBufferView = CreateResource::CreateIndexBufferview(sizeof(uint32_t) * ind, resource_.Index);
+	resource_.IndexBufferView = CreateResource::CreateIndexBufferview(sizeof(uint32_t) * ind, resource_.Index.Get());
 }
 
 
@@ -172,23 +172,23 @@ void ModelSphereState::Draw(Model* pModel, WorldTransform worldTransform, Matrix
 void ModelSphereState::CommandCall(uint32_t texture) {
 
 	// RootSignatureを設定。
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootSignature(LightGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootSignature(LightGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
 	// PSOを設定
-	DirectXCommon::GetInstance()->GetCommands().List->SetPipelineState(LightGraphicPipeline::GetInstance()->GetPsoProperty().graphicsPipelineState);
+	DirectXCommon::GetInstance()->GetCommandList()->SetPipelineState(LightGraphicPipeline::GetInstance()->GetPsoProperty().graphicsPipelineState);
 
 	/// コマンドを積む
 	// 頂点の設定 (VBVを設定)
-	DirectXCommon::GetInstance()->GetCommands().List->IASetVertexBuffers(0, 1, &resource_.VertexBufferView);
-	DirectXCommon::GetInstance()->GetCommands().List->IASetIndexBuffer(&resource_.IndexBufferView);
+	DirectXCommon::GetInstance()->GetCommandList()->IASetVertexBuffers(0, 1, &resource_.VertexBufferView);
+	DirectXCommon::GetInstance()->GetCommandList()->IASetIndexBuffer(&resource_.IndexBufferView);
 
 	//形状を設定
-	DirectXCommon::GetInstance()->GetCommands().List->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	DirectXCommon::GetInstance()->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// 色用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(0, resource_.Material->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(0, resource_.Material->GetGPUVirtualAddress());
 
 	// wvp用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(1, resource_.TransformationMatrix->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(1, resource_.TransformationMatrix->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
 	if (!texture == 0) {
@@ -196,9 +196,9 @@ void ModelSphereState::CommandCall(uint32_t texture) {
 	}
 
 	// 光用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommands().List->SetGraphicsRootConstantBufferView(3, resource_.Lighting->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(3, resource_.Lighting->GetGPUVirtualAddress());
 
 	// 描画！ (DrawCall / ドローコール)
-	DirectXCommon::GetInstance()->GetCommands().List->DrawIndexedInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0, 0);
+	DirectXCommon::GetInstance()->GetCommandList()->DrawIndexedInstanced(subdivision_ * subdivision_ * 6, 1, 0, 0, 0);
 
 }

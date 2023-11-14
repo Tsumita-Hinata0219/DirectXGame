@@ -5,6 +5,9 @@
 #include <dxgidebug.h>
 #include <dxcapi.h>
 
+#include <wrl.h>
+using Microsoft::WRL::ComPtr;
+
 #include <vector>
 #include <Vector2.h>
 #include <Vector3.h>
@@ -84,30 +87,6 @@ struct DirectionalLight {
 	float intensity;   // 輝度
 };
 
-
-// コマンド
-struct Commands {
-	ID3D12CommandQueue* Queue;		   // コマンドキュー
-	ID3D12CommandAllocator* Allocator; // コマンドアロケータ
-	ID3D12GraphicsCommandList* List;   // コマンドリスト
-};
-
-
-// スワップチェーン
-struct SwapChains {
-	IDXGISwapChain4* swapChain;				// スワップチェーン
-	ID3D12Resource* Resources[2];	// スワップチェーンリソース
-	DXGI_SWAP_CHAIN_DESC1 Desc{}; // スワップチェーンデスク
-};
-
-
-// RTV
-struct RTV {
-	ID3D12DescriptorHeap* DescriptorHeap;
-	D3D12_RENDER_TARGET_VIEW_DESC Desc{};
-	D3D12_CPU_DESCRIPTOR_HANDLE Handles[2];
-	D3D12_CPU_DESCRIPTOR_HANDLE StartHandle;
-};
 
 
 // CompileShader

@@ -23,6 +23,30 @@
 
 
 
+// コマンド
+struct Commands {
+	ComPtr<ID3D12CommandQueue> Queue;		   // コマンドキュー
+	ComPtr<ID3D12CommandAllocator> Allocator; // コマンドアロケータ
+	ComPtr<ID3D12GraphicsCommandList> List;   // コマンドリスト
+};
+
+// スワップチェーン
+struct SwapChains {
+	ComPtr<IDXGISwapChain4> swapChain;				// スワップチェーン
+	ComPtr<ID3D12Resource> Resources[2];	// スワップチェーンリソース
+	DXGI_SWAP_CHAIN_DESC1 Desc{}; // スワップチェーンデスク
+};
+
+// RTV
+struct RTV {
+	ComPtr<ID3D12DescriptorHeap> DescriptorHeap;
+	D3D12_RENDER_TARGET_VIEW_DESC Desc{};
+	D3D12_CPU_DESCRIPTOR_HANDLE Handles[2];
+	D3D12_CPU_DESCRIPTOR_HANDLE StartHandle;
+};
+
+
+
 /// <summary>
 /// DirectXCommonクラス
 /// </summary>
@@ -61,12 +85,12 @@ public: // メンバ関数
 	/// <summary>
 	/// 
 	/// </summary>
-	ID3D12Device* const GetDevice() { return DirectXCommon::GetInstance()->device_; };
+	ID3D12Device* const GetDevice() { return DirectXCommon::GetInstance()->device_.Get(); };
 
 	/// <summary>
 	/// 
 	/// </summary>
-	Commands const GetCommands() { return DirectXCommon::GetInstance()->commands_; }
+	ID3D12GraphicsCommandList* const GetCommandList() { return DirectXCommon::GetInstance()->commands_.List.Get(); }
 
 	/// <summary>
 	/// 
@@ -81,7 +105,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 
 	/// </summary>
-	ID3D12DescriptorHeap* const GetSrvDescriptorHeap() { return DirectXCommon::GetInstance()->srvDescriptorHeap_; }
+	ID3D12DescriptorHeap* const GetSrvDescriptorHeap() { return DirectXCommon::GetInstance()->srvDescriptorHeap_.Get(); }
 
 	/// <summary>
 	/// 
@@ -187,21 +211,21 @@ private: // メンバ関数
 private: // メンバ変数
 
 	// デバッグレイヤー
-	ID3D12Debug1* debugController_ = nullptr;
+	ComPtr<ID3D12Debug1> debugController_ = nullptr;
 
 
 	// DXGIFactory
-	IDXGIFactory7* dxgiFactory_ = nullptr;
+	ComPtr<IDXGIFactory7> dxgiFactory_ = nullptr;
 
 
 	// 使用するアダプタ用の変数
-	IDXGIAdapter4* useAdapter_ = nullptr;
+	ComPtr<IDXGIAdapter4> useAdapter_ = nullptr;
 
-	ID3D12Device* device_ = nullptr;
+	ComPtr<ID3D12Device> device_ = nullptr;
 
 
 	// エラー・警告・即ち停止
-	ID3D12InfoQueue* infoQueue_ = nullptr;
+	ComPtr<ID3D12InfoQueue> infoQueue_ = nullptr;
 
 	// なにこれ↓
 	D3D12_INFO_QUEUE_FILTER filter_{};
@@ -219,19 +243,19 @@ private: // メンバ変数
 
 
 	// スワップチェーン
-	SwapChains swapChains_;
+	SwapChains swapChains_{};
 
 
 	// ディスクリプタヒープ
-	ID3D12DescriptorHeap* srvDescriptorHeap_ = nullptr;
+	ComPtr<ID3D12DescriptorHeap> srvDescriptorHeap_ = nullptr;
 
 
 	// RTV
-	RTV rtv_;
+	RTV rtv_{};
 
 
 	// Fence
-	ID3D12Fence* fence_ = nullptr;
+	ComPtr<ID3D12Fence> fence_ = nullptr;
 	uint64_t fenceValue_ = 0;
 
 
@@ -256,17 +280,17 @@ private: // メンバ変数
 
 
 	// 
-	ID3D12DescriptorHeap* descriptorHeap_ = nullptr;
+	ComPtr<ID3D12DescriptorHeap> descriptorHeap_ = nullptr;
 
 	D3D12_DESCRIPTOR_HEAP_DESC DescriptorHeapDesc_{};
 
 
 	// 深度
-	ID3D12Resource* depthStencilResource_ = nullptr;
+	ComPtr<ID3D12Resource> depthStencilResource_ = nullptr;
 
 
 	// DepthStencilState
 	D3D12_DEPTH_STENCIL_DESC depthStencilDesc_{};
 
-	ID3D12DescriptorHeap* dsvDescriptorHeap_ = nullptr;
+	ComPtr<ID3D12DescriptorHeap> dsvDescriptorHeap_ = nullptr;
 };
