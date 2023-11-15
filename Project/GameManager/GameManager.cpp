@@ -8,7 +8,6 @@
 GameManager::GameManager() {
 
 
-
 }
 
 
@@ -16,7 +15,6 @@ GameManager::GameManager() {
 /// デストラクタ
 /// </summary>
 GameManager::~GameManager() {
-
 
 
 }
@@ -28,7 +26,6 @@ GameManager::~GameManager() {
 void GameManager::Run() {
 
 
-
 }
 
 
@@ -36,7 +33,6 @@ void GameManager::Run() {
 /// シーンチェンジ
 /// </summary>
 void GameManager::ChangeSceneState() {
-
 
 
 }

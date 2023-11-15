@@ -1,5 +1,7 @@
 #pragma once
 
+#include "IScene.h"
+#include "DebugScene.h"
 
 
 /* GameManagerクラス */
@@ -29,5 +31,6 @@ public:
 
 private:
 
+	IScene* Scene_ = nullptr;
 
 };
