@@ -83,6 +83,9 @@
     <Filter Include="Pastorale\3D\Model\ModelObj">
       <UniqueIdentifier>{c076c4d6-ebcb-4a42-a84a-5949ee257c4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project\GameManager">
+      <UniqueIdentifier>{2c43ed14-4585-4202-b992-5b02ef0e6773}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -172,6 +175,9 @@
     </ClCompile>
     <ClCompile Include="Pastorale\3D\Model\ModelObj\ModelObjState.cpp">
       <Filter>Pastorale\3D\Model\ModelObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameManager\GameManager.cpp">
+      <Filter>Project\GameManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +288,12 @@
     </ClInclude>
     <ClInclude Include="Pastorale\3D\Model\ModelObj\ModelObjState.h">
       <Filter>Pastorale\3D\Model\ModelObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameManager\GameManager.h">
+      <Filter>Project\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Project\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
