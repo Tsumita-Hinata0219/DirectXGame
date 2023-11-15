@@ -182,6 +182,9 @@
     <ClCompile Include="Project\Scene\SceneState\GameScene.cpp">
       <Filter>Project\Scene\SceneState</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Scene\SceneState\DebugScene.cpp">
+      <Filter>Project\Scene\SceneState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -297,6 +300,9 @@
     </ClInclude>
     <ClInclude Include="Project\Scene\IScene.h">
       <Filter>Project\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\SceneState\DebugScene.h">
+      <Filter>Project\Scene\SceneState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

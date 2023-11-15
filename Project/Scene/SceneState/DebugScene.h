@@ -1,44 +1,49 @@
 #pragma once
 
-class GameManager;
+#include "IScene.h"
+#include "GameManager.h"
 
-/* ISceneクラス */
-class IScene {
+
+class DebugScene : public IScene {
 
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	IScene() {};
+	DebugScene() {};
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	virtual ~IScene() {};
+	~DebugScene() {};
 
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	virtual void Initialize() = 0;
+	void Initialize() override;
 
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	virtual void Update(GameManager* state) = 0;
+	void Update(GameManager* state) override;
 
 	/// <summary>
 	/// 背景スプライトの描画処理
 	/// </summary>
-	virtual void BackSpriteDraw() = 0;
+	void BackSpriteDraw() override;
 
 	/// <summary>
 	/// ３Dオブジェクトの描画処理
 	/// </summary>
-	virtual void ModelDraw() = 0;
+	void ModelDraw() override;
 
 	/// <summary>
 	/// 前景スプライトの描画処理
 	/// </summary>
-	virtual void FrontSpriteDraw() = 0;
+	void FrontSpriteDraw() override;
+
+private:
+
+
 };
