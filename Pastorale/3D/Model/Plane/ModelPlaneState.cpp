@@ -27,7 +27,7 @@ void ModelPlaneState::Initialize(Model* pModel) {
 /// <summary>
 /// 描画処理
 /// </summary>
-void ModelPlaneState::Draw(Model* pModel, WorldTransform worldTransform, Matrix4x4& viewMatrix) {
+void ModelPlaneState::Draw(Model* pModel, WorldTransform worldTransform, ViewProjection view) {
 
 	VertexData* vertexData = nullptr;
 	TransformationMatrix* transformaationMatData = nullptr;
@@ -42,7 +42,7 @@ void ModelPlaneState::Draw(Model* pModel, WorldTransform worldTransform, Matrix4
 
 	// Sphere用のWorldViewProjectionMatrixを作る
 	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale, worldTransform.rotate, worldTransform.translate);
-	transformaationMatData->WVP = Multiply(worldMatrixSphere, viewMatrix);
+	transformaationMatData->WVP = Multiply(worldMatrixSphere, view.matProjection);
 	transformaationMatData->World = MakeIdentity4x4();
 	Vector3 pos = worldTransform.translate;
 

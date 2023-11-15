@@ -24,7 +24,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw(WorldTransform worldTransform, Matrix4x4& viewMatrix);
+	void Draw(WorldTransform worldTransform, ViewProjection view);
 
 #pragma region Get 取得
 

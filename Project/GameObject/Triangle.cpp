@@ -127,7 +127,7 @@ void Triangle::Draw3D(Matrix4x4& ViewMatrix) {
 
 	//modelSphere_->Draw(modelSphereTransform_, ViewMatrix);
 	//modelPlane_->Draw(modelPlaneTransform_, ViewMatrix);
-	demoObj_->Draw(demoObjTransform_, ViewMatrix);
+	//demoObj_->Draw(demoObjTransform_, ViewMatrix);
 }
 
 

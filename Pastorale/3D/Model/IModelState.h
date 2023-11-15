@@ -1,5 +1,6 @@
 #pragma once
 #include "WorldTransform.h"
+#include "ViewProjection.h"
 
 
 // Modelの前方宣言
@@ -24,7 +25,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	virtual void Draw(Model* pModel, WorldTransform worldTransform, Matrix4x4& viewMatrix) = 0;
+	virtual void Draw(Model* pModel, WorldTransform worldTransform, ViewProjection view) = 0;
 
 
 private: // メンバ変数

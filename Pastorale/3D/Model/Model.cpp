@@ -65,8 +65,8 @@ void Model::CreateFromObj(const std::string& directoryPath) {
 /// <summary>
 /// 描画処理
 /// </summary>
-void Model::Draw(WorldTransform worldTransform, Matrix4x4& viewMatrix) {
+void Model::Draw(WorldTransform worldTransform, ViewProjection view) {
 
-	state_->Draw(this, worldTransform, viewMatrix);
+	state_->Draw(this, worldTransform, view);
 }
 

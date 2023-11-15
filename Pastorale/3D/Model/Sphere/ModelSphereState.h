@@ -26,7 +26,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw(Model* pModel, WorldTransform worldTransform, Matrix4x4& viewMatrix) override;
+	void Draw(Model* pModel, WorldTransform worldTransform, ViewProjection view) override;
 
 
 private: // メンバ関数
