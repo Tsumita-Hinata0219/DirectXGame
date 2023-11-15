@@ -68,9 +68,6 @@
     <Filter Include="Pastorale\Common\ShaderManager">
       <UniqueIdentifier>{76df0818-cd97-44c8-b1f6-f0c4fd4ae667}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project\scene">
-      <UniqueIdentifier>{a87e714d-6ef3-47aa-aa3d-6789d4bb2b0a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pastorale\3D\CreateResource">
       <UniqueIdentifier>{a883ea59-1592-4ac7-a12f-260e02d5c059}</UniqueIdentifier>
     </Filter>
@@ -85,6 +82,12 @@
     </Filter>
     <Filter Include="Project\GameManager">
       <UniqueIdentifier>{2c43ed14-4585-4202-b992-5b02ef0e6773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene">
+      <UniqueIdentifier>{a87e714d-6ef3-47aa-aa3d-6789d4bb2b0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\SceneState">
+      <UniqueIdentifier>{116c6e4c-b3ee-4e08-99cd-1670ba95f382}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +164,6 @@
     <ClCompile Include="Pastorale\Common\GraphicPipelineManager\LightGraphicPipeline.cpp">
       <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
     </ClCompile>
-    <ClCompile Include="Project\scene\GameScene.cpp">
-      <Filter>Project\scene</Filter>
-    </ClCompile>
     <ClCompile Include="Pastorale\CreateResource\CreateResource.cpp">
       <Filter>Pastorale\3D\CreateResource</Filter>
     </ClCompile>
@@ -178,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Project\GameManager\GameManager.cpp">
       <Filter>Project\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Scene\SceneState\GameScene.cpp">
+      <Filter>Project\Scene\SceneState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -268,9 +271,6 @@
     <ClInclude Include="Pastorale\Common\GraphicPipelineManager\LightGraphicPipeline.h">
       <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
     </ClInclude>
-    <ClInclude Include="Project\scene\GameScene.h">
-      <Filter>Project\scene</Filter>
-    </ClInclude>
     <ClInclude Include="Pastorale\CreateResource\CreateResource.h">
       <Filter>Pastorale\3D\CreateResource</Filter>
     </ClInclude>
@@ -292,8 +292,11 @@
     <ClInclude Include="Project\GameManager\GameManager.h">
       <Filter>Project\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="IScene.h">
-      <Filter>Project\scene</Filter>
+    <ClInclude Include="Project\Scene\SceneState\GameScene.h">
+      <Filter>Project\Scene\SceneState</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\IScene.h">
+      <Filter>Project\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
