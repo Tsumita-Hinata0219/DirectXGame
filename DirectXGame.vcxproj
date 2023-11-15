@@ -103,6 +103,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Pastorale\3D\Model\Sphere\ModelSphereState.cpp" />
     <ClCompile Include="Pastorale\3D\TextureManager\TextureManager.cpp" />
     <ClCompile Include="Pastorale\Adapter\Pastorale.cpp" />
+    <ClCompile Include="Pastorale\Adapter\Tsumi.cpp" />
     <ClCompile Include="Pastorale\Common\Camera\Camera.cpp" />
     <ClCompile Include="Pastorale\Common\DirectXCommon\DirectXCommon.cpp" />
     <ClCompile Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.cpp" />
@@ -140,6 +141,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Pastorale\3D\Model\Sphere\ModelSphereState.h" />
     <ClInclude Include="Pastorale\3D\TextureManager\TextureManager.h" />
     <ClInclude Include="Pastorale\Adapter\Pastorale.h" />
+    <ClInclude Include="Pastorale\Adapter\Tsumi.h" />
     <ClInclude Include="Pastorale\Common\Camera\Camera.h" />
     <ClInclude Include="Pastorale\Common\DirectXCommon\DirectXCommon.h" />
     <ClInclude Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.h" />

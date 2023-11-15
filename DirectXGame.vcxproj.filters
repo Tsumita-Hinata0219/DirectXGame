@@ -203,6 +203,9 @@
     <ClCompile Include="Pastorale\DebugTools\DebugCamera\DebugCamera.cpp">
       <Filter>Pastorale\DebugTools\DebugCamera</Filter>
     </ClCompile>
+    <ClCompile Include="Pastorale\Adapter\Tsumi.cpp">
+      <Filter>Pastorale\Adapter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -327,6 +330,9 @@
     </ClInclude>
     <ClInclude Include="Pastorale\DebugTools\DebugCamera\DebugCamera.h">
       <Filter>Pastorale\DebugTools\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Adapter\Tsumi.h">
+      <Filter>Pastorale\Adapter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
