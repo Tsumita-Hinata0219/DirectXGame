@@ -95,6 +95,12 @@
     <Filter Include="Pastorale\Transform\ViewProjection">
       <UniqueIdentifier>{c555cb79-232b-4432-829e-4736b61bb9ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pastorale\DebugTools">
+      <UniqueIdentifier>{b2321114-df5e-4b1e-acbc-8abb24f9b03a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\DebugTools\DebugCamera">
+      <UniqueIdentifier>{53e9d30f-cbab-4b47-951c-306fbb66304c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -193,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="Pastorale\Transform\ViewProjection\ViewProjection.cpp">
       <Filter>Pastorale\Transform\ViewProjection</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\DebugTools\DebugCamera\DebugCamera.cpp">
+      <Filter>Pastorale\DebugTools\DebugCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +324,9 @@
     </ClInclude>
     <ClInclude Include="Pastorale\Transform\ViewProjection\ViewProjection.h">
       <Filter>Pastorale\Transform\ViewProjection</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\DebugTools\DebugCamera\DebugCamera.h">
+      <Filter>Pastorale\DebugTools\DebugCamera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
