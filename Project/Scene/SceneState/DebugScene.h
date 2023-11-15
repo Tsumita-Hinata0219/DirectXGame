@@ -9,37 +9,37 @@ class DebugScene : public IScene {
 public:
 
 	/// <summary>
-	/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	/// </summary>
 	DebugScene() {};
 
 	/// <summary>
-	/// ƒfƒXƒgƒ‰ƒNƒ^
+	/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	/// </summary>
 	~DebugScene() {};
 
 	/// <summary>
-	/// ‰Šú‰»ˆ—
+	/// åˆæœŸåŒ–å‡¦ç†
 	/// </summary>
 	void Initialize() override;
 
 	/// <summary>
-	/// XVˆ—
+	/// æ›´æ–°å‡¦ç†
 	/// </summary>
 	void Update(GameManager* state) override;
 
 	/// <summary>
-	/// ”wŒiƒXƒvƒ‰ƒCƒg‚Ì•`‰æˆ—
+	/// èƒŒæ™¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®æç”»å‡¦ç†
 	/// </summary>
 	void BackSpriteDraw() override;
 
 	/// <summary>
-	/// ‚RDƒIƒuƒWƒFƒNƒg‚Ì•`‰æˆ—
+	/// ï¼“Dã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»å‡¦ç†
 	/// </summary>
 	void ModelDraw() override;
 
 	/// <summary>
-	/// ‘OŒiƒXƒvƒ‰ƒCƒg‚Ì•`‰æˆ—
+	/// å‰æ™¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®æç”»å‡¦ç†
 	/// </summary>
 	void FrontSpriteDraw() override;
 

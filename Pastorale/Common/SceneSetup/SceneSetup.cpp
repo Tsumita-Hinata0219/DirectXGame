@@ -10,9 +10,9 @@ void SceneSetup::Initialize(const int32_t Width, const int32_t Height, WorldTran
 
 	// Transform変数の初期化
 	cameraTransform_ = {
-		cameraTransform.scale_,
-		cameraTransform.rotate_,
-		cameraTransform.translation_,
+		cameraTransform.scale,
+		cameraTransform.rotate,
+		cameraTransform.translate,
 	};
 
 	// 透視変換行列
@@ -32,7 +32,7 @@ void SceneSetup::Update() {
 Matrix4x4 SceneSetup::WorldViewProjectionMatrixFanc(Matrix4x4 matrixTransform) {
 
 	cameraMatrix_ = MakeAffineMatrix(
-		cameraTransform_.scale_, cameraTransform_.rotate_, cameraTransform_.translation_);
+		cameraTransform_.scale, cameraTransform_.rotate, cameraTransform_.translate);
 
 	viewMatrix_ = Inverse(cameraMatrix_);
 

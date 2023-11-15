@@ -42,7 +42,7 @@ void ModelSphereState::Draw(Model* pModel, WorldTransform worldTransform, Matrix
 	resource_.Index->Map(0, nullptr, reinterpret_cast<void**>(&indexData));
 
 	// Sphere用のWorldViewProjectionMatrixを作る
-	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale_, worldTransform.rotate_, worldTransform.translation_);
+	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale, worldTransform.rotate, worldTransform.translate);
 	transformaationMatData->WVP = Multiply(worldMatrixSphere, viewMatrix);
 	transformaationMatData->World = MakeIdentity4x4();
 

@@ -8,9 +8,9 @@
 void Model::Initialize(IModelState* state) {
 
 	// ワールドトランスフォームの設定
-	worldTansform_.scale_ = { 1.0f, 1.0f, 1.0f };
-	worldTansform_.rotate_ = { 0.0f, 0.0f, 0.0f };
-	worldTansform_.translation_ = { 0.0f, 0.0f, 0.0f };
+	worldTansform_.scale = { 1.0f, 1.0f, 1.0f };
+	worldTansform_.rotate = { 0.0f, 0.0f, 0.0f };
+	worldTansform_.translate = { 0.0f, 0.0f, 0.0f };
 
 	// テクスチャの設定
 	// デフォルトではuvCheckerを使う
@@ -42,9 +42,9 @@ void Model::Initialize(IModelState* state) {
 void Model::CreateFromObj(const std::string& directoryPath) {
 
 	// ワールドトランスフォームの設定
-	worldTansform_.scale_ = { 1.0f, 1.0f, 1.0f };
-	worldTansform_.rotate_ = { 0.0f, 0.0f, 0.0f };
-	worldTansform_.translation_ = { 0.0f, 0.0f, 0.0f };
+	worldTansform_.scale = { 1.0f, 1.0f, 1.0f };
+	worldTansform_.rotate = { 0.0f, 0.0f, 0.0f };
+	worldTansform_.translate = { 0.0f, 0.0f, 0.0f };
 
 	// テクスチャの設定
 	// デフォルトではuvCheckerを使う

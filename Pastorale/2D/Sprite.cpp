@@ -94,7 +94,7 @@ void Sprite::SetVertex(WorldTransform transform) {
 
 
 	// Sprite用のWorldViewProjectonMatrixを作る
-	Matrix4x4 worldMatrix = MakeAffineMatrix(transform.scale_, transform.rotate_, transform.translation_);
+	Matrix4x4 worldMatrix = MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);
 	Matrix4x4 viewMatrix = MakeIdentity4x4();
 	Matrix4x4 projectionMatrix =
 		MakeOrthographicMatrix(0.0f, 0.0f, float(WinApp::GetInstance()->GetClientWidth()), float(WinApp::GetInstance()->GetCliendHeight()), 0.0f, 100.0f);

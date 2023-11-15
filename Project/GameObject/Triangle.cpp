@@ -85,9 +85,9 @@ void Triangle::Initialize() {
 /// </summary>
 void Triangle::Update() {
 
-	modelSphereTransform_.rotate_.x -= 0.02f;
-	modelSphereTransform_.rotate_.y += 0.02f;
-	modelSphereTransform_.rotate_.z += 0.02f;
+	modelSphereTransform_.rotate.x -= 0.02f;
+	modelSphereTransform_.rotate.y += 0.02f;
+	modelSphereTransform_.rotate.z += 0.02f;
 	modelSphere_->SetDirectionalLight(light_);
 	demoObj_->SetDirectionalLight(light_);
 	sprite_->SetUVTransform(uvTransform_);
@@ -111,9 +111,9 @@ void Triangle::Update() {
 	//ImGui::DragFloat4("LightColor", &light_.color.x, 0.01f);
 	//ImGui::DragFloat3("LightDirection", &light_.direction.x, 0.01f);
 	ImGui::Text("DemoObj");
-	ImGui::DragFloat3("DemoObjScele", &demoObjTransform_.scale_.x, 0.01f);
-	ImGui::DragFloat3("DemoObjRotate", &demoObjTransform_.rotate_.x, 0.01f);
-	ImGui::DragFloat3("DemoObjTranslate", &demoObjTransform_.translation_.x, 0.01f);
+	ImGui::DragFloat3("DemoObjScele", &demoObjTransform_.scale.x, 0.01f);
+	ImGui::DragFloat3("DemoObjRotate", &demoObjTransform_.rotate.x, 0.01f);
+	ImGui::DragFloat3("DemoObjTranslate", &demoObjTransform_.translate.x, 0.01f);
 
 	ImGui::End();
 }

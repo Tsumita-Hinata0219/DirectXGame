@@ -47,9 +47,6 @@
     <Filter Include="Pastorale\3D\TextureManager">
       <UniqueIdentifier>{cf98b914-21be-4f44-b32c-215d0bc94bfa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\3D\WorldTransform">
-      <UniqueIdentifier>{a68cf07b-d670-44af-87fc-ec28500e5ea0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pastorale\Common\Camera">
       <UniqueIdentifier>{d4e16e2b-7232-4a38-bb28-58010b34c1b5}</UniqueIdentifier>
     </Filter>
@@ -88,6 +85,15 @@
     </Filter>
     <Filter Include="Project\Scene\SceneState">
       <UniqueIdentifier>{116c6e4c-b3ee-4e08-99cd-1670ba95f382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\Transform">
+      <UniqueIdentifier>{410c4d1c-9e0d-4acb-8b3d-5a7a47545713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\Transform\WorldTransform">
+      <UniqueIdentifier>{8481eb3c-dd2c-44dd-9cb1-7f601271a0f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pastorale\Transform\ViewProjection">
+      <UniqueIdentifier>{c555cb79-232b-4432-829e-4736b61bb9ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -133,9 +139,6 @@
     </ClCompile>
     <ClCompile Include="Pastorale\3D\TextureManager\TextureManager.cpp">
       <Filter>Pastorale\3D\TextureManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\WorldTransform\WorldTransform.cpp">
-      <Filter>Pastorale\3D\WorldTransform</Filter>
     </ClCompile>
     <ClCompile Include="Pastorale\Common\Camera\Camera.cpp">
       <Filter>Pastorale\Common\Camera</Filter>
@@ -184,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="Project\Scene\SceneState\DebugScene.cpp">
       <Filter>Project\Scene\SceneState</Filter>
+    </ClCompile>
+    <ClCompile Include="Pastorale\Transform\WorldTransform\WorldTransform.cpp">
+      <Filter>Pastorale\Transform\WorldTransform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,9 +250,6 @@
     <ClInclude Include="Pastorale\3D\TextureManager\TextureManager.h">
       <Filter>Pastorale\3D\TextureManager</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\3D\WorldTransform\WorldTransform.h">
-      <Filter>Pastorale\3D\WorldTransform</Filter>
-    </ClInclude>
     <ClInclude Include="Pastorale\Common\Camera\Camera.h">
       <Filter>Pastorale\Common\Camera</Filter>
     </ClInclude>
@@ -303,6 +306,9 @@
     </ClInclude>
     <ClInclude Include="Project\Scene\SceneState\DebugScene.h">
       <Filter>Project\Scene\SceneState</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Transform\WorldTransform\WorldTransform.h">
+      <Filter>Pastorale\Transform\WorldTransform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

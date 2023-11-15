@@ -7,10 +7,10 @@
 void Camera::Initialize() {
 
 	worldMatrix_ = MakeAffineMatrix(
-		transform.scale_, transform.rotate_, transform.translation_);
+		transform.scale, transform.rotate, transform.translate);
 
 	cameraMatrix_ = MakeAffineMatrix(
-		cameraTransform.scale_, cameraTransform.rotate_, cameraTransform.translation_);
+		cameraTransform.scale, cameraTransform.rotate, cameraTransform.translate);
 
 	viewMatrix_ = Inverse(cameraMatrix_);
 
@@ -28,10 +28,10 @@ void Camera::Initialize() {
 void Camera::Update() {
 
 	worldMatrix_ = MakeAffineMatrix(
-		transform.scale_, transform.rotate_, transform.translation_);
+		transform.scale, transform.rotate, transform.translate);
 
 	cameraMatrix_ = MakeAffineMatrix(
-		cameraTransform.scale_, cameraTransform.rotate_, cameraTransform.translation_);
+		cameraTransform.scale, cameraTransform.rotate, cameraTransform.translate);
 
 	viewMatrix_ = Inverse(cameraMatrix_);
 

@@ -41,7 +41,7 @@ void ModelObjState::Draw(Model* pModel, WorldTransform worldTransform, Matrix4x4
 	std::memcpy(vertexData, modelData_.vertices.data(), sizeof(VertexData) * modelData_.vertices.size());
 
 	// WorldViewProjectionMatrixを作る
-	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale_, worldTransform.rotate_, worldTransform.translation_);
+	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale, worldTransform.rotate, worldTransform.translate);
 	transformaationMatData->WVP = Multiply(worldMatrixSphere, viewMatrix);
 	transformaationMatData->World = MakeIdentity4x4();
 

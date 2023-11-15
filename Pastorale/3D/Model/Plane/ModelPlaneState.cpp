@@ -41,10 +41,10 @@ void ModelPlaneState::Draw(Model* pModel, WorldTransform worldTransform, Matrix4
 	resource_.Index->Map(0, nullptr, reinterpret_cast<void**>(&indexData));
 
 	// Sphere用のWorldViewProjectionMatrixを作る
-	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale_, worldTransform.rotate_, worldTransform.translation_);
+	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale, worldTransform.rotate, worldTransform.translate);
 	transformaationMatData->WVP = Multiply(worldMatrixSphere, viewMatrix);
 	transformaationMatData->World = MakeIdentity4x4();
-	Vector3 pos = worldTransform.translation_;
+	Vector3 pos = worldTransform.translate;
 
 	// 左下
 	vertexData[0].position = { pos.x - size_, pos.y - size_, pos.z, 1.0f };

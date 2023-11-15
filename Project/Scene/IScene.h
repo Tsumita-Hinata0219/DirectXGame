@@ -2,43 +2,43 @@
 
 class GameManager;
 
-/* ISceneƒNƒ‰ƒX */
+/* ISceneã‚¯ãƒ©ã‚¹ */
 class IScene {
 
 public:
 
 	/// <summary>
-	/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	/// </summary>
 	IScene() {};
 
 	/// <summary>
-	/// ƒfƒXƒgƒ‰ƒNƒ^
+	/// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	/// </summary>
 	virtual ~IScene() {};
 
 	/// <summary>
-	/// ‰Šú‰»ˆ—
+	/// åˆæœŸåŒ–å‡¦ç†
 	/// </summary>
 	virtual void Initialize() = 0;
 
 	/// <summary>
-	/// XVˆ—
+	/// æ›´æ–°å‡¦ç†
 	/// </summary>
 	virtual void Update(GameManager* state) = 0;
 
 	/// <summary>
-	/// ”wŒiƒXƒvƒ‰ƒCƒg‚Ì•`‰æˆ—
+	/// èƒŒæ™¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®æç”»å‡¦ç†
 	/// </summary>
 	virtual void BackSpriteDraw() = 0;
 
 	/// <summary>
-	/// ‚RDƒIƒuƒWƒFƒNƒg‚Ì•`‰æˆ—
+	/// ï¼“Dã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»å‡¦ç†
 	/// </summary>
 	virtual void ModelDraw() = 0;
 
 	/// <summary>
-	/// ‘OŒiƒXƒvƒ‰ƒCƒg‚Ì•`‰æˆ—
+	/// å‰æ™¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®æç”»å‡¦ç†
 	/// </summary>
 	virtual void FrontSpriteDraw() = 0;
 };

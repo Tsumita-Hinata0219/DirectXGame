@@ -8,14 +8,17 @@
 struct WorldTransform {
 
 	// ローカルスケール
-	Vector3 scale_ = { 1.0f, 1.0f, 1.0f };
+	Vector3 scale = { 1.0f, 1.0f, 1.0f };
 	// X,Y,Z軸回りのローカル回転軸
-	Vector3 rotate_ = { 0.0f, 0.0f, 0.0f };
+	Vector3 rotate = { 0.0f, 0.0f, 0.0f };
 	// ローカル座標
-	Vector3 translation_ = { 0.0f, 0.0f, 0.0f };
+	Vector3 translate = { 0.0f, 0.0f, 0.0f };
 
 	// ローカル -> ワールド変換行列
-	Matrix4x4 worldMatrix_;
+	Matrix4x4 matWorld{};
+
+	// ペアレント
+	const WorldTransform* parent{};
 
 
 
@@ -27,6 +30,6 @@ struct WorldTransform {
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void AffineMatrix();
+	void UpdateMatrix();
 
 };
