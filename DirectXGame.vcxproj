@@ -113,6 +113,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Pastorale\Common\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Pastorale\Common\WinApp\WinApp.cpp" />
     <ClCompile Include="Pastorale\CreateResource\CreateResource.cpp" />
+    <ClCompile Include="Pastorale\Transform\ViewProjection\ViewProjection.cpp" />
     <ClCompile Include="Pastorale\Transform\WorldTransform\WorldTransform.cpp" />
     <ClCompile Include="Pastorale\utilities\ImGuiManager.cpp" />
     <ClCompile Include="Project\GameManager\GameManager.cpp" />
@@ -148,6 +149,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Pastorale\Common\ShaderManager\ShaderManager.h" />
     <ClInclude Include="Pastorale\Common\WinApp\WinApp.h" />
     <ClInclude Include="Pastorale\CreateResource\CreateResource.h" />
+    <ClInclude Include="Pastorale\Transform\ViewProjection\ViewProjection.h" />
     <ClInclude Include="Pastorale\Transform\WorldTransform\WorldTransform.h" />
     <ClInclude Include="Pastorale\utilities\ImGuiManager.h" />
     <ClInclude Include="Project\GameManager\GameManager.h" />

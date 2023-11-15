@@ -191,6 +191,9 @@
     <ClCompile Include="Pastorale\Transform\WorldTransform\WorldTransform.cpp">
       <Filter>Pastorale\Transform\WorldTransform</Filter>
     </ClCompile>
+    <ClCompile Include="Pastorale\Transform\ViewProjection\ViewProjection.cpp">
+      <Filter>Pastorale\Transform\ViewProjection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -309,6 +312,9 @@
     </ClInclude>
     <ClInclude Include="Pastorale\Transform\WorldTransform\WorldTransform.h">
       <Filter>Pastorale\Transform\WorldTransform</Filter>
+    </ClInclude>
+    <ClInclude Include="Pastorale\Transform\ViewProjection\ViewProjection.h">
+      <Filter>Pastorale\Transform\ViewProjection</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
