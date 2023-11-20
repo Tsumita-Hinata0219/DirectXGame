@@ -1,7 +1,11 @@
 #pragma once
 
+#include "Tsumi.h"
+#include "WinApp.h"
+
 #include "IScene.h"
 #include "DebugScene.h"
+#include "GameScene.h"
 
 
 /* GameManagerクラス */
@@ -27,7 +31,7 @@ public:
 	/// <summary>
 	/// シーンチェンジ
 	/// </summary>
-	void ChangeSceneState();
+	void ChangeSceneState(IScene* newScene);
 
 private:
 

@@ -7,7 +7,9 @@
 /// </summary>
 GameManager::GameManager() {
 
-
+	Tsumi::Initialize();
+	Scene_ = new DebugScene();
+	Scene_->Initialize();
 }
 
 
@@ -16,7 +18,8 @@ GameManager::GameManager() {
 /// </summary>
 GameManager::~GameManager() {
 
-
+	delete Scene_;
+	Tsumi::Finalize();
 }
 
 
@@ -25,14 +28,27 @@ GameManager::~GameManager() {
 /// </summary>
 void GameManager::Run() {
 
+	while (WinApp::ProcessMessage() == 0) {
 
+		Tsumi::BeginFlame();
+
+		Scene_->Update(this);
+		Scene_->BackSpriteDraw();
+		Scene_->ModelDraw();
+		Scene_->FrontSpriteDraw();
+
+		Tsumi::EndFlame();
+	}
 }
 
 
 /// <summary>
 /// シーンチェンジ
 /// </summary>
-void GameManager::ChangeSceneState() {
+void GameManager::ChangeSceneState(IScene* newScene) {
 
-
+	delete Scene_;
+	Scene_ = newScene;
+	Scene_->Initialize();
+	return;
 }

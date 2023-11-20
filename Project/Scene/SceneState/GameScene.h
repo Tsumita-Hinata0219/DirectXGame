@@ -1,73 +1,51 @@
 ﻿#pragma once
-#include "WinApp.h"
-#include "DirectXCommon.h"
-#include "Model.h"
-#include "Camera.h"
-#include "ImGuiManager.h"
-#include "WorldTransform.h"
-#include "Pastorale.h"
-#include "Triangle.h"
-#include "Sprite.h"
-#include "ShaderManager.h"
+
+#include "IScene.h"
+#include "GameManager.h"
 
 
-class GameScene {
+class GameScene : public IScene {
 
 public:
 
-	GameScene();
-	~GameScene();
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	GameScene() {};
+
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~GameScene() {};
 
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(const wchar_t* title);
-
+	void Initialize() override;
 
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update();
-
-
-	/// <summary>
-	/// 描画処理
-	/// </summary>
-	void Draw3D();
-	void Draw2D();
-
+	void Update(GameManager* state) override;
 
 	/// <summary>
-	/// メッセージの処理
+	/// 背景スプライトの描画処理
 	/// </summary>
-	bool ProcessMessage();
-
+	void BackSpriteDraw() override;
 
 	/// <summary>
-	/// フレームの開始
+	/// ３Dオブジェクトの描画処理
 	/// </summary>
-	void BeginFrame();
-
+	void ModelDraw() override;
 
 	/// <summary>
-	/// フレームの終了
+	/// 前景スプライトの描画処理
 	/// </summary>
-	void EndFrame();
-
+	void FrontSpriteDraw() override;
+	
 
 private:
 
-	// Cameraの生成
-	Camera* camera_ = nullptr;
-	// Pastoraleの生成
-	Pastorale* pastorale_ = nullptr;
-	// Triangleの生成
-	Triangle* triangle_ = nullptr;
-	// Spriteの生成
-	Sprite* sprite_ = nullptr;
-
-	// Triangle
-	WorldTransform triangleTransform_{};
 
 };
 

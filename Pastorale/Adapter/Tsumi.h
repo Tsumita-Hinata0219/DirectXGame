@@ -8,10 +8,8 @@
 #include "TextureManager.h"
 
 
-const wchar_t* kWindowTitle = L"LE2B_20_ツミタ_ヒナタ_CG2";
 
-
-/// TsumiEngine 
+/// Tsumi Engine 
 /// 努力の「積」み重ねのエンジンになるか
 /// ゴミ性能の「罪」なエンジンになるか
 /// 自分の努力次第。頑張れ

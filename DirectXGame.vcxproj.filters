@@ -130,9 +130,6 @@
     <ClCompile Include="Pastorale\2D\Sprite.cpp">
       <Filter>Pastorale\2D</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\Adapter\Pastorale.cpp">
-      <Filter>Pastorale\Adapter</Filter>
-    </ClCompile>
     <ClCompile Include="Project\GameObject\Triangle.cpp">
       <Filter>Project\GameObject</Filter>
     </ClCompile>
@@ -237,9 +234,6 @@
     </ClInclude>
     <ClInclude Include="externals\imgui\imstb_truetype.h">
       <Filter>externals\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Adapter\Pastorale.h">
-      <Filter>Pastorale\Adapter</Filter>
     </ClInclude>
     <ClInclude Include="Project\GameObject\Triangle.h">
       <Filter>Project\GameObject</Filter>

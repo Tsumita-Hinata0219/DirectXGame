@@ -43,6 +43,7 @@ public:
 	/// </summary>
 	void FrontSpriteDraw() override;
 
+	
 private:
 
 
