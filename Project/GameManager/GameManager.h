@@ -6,6 +6,7 @@
 #include "IScene.h"
 #include "DebugScene.h"
 #include "GameScene.h"
+#include "Input.h"
 
 
 /* GameManagerクラス */

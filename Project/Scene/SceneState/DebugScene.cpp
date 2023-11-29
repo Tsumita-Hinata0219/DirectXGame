@@ -18,6 +18,12 @@ void DebugScene::Initialize() {
 void DebugScene::Update(GameManager* state) {
 
 
+#ifdef _DEBUG
+
+	ImGui::Begin("DebugScene");
+	ImGui::End();
+
+#endif // _DEBUG
 }
 
 

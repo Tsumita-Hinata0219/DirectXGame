@@ -14,21 +14,6 @@
     <Filter Include="externals\imgui">
       <UniqueIdentifier>{d46bcfbd-ff0b-454e-ac17-083e2c39cda5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale">
-      <UniqueIdentifier>{7f336eca-0916-4e0d-a05a-189c691263c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\2D">
-      <UniqueIdentifier>{29a466d3-6a06-4240-a76c-8fafb8b3092d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\3D">
-      <UniqueIdentifier>{84ba9a78-87c4-458b-8c08-7f338e692b21}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Common">
-      <UniqueIdentifier>{b95c9fe0-a84d-4fff-8f47-e2bc2969d7d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Adapter">
-      <UniqueIdentifier>{a7a98e80-4670-414b-ba9c-8526865249f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project">
       <UniqueIdentifier>{e0f3d3c5-5509-4775-9db0-88613708bb4e}</UniqueIdentifier>
     </Filter>
@@ -37,45 +22,6 @@
     </Filter>
     <Filter Include="Project\math">
       <UniqueIdentifier>{54521541-bbdb-4dfd-9717-5f6e364402b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\utilities">
-      <UniqueIdentifier>{2c32b687-6c19-47a6-aa68-8e00d4109980}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\3D\Model">
-      <UniqueIdentifier>{7f960782-1a91-4d97-85d4-4a5f9e20b87b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\3D\TextureManager">
-      <UniqueIdentifier>{cf98b914-21be-4f44-b32c-215d0bc94bfa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Common\Camera">
-      <UniqueIdentifier>{d4e16e2b-7232-4a38-bb28-58010b34c1b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Common\DirectXCommon">
-      <UniqueIdentifier>{144e7bb1-83e2-44c6-a907-90ff98247bc9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Common\WinApp">
-      <UniqueIdentifier>{3b9bc143-678c-447a-8965-000f4081707c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Common\SceneSetup">
-      <UniqueIdentifier>{52392543-1e15-47f2-8bfc-d68fbdeff3ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Common\GraphicPipelineManager">
-      <UniqueIdentifier>{b576a69f-3e5a-4d05-9c23-713f76000b65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\Common\ShaderManager">
-      <UniqueIdentifier>{76df0818-cd97-44c8-b1f6-f0c4fd4ae667}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\3D\CreateResource">
-      <UniqueIdentifier>{a883ea59-1592-4ac7-a12f-260e02d5c059}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\3D\Model\Plane">
-      <UniqueIdentifier>{56a52767-94a9-4da5-ad27-5118ab8d8c98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\3D\Model\Sphere">
-      <UniqueIdentifier>{a41ff7e1-5fa5-4f65-a0fa-4a224d71c475}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pastorale\3D\Model\ModelObj">
-      <UniqueIdentifier>{c076c4d6-ebcb-4a42-a84a-5949ee257c4c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Project\GameManager">
       <UniqueIdentifier>{2c43ed14-4585-4202-b992-5b02ef0e6773}</UniqueIdentifier>
@@ -86,23 +32,83 @@
     <Filter Include="Project\Scene\SceneState">
       <UniqueIdentifier>{116c6e4c-b3ee-4e08-99cd-1670ba95f382}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\Transform">
+    <Filter Include="Tsumi">
+      <UniqueIdentifier>{7f336eca-0916-4e0d-a05a-189c691263c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\2D">
+      <UniqueIdentifier>{29a466d3-6a06-4240-a76c-8fafb8b3092d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\3D">
+      <UniqueIdentifier>{84ba9a78-87c4-458b-8c08-7f338e692b21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\3D\Model">
+      <UniqueIdentifier>{7f960782-1a91-4d97-85d4-4a5f9e20b87b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\3D\Model\Plane">
+      <UniqueIdentifier>{56a52767-94a9-4da5-ad27-5118ab8d8c98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\3D\Model\Sphere">
+      <UniqueIdentifier>{a41ff7e1-5fa5-4f65-a0fa-4a224d71c475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\3D\Model\ModelObj">
+      <UniqueIdentifier>{c076c4d6-ebcb-4a42-a84a-5949ee257c4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Adapter">
+      <UniqueIdentifier>{a7a98e80-4670-414b-ba9c-8526865249f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\utilities">
+      <UniqueIdentifier>{2c32b687-6c19-47a6-aa68-8e00d4109980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Transform">
       <UniqueIdentifier>{410c4d1c-9e0d-4acb-8b3d-5a7a47545713}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\Transform\WorldTransform">
+    <Filter Include="Tsumi\Transform\WorldTransform">
       <UniqueIdentifier>{8481eb3c-dd2c-44dd-9cb1-7f601271a0f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\Transform\ViewProjection">
+    <Filter Include="Tsumi\Transform\ViewProjection">
       <UniqueIdentifier>{c555cb79-232b-4432-829e-4736b61bb9ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\DebugTools">
+    <Filter Include="Tsumi\DebugTools">
       <UniqueIdentifier>{b2321114-df5e-4b1e-acbc-8abb24f9b03a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\DebugTools\DebugCamera">
+    <Filter Include="Tsumi\DebugTools\DebugCamera">
       <UniqueIdentifier>{53e9d30f-cbab-4b47-951c-306fbb66304c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pastorale\DebugTools\HowToUseEngine">
+    <Filter Include="Tsumi\DebugTools\HowToUseEngine">
       <UniqueIdentifier>{e482edd3-d5c9-44ea-ac14-94f3f11769a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\CreateResource">
+      <UniqueIdentifier>{1d9f1210-1048-46a4-82e4-d59cd23eeeed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\TextureManager">
+      <UniqueIdentifier>{0608ac8f-1c0b-4d5d-9f7e-8445a1cf9d3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\TextureManager\OptimizedTexture">
+      <UniqueIdentifier>{e94641ab-f5e0-4c25-85b8-3f3aed7092de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Base">
+      <UniqueIdentifier>{e6b94072-9335-4c36-938b-cfca9390a282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Base\WinApp">
+      <UniqueIdentifier>{8cf1c134-ac91-4673-9110-27e00c59335d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Base\DXCommon">
+      <UniqueIdentifier>{90865941-f2f5-4a27-ac79-d25a8ffa4e7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Graphic">
+      <UniqueIdentifier>{ed37e39a-0754-4546-b8b8-761c2d815f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Graphic\GraphicPipelineManager">
+      <UniqueIdentifier>{7bd3a32e-fa6b-49e8-9fb1-12e002060921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Graphic\PipelineStateObject">
+      <UniqueIdentifier>{edc602cb-9680-4364-9933-a0fa73b391dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Graphic\ShaderManager">
+      <UniqueIdentifier>{427500a4-c1e3-4fd7-964f-16f66b11948a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Input">
+      <UniqueIdentifier>{49ea0ea1-2e38-4d0a-879c-314b1a687ea8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -127,64 +133,13 @@
     <ClCompile Include="externals\imgui\imgui_widgets.cpp">
       <Filter>externals\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\2D\Sprite.cpp">
-      <Filter>Pastorale\2D</Filter>
-    </ClCompile>
     <ClCompile Include="Project\GameObject\Triangle.cpp">
       <Filter>Project\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Project\math\Function.cpp">
       <Filter>Project\math</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\utilities\ImGuiManager.cpp">
-      <Filter>Pastorale\utilities</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Pastorale\3D\Model\Model.cpp">
-      <Filter>Pastorale\3D\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\TextureManager\TextureManager.cpp">
-      <Filter>Pastorale\3D\TextureManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\Camera\Camera.cpp">
-      <Filter>Pastorale\Common\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\DirectXCommon\DirectXCommon.cpp">
-      <Filter>Pastorale\Common\DirectXCommon</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\WinApp\WinApp.cpp">
-      <Filter>Pastorale\Common\WinApp</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\SceneSetup\SceneSetup.cpp">
-      <Filter>Pastorale\Common\SceneSetup</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.cpp">
-      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\ShaderManager\ShaderManager.cpp">
-      <Filter>Pastorale\Common\ShaderManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\NormalGraphicPipeline.cpp">
-      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\SpriteGraphicPipeline.cpp">
-      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\Common\GraphicPipelineManager\LightGraphicPipeline.cpp">
-      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\CreateResource\CreateResource.cpp">
-      <Filter>Pastorale\3D\CreateResource</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\Model\Sphere\ModelSphereState.cpp">
-      <Filter>Pastorale\3D\Model\Sphere</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\Model\Plane\ModelPlaneState.cpp">
-      <Filter>Pastorale\3D\Model\Plane</Filter>
-    </ClCompile>
-    <ClCompile Include="Pastorale\3D\Model\ModelObj\ModelObjState.cpp">
-      <Filter>Pastorale\3D\Model\ModelObj</Filter>
-    </ClCompile>
     <ClCompile Include="Project\GameManager\GameManager.cpp">
       <Filter>Project\GameManager</Filter>
     </ClCompile>
@@ -194,20 +149,71 @@
     <ClCompile Include="Project\Scene\SceneState\DebugScene.cpp">
       <Filter>Project\Scene\SceneState</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\Transform\WorldTransform\WorldTransform.cpp">
-      <Filter>Pastorale\Transform\WorldTransform</Filter>
+    <ClCompile Include="Tsumi\2D\Sprite\Sprite.cpp">
+      <Filter>Tsumi\2D</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\Transform\ViewProjection\ViewProjection.cpp">
-      <Filter>Pastorale\Transform\ViewProjection</Filter>
+    <ClCompile Include="Tsumi\CreateResource\CreateResource.cpp">
+      <Filter>Tsumi\CreateResource</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\DebugTools\DebugCamera\DebugCamera.cpp">
-      <Filter>Pastorale\DebugTools\DebugCamera</Filter>
+    <ClCompile Include="Tsumi\3D\Model\ModelObj\ModelObjState.cpp">
+      <Filter>Tsumi\3D\Model\ModelObj</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\Adapter\Tsumi.cpp">
-      <Filter>Pastorale\Adapter</Filter>
+    <ClCompile Include="Tsumi\3D\Model\Plane\ModelPlaneState.cpp">
+      <Filter>Tsumi\3D\Model\Plane</Filter>
     </ClCompile>
-    <ClCompile Include="Pastorale\DebugTools\HowToUseEngine\EngineManual.cpp">
-      <Filter>Pastorale\DebugTools\HowToUseEngine</Filter>
+    <ClCompile Include="Tsumi\3D\Model\Sphere\ModelSphereState.cpp">
+      <Filter>Tsumi\3D\Model\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\3D\Model\Model.cpp">
+      <Filter>Tsumi\3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\TextureManager\TextureManager.cpp">
+      <Filter>Tsumi\TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Adapter\Tsumi.cpp">
+      <Filter>Tsumi\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Base\DXCommon\DirectXCommon.cpp">
+      <Filter>Tsumi\Base\DXCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Base\WinApp\WinApp.cpp">
+      <Filter>Tsumi\Base\WinApp</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineManager.cpp">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\LightGraphicPipeline.cpp">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\NormalGraphicPipeline.cpp">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\SpriteGraphicPipeline.cpp">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Graphic\ShaderManager\ShaderManager.cpp">
+      <Filter>Tsumi\Graphic\ShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\DebugTools\DebugCamera\DebugCamera.cpp">
+      <Filter>Tsumi\DebugTools\DebugCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\DebugTools\HowToUseEngine\EngineManual.cpp">
+      <Filter>Tsumi\DebugTools\HowToUseEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Transform\WorldTransform\WorldTransform.cpp">
+      <Filter>Tsumi\Transform\WorldTransform</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Transform\ViewProjection\ViewProjection.cpp">
+      <Filter>Tsumi\Transform\ViewProjection</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\utilities\ImGuiManager.cpp">
+      <Filter>Tsumi\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\TextureManager\OptimizedTexture\OptimizedTexture.cpp">
+      <Filter>Tsumi\TextureManager\OptimizedTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Input\Input.cpp">
+      <Filter>Tsumi\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,60 +262,6 @@
     <ClInclude Include="Project\math\Vector4.h">
       <Filter>Project\math</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\utilities\ImGuiManager.h">
-      <Filter>Pastorale\utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\Model\Model.h">
-      <Filter>Pastorale\3D\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\TextureManager\TextureManager.h">
-      <Filter>Pastorale\3D\TextureManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\Camera\Camera.h">
-      <Filter>Pastorale\Common\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\DirectXCommon\DirectXCommon.h">
-      <Filter>Pastorale\Common\DirectXCommon</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\WinApp\WinApp.h">
-      <Filter>Pastorale\Common\WinApp</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\SceneSetup\SceneSetup.h">
-      <Filter>Pastorale\Common\SceneSetup</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\GraphicPipelineManager.h">
-      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\ShaderManager\ShaderManager.h">
-      <Filter>Pastorale\Common\ShaderManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\NormalGraphicPipeline.h">
-      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\SpriteGraphicPipeline.h">
-      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\Common\GraphicPipelineManager\LightGraphicPipeline.h">
-      <Filter>Pastorale\Common\GraphicPipelineManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\CreateResource\CreateResource.h">
-      <Filter>Pastorale\3D\CreateResource</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\2D\Sprite.h">
-      <Filter>Pastorale\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\Model\IModelState.h">
-      <Filter>Pastorale\3D\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\Model\Sphere\ModelSphereState.h">
-      <Filter>Pastorale\3D\Model\Sphere</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\Model\Plane\ModelPlaneState.h">
-      <Filter>Pastorale\3D\Model\Plane</Filter>
-    </ClInclude>
-    <ClInclude Include="Pastorale\3D\Model\ModelObj\ModelObjState.h">
-      <Filter>Pastorale\3D\Model\ModelObj</Filter>
-    </ClInclude>
     <ClInclude Include="Project\GameManager\GameManager.h">
       <Filter>Project\GameManager</Filter>
     </ClInclude>
@@ -322,20 +274,74 @@
     <ClInclude Include="Project\Scene\SceneState\DebugScene.h">
       <Filter>Project\Scene\SceneState</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\Transform\WorldTransform\WorldTransform.h">
-      <Filter>Pastorale\Transform\WorldTransform</Filter>
+    <ClInclude Include="Tsumi\2D\Sprite\Sprite.h">
+      <Filter>Tsumi\2D</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\Transform\ViewProjection\ViewProjection.h">
-      <Filter>Pastorale\Transform\ViewProjection</Filter>
+    <ClInclude Include="Tsumi\CreateResource\CreateResource.h">
+      <Filter>Tsumi\CreateResource</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\DebugTools\DebugCamera\DebugCamera.h">
-      <Filter>Pastorale\DebugTools\DebugCamera</Filter>
+    <ClInclude Include="Tsumi\3D\Model\ModelObj\ModelObjState.h">
+      <Filter>Tsumi\3D\Model\ModelObj</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\Adapter\Tsumi.h">
-      <Filter>Pastorale\Adapter</Filter>
+    <ClInclude Include="Tsumi\3D\Model\Plane\ModelPlaneState.h">
+      <Filter>Tsumi\3D\Model\Plane</Filter>
     </ClInclude>
-    <ClInclude Include="Pastorale\DebugTools\HowToUseEngine\EngineManual.h">
-      <Filter>Pastorale\DebugTools\HowToUseEngine</Filter>
+    <ClInclude Include="Tsumi\3D\Model\Sphere\ModelSphereState.h">
+      <Filter>Tsumi\3D\Model\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\3D\Model\IModelState.h">
+      <Filter>Tsumi\3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\3D\Model\Model.h">
+      <Filter>Tsumi\3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\TextureManager\TextureManager.h">
+      <Filter>Tsumi\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\TextureManager\OptimizedTexture\OptimizedTexture.h">
+      <Filter>Tsumi\TextureManager\OptimizedTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Adapter\Tsumi.h">
+      <Filter>Tsumi\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Base\DXCommon\DirectXCommon.h">
+      <Filter>Tsumi\Base\DXCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Base\WinApp\WinApp.h">
+      <Filter>Tsumi\Base\WinApp</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineManager.h">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\LightGraphicPipeline.h">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\NormalGraphicPipeline.h">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\SpriteGraphicPipeline.h">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\ShaderManager\ShaderManager.h">
+      <Filter>Tsumi\Graphic\ShaderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\DebugTools\DebugCamera\DebugCamera.h">
+      <Filter>Tsumi\DebugTools\DebugCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\DebugTools\HowToUseEngine\EngineManual.h">
+      <Filter>Tsumi\DebugTools\HowToUseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Transform\WorldTransform\WorldTransform.h">
+      <Filter>Tsumi\Transform\WorldTransform</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Transform\ViewProjection\ViewProjection.h">
+      <Filter>Tsumi\Transform\ViewProjection</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\utilities\ImGuiManager.h">
+      <Filter>Tsumi\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Input\Input.h">
+      <Filter>Tsumi\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -106,8 +106,10 @@ private: // メンバ変数
 
 	// ロードできるテクスチャの最大数
 	const static uint32_t TexLoadMax = 128;
+
 	// デスクリプターヒープの場所指定のインデックス
 	uint32_t LoadTextureIndex_ = 0;
+
 	// テクスチャの情報持っているやつ
 	TextureDescriptorHandle tex_[TexLoadMax];
 };

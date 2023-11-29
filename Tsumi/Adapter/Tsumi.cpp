@@ -35,6 +35,9 @@ void Tsumi::Initialize() {
 
 	// ImGuiの初期化処理
 	ImGuiManager::Initialize();
+
+	// Inputの初期化処理
+	Input::Initialize();
 }
 
 
@@ -54,6 +57,7 @@ void Tsumi::BeginFlame() {
 
 	DirectXCommon::PreDraw();
 	ImGuiManager::BeginFrame();
+	Input::BeginFrame();
 }
 
 
