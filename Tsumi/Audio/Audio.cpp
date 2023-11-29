@@ -48,7 +48,7 @@ uint32_t Audio::LoadSound(const std::string& filePath) {
 	/* 1. ファイルオープン */
 
 	// ファイルの入力ストリームのインスタンス
-	std::ifstream file("Resources/Audio/" + filePath + ".wav");
+	std::ifstream file("Resources/Audio/" + filePath);
 	// .wavファイルをバイナリーモードで開く
 	file.open(filePath, std::ios_base::binary);
 	// ファイルオープン失敗を検出する
