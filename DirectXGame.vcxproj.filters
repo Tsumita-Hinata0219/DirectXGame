@@ -110,6 +110,9 @@
     <Filter Include="Tsumi\Input">
       <UniqueIdentifier>{49ea0ea1-2e38-4d0a-879c-314b1a687ea8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tsumi\Audio">
+      <UniqueIdentifier>{9a0b0b13-3dee-443a-ae52-871254dc45af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -214,6 +217,9 @@
     </ClCompile>
     <ClCompile Include="Tsumi\Input\Input.cpp">
       <Filter>Tsumi\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Audio\Audio.cpp">
+      <Filter>Tsumi\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -342,6 +348,9 @@
     </ClInclude>
     <ClInclude Include="Tsumi\Input\Input.h">
       <Filter>Tsumi\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Audio\Audio.h">
+      <Filter>Tsumi\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
