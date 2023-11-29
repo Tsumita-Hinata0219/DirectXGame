@@ -8,7 +8,7 @@
 void DebugScene::Initialize() {
 
 
-
+	sound1_ = Audio::LoadSound("fanfare");
 }
 
 

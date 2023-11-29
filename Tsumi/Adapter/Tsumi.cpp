@@ -38,6 +38,9 @@ void Tsumi::Initialize() {
 
 	// Inputの初期化処理
 	Input::Initialize();
+
+	// Audioの初期化処理
+	Audio::Initialize();
 }
 
 
@@ -46,7 +49,7 @@ void Tsumi::Initialize() {
 /// </summary>
 void Tsumi::Finalize() {
 
-
+	Audio::Finalize();
 }
 
 

@@ -46,5 +46,6 @@ public:
 	
 private:
 
+	uint32_t sound1_;
 
 };
