@@ -14,6 +14,12 @@
 
 
 
+#include "AudioDataResource.h"
+
+#include <map>
+
+
+
 // チャンクヘッダ
 struct ChunkHeader {
 	char id[4];	  // チャンク毎のID
@@ -28,13 +34,6 @@ struct RiffHeader {
 struct FormatChunk {
 	ChunkHeader chunk; // "fmt"
 	WAVEFORMATEX fmt;  // 波形フォーマット
-};
-// 音声データ
-struct SoundData {
-	WAVEFORMATEX wfex;		 // 波形フォーマット
-	BYTE* pBuffer;			 // バッファの先頭アドレス
-	unsigned int bufferSize; // バッファのサイズ
-	//IXAudio2SourceVoice* pSourceVoice;
 };
 
 
@@ -74,19 +73,35 @@ public: // メンバ関数
 	static void StopOnSound(uint32_t soundDataNum);
 
 	/// <summary>
+	/// サウンド再生中か
+	/// </summary>
+	/// <param name="soundDataNum"></param>
+	static bool IsPlaying(uint32_t soundDataNum);
+
+	/// <summary>
+	/// サウンドのボリュームの設定
+	/// </summary>
+	static void SetSoundVolum(UINT soundDataNum, float volum);
+
+	/// <summary>
 	/// 音声データの解放
 	/// </summary>
 	static void SoundUnload();
+
+
+private: // メンバ関数
+
+	/// <summary>
+	/// 一回読み込んだものは読み込まない
+	/// </summary>
+	static bool CheckAudioDatas(std::string filePath);
 
 
 private: // メンバ変数
 
 	ComPtr<IXAudio2> xAudio2_ = nullptr;
 	IXAudio2MasteringVoice* masterVoice_;
-
-	static const uint32_t kSoundDataMax_ = 5;
-	IXAudio2SourceVoice* pSourceVoice_[kSoundDataMax_]{};
-	SoundData soundData_[kSoundDataMax_]{};
 	uint32_t soundDataNum_;
+	std::map<std::string, std::unique_ptr<AudioDataResource>>AudioDatas_;
 
 };

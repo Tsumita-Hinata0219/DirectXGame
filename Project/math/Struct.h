@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <d3d12.h>
 #include <dxgi1_6.h>
@@ -7,6 +7,7 @@
 
 #include <wrl.h>
 using Microsoft::WRL::ComPtr;
+using namespace std;
 
 #include <vector>
 #include <Vector2.h>

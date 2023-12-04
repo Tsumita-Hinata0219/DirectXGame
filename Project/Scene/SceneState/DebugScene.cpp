@@ -25,13 +25,10 @@ void DebugScene::Update(GameManager* state) {
 		Audio::StopOnSound(sound1_);
 	}
 
+
 #ifdef _DEBUG
 
 	ImGui::Begin("DebugScene");
-	ImGui::End();
-
-	ImGui::Begin("Sound");
-	ImGui::DragFloat("volum", &volum_, 0.001f, 0.0f, 1.0f);
 	ImGui::End();
 
 #endif // _DEBUG

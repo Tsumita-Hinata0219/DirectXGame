@@ -33,6 +33,7 @@ void Audio::Initialize() {
 /// </summary>
 void Audio::Finalize() {
 
+	Audio::GetInstance()->SoundUnload();
 	Audio::GetInstance()->xAudio2_.Reset();
 }
 
@@ -44,113 +45,141 @@ void Audio::Finalize() {
 uint32_t Audio::LoadSound(const std::string& filePath) {
 
 	HRESULT result{};
-	Audio::GetInstance()->soundDataNum_++;
+	uint32_t index = 0;
 
-	/* 1. ファイルオープン */
+	if (CheckAudioDatas(filePath)) {
 
-	// ファイルの入力ストリームのインスタンス
-	std::ifstream file;
-	// .wavファイルをバイナリーモードで開く
-	file.open("Resources/Audio/" + filePath, std::ios_base::binary);
-	// ファイルオープン失敗を検出する
-	assert(SUCCEEDED(file.is_open()));
+		Audio::GetInstance()->soundDataNum_++;
+
+		/* 1. ファイルオープン */
+
+		// ファイルの入力ストリームのインスタンス
+		std::ifstream file;
+		// .wavファイルをバイナリーモードで開く
+		file.open("Resources/Audio/" + filePath, std::ios_base::binary);
+		// ファイルオープン失敗を検出する
+		assert(SUCCEEDED(file.is_open()));
 
 
 
-	/* 2. wavデータ読み込み */
+		/* 2. wavデータ読み込み */
 
-	// RIFFヘッダーの読み込み
-	RiffHeader riff{};
-	file.read((char*)&riff, sizeof(riff));
+		// RIFFヘッダーの読み込み
+		RiffHeader riff{};
+		file.read((char*)&riff, sizeof(riff));
 
-	// ファイルがRIFFかチェック
-	if (strncmp(riff.chunk.id, "RIFF", 4) != 0) {
-		assert(0);
-	}
-	// タイプがWAVEかチェック
-	if (strncmp(riff.type, "WAVE", 4) != 0) {
-		assert(0);
-	}
+		// ファイルがRIFFかチェック
+		if (strncmp(riff.chunk.id, "RIFF", 4) != 0) {
+			assert(0);
+		}
+		// タイプがWAVEかチェック
+		if (strncmp(riff.type, "WAVE", 4) != 0) {
+			assert(0);
+		}
 
-	// Formatチャンクの読み込み
-	FormatChunk format{};
+		// Formatチャンクの読み込み
+		FormatChunk format{};
 
-	// チャンクヘッダーの確認
-	file.read((char*)&format, sizeof(ChunkHeader));
-	if (strncmp(format.chunk.id, "fmt ", 4) != 0) {
-		assert(0);
-	}
+		// チャンクヘッダーの確認
+		file.read((char*)&format, sizeof(ChunkHeader));
+		if (strncmp(format.chunk.id, "fmt ", 4) != 0) {
+			assert(0);
+		}
 
-	// チャンク本体の読み込み
-	assert(format.chunk.size <= sizeof(format.fmt));
-	file.read((char*)&format.fmt, format.chunk.size);
+		// チャンク本体の読み込み
+		assert(format.chunk.size <= sizeof(format.fmt));
+		file.read((char*)&format.fmt, format.chunk.size);
 
-	// Dataチャンクの読み込み
-	ChunkHeader data{};
-	file.read((char*)&data, sizeof(data));
-
-	// JUNKチャンクを検出した場合
-	while (_strnicmp(data.id, "junk", 4) == 0 || _strnicmp(data.id, "bext", 4) == 0 || _strnicmp(data.id, "LIST", 4) == 0) {
-		// 読み取り位置をJUNKチャンクの終わりまで進める
-		file.seekg(data.size, std::ios_base::cur);
-		// 再読み込み
+		// Dataチャンクの読み込み
+		ChunkHeader data{};
 		file.read((char*)&data, sizeof(data));
+
+		// JUNKチャンクを検出した場合
+		while (_strnicmp(data.id, "junk", 4) == 0 || _strnicmp(data.id, "bext", 4) == 0 || _strnicmp(data.id, "LIST", 4) == 0) {
+			// 読み取り位置をJUNKチャンクの終わりまで進める
+			file.seekg(data.size, std::ios_base::cur);
+			// 再読み込み
+			file.read((char*)&data, sizeof(data));
+		}
+		if (strncmp(data.id, "data", 4) != 0) {
+			assert(0);
+		}
+
+		// Dataチャンクのデータ部(波形データ)の読み込み
+		char* pBuffer = new char[data.size];
+		file.read(pBuffer, data.size);
+
+
+
+		/* 3. ファイルクローズ */
+
+		file.close();
+
+
+
+		/* 4. 読み込んだ音声データをreturn */
+
+		// returnするための音声データ
+		SoundData soundData{};
+		soundData.wfex = format.fmt;
+		soundData.pBuffer = reinterpret_cast<BYTE*>(pBuffer);
+		soundData.bufferSize = data.size;
+		soundData.index = Audio::GetInstance()->soundDataNum_;
+		soundData.volum = 1.0f;
+		Audio::GetInstance()->AudioDatas_[filePath] = make_unique<AudioDataResource>(filePath, soundData);
+
+		index = Audio::GetInstance()->soundDataNum_;
 	}
-	if (strncmp(data.id, "data", 4) != 0) {
-		assert(0);
+	else {
+
+		index = Audio::GetInstance()->AudioDatas_[filePath].get()->GetSoundData().index;
 	}
 
-	// Dataチャンクのデータ部(波形データ)の読み込み
-	char* pBuffer = new char[data.size];
-	file.read(pBuffer, data.size);
-
-
-
-	/* 3. ファイルクローズ */
-
-	file.close();
-
-
-
-	/* 4. 読み込んだ音声データをreturn */
-
-	// returnするための音声データ
-	Audio::GetInstance()->soundData_[Audio::GetInstance()->soundDataNum_].wfex = format.fmt;
-	Audio::GetInstance()->soundData_[Audio::GetInstance()->soundDataNum_].pBuffer = reinterpret_cast<BYTE*>(pBuffer);
-	Audio::GetInstance()->soundData_[Audio::GetInstance()->soundDataNum_].bufferSize = data.size;
-
-	return Audio::GetInstance()->soundDataNum_;
+	return index;
 }
+
 
 
 /// <summary>
 /// サウンド再生
 /// </summary>
-void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum) {
+void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum = 1.0f) {
 
-	HRESULT result{};
+	for (const auto& [key, s] : Audio::GetInstance()->AudioDatas_) {
+		key;
 
-	// 波形フォーマットをもとにSoundVoiceの生成
-	result = Audio::GetInstance()->xAudio2_->CreateSourceVoice(
-		&Audio::GetInstance()->pSourceVoice_[soundDataNum],
-		&Audio::GetInstance()->soundData_[soundDataNum].wfex);
-	assert(SUCCEEDED(result));
+		HRESULT result{};
 
-	// 再生する波形データの設定
-	XAUDIO2_BUFFER buf{};
-	buf.pAudioData = Audio::GetInstance()->soundData_[soundDataNum].pBuffer;
-	buf.AudioBytes = Audio::GetInstance()->soundData_[soundDataNum].bufferSize;
-	buf.Flags = XAUDIO2_END_OF_STREAM;
-	if (loopFlag) {
-		// ループ
-		buf.LoopCount = XAUDIO2_LOOP_INFINITE;
+		// 波形フォーマットをもとにSoundVoiceの生成
+		IXAudio2SourceVoice* pSourcevoice = {};
+		WAVEFORMATEX wfex = s.get()->GetSoundData().wfex;
+		result = Audio::GetInstance()->xAudio2_->CreateSourceVoice(&pSourcevoice, &wfex);
+		assert(SUCCEEDED(result));
+		s.get()->SetSoundResource(pSourcevoice);
+		s.get()->SetSoundWfex(wfex);
+
+
+		// 再生する波形データの設定
+		XAUDIO2_BUFFER buf{};
+		buf.pAudioData = s.get()->GetSoundData().pBuffer;
+		buf.AudioBytes = s.get()->GetSoundData().bufferSize;
+		buf.Flags = XAUDIO2_END_OF_STREAM;
+		if (loopFlag) {
+			// ループ
+			buf.LoopCount = XAUDIO2_LOOP_INFINITE;
+		}
+
+
+		// 波形データの再生
+		result = s.get()->GetSoundData().pSourceVoice->SubmitSourceBuffer(&buf);
+		result = s.get()->GetSoundData().pSourceVoice->SetVolume(volum);
+		result = s.get()->GetSoundData().pSourceVoice->Start();
+
+
+		assert(SUCCEEDED(result));
 	}
-
-	// 波形データの再生
-	result = Audio::GetInstance()->pSourceVoice_[soundDataNum]->SubmitSourceBuffer(&buf);
-	result = Audio::GetInstance()->pSourceVoice_[soundDataNum]->SetVolume(volum);
-	result = Audio::GetInstance()->pSourceVoice_[soundDataNum]->Start();
 }
+
 
 
 /// <summary>
@@ -158,11 +187,39 @@ void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum) {
 /// </summary>
 void Audio::StopOnSound(uint32_t soundDataNum) {
 
-	HRESULT result{};
-	
-	result = Audio::GetInstance()->pSourceVoice_[soundDataNum]->Stop();
+	for (const auto& [key, s] : Audio::GetInstance()->AudioDatas_) {
+		key;
 
-	assert(SUCCEEDED(result));
+		if (s.get()->GetSoundData().index == soundDataNum) {
+
+			HRESULT result{};
+
+			result = s.get()->GetSoundData().pSourceVoice->Stop();
+
+			assert(SUCCEEDED(result));
+		}
+	}
+}
+
+
+
+/// <summary>
+/// サウンドのボリュームの設定
+/// </summary>
+void Audio::SetSoundVolum(UINT soundDataNum, float volum = 1.0f) {
+
+	for (const auto& [key, s] : Audio::GetInstance()->AudioDatas_) {
+		key;
+
+		if (s.get()->GetSoundData().index == soundDataNum) {
+
+			HRESULT result{};
+
+			result = s.get()->GetSoundData().pSourceVoice->SetVolume(volum);
+
+			assert(SUCCEEDED(result));
+		}
+	}
 }
 
 
@@ -172,12 +229,20 @@ void Audio::StopOnSound(uint32_t soundDataNum) {
 /// </summary>
 void Audio::SoundUnload() {
 
-	// バッファのメモリ解放
-	for (int i = Audio::GetInstance()->soundDataNum_; i > 0; i--) {
+	Audio::GetInstance()->AudioDatas_.clear();
+}
 
-		delete[] Audio::GetInstance()->soundData_[i].pBuffer;
-		Audio::GetInstance()->soundData_[i].pBuffer = 0;
-		Audio::GetInstance()->soundData_[i].bufferSize = 0;
-		Audio::GetInstance()->soundData_->wfex = {};
+
+
+/// <summary>
+/// 一回読み込んだものは読み込まない
+/// </summary>
+bool Audio::CheckAudioDatas(std::string filePath) {
+
+	// filePaht同じものがあるならそれを返す
+	if (Audio::GetInstance()->AudioDatas_.find(filePath) == Audio::GetInstance()->AudioDatas_.end()) {
+
+		return true;
 	}
+	return false;
 }
