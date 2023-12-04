@@ -113,6 +113,9 @@
     <Filter Include="Tsumi\Audio">
       <UniqueIdentifier>{9a0b0b13-3dee-443a-ae52-871254dc45af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tsumi\Audio\AudioDataResource">
+      <UniqueIdentifier>{8b720fe9-2b98-40ae-9219-5301b5816d86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="Tsumi\Audio\Audio.cpp">
       <Filter>Tsumi\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Audio\AudioDataResource\AudioDataResource.cpp">
+      <Filter>Tsumi\Audio\AudioDataResource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -351,6 +357,9 @@
     </ClInclude>
     <ClInclude Include="Tsumi\Audio\Audio.h">
       <Filter>Tsumi\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Audio\AudioDataResource\AudioDataResource.h">
+      <Filter>Tsumi\Audio\AudioDataResource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
