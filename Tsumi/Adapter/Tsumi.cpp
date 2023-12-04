@@ -19,7 +19,7 @@ void Tsumi::Initialize() {
 	Tsumi::GetInstance();
 
 	// WinAppの初期化処理
-	WinApp::Initialize(L"LE2B_20_ツミタ_ヒナタ_CG2");
+	WinApp::Initialize(L"LE2B_20_ツミタ_ヒナタ_MyEngine");
 
 	// DirectXCommonの初期化処理
 	DirectXCommon::Initialize();
