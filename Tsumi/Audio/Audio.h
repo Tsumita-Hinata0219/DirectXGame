@@ -1,10 +1,13 @@
 #pragma once
 
 #include <xaudio2.h>
+#include <mmsystem.h>
 
+#pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "xaudio2.lib")
 
 #include <fstream>
+#include <sstream>
 #include <cassert>
 
 #include "Struct.h"
@@ -13,7 +16,7 @@
 
 // チャンクヘッダ
 struct ChunkHeader {
-	char ID[4];	  // チャンク毎のID
+	char id[4];	  // チャンク毎のID
 	int32_t size; // チャンクサイズ
 };
 // RIFFヘッダチャンク
@@ -62,7 +65,7 @@ public: // メンバ関数
 	/// <summary>
 	/// サウンド再生
 	/// </summary>
-	static void PlayOnSound(uint32_t soundDataNum);
+	static void PlayOnSound(uint32_t soundDataNum, bool loopFlag);
 
 	/// <summary>
 	/// サウンド停止

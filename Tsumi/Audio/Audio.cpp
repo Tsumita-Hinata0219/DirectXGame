@@ -27,6 +27,7 @@ void Audio::Initialize() {
 }
 
 
+
 /// <summary>
 /// 音声データの解放
 /// </summary>
@@ -48,11 +49,11 @@ uint32_t Audio::LoadSound(const std::string& filePath) {
 	/* 1. ファイルオープン */
 
 	// ファイルの入力ストリームのインスタンス
-	std::ifstream file("Resources/Audio/" + filePath);
+	std::ifstream file;
 	// .wavファイルをバイナリーモードで開く
-	file.open(filePath, std::ios_base::binary);
+	file.open("Resources/Audio/" + filePath, std::ios_base::binary);
 	// ファイルオープン失敗を検出する
-	assert(file.is_open());
+	assert(SUCCEEDED(file.is_open()));
 
 
 
@@ -63,7 +64,7 @@ uint32_t Audio::LoadSound(const std::string& filePath) {
 	file.read((char*)&riff, sizeof(riff));
 
 	// ファイルがRIFFかチェック
-	if (strncmp(riff.chunk.ID, "RIFF", 4) != 0) {
+	if (strncmp(riff.chunk.id, "RIFF", 4) != 0) {
 		assert(0);
 	}
 	// タイプがWAVEかチェック
@@ -76,7 +77,7 @@ uint32_t Audio::LoadSound(const std::string& filePath) {
 
 	// チャンクヘッダーの確認
 	file.read((char*)&format, sizeof(ChunkHeader));
-	if (strncmp(format.chunk.ID, "fmt", 4) != 0) {
+	if (strncmp(format.chunk.id, "fmt ", 4) != 0) {
 		assert(0);
 	}
 
@@ -89,14 +90,13 @@ uint32_t Audio::LoadSound(const std::string& filePath) {
 	file.read((char*)&data, sizeof(data));
 
 	// JUNKチャンクを検出した場合
-	if (strncmp(data.ID, "JUNK", 4) == 0) {
-
+	while (_strnicmp(data.id, "junk", 4) == 0 || _strnicmp(data.id, "bext", 4) == 0 || _strnicmp(data.id, "LIST", 4) == 0) {
 		// 読み取り位置をJUNKチャンクの終わりまで進める
 		file.seekg(data.size, std::ios_base::cur);
 		// 再読み込み
 		file.read((char*)&data, sizeof(data));
 	}
-	if (strncmp(data.ID, "data", 4) != 0) {
+	if (strncmp(data.id, "data", 4) != 0) {
 		assert(0);
 	}
 
@@ -126,7 +126,7 @@ uint32_t Audio::LoadSound(const std::string& filePath) {
 /// <summary>
 /// サウンド再生
 /// </summary>
-void Audio::PlayOnSound(uint32_t soundDataNum) {
+void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag) {
 
 	HRESULT result{};
 
@@ -141,6 +141,10 @@ void Audio::PlayOnSound(uint32_t soundDataNum) {
 	buf.pAudioData = Audio::GetInstance()->soundData_[soundDataNum].pBuffer;
 	buf.AudioBytes = Audio::GetInstance()->soundData_[soundDataNum].bufferSize;
 	buf.Flags = XAUDIO2_END_OF_STREAM;
+	if (loopFlag) {
+		// ループ
+		buf.LoopCount = XAUDIO2_LOOP_INFINITE;
+	}
 
 	// 波形データの再生
 	result = Audio::GetInstance()->pSourceVoice_[soundDataNum]->SubmitSourceBuffer(&buf);

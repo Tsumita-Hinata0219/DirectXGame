@@ -8,7 +8,7 @@
 void DebugScene::Initialize() {
 
 
-	sound1_ = Audio::LoadSound("mokugyo.wav");
+	sound1_ = Audio::LoadSound("Noob.wav");  
 }
 
 
@@ -17,6 +17,12 @@ void DebugScene::Initialize() {
 /// </summary>
 void DebugScene::Update(GameManager* state) {
 
+	if (Input::TriggerKey(DIK_SPACE)) {
+		Audio::PlayOnSound(sound1_, true);
+	}
+	if (Input::TriggerKey(DIK_RETURN)) {
+		Audio::StopOnSound(sound1_);
+	}
 
 #ifdef _DEBUG
 

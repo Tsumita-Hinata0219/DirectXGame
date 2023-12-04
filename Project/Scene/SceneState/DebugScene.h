@@ -2,6 +2,7 @@
 
 #include "IScene.h"
 #include "GameManager.h"
+#include "Audio.h"
 
 
 class DebugScene : public IScene {
