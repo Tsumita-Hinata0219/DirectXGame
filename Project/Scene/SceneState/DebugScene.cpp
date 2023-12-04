@@ -7,9 +7,6 @@
 /// </summary>
 void DebugScene::Initialize() {
 
-
-	sound1_ = Audio::LoadSound("kakkoii.wav");
-	volum_ = 1.0f;
 }
 
 
@@ -17,13 +14,6 @@ void DebugScene::Initialize() {
 /// 更新処理
 /// </summary>
 void DebugScene::Update(GameManager* state) {
-
-	if (Input::TriggerKey(DIK_SPACE)) {
-		Audio::PlayOnSound(sound1_, true, volum_);
-	}
-	if (Input::TriggerKey(DIK_RETURN)) {
-		Audio::StopOnSound(sound1_);
-	}
 
 
 #ifdef _DEBUG
