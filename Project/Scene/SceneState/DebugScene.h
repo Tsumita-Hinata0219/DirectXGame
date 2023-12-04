@@ -48,5 +48,6 @@ public:
 private:
 
 	uint32_t sound1_;
+	float volum_;
 
 };

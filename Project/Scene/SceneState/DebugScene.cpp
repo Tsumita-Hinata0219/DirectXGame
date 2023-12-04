@@ -8,7 +8,8 @@
 void DebugScene::Initialize() {
 
 
-	sound1_ = Audio::LoadSound("Noob.wav");  
+	sound1_ = Audio::LoadSound("kakkoii.wav");
+	volum_ = 1.0f;
 }
 
 
@@ -18,7 +19,7 @@ void DebugScene::Initialize() {
 void DebugScene::Update(GameManager* state) {
 
 	if (Input::TriggerKey(DIK_SPACE)) {
-		Audio::PlayOnSound(sound1_, true);
+		Audio::PlayOnSound(sound1_, true, volum_);
 	}
 	if (Input::TriggerKey(DIK_RETURN)) {
 		Audio::StopOnSound(sound1_);
@@ -27,6 +28,10 @@ void DebugScene::Update(GameManager* state) {
 #ifdef _DEBUG
 
 	ImGui::Begin("DebugScene");
+	ImGui::End();
+
+	ImGui::Begin("Sound");
+	ImGui::DragFloat("volum", &volum_, 0.001f, 0.0f, 1.0f);
 	ImGui::End();
 
 #endif // _DEBUG

@@ -34,6 +34,7 @@ struct SoundData {
 	WAVEFORMATEX wfex;		 // 波形フォーマット
 	BYTE* pBuffer;			 // バッファの先頭アドレス
 	unsigned int bufferSize; // バッファのサイズ
+	//IXAudio2SourceVoice* pSourceVoice;
 };
 
 
@@ -65,7 +66,7 @@ public: // メンバ関数
 	/// <summary>
 	/// サウンド再生
 	/// </summary>
-	static void PlayOnSound(uint32_t soundDataNum, bool loopFlag);
+	static void PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum);
 
 	/// <summary>
 	/// サウンド停止

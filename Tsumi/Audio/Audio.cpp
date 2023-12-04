@@ -126,13 +126,13 @@ uint32_t Audio::LoadSound(const std::string& filePath) {
 /// <summary>
 /// サウンド再生
 /// </summary>
-void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag) {
+void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum) {
 
 	HRESULT result{};
 
 	// 波形フォーマットをもとにSoundVoiceの生成
 	result = Audio::GetInstance()->xAudio2_->CreateSourceVoice(
-		&Audio::GetInstance()->pSourceVoice_[soundDataNum], 
+		&Audio::GetInstance()->pSourceVoice_[soundDataNum],
 		&Audio::GetInstance()->soundData_[soundDataNum].wfex);
 	assert(SUCCEEDED(result));
 
@@ -148,6 +148,7 @@ void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag) {
 
 	// 波形データの再生
 	result = Audio::GetInstance()->pSourceVoice_[soundDataNum]->SubmitSourceBuffer(&buf);
+	result = Audio::GetInstance()->pSourceVoice_[soundDataNum]->SetVolume(volum);
 	result = Audio::GetInstance()->pSourceVoice_[soundDataNum]->Start();
 }
 
@@ -163,6 +164,7 @@ void Audio::StopOnSound(uint32_t soundDataNum) {
 
 	assert(SUCCEEDED(result));
 }
+
 
 
 /// <summary>
