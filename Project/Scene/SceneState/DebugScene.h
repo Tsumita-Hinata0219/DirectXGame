@@ -2,6 +2,7 @@
 
 #include "IScene.h"
 #include "GameManager.h"
+#include "Audio.h"
 
 
 class DebugScene : public IScene {
@@ -46,5 +47,7 @@ public:
 	
 private:
 
+	uint32_t sound1_;
+	float volum_;
 
 };
