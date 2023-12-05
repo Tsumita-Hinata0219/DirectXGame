@@ -1,19 +1,5 @@
 #pragma once
 
-#include <xaudio2.h>
-#include <mmsystem.h>
-
-#pragma comment(lib, "winmm.lib")
-#pragma comment(lib, "xaudio2.lib")
-
-#include <fstream>
-#include <sstream>
-#include <cassert>
-
-#include "Struct.h"
-
-
-
 #include "AudioDataResource.h"
 
 #include <map>

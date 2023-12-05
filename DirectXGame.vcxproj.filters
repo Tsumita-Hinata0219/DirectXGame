@@ -80,12 +80,6 @@
     <Filter Include="Tsumi\CreateResource">
       <UniqueIdentifier>{1d9f1210-1048-46a4-82e4-d59cd23eeeed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tsumi\TextureManager">
-      <UniqueIdentifier>{0608ac8f-1c0b-4d5d-9f7e-8445a1cf9d3d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Tsumi\TextureManager\OptimizedTexture">
-      <UniqueIdentifier>{e94641ab-f5e0-4c25-85b8-3f3aed7092de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tsumi\Base">
       <UniqueIdentifier>{e6b94072-9335-4c36-938b-cfca9390a282}</UniqueIdentifier>
     </Filter>
@@ -116,10 +110,13 @@
     <Filter Include="Tsumi\Audio\AudioDataResource">
       <UniqueIdentifier>{8b720fe9-2b98-40ae-9219-5301b5816d86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tsumi\Texture">
-      <UniqueIdentifier>{7b30f4ba-ff28-4ac6-b82a-a18c8bbf937c}</UniqueIdentifier>
+    <Filter Include="Tsumi\DescriptorManager">
+      <UniqueIdentifier>{778508fb-90d8-446d-bdb3-eb10629e872d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tsumi\Texture\TextureDataResource">
+    <Filter Include="Tsumi\TextureManager">
+      <UniqueIdentifier>{0608ac8f-1c0b-4d5d-9f7e-8445a1cf9d3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\TextureManager\TextureDataResource">
       <UniqueIdentifier>{76ac3ab1-676a-4be6-b960-1691278c5c20}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -218,9 +215,6 @@
     <ClCompile Include="Tsumi\utilities\ImGuiManager.cpp">
       <Filter>Tsumi\utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Tsumi\TextureManager\OptimizedTexture\OptimizedTexture.cpp">
-      <Filter>Tsumi\TextureManager\OptimizedTexture</Filter>
-    </ClCompile>
     <ClCompile Include="Tsumi\Input\Input.cpp">
       <Filter>Tsumi\Input</Filter>
     </ClCompile>
@@ -230,11 +224,11 @@
     <ClCompile Include="Tsumi\Audio\AudioDataResource\AudioDataResource.cpp">
       <Filter>Tsumi\Audio\AudioDataResource</Filter>
     </ClCompile>
-    <ClCompile Include="Tsumi\Texture\Texture.cpp">
-      <Filter>Tsumi\Texture</Filter>
+    <ClCompile Include="Tsumi\DescriptorManager\DescriptorManager.cpp">
+      <Filter>Tsumi\DescriptorManager</Filter>
     </ClCompile>
-    <ClCompile Include="Tsumi\Texture\TextureDataResource\TextureDataResource.cpp">
-      <Filter>Tsumi\Texture\TextureDataResource</Filter>
+    <ClCompile Include="Tsumi\TextureManager\TextureDataResource\TextureDataResource.cpp">
+      <Filter>Tsumi\TextureManager\TextureDataResource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,9 +310,6 @@
     <ClInclude Include="Tsumi\TextureManager\TextureManager.h">
       <Filter>Tsumi\TextureManager</Filter>
     </ClInclude>
-    <ClInclude Include="Tsumi\TextureManager\OptimizedTexture\OptimizedTexture.h">
-      <Filter>Tsumi\TextureManager\OptimizedTexture</Filter>
-    </ClInclude>
     <ClInclude Include="Tsumi\Adapter\Tsumi.h">
       <Filter>Tsumi\Adapter</Filter>
     </ClInclude>
@@ -367,11 +358,11 @@
     <ClInclude Include="Tsumi\Audio\AudioDataResource\AudioDataResource.h">
       <Filter>Tsumi\Audio\AudioDataResource</Filter>
     </ClInclude>
-    <ClInclude Include="Tsumi\Texture\Texture.h">
-      <Filter>Tsumi\Texture</Filter>
+    <ClInclude Include="Tsumi\DescriptorManager\DescriptorManager.h">
+      <Filter>Tsumi\DescriptorManager</Filter>
     </ClInclude>
-    <ClInclude Include="Tsumi\Texture\TextureDataResource\TextureDataResource.h">
-      <Filter>Tsumi\Texture\TextureDataResource</Filter>
+    <ClInclude Include="Tsumi\TextureManager\TextureDataResource\TextureDataResource.h">
+      <Filter>Tsumi\TextureManager\TextureDataResource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

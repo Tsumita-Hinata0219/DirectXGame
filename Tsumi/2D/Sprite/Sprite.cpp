@@ -67,7 +67,7 @@ void Sprite::Draw(WorldTransform& transform) {
 
 	// DescriptorTableを設定する
 	if (!useTexture_ == 0) {
-		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, useTexture_);
+		DescriptorManager::SetGraphicsRootDescriptorTable(3, useTexture_);
 	}
 
 	// 描画！(DrawCall/ドローコール)

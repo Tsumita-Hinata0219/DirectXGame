@@ -52,7 +52,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Tsumi\2D;$(ProjectDir)Tsumi\2D\Sprite;$(ProjectDir)Tsumi\3D;$(ProjectDir)Tsumi\3D\Model;$(ProjectDir)Tsumi\3D\Model\Plane;$(ProjectDir)Tsumi\3D\Model\Sphere;$(ProjectDir)Tsumi\3D\Model\ModelObj;$(ProjectDir)Tsumi\Adapter;$(ProjectDir)Tsumi\Audio;$(ProjectDir)Tsumi\Audio\AudioDataResource;$(ProjectDir)Tsumi\Base;$(ProjectDir)Tsumi\Base\WinApp;$(ProjectDir)Tsumi\Base\DXCommon;$(ProjectDir)Tsumi\CreateResource;$(ProjectDir)Tsumi\DebugTools;$(ProjectDir)Tsumi\DebugTools\DebugCamera;$(ProjectDir)Tsumi\DebugTools\HowToUseEngine;$(ProjectDir)Tsumi\Graphic;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager;$(ProjectDir)Tsumi\Graphic\PipelineStateObject;$(ProjectDir)Tsumi\Graphic\ShaderManager;$(ProjectDir)Tsumi\Input;$(ProjectDir)Tsumi\Texture;$(ProjectDir)Tsumi\Texture\TextureDataResource;$(ProjectDir)Tsumi\TextureManager;$(ProjectDir)Tsumi\TextureManager\OptimizedTexture;$(ProjectDir)Tsumi\Transform;$(ProjectDir)Tsumi\Transform\ViewProjection;$(ProjectDir)Tsumi\Transform\WorldTransform;$(ProjectDir)Tsumi\utilities;$(ProjectDir)Project;$(ProjectDir)Project\GameManager;$(ProjectDir)Project\GameObject;$(ProjectDir)Project\math;$(ProjectDir)Project\Scene;$(ProjectDir)Project\Scene\SceneState;$(ProjectDir)shaders;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)externals\DirectXtex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Tsumi\2D;$(ProjectDir)Tsumi\2D\Sprite;$(ProjectDir)Tsumi\3D;$(ProjectDir)Tsumi\3D\Model;$(ProjectDir)Tsumi\3D\Model\Plane;$(ProjectDir)Tsumi\3D\Model\Sphere;$(ProjectDir)Tsumi\3D\Model\ModelObj;$(ProjectDir)Tsumi\Adapter;$(ProjectDir)Tsumi\Audio;$(ProjectDir)Tsumi\Audio\AudioDataResource;$(ProjectDir)Tsumi\Base;$(ProjectDir)Tsumi\Base\WinApp;$(ProjectDir)Tsumi\Base\DXCommon;$(ProjectDir)Tsumi\CreateResource;$(ProjectDir)Tsumi\DebugTools;$(ProjectDir)Tsumi\DebugTools\DebugCamera;$(ProjectDir)Tsumi\DebugTools\HowToUseEngine;$(ProjectDir)Tsumi\DescriptorManager;$(ProjectDir)Tsumi\Graphic;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager;$(ProjectDir)Tsumi\Graphic\PipelineStateObject;$(ProjectDir)Tsumi\Graphic\ShaderManager;$(ProjectDir)Tsumi\Input;$(ProjectDir)Tsumi\TextureManager;$(ProjectDir)Tsumi\TextureManager\TextureDataResource;$(ProjectDir)Tsumi\Transform;$(ProjectDir)Tsumi\Transform\ViewProjection;$(ProjectDir)Tsumi\Transform\WorldTransform;$(ProjectDir)Tsumi\utilities;$(ProjectDir)Project;$(ProjectDir)Project\GameManager;$(ProjectDir)Project\GameObject;$(ProjectDir)Project\math;$(ProjectDir)Project\Scene;$(ProjectDir)Project\Scene\SceneState;$(ProjectDir)shaders;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)externals\DirectXtex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -74,7 +74,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)Tsumi\2D;$(ProjectDir)Tsumi\2D\Sprite;$(ProjectDir)Tsumi\3D;$(ProjectDir)Tsumi\3D\Model;$(ProjectDir)Tsumi\3D\Model\Plane;$(ProjectDir)Tsumi\3D\Model\Sphere;$(ProjectDir)Tsumi\3D\Model\ModelObj;$(ProjectDir)Tsumi\Adapter;$(ProjectDir)Tsumi\Audio;$(ProjectDir)Tsumi\Audio\AudioDataResource;$(ProjectDir)Tsumi\Base;$(ProjectDir)Tsumi\Base\WinApp;$(ProjectDir)Tsumi\Base\DXCommon;$(ProjectDir)Tsumi\CreateResource;$(ProjectDir)Tsumi\DebugTools;$(ProjectDir)Tsumi\DebugTools\DebugCamera;$(ProjectDir)Tsumi\DebugTools\HowToUseEngine;$(ProjectDir)Tsumi\Graphic;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager;$(ProjectDir)Tsumi\Graphic\PipelineStateObject;$(ProjectDir)Tsumi\Graphic\ShaderManager;$(ProjectDir)Tsumi\Input;$(ProjectDir)Tsumi\Texture;$(ProjectDir)Tsumi\Texture\TextureDataResource;$(ProjectDir)Tsumi\TextureManager;$(ProjectDir)Tsumi\TextureManager\OptimizedTexture;$(ProjectDir)Tsumi\Transform;$(ProjectDir)Tsumi\Transform\ViewProjection;$(ProjectDir)Tsumi\Transform\WorldTransform;$(ProjectDir)Tsumi\utilities;$(ProjectDir)Project;$(ProjectDir)Project\GameManager;$(ProjectDir)Project\GameObject;$(ProjectDir)Project\math;$(ProjectDir)Project\Scene;$(ProjectDir)Project\Scene\SceneState;$(ProjectDir)shaders;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)externals\DirectXtex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Tsumi\2D;$(ProjectDir)Tsumi\2D\Sprite;$(ProjectDir)Tsumi\3D;$(ProjectDir)Tsumi\3D\Model;$(ProjectDir)Tsumi\3D\Model\Plane;$(ProjectDir)Tsumi\3D\Model\Sphere;$(ProjectDir)Tsumi\3D\Model\ModelObj;$(ProjectDir)Tsumi\Adapter;$(ProjectDir)Tsumi\Audio;$(ProjectDir)Tsumi\Audio\AudioDataResource;$(ProjectDir)Tsumi\Base;$(ProjectDir)Tsumi\Base\WinApp;$(ProjectDir)Tsumi\Base\DXCommon;$(ProjectDir)Tsumi\CreateResource;$(ProjectDir)Tsumi\DebugTools;$(ProjectDir)Tsumi\DebugTools\DebugCamera;$(ProjectDir)Tsumi\DebugTools\HowToUseEngine;$(ProjectDir)Tsumi\DescriptorManager;$(ProjectDir)Tsumi\Graphic;$(ProjectDir)Tsumi\Graphic\GraphicPipelineManager;$(ProjectDir)Tsumi\Graphic\PipelineStateObject;$(ProjectDir)Tsumi\Graphic\ShaderManager;$(ProjectDir)Tsumi\Input;$(ProjectDir)Tsumi\TextureManager;$(ProjectDir)Tsumi\TextureManager\TextureDataResource;$(ProjectDir)Tsumi\Transform;$(ProjectDir)Tsumi\Transform\ViewProjection;$(ProjectDir)Tsumi\Transform\WorldTransform;$(ProjectDir)Tsumi\utilities;$(ProjectDir)Project;$(ProjectDir)Project\GameManager;$(ProjectDir)Project\GameObject;$(ProjectDir)Project\math;$(ProjectDir)Project\Scene;$(ProjectDir)Project\Scene\SceneState;$(ProjectDir)shaders;$(ProjectDir)Resources;$(ProjectDir)externals;$(ProjectDir)externals\imgui;$(ProjectDir)externals\DirectXtex;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -113,16 +113,15 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Tsumi\CreateResource\CreateResource.cpp" />
     <ClCompile Include="Tsumi\DebugTools\DebugCamera\DebugCamera.cpp" />
     <ClCompile Include="Tsumi\DebugTools\HowToUseEngine\EngineManual.cpp" />
+    <ClCompile Include="Tsumi\DescriptorManager\DescriptorManager.cpp" />
     <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineManager.cpp" />
     <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\LightGraphicPipeline.cpp" />
     <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\NormalGraphicPipeline.cpp" />
     <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\SpriteGraphicPipeline.cpp" />
     <ClCompile Include="Tsumi\Graphic\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Tsumi\Input\Input.cpp" />
-    <ClCompile Include="Tsumi\TextureManager\OptimizedTexture\OptimizedTexture.cpp" />
+    <ClCompile Include="Tsumi\TextureManager\TextureDataResource\TextureDataResource.cpp" />
     <ClCompile Include="Tsumi\TextureManager\TextureManager.cpp" />
-    <ClCompile Include="Tsumi\Texture\Texture.cpp" />
-    <ClCompile Include="Tsumi\Texture\TextureDataResource\TextureDataResource.cpp" />
     <ClCompile Include="Tsumi\Transform\ViewProjection\ViewProjection.cpp" />
     <ClCompile Include="Tsumi\Transform\WorldTransform\WorldTransform.cpp" />
     <ClCompile Include="Tsumi\utilities\ImGuiManager.cpp" />
@@ -160,16 +159,15 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Tsumi\CreateResource\CreateResource.h" />
     <ClInclude Include="Tsumi\DebugTools\DebugCamera\DebugCamera.h" />
     <ClInclude Include="Tsumi\DebugTools\HowToUseEngine\EngineManual.h" />
+    <ClInclude Include="Tsumi\DescriptorManager\DescriptorManager.h" />
     <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineManager.h" />
     <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\LightGraphicPipeline.h" />
     <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\NormalGraphicPipeline.h" />
     <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\SpriteGraphicPipeline.h" />
     <ClInclude Include="Tsumi\Graphic\ShaderManager\ShaderManager.h" />
     <ClInclude Include="Tsumi\Input\Input.h" />
-    <ClInclude Include="Tsumi\TextureManager\OptimizedTexture\OptimizedTexture.h" />
+    <ClInclude Include="Tsumi\TextureManager\TextureDataResource\TextureDataResource.h" />
     <ClInclude Include="Tsumi\TextureManager\TextureManager.h" />
-    <ClInclude Include="Tsumi\Texture\Texture.h" />
-    <ClInclude Include="Tsumi\Texture\TextureDataResource\TextureDataResource.h" />
     <ClInclude Include="Tsumi\Transform\ViewProjection\ViewProjection.h" />
     <ClInclude Include="Tsumi\Transform\WorldTransform\WorldTransform.h" />
     <ClInclude Include="Tsumi\utilities\ImGuiManager.h" />

@@ -148,35 +148,39 @@ void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum = 1.0f
 	for (const auto& [key, s] : Audio::GetInstance()->AudioDatas_) {
 		key;
 
-		HRESULT result{};
 
-		// 波形フォーマットをもとにSoundVoiceの生成
-		IXAudio2SourceVoice* pSourcevoice = {};
-		WAVEFORMATEX wfex = s.get()->GetSoundData().wfex;
-		result = Audio::GetInstance()->xAudio2_->CreateSourceVoice(&pSourcevoice, &wfex);
-		assert(SUCCEEDED(result));
-		s.get()->SetSoundResource(pSourcevoice);
-		s.get()->SetSoundWfex(wfex);
+		if (s.get()->GetSoundData().index == soundDataNum) {
+
+			HRESULT result{};
+
+			// 波形フォーマットをもとにSoundVoiceの生成
+			IXAudio2SourceVoice* pSourcevoice = {};
+			WAVEFORMATEX wfex = s.get()->GetSoundData().wfex;
+			result = Audio::GetInstance()->xAudio2_->CreateSourceVoice(&pSourcevoice, &wfex);
+			assert(SUCCEEDED(result));
+			s.get()->SetSoundResource(pSourcevoice);
+			s.get()->SetSoundWfex(wfex);
 
 
-		// 再生する波形データの設定
-		XAUDIO2_BUFFER buf{};
-		buf.pAudioData = s.get()->GetSoundData().pBuffer;
-		buf.AudioBytes = s.get()->GetSoundData().bufferSize;
-		buf.Flags = XAUDIO2_END_OF_STREAM;
-		if (loopFlag) {
-			// ループ
-			buf.LoopCount = XAUDIO2_LOOP_INFINITE;
+			// 再生する波形データの設定
+			XAUDIO2_BUFFER buf{};
+			buf.pAudioData = s.get()->GetSoundData().pBuffer;
+			buf.AudioBytes = s.get()->GetSoundData().bufferSize;
+			buf.Flags = XAUDIO2_END_OF_STREAM;
+			if (loopFlag) {
+				// ループ
+				buf.LoopCount = XAUDIO2_LOOP_INFINITE;
+			}
+
+
+			// 波形データの再生
+			result = s.get()->GetSoundData().pSourceVoice->SubmitSourceBuffer(&buf);
+			result = s.get()->GetSoundData().pSourceVoice->SetVolume(volum);
+			result = s.get()->GetSoundData().pSourceVoice->Start();
+
+
+			assert(SUCCEEDED(result));
 		}
-
-
-		// 波形データの再生
-		result = s.get()->GetSoundData().pSourceVoice->SubmitSourceBuffer(&buf);
-		result = s.get()->GetSoundData().pSourceVoice->SetVolume(volum);
-		result = s.get()->GetSoundData().pSourceVoice->Start();
-
-
-		assert(SUCCEEDED(result));
 	}
 }
 

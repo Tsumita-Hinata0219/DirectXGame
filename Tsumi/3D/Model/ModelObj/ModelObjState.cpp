@@ -84,7 +84,7 @@ void ModelObjState::CommandCall(uint32_t texture) {
 
 	// DescriptorTableを設定する
 	if (!texture == 0) {
-		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, texture);
+		DescriptorManager::SetGraphicsRootDescriptorTable(3, texture);
 	}
 
 	// 光用のCBufferの場所を設定

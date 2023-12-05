@@ -107,7 +107,7 @@ void ModelPlaneState::CommandCall(uint32_t texture) {
 
 	// DescriptorTableを設定する
 	if (!texture == 0) {
-		TextureManager::GetInstance()->SetGraphicsRootDescriptorTable(2, texture);
+		DescriptorManager::SetGraphicsRootDescriptorTable(3, texture);
 	}
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
