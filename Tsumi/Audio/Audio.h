@@ -76,7 +76,7 @@ public: // メンバ関数
 	/// サウンド再生中か
 	/// </summary>
 	/// <param name="soundDataNum"></param>
-	static bool IsPlaying(uint32_t soundDataNum);
+	//static bool IsPlaying(uint32_t soundDataNum);
 
 	/// <summary>
 	/// サウンドのボリュームの設定

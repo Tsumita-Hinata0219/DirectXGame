@@ -116,6 +116,12 @@
     <Filter Include="Tsumi\Audio\AudioDataResource">
       <UniqueIdentifier>{8b720fe9-2b98-40ae-9219-5301b5816d86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tsumi\Texture">
+      <UniqueIdentifier>{7b30f4ba-ff28-4ac6-b82a-a18c8bbf937c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Texture\TextureDataResource">
+      <UniqueIdentifier>{76ac3ab1-676a-4be6-b960-1691278c5c20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -223,6 +229,12 @@
     </ClCompile>
     <ClCompile Include="Tsumi\Audio\AudioDataResource\AudioDataResource.cpp">
       <Filter>Tsumi\Audio\AudioDataResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Texture\Texture.cpp">
+      <Filter>Tsumi\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Texture\TextureDataResource\TextureDataResource.cpp">
+      <Filter>Tsumi\Texture\TextureDataResource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -354,6 +366,12 @@
     </ClInclude>
     <ClInclude Include="Tsumi\Audio\AudioDataResource\AudioDataResource.h">
       <Filter>Tsumi\Audio\AudioDataResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Texture\Texture.h">
+      <Filter>Tsumi\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Texture\TextureDataResource\TextureDataResource.h">
+      <Filter>Tsumi\Texture\TextureDataResource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
