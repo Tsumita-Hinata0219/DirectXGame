@@ -41,6 +41,9 @@ void Tsumi::Initialize() {
 
 	// Audioの初期化処理
 	Audio::Initialize();
+
+	// DescriptorManagerの初期化処理
+	DescriptorManager::Initialize();
 }
 
 
@@ -50,6 +53,8 @@ void Tsumi::Initialize() {
 void Tsumi::Finalize() {
 
 	Audio::Finalize();
+	TextureManager::Finalize();
+	DescriptorManager::Clear();
 }
 
 
@@ -61,6 +66,7 @@ void Tsumi::BeginFlame() {
 	DirectXCommon::PreDraw();
 	ImGuiManager::BeginFrame();
 	Input::BeginFrame();
+	DescriptorManager::BeginFrame();
 }
 
 

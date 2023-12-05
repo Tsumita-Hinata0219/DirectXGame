@@ -7,6 +7,7 @@
 #include "NormalGraphicPipeline.h"
 #include "CreateResource.h"
 #include "IModelState.h"
+#include "DescriptorManager.h"
 
 
 

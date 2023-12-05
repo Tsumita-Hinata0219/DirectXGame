@@ -1,4 +1,5 @@
-﻿#pragma once
+#pragma once
+
 #include "Function.h"
 #include "Struct.h"
 #include "WorldTransform.h"
@@ -7,6 +8,7 @@
 #include "DirectXCommon.h"
 #include "SpriteGraphicPipeline.h"
 #include "CreateResource.h"
+#include "DescriptorManager.h"
 
 
 

@@ -8,6 +8,7 @@
 #include "TextureManager.h"
 #include "Input.h"
 #include "Audio.h"
+#include "DescriptorManager.h"
 
 
 

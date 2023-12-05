@@ -1,19 +1,5 @@
 #pragma once
 
-#include <xaudio2.h>
-#include <mmsystem.h>
-
-#pragma comment(lib, "winmm.lib")
-#pragma comment(lib, "xaudio2.lib")
-
-#include <fstream>
-#include <sstream>
-#include <cassert>
-
-#include "Struct.h"
-
-
-
 #include "AudioDataResource.h"
 
 #include <map>
@@ -76,7 +62,7 @@ public: // メンバ関数
 	/// サウンド再生中か
 	/// </summary>
 	/// <param name="soundDataNum"></param>
-	static bool IsPlaying(uint32_t soundDataNum);
+	//static bool IsPlaying(uint32_t soundDataNum);
 
 	/// <summary>
 	/// サウンドのボリュームの設定

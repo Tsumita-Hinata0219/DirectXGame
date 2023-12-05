@@ -16,7 +16,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~DebugScene() {};
+	~DebugScene();
 
 	/// <summary>
 	/// 初期化処理
@@ -46,5 +46,12 @@ public:
 	
 private:
 
+	uint32_t texture1_;
+	uint32_t texture2_;
+	uint32_t texture3_;
+
+	uint32_t sound1_;
+	uint32_t sound2_;
+	uint32_t sound3_;
 
 };
