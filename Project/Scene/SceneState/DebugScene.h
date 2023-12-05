@@ -54,5 +54,4 @@ private:
 	uint32_t sound2_;
 	uint32_t sound3_;
 
-
 };
