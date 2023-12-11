@@ -78,3 +78,18 @@ void Tsumi::EndFlame() {
 	ImGuiManager::EndFrame();
 	DirectXCommon::PostDraw();
 }
+
+
+/// <summary>
+/// メッセージの処理
+/// </summary>
+bool Tsumi::ProcessMessage() {
+
+	if (WinApp::ProcessMessage()) {
+		return true;
+	}
+	else {
+
+		return false;
+	}
+}

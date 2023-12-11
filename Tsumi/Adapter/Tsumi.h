@@ -58,6 +58,11 @@ public:
 	/// </summary>
 	static void EndFlame();
 
+	/// <summary>
+	/// メッセージの処理
+	/// </summary>
+	static bool ProcessMessage();
+
 private:
 
 

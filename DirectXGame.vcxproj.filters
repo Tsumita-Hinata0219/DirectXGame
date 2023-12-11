@@ -137,6 +137,12 @@
     <Filter Include="Tsumi\Utilities\CollisionManager\IsCollision">
       <UniqueIdentifier>{71571632-e559-4d7c-9ecb-acc0e033ac55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project\Scene\SceneState\DebugScene">
+      <UniqueIdentifier>{5031506f-037a-47ee-b567-e57ec5678b47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\SceneState\GameScene">
+      <UniqueIdentifier>{8ddca8e6-ed4c-46c8-baac-ef2581b7fa04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -166,12 +172,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Project\GameManager\GameManager.cpp">
       <Filter>Project\GameManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Scene\SceneState\GameScene.cpp">
-      <Filter>Project\Scene\SceneState</Filter>
-    </ClCompile>
-    <ClCompile Include="Project\Scene\SceneState\DebugScene.cpp">
-      <Filter>Project\Scene\SceneState</Filter>
     </ClCompile>
     <ClCompile Include="Tsumi\2D\Sprite\Sprite.cpp">
       <Filter>Tsumi\2D</Filter>
@@ -257,6 +257,12 @@
     <ClCompile Include="Tsumi\Utilities\CollisionManager\CollisionManager.cpp">
       <Filter>Tsumi\Utilities\CollisionManager</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Scene\SceneState\DebugScene\DebugScene.cpp">
+      <Filter>Project\Scene\SceneState\DebugScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Scene\SceneState\GameScene\GameScene.cpp">
+      <Filter>Project\Scene\SceneState\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -304,14 +310,8 @@
     <ClInclude Include="Project\GameManager\GameManager.h">
       <Filter>Project\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Scene\SceneState\GameScene.h">
-      <Filter>Project\Scene\SceneState</Filter>
-    </ClInclude>
     <ClInclude Include="Project\Scene\IScene.h">
       <Filter>Project\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\Scene\SceneState\DebugScene.h">
-      <Filter>Project\Scene\SceneState</Filter>
     </ClInclude>
     <ClInclude Include="Tsumi\2D\Sprite\Sprite.h">
       <Filter>Tsumi\2D</Filter>
@@ -417,6 +417,12 @@
     </ClInclude>
     <ClInclude Include="Tsumi\Utilities\CollisionManager\CollisionManager.h">
       <Filter>Tsumi\Utilities\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\SceneState\DebugScene\DebugScene.h">
+      <Filter>Project\Scene\SceneState\DebugScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\SceneState\GameScene\GameScene.h">
+      <Filter>Project\Scene\SceneState\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
