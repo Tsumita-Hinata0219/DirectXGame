@@ -40,7 +40,7 @@ struct ViewProjection {
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize();
+	void Initialize(Vector3 initRotate = { 0.0f, 0.0f, 0.0f }, Vector3 initTranslate = { 0.0f, 0.0f, -5.0f });
 
 	/// <summary>
 	/// 更新処理

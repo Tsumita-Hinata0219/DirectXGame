@@ -2,6 +2,7 @@
 
 
 
+// 初期化処理
 void WorldTransform::Initialize() {
 
 	matWorld = MakeIdentity4x4();

@@ -2,6 +2,8 @@
 
 #include "IScene.h"
 #include "GameManager.h"
+#include "ViewProjection.h"
+#include "EngineManual.h"
 
 
 class DebugScene : public IScene {
@@ -43,24 +45,11 @@ public:
 	/// </summary>
 	void FrontSpriteDraw() override;
 
-
-
-private:
-
-	/// <summary>
-	/// Audioに関する処理まとめたやつ
-	/// </summary>
-	void AudioUpdate();
-
 	
 private:
 
-	uint32_t texture1_;
-	uint32_t texture2_;
-	uint32_t texture3_;
+	ViewProjection viewProjection_{};
 
-	uint32_t sound1_;
-	uint32_t sound2_;
-	uint32_t sound3_;
+	std::unique_ptr<EngineManual> engineManual_ = nullptr;
 
 };

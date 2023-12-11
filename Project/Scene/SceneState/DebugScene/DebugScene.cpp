@@ -5,10 +5,7 @@
 /// <summary>
 /// デストラクタ
 /// </summary>
-DebugScene::~DebugScene() {
-
-	Audio::SoundUnload();
-}
+DebugScene::~DebugScene() {}
 
 
 
@@ -17,14 +14,10 @@ DebugScene::~DebugScene() {
 /// </summary>
 void DebugScene::Initialize() {
 
+	viewProjection_.Initialize();
 
-	texture1_ = TextureManager::LoadTexture("uvChecker.png");
-	texture2_ = TextureManager::LoadTexture("monsterBall.png");
-	texture3_ = TextureManager::LoadTexture("uvChecker.png");
-
-	sound1_ = Audio::LoadSound("mokugyo.wav");
-	sound2_ = Audio::LoadSound("kakkoii.wav");
-	sound3_ = Audio::LoadSound("mokugyo.wav");
+	engineManual_ = std::make_unique<EngineManual>();
+	engineManual_->Initialize();
 }
 
 
@@ -34,8 +27,7 @@ void DebugScene::Initialize() {
 /// </summary>
 void DebugScene::Update(GameManager* state) {
 
-	// Audioに関する処理
-	AudioUpdate();
+	engineManual_->Update();
 
 
 #ifdef _DEBUG
@@ -53,7 +45,7 @@ void DebugScene::Update(GameManager* state) {
 /// </summary>
 void DebugScene::BackSpriteDraw() {
 
-
+	engineManual_->BackSpriteDraw();
 }
 
 
@@ -63,7 +55,7 @@ void DebugScene::BackSpriteDraw() {
 /// </summary>
 void DebugScene::ModelDraw() {
 
-
+	engineManual_->ModelDraw(viewProjection_);
 }
 
 
@@ -77,74 +69,3 @@ void DebugScene::FrontSpriteDraw() {
 }
 
 
-
-/// <summary>
-/// Audioに関する処理まとめたやつ
-/// </summary>
-void DebugScene::AudioUpdate() {
-
-	if (Input::PressKeys(DIK_B)) {
-
-		if (Input::TriggerKey(DIK_1)) {
-			Audio::PlayOnSound(sound1_, true, 1.0f);
-		}
-
-		if (Input::TriggerKey(DIK_2)) {
-			Audio::PlayOnSound(sound2_, false, 1.0f);
-		}
-
-		if (Input::TriggerKey(DIK_3)) {
-			Audio::PlayOnSound(sound3_, false, 1.0f);
-		}
-	}
-	if (Input::PressKeys(DIK_S)) {
-
-		if (Input::TriggerKey(DIK_1)) {
-			Audio::StopOnSound(sound1_);
-		}
-
-		if (Input::TriggerKey(DIK_2)) {
-			Audio::StopOnSound(sound2_);
-		}
-
-		if (Input::TriggerKey(DIK_3)) {
-			Audio::StopOnSound(sound3_);
-		}
-	}
-
-
-#ifdef _DEBUG
-
-
-	ImGui::Begin("Audio");
-	ImGui::Text("PlaySound : B + 1 or 2 or 3");
-	ImGui::Text("StopSound : S + 1 or 2 or 3");
-
-	//ImGui::Text("");
-	ImGui::Text("\nSound1 : mokugyo->Loop");
-	if (Audio::IsPlaying(sound1_)) {
-		ImGui::Text("sound1_isPlaying : true");
-	}
-	else {
-		ImGui::Text("sound1_isPlaying : false");
-	}
-
-	ImGui::Text("\nSound2 : kakkoii->nonLoop");
-	if (Audio::IsPlaying(sound2_)) {
-		ImGui::Text("sound2_isPlaying : true");
-	}
-	else {
-		ImGui::Text("sound2_isPlaying : false");
-	}
-
-	ImGui::Text("\nSound3 : mokugyo->nonLoop");
-	if (Audio::IsPlaying(sound3_)) {
-		ImGui::Text("sound3_isPlaying : true");
-	}
-	else {
-		ImGui::Text("sound3_isPlaying : false");
-	}
-	ImGui::End();
-
-#endif // _DEBUG
-}

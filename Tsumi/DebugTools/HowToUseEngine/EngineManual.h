@@ -3,6 +3,8 @@
 #include "Model.h"
 #include "Sprite.h"
 #include "TextureManager.h"
+#include "Audio.h"
+#include "Input.h"
 #include "WorldTransform.h"
 #include "ImGuiManager.h"
 
@@ -11,6 +13,16 @@
 class EngineManual {
 
 public: // メンバ関数
+
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	EngineManual() {};
+
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~EngineManual() { Audio::SoundUnload(); }
 
 	/// <summary>
 	/// 初期化処理
@@ -23,35 +35,33 @@ public: // メンバ関数
 	void Update();
 
 	/// <summary>
-	/// 描画処理3D
+	/// 背景スプライトの描画処理
 	/// </summary>
-	void Draw3D(ViewProjection view);
+	void BackSpriteDraw();
 
 	/// <summary>
-	/// 描画処理2D
+	/// ３Dオブジェクトの描画処理
 	/// </summary>
-	void Draw2D();
+	void ModelDraw(ViewProjection view);
+
+	/// <summary>
+	/// 前景スプライトの描画処理
+	/// </summary>
+	void FrontSpriteDraw();
 
 
 private: // メンバ関数
 
 	/// <summary>
-	/// コンストラクタ
+	/// Audioに関する処理まとめたやつ
 	/// </summary>
-	EngineManual() {};
-
-	/// <summary>
-	/// デストラクタ
-	/// </summary>
-	~EngineManual() {};
-
+	void AudioUpdate();
 
 private: // メンバ変数
 
 	// PlaneModel
 	std::unique_ptr<Model> planeModel_ = nullptr;
 	WorldTransform planeModelTransform_{};
-
 
 	// ObjModel
 	std::unique_ptr<Model> objModel_ = nullptr;
@@ -62,9 +72,12 @@ private: // メンバ変数
 	WorldTransform spriteTransform_{};
 
 	// texHandle
-	uint32_t texHD1_;
-	uint32_t texHD2_;
-	uint32_t texHD3_;
-	uint32_t texHD4_;
+	uint32_t uvCheckerHD_;
+	uint32_t monsterBallHD_;
+	uint32_t asanohaHD_;
+	uint32_t skyHD_;
 
+	// SoundHandle
+	uint32_t mokugyoHD_;
+	uint32_t kakkoiiHD_;
 };

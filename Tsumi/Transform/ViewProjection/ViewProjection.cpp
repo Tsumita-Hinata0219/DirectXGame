@@ -5,10 +5,10 @@
 /// <summary>
 /// 初期化処理
 /// </summary>
-void ViewProjection::Initialize() {
+void ViewProjection::Initialize(Vector3 initRotate, Vector3 initTranslate) {
 
-	rotate = { 0.0f, 0.0f, 0.0f };
-	translate = { 0.0f, 0.0f, 0.0f };
+	rotate = initRotate;
+	translate = initTranslate;
 }
 
 

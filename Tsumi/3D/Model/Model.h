@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "IModelState.h"
 #include "ModelPlaneState.h"
 #include "ModelSphereState.h"
@@ -19,7 +19,7 @@ public: // メンバ関数
 	/// <summary>
 	/// Objファイルの読み込み & 初期化処理
 	/// </summary>
-	void CreateFromObj(const std::string& directoryPath);
+	void CreateFromObj(const std::string& directoryPath, WorldTransform worldTransform = { { 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } });
 
 	/// <summary>
 	/// 描画処理
@@ -56,7 +56,11 @@ private: // メンバ変数
 
 
 	// ワールドトランスフォーム
-	WorldTransform worldTansform_;
+	WorldTransform worldTansform_ = {
+		.scale { 1.0f, 1.0f, 1.0f },
+		.rotate { 0.0f, 0.0f, 0.0f },
+		.translate { 0.0f, 0.0f, 0.0f },
+	};
 
 	// テクスチャ
 	uint32_t useTexture_;
