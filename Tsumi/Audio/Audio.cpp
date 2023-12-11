@@ -153,6 +153,17 @@ void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum = 1.0f
 
 			HRESULT result{};
 
+
+			// 既存の再生を停止して解放
+			if (s.get()->GetSoundData().pSourceVoice) {
+				s.get()->GetSoundData().pSourceVoice->Stop();
+				s.get()->GetSoundData().pSourceVoice->FlushSourceBuffers();
+				s.get()->GetSoundData().pSourceVoice->DestroyVoice();
+				s.get()->GetSoundData().isPlaying = false;
+				s.get()->SetSoundResource(nullptr);
+			}
+
+
 			// 波形フォーマットをもとにSoundVoiceの生成
 			IXAudio2SourceVoice* pSourcevoice = {};
 			WAVEFORMATEX wfex = s.get()->GetSoundData().wfex;
@@ -180,6 +191,8 @@ void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum = 1.0f
 
 
 			assert(SUCCEEDED(result));
+
+			return;
 		}
 	}
 }
@@ -191,6 +204,7 @@ void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum = 1.0f
 /// </summary>
 void Audio::StopOnSound(uint32_t soundDataNum) {
 
+
 	for (const auto& [key, s] : Audio::GetInstance()->AudioDatas_) {
 		key;
 
@@ -198,11 +212,44 @@ void Audio::StopOnSound(uint32_t soundDataNum) {
 
 			HRESULT result{};
 
-			result = s.get()->GetSoundData().pSourceVoice->Stop();
+			if (s.get()->GetSoundData().pSourceVoice) {
 
-			assert(SUCCEEDED(result));
+				result = s.get()->GetSoundData().pSourceVoice->Stop();
+				assert(SUCCEEDED(result));
+			}
 		}
 	}
+
+	return;
+}
+
+
+
+/// <summary>
+/// サウンド再生中か
+/// </summary>
+bool Audio::IsPlaying(uint32_t soundDataNum) {
+
+	for (const auto& [key, s] : Audio::GetInstance()->AudioDatas_) {
+		key;
+
+		if (s.get()->GetSoundData().index == soundDataNum) {
+
+			if (s.get()->GetSoundData().pSourceVoice) {
+
+				XAUDIO2_VOICE_STATE state;
+				s.get()->GetSoundData().pSourceVoice->GetState(&state);
+
+				return (state.BuffersQueued > 0);
+			}
+			else {
+
+				return false;
+			}
+		}
+	}
+
+	return false;
 }
 
 

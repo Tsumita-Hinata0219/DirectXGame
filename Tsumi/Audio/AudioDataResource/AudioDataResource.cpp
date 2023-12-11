@@ -18,4 +18,5 @@ AudioDataResource::~AudioDataResource() {
 	soundData_.bufferSize = 0;
 	soundData_.wfex = {};
 	soundData_.volum = 0.0f;
+	soundData_.isPlaying = false;
 }

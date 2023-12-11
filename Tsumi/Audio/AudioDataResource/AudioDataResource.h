@@ -22,6 +22,7 @@ struct SoundData {
 	IXAudio2SourceVoice* pSourceVoice;
 	uint32_t index;
 	float volum;
+	bool isPlaying;
 };
 
 
@@ -48,6 +49,8 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	SoundData GetSoundData() { return soundData_; }
+
+	void SetSoundData(SoundData soundData) { soundData_ = soundData; }
 
 #pragma endregion
 

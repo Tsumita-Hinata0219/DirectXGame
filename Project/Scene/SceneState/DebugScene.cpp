@@ -35,7 +35,7 @@ void DebugScene::Initialize() {
 void DebugScene::Update(GameManager* state) {
 
 
-	if (Input::PressKeys(DIK_S)) {
+	if (Input::PressKeys(DIK_B)) {
 
 		if (Input::TriggerKey(DIK_1)) {
 			Audio::PlayOnSound(sound1_, true, 1.0f);
@@ -49,17 +49,34 @@ void DebugScene::Update(GameManager* state) {
 			Audio::PlayOnSound(sound3_, false, 1.0f);
 		}
 	}
+	if (Input::PressKeys(DIK_S)) {
 
-	if (Input::TriggerKey(DIK_RETURN)) {
-		Audio::StopOnSound(sound1_);
-		Audio::StopOnSound(sound2_);
-		Audio::StopOnSound(sound3_);
+		if (Input::TriggerKey(DIK_1)) {
+			Audio::StopOnSound(sound1_);
+		}
+
+		if (Input::TriggerKey(DIK_2)) {
+			Audio::StopOnSound(sound2_);
+		}
+
+		if (Input::TriggerKey(DIK_3)) {
+			Audio::StopOnSound(sound3_);
+		}
 	}
 
 
 #ifdef _DEBUG
 
 	ImGui::Begin("DebugScene");
+	ImGui::End();
+
+	ImGui::Begin("Audio");
+	if (Audio::IsPlaying(sound1_)) {
+		ImGui::Text("sound1_isPlaying : true");
+	}
+	else {
+		ImGui::Text("sound1_isPlaying : false");
+	}
 	ImGui::End();
 
 #endif // _DEBUG
