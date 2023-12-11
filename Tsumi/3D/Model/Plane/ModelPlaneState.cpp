@@ -9,7 +9,7 @@ void ModelPlaneState::Initialize(Model* pModel) {
 
 	pModel;
 
-	// 座標の設定
+	// sizeの設定
 	size_ = 0.5f;
 
 	// リソースの作成

@@ -56,9 +56,6 @@
     <Filter Include="Tsumi\Adapter">
       <UniqueIdentifier>{a7a98e80-4670-414b-ba9c-8526865249f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tsumi\utilities">
-      <UniqueIdentifier>{2c32b687-6c19-47a6-aa68-8e00d4109980}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tsumi\Transform">
       <UniqueIdentifier>{410c4d1c-9e0d-4acb-8b3d-5a7a47545713}</UniqueIdentifier>
     </Filter>
@@ -118,6 +115,27 @@
     </Filter>
     <Filter Include="Tsumi\TextureManager\TextureDataResource">
       <UniqueIdentifier>{76ac3ab1-676a-4be6-b960-1691278c5c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Utilities">
+      <UniqueIdentifier>{2c32b687-6c19-47a6-aa68-8e00d4109980}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Utilities\ImGuiManager">
+      <UniqueIdentifier>{bea82438-5571-4273-b304-be57de0bea14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Utilities\CollisionManager">
+      <UniqueIdentifier>{9722b94c-73e5-43ad-b6be-638440c27121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Utilities\CollisionManager\Collider">
+      <UniqueIdentifier>{0e727eb4-70c8-41e5-8f7e-2352a8ffc4cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Utilities\CollisionManager\CollisionStructures">
+      <UniqueIdentifier>{dfbd90c8-d58b-4f44-aba8-d5e07ad1fb62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Utilities\CollisionManager\GeometryCollision">
+      <UniqueIdentifier>{5d1fe9db-3ba2-449f-b3dc-1577409607bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Utilities\CollisionManager\IsCollision">
+      <UniqueIdentifier>{71571632-e559-4d7c-9ecb-acc0e033ac55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -212,9 +230,6 @@
     <ClCompile Include="Tsumi\Transform\ViewProjection\ViewProjection.cpp">
       <Filter>Tsumi\Transform\ViewProjection</Filter>
     </ClCompile>
-    <ClCompile Include="Tsumi\utilities\ImGuiManager.cpp">
-      <Filter>Tsumi\utilities</Filter>
-    </ClCompile>
     <ClCompile Include="Tsumi\Input\Input.cpp">
       <Filter>Tsumi\Input</Filter>
     </ClCompile>
@@ -229,6 +244,18 @@
     </ClCompile>
     <ClCompile Include="Tsumi\TextureManager\TextureDataResource\TextureDataResource.cpp">
       <Filter>Tsumi\TextureManager\TextureDataResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Utilities\ImGuiManager\ImGuiManager.cpp">
+      <Filter>Tsumi\Utilities\ImGuiManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Utilities\CollisionManager\GeometryCollision\GeometryCollision.cpp">
+      <Filter>Tsumi\Utilities\CollisionManager\GeometryCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Utilities\CollisionManager\IsCollision\IsCollision.cpp">
+      <Filter>Tsumi\Utilities\CollisionManager\IsCollision</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Utilities\CollisionManager\CollisionManager.cpp">
+      <Filter>Tsumi\Utilities\CollisionManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -346,9 +373,6 @@
     <ClInclude Include="Tsumi\Transform\ViewProjection\ViewProjection.h">
       <Filter>Tsumi\Transform\ViewProjection</Filter>
     </ClInclude>
-    <ClInclude Include="Tsumi\utilities\ImGuiManager.h">
-      <Filter>Tsumi\utilities</Filter>
-    </ClInclude>
     <ClInclude Include="Tsumi\Input\Input.h">
       <Filter>Tsumi\Input</Filter>
     </ClInclude>
@@ -363,6 +387,36 @@
     </ClInclude>
     <ClInclude Include="Tsumi\TextureManager\TextureDataResource\TextureDataResource.h">
       <Filter>Tsumi\TextureManager\TextureDataResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\ImGuiManager\ImGuiManager.h">
+      <Filter>Tsumi\Utilities\ImGuiManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\CollisionStructures\CollisionStructures.h">
+      <Filter>Tsumi\Utilities\CollisionManager\CollisionStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\AABBCollider.h">
+      <Filter>Tsumi\Utilities\CollisionManager\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\ColliderConfig.h">
+      <Filter>Tsumi\Utilities\CollisionManager\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\OBBCollider.h">
+      <Filter>Tsumi\Utilities\CollisionManager\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\SegmentCollider.h">
+      <Filter>Tsumi\Utilities\CollisionManager\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\SphereCollider.h">
+      <Filter>Tsumi\Utilities\CollisionManager\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\GeometryCollision\GeometryCollision.h">
+      <Filter>Tsumi\Utilities\CollisionManager\GeometryCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\IsCollision\IsCollision.h">
+      <Filter>Tsumi\Utilities\CollisionManager\IsCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\CollisionManager.h">
+      <Filter>Tsumi\Utilities\CollisionManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

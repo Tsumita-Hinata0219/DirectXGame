@@ -421,7 +421,7 @@ Matrix4x4 MakeIdentity4x4() {
 
 
 // 座標変換
-Vector3 Transform(const Vector3 vector, const Matrix4x4 matrix) {
+Vector3 TransformByMatrix(const Vector3 vector, const Matrix4x4 matrix) {
 	Vector3 result{};
 
 	result.x = vector.x * matrix.m[0][0] + vector.y * matrix.m[1][0] + vector.z * matrix.m[2][0] +
