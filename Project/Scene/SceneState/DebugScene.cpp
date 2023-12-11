@@ -34,49 +34,13 @@ void DebugScene::Initialize() {
 /// </summary>
 void DebugScene::Update(GameManager* state) {
 
-
-	if (Input::PressKeys(DIK_B)) {
-
-		if (Input::TriggerKey(DIK_1)) {
-			Audio::PlayOnSound(sound1_, true, 1.0f);
-		}
-		
-		if (Input::TriggerKey(DIK_2)) {
-			Audio::PlayOnSound(sound2_, false, 1.0f);
-		}
-		
-		if (Input::TriggerKey(DIK_3)) {
-			Audio::PlayOnSound(sound3_, false, 1.0f);
-		}
-	}
-	if (Input::PressKeys(DIK_S)) {
-
-		if (Input::TriggerKey(DIK_1)) {
-			Audio::StopOnSound(sound1_);
-		}
-
-		if (Input::TriggerKey(DIK_2)) {
-			Audio::StopOnSound(sound2_);
-		}
-
-		if (Input::TriggerKey(DIK_3)) {
-			Audio::StopOnSound(sound3_);
-		}
-	}
+	// Audioに関する処理
+	AudioUpdate();
 
 
 #ifdef _DEBUG
 
 	ImGui::Begin("DebugScene");
-	ImGui::End();
-
-	ImGui::Begin("Audio");
-	if (Audio::IsPlaying(sound1_)) {
-		ImGui::Text("sound1_isPlaying : true");
-	}
-	else {
-		ImGui::Text("sound1_isPlaying : false");
-	}
 	ImGui::End();
 
 #endif // _DEBUG
@@ -110,4 +74,77 @@ void DebugScene::ModelDraw() {
 void DebugScene::FrontSpriteDraw() {
 
 
+}
+
+
+
+/// <summary>
+/// Audioに関する処理まとめたやつ
+/// </summary>
+void DebugScene::AudioUpdate() {
+
+	if (Input::PressKeys(DIK_B)) {
+
+		if (Input::TriggerKey(DIK_1)) {
+			Audio::PlayOnSound(sound1_, true, 1.0f);
+		}
+
+		if (Input::TriggerKey(DIK_2)) {
+			Audio::PlayOnSound(sound2_, false, 1.0f);
+		}
+
+		if (Input::TriggerKey(DIK_3)) {
+			Audio::PlayOnSound(sound3_, false, 1.0f);
+		}
+	}
+	if (Input::PressKeys(DIK_S)) {
+
+		if (Input::TriggerKey(DIK_1)) {
+			Audio::StopOnSound(sound1_);
+		}
+
+		if (Input::TriggerKey(DIK_2)) {
+			Audio::StopOnSound(sound2_);
+		}
+
+		if (Input::TriggerKey(DIK_3)) {
+			Audio::StopOnSound(sound3_);
+		}
+	}
+
+
+#ifdef _DEBUG
+
+
+	ImGui::Begin("Audio");
+	ImGui::Text("PlaySound : B + 1 or 2 or 3");
+	ImGui::Text("StopSound : S + 1 or 2 or 3");
+
+	//ImGui::Text("");
+	ImGui::Text("\nSound1 : mokugyo->Loop");
+	if (Audio::IsPlaying(sound1_)) {
+		ImGui::Text("sound1_isPlaying : true");
+	}
+	else {
+		ImGui::Text("sound1_isPlaying : false");
+	}
+
+	ImGui::Text("\nSound2 : kakkoii->nonLoop");
+	if (Audio::IsPlaying(sound2_)) {
+		ImGui::Text("sound2_isPlaying : true");
+	}
+	else {
+		ImGui::Text("sound2_isPlaying : false");
+	}
+
+	ImGui::Text("\nSound3 : mokugyo->nonLoop");
+	if (Audio::IsPlaying(sound3_)) {
+		ImGui::Text("sound3_isPlaying : true");
+	}
+	else {
+		ImGui::Text("sound3_isPlaying : false");
+	}
+	ImGui::End();
+
+#endif // _DEBUG
 }
