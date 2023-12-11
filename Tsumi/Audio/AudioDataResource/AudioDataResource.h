@@ -50,12 +50,15 @@ public:
 	/// <returns></returns>
 	SoundData GetSoundData() { return soundData_; }
 
-	void SetSoundData(SoundData soundData) { soundData_ = soundData; }
-
 #pragma endregion
 
 
 #pragma region Set
+
+	/// <summary>
+	/// サウドデータの設定
+	/// </summary>
+	void SetSoundData(SoundData soundData) { soundData_ = soundData; }
 
 	/// <summary>
 	/// リソースの設定
@@ -66,6 +69,11 @@ public:
 	/// 波形フォーマットの設定
 	/// </summary>
 	void SetSoundWfex(WAVEFORMATEX wfex) { soundData_.wfex = wfex; }
+
+	/// <summary>
+	/// isPlayingの設定
+	/// </summary>
+	void SetSoundIsPlaying(bool flag) { soundData_.isPlaying = flag; }
 
 #pragma endregion 
 

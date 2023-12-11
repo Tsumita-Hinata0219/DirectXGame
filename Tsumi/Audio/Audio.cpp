@@ -159,8 +159,7 @@ void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum = 1.0f
 				s.get()->GetSoundData().pSourceVoice->Stop();
 				s.get()->GetSoundData().pSourceVoice->FlushSourceBuffers();
 				s.get()->GetSoundData().pSourceVoice->DestroyVoice();
-				s.get()->GetSoundData().isPlaying = false;
-				s.get()->SetSoundResource(nullptr);
+				s.get()->SetSoundIsPlaying(false);
 			}
 
 
@@ -188,6 +187,7 @@ void Audio::PlayOnSound(uint32_t soundDataNum, bool loopFlag, float volum = 1.0f
 			result = s.get()->GetSoundData().pSourceVoice->SubmitSourceBuffer(&buf);
 			result = s.get()->GetSoundData().pSourceVoice->SetVolume(volum);
 			result = s.get()->GetSoundData().pSourceVoice->Start();
+			s.get()->SetSoundIsPlaying(true);
 
 
 			assert(SUCCEEDED(result));
@@ -215,6 +215,7 @@ void Audio::StopOnSound(uint32_t soundDataNum) {
 			if (s.get()->GetSoundData().pSourceVoice) {
 
 				result = s.get()->GetSoundData().pSourceVoice->Stop();
+				s.get()->SetSoundIsPlaying(false);
 				assert(SUCCEEDED(result));
 			}
 		}
@@ -237,14 +238,7 @@ bool Audio::IsPlaying(uint32_t soundDataNum) {
 
 			if (s.get()->GetSoundData().pSourceVoice) {
 
-				XAUDIO2_VOICE_STATE state;
-				s.get()->GetSoundData().pSourceVoice->GetState(&state);
-
-				return (state.BuffersQueued > 0);
-			}
-			else {
-
-				return false;
+				return s.get()->GetSoundData().isPlaying;
 			}
 		}
 	}
