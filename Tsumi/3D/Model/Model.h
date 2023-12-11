@@ -56,11 +56,7 @@ private: // メンバ変数
 
 
 	// ワールドトランスフォーム
-	WorldTransform worldTansform_ = {
-		.scale { 1.0f, 1.0f, 1.0f },
-		.rotate { 0.0f, 0.0f, 0.0f },
-		.translate { 0.0f, 0.0f, 0.0f },
-	};
+	WorldTransform worldTansform_{};
 
 	// テクスチャ
 	uint32_t useTexture_;

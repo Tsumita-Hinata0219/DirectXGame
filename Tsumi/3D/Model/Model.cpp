@@ -41,10 +41,8 @@ void Model::Initialize(IModelState* state) {
 /// </summary>
 void Model::CreateFromObj(const std::string& directoryPath, WorldTransform worldTransform) {
 
-	Initialize(new ModelObjState());
-
 	// ワールドトランスフォームの設定
-	//worldTansform_ = worldTransform;
+	worldTansform_ = worldTransform;
 
 	// テクスチャの設定
 	// デフォルトではuvCheckerを使う
