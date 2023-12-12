@@ -46,7 +46,7 @@ public: // メンバ関数
 	/// <summary>
 	/// Textuerデータを読み込む
 	/// </summary>
-	static uint32_t LoadTexture(const std::string& filePath);
+	static uint32_t LoadTexture(const std::string& filePath, bool fromObjTex = false);
 
 	/// <summary>
 	/// Textureデータの解放

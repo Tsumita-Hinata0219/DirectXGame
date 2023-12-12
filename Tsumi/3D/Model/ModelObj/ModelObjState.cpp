@@ -10,7 +10,7 @@ void ModelObjState::Initialize(Model* pModel) {
 	pModel;
 
 	// リソースの作成
-	modelData_ = LoadObjFile(pModel, pModel->GetObjeDirectoryPaht());
+	modelData_ = LoadObjFile(pModel, pModel->GetObjDirectoryPath());
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * modelData_.vertices.size());
 	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(TransformationMatrix));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(Material));
@@ -84,7 +84,7 @@ void ModelObjState::CommandCall(uint32_t texture) {
 
 	// DescriptorTableを設定する
 	if (!texture == 0) {
-		DescriptorManager::SetGraphicsRootDescriptorTable(3, texture);
+		DescriptorManager::SetGraphicsRootDescriptorTable(2, texture);
 	}
 
 	// 光用のCBufferの場所を設定
@@ -201,7 +201,7 @@ ModelData ModelObjState::LoadObjFile(Model* pModel, const std::string& directory
 		}
 	}
 	// テクスチャを指定されたものにする
-	uint32_t texHandle = TextureManager::LoadTexture(modelData.material.textureFilePath);
+	uint32_t texHandle = TextureManager::LoadTexture(modelData.material.textureFilePath, true);
 	pModel->SetTexHandle(texHandle);
 
 	/* 4. Modeldataを返す */

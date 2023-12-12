@@ -29,6 +29,8 @@ void DebugScene::Update(GameManager* state) {
 
 	engineManual_->Update();
 
+	viewProjection_.UpdateMatrix();
+
 
 #ifdef _DEBUG
 

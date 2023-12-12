@@ -5,58 +5,52 @@
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Model::Initialize(IModelState* state) {
+void Model::Initialize(IModelState* state, WorldTransform worldTransform) {
 
-	// ワールドトランスフォームの設定
-	worldTansform_.scale = { 1.0f, 1.0f, 1.0f };
-	worldTansform_.rotate = { 0.0f, 0.0f, 0.0f };
-	worldTansform_.translate = { 0.0f, 0.0f, 0.0f };
+	// ワールド座標のデフォルト設定
+	this->worldTransform_ = worldTransform;
 
-	// テクスチャの設定
-	// デフォルトではuvCheckerを使う
-	useTexture_ = 1;
+	// テクスチャの初期設定
+	this->useTexture_ = 1;
 
 	// 色の設定
-	color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-	// 色の設定
-	material_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	this->color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	// Lightingを有効にする
-	material_.enableLightting = false;
+	this->enableLighting_ = false;
 
 	// 光の設定
-	light_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
-	light_.direction = { 0.0f, -1.0f, 0.0f };
-	light_.intensity = 1.0f;
+	this->light_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	this->light_.direction = { 0.0f, -1.0f, 0.0f };
+	this->light_.intensity = 1.0f;
 
 	// ステートパターンの初期化処理
-	state_ = state;
-	state_->Initialize(this);
+	this->state_ = state;
+	this->state_->Initialize(this);
 }
 
 
 /// <summary>
-/// Objファイルの読み込み & 初期化処理
+/// Objファイルの読み込み & Obj初期化処理
 /// </summary>
 void Model::CreateFromObj(const std::string& directoryPath, WorldTransform worldTransform) {
 
-	// ワールドトランスフォームの設定
-	worldTansform_ = worldTransform;
+	// ワールド座標のデフォルト設定
+	this->worldTransform_ = worldTransform;
 
-	// テクスチャの設定
-	// デフォルトではuvCheckerを使う
-	//useTexture_ = 1;
-
-	// 色の設定
-	//color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
+	// テクスチャの初期設定
+	this->useTexture_ = 1;
 
 	// 色の設定
-	//material_.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	this->color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-	//state_ = new ModelObjState();
-	directoryPath_ = directoryPath;
-	state_->Initialize(this);
+	// Objファイルパス
+	this->directoryPath_ = directoryPath;
+
+	// ステートパターンの初期化処理
+	this->state_ = new ModelObjState();
+	this->state_->Initialize(this);
+
 }
 
 
@@ -65,6 +59,5 @@ void Model::CreateFromObj(const std::string& directoryPath, WorldTransform world
 /// </summary>
 void Model::Draw(WorldTransform worldTransform, ViewProjection view) {
 
-	state_->Draw(this, worldTransform, view);
+	this->state_->Draw(this, worldTransform, view);
 }
-

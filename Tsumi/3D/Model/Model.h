@@ -1,9 +1,9 @@
 #pragma once
-#include "IModelState.h"
-#include "ModelPlaneState.h"
-#include "ModelSphereState.h"
-#include "ModelObjState.h"
 
+#include "WorldTransform.h"
+#include "ViewProjection.h"
+#include "IModelState.h"
+#include "ModelObjState.h"
 
 
 /* Modelクラス */
@@ -11,13 +11,16 @@ class Model {
 
 public: // メンバ関数
 
+	Model() {};
+	~Model() {};
+
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize(IModelState* state);
+	void Initialize(IModelState* state, WorldTransform worldTransform = { { 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } });
 
 	/// <summary>
-	/// Objファイルの読み込み & 初期化処理
+	/// Objファイルの読み込み & Obj初期化処理
 	/// </summary>
 	void CreateFromObj(const std::string& directoryPath, WorldTransform worldTransform = { { 1.0f, 1.0f, 1.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } });
 
@@ -26,54 +29,65 @@ public: // メンバ関数
 	/// </summary>
 	void Draw(WorldTransform worldTransform, ViewProjection view);
 
-#pragma region Get 取得
 
-	WorldTransform GetWorldTransform() { return worldTansform_; }
-	uint32_t GetUseTexture() { return useTexture_; }
-	Vector4 GetColor() { return color_; }
-	Material GetMaterial() { return material_; }
-	DirectionalLight GetDirectionalLight() { return light_; }
-	float GetRadius() { return radius_; }
-	const std::string GetObjeDirectoryPaht() { return directoryPath_; }
+#pragma region Get
 
-#pragma endregion
+	// WorldTransform
+	WorldTransform GetWorldTransform() { return this->worldTransform_; }
 
-#pragma region Set 設定
+	// UseTexture
+	uint32_t GetUseTexture() { return this->useTexture_; }
 
-	void SetTexHandle(uint32_t texHandle) { useTexture_ = texHandle; }
-	void SetColor(Vector4 color) { color_ = color; }
-	void SetDirectionalLight(DirectionalLight light) { light_ = light; }
-	void SetIsLighting(uint32_t isLight) { material_.enableLightting = isLight; }
-	void SetRadius(float radius) { radius_ = radius; }
+	// Color
+	Vector4 GetColor() { return this->color_; }
 
-#pragma endregion
-	
+	// DirectionalLight
+	DirectionalLight GetDirectionalLight() { return this->light_; }
+
+	// SphereEnableLighting
+	uint32_t GetEnableLighting() { return this->enableLighting_; }
+
+	// SphereRadius
+	float GetRadius() { return this->radius_; }
+
+	// DirectoryPath
+	const std::string GetObjDirectoryPath() { return this->directoryPath_; }
+
+#pragma endregion 
+
+
+#pragma region Set
+
+	// TextureHandle
+	void SetTexHandle(uint32_t texHD) { this->useTexture_ = texHD; }
+
+#pragma endregion 
+
 
 private: // メンバ変数
 
-	// モデルのステートパターン
+	// ステートパターン
 	IModelState* state_ = nullptr;
 
-
-	// ワールドトランスフォーム
-	WorldTransform worldTansform_{};
+	// ワールド座標
+	WorldTransform worldTransform_{};
 
 	// テクスチャ
 	uint32_t useTexture_;
 
 	// 色データ
-	Vector4 color_;
-
-	// スフィアのマテリアル
-	Material material_;
+	Vector4 color_{};
 
 	// 光データ
 	DirectionalLight light_;
+
+	// スフィアのマテリアル
+	uint32_t enableLighting_;
 
 	// スフィアの半径
 	float radius_ = 1.0f;
 
 	// Objのファイルパス
 	std::string directoryPath_{};
-};
 
+};

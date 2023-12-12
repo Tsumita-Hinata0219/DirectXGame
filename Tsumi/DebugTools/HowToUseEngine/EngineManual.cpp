@@ -29,22 +29,23 @@ void EngineManual::Initialize() {
 
 
 	// スプライト
-	/*sprite_ = std::make_unique<Sprite>();
+	sprite_ = std::make_unique<Sprite>();
 	sprite_->Initialize({ 0.0f, 0.0f }, { 640.0f, 360.0f });
 	sprite_->SetTextureHandle(uvCheckerHD_);
 	spriteTransform_ = {
 		.scale = {1.0f, 1.0f, 1.0f},
 		.rotate = {0.0f, 0.0f, 0.0f},
 		.translate = {0.0f, 0.0f, 0.0f},
-	};*/
+	};
 
 
 	// Objモデル
+	objModel_ = make_unique<Model>();
 	objModel_->CreateFromObj("axis");
 	objModelTransform_ = {
 		{1.0f, 1.0f, 1.0f},
 		{0.0f, 0.0f, 0.0f},
-		{0.0f, -2.0f, 10.0f},
+		{0.0f, 0.0f, 10.0f},
 	};
 }
 
@@ -59,6 +60,19 @@ void EngineManual::Update() {
 	planeModelTransform_.UpdateMatrix();
 	objModelTransform_.UpdateMatrix();
 	spriteTransform_.UpdateMatrix();
+
+
+#ifdef _DEBUG
+
+	ImGui::Begin("axis");
+	ImGui::Text("WorldTransform");
+	ImGui::DragFloat3("Scele", &objModelTransform_.scale.x, 0.01f);
+	ImGui::DragFloat3("Rotate", &objModelTransform_.rotate.x, 0.01f);
+	ImGui::DragFloat3("Transform", &objModelTransform_.translate.x, 0.01f);
+	ImGui::End();
+
+#endif // _DEBUG
+
 }
 
 
@@ -77,7 +91,6 @@ void EngineManual::BackSpriteDraw() {
 /// </summary>
 void EngineManual::ModelDraw(ViewProjection view) {
 
-	view;
 	//planeModel_->Draw(planeModelTransform_, view);
 	objModel_->Draw(objModelTransform_, view);
 }
@@ -88,7 +101,7 @@ void EngineManual::ModelDraw(ViewProjection view) {
 /// </summary>
 void EngineManual::FrontSpriteDraw() {
 
-	//sprite_->Draw(spriteTransform_);
+	sprite_->Draw(spriteTransform_);
 }
 
 

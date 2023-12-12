@@ -39,10 +39,16 @@ void TextureManager::Finalize() {
 /// <summary>
 /// Textuerデータを読み込む
 /// </summary>
-uint32_t TextureManager::LoadTexture(const std::string& filePath) {
+uint32_t TextureManager::LoadTexture(const std::string& filePath, bool fromObjTex) {
 
 	// パスを追加
-	std::string FilePath = "Resources/Texture/" + filePath;
+	std::string FilePath{};
+	if (!fromObjTex) {
+		FilePath = "Resources/Texture/" + filePath;
+	}
+	else {
+		FilePath = filePath;
+	}
 
 
 	// filePaht同じものがあるならそれを返す

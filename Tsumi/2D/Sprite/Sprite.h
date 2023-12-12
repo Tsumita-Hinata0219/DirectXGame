@@ -3,6 +3,7 @@
 #include "Function.h"
 #include "Struct.h"
 #include "WorldTransform.h"
+#include "ViewProjection.h"
 #include "TextureManager.h"
 #include "WinApp.h"
 #include "DirectXCommon.h"
@@ -11,6 +12,11 @@
 #include "DescriptorManager.h"
 
 
+struct SpriteTransform {
+	Vector2 scale{};
+	Vector2 rotate{};
+	Vector2 translate{};
+};
 
 
 class Sprite {
@@ -37,7 +43,7 @@ public:
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw(WorldTransform& transform);
+	void Draw(WorldTransform& transform, ViewProjection view);
 
 	/// <summary>
 	/// 色の変換
@@ -69,6 +75,7 @@ private:
 
 	// ワールドトランスフォーム
 	WorldTransform worldTansform_;
+	SpriteTransform spriteTransform_{};
 
 	// 座標
 	Vector2 pos_;

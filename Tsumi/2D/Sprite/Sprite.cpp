@@ -7,13 +7,13 @@
 /// </summary>
 void Sprite::Initialize(Vector2 pos, Vector2 size) {
 
-	// 座標の設定
+	// 初期座標の設定
 	pos_ = pos;
 
-	// 座標の設定
+	// サイズの設定
 	size_ = size;
 
-	// uvTransform 
+	// uvTransformの設定
 	uvTransform_ = {
 		{ 1.0f, 1.0f, 1.0f },
 		{ 0.0f, 0.0f, 0.0f },
@@ -42,7 +42,7 @@ void Sprite::Initialize(Vector2 pos, Vector2 size) {
 /// <summary>
 /// 描画処理
 /// </summary>
-void Sprite::Draw(WorldTransform& transform) {
+void Sprite::Draw(WorldTransform& transform, ViewProjection view) {
 
 	// 頂点データを設定する
 	SetVertex(transform);
@@ -64,6 +64,7 @@ void Sprite::Draw(WorldTransform& transform) {
 
 	// wvp用のCBufferの場所を設定
 	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(1, resource_.TransformationMatrix->GetGPUVirtualAddress());
+
 
 	// DescriptorTableを設定する
 	if (!useTexture_ == 0) {

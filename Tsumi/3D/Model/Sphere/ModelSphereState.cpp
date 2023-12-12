@@ -154,7 +154,7 @@ void ModelSphereState::Draw(Model* pModel, WorldTransform worldTransform, ViewPr
 
 	// マテリアルの設定
 	materialData->color = pModel->GetColor();
-	materialData->enableLightting = pModel->GetMaterial().enableLightting;
+	materialData->enableLightting = pModel->GetEnableLighting();
 
 	// ライティングの設定
 	lightData->color = pModel->GetDirectionalLight().color;
