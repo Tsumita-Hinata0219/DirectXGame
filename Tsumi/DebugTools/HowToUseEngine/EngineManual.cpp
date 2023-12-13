@@ -78,7 +78,7 @@ void EngineManual::Update() {
 	spriteB_->SetUVTransform(uvTransformA_);
 
 	//planeModelTransform_.UpdateMatrix();
-	//objModelTransform_.UpdateMatrix();
+	objModelTransform_.UpdateMatrix();
 	spriteATransform_.UpdateMatrix();
 	spriteBTransform_.UpdateMatrix();
 
