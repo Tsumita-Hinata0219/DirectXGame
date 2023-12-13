@@ -22,7 +22,7 @@ void ViewProjection::UpdateMatrix() {
 
 	matView = Multiply(Inverse(translateMat), Inverse(rotateMat));
 	matProjection = MakePerspectiveFovMatrix(fov, aspectRatio, nearZ, farZ);
-	orthoGraphic = MakeOrthographicMatrix(0.0f, 0.0f, float(WinApp::GetClientWidth()), float(WinApp::GetCliendHeight()), 0.0f, 100.0f);
+	orthoGraphicMat = MakeOrthographicMatrix(0.0f, 0.0f, float(WinApp::GetClientWidth()), float(WinApp::GetCliendHeight()), 0.0f, 100.0f);
 
 	TransferMatrix();
 }
@@ -67,8 +67,18 @@ void ViewProjection::UnMap() {
 void ViewProjection::TransferMatrix() {
 
 	Map();
+
 	constMap->view = matView;
 	constMap->viewProjection = matProjection;
-	constMap->orthoGraphic = orthoGraphic;
+	constMap->orthoGraphic = orthoGraphicMat;
+
+	Vector3 pos = {
+		.x = matView.m[3][0],
+		.y = matView.m[3][1],
+		.z = matView.m[3][2],
+	};
+	worldPosition = pos;
+	constMap->position = translate;
+
 	UnMap();
 }

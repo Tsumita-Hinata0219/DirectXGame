@@ -18,6 +18,8 @@ struct ViewProjection {
 	// ローカル座標
 	Vector3 translate = { 0.0f, 0.0f, 0.0f };
 
+	Vector3 worldPosition{};
+
 #pragma endregion 
 
 
@@ -45,7 +47,7 @@ struct ViewProjection {
 	Matrix4x4 matProjection{};
 
 	// 正射影行列
-	Matrix4x4 orthoGraphic{};
+	Matrix4x4 orthoGraphicMat{};
 
 
 	// 定数バッファ
