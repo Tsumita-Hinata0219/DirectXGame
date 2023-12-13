@@ -22,7 +22,7 @@ public: // メンバ関数
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~EngineManual() { Audio::SoundUnload(); }
+	~EngineManual();
 
 	/// <summary>
 	/// 初期化処理

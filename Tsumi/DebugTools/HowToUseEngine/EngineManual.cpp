@@ -3,6 +3,15 @@
 
 
 /// <summary>
+/// デストラクタ
+/// </summary>
+EngineManual::~EngineManual() {
+
+	Audio::SoundUnload();
+}
+
+
+/// <summary>
 /// 初期化処理
 /// </summary>
 void EngineManual::Initialize() {
@@ -51,9 +60,9 @@ void EngineManual::Initialize() {
 
 
 	// Objモデル
-	//objModel_ = make_unique<Model>();
-	//objModel_->CreateFromObj("axis");
-	//objModelTransform_.Initialize();
+	objModel_ = make_unique<Model>();
+	objModel_->CreateFromObj("axis");
+	objModelTransform_.Initialize();
 	
 }
 
@@ -77,10 +86,10 @@ void EngineManual::Update() {
 #ifdef _DEBUG
 
 	ImGui::Begin("EngineManual");
-	/*ImGui::Text("AxisObj");
+	ImGui::Text("AxisObj");
 	ImGui::DragFloat3("Axis.Scele", &objModelTransform_.scale.x, 0.01f);
 	ImGui::DragFloat3("Axis.Rotate", &objModelTransform_.rotate.x, 0.01f);
-	ImGui::DragFloat3("Axis.Transform", &objModelTransform_.translate.x, 0.01f);*/
+	ImGui::DragFloat3("Axis.Transform", &objModelTransform_.translate.x, 0.01f);
 	ImGui::Text("SpriteA");
 	ImGui::DragFloat3("spriteAScale", &spriteATransform_.scale.x, 0.1f);
 	ImGui::DragFloat3("spriteARotate", &spriteATransform_.rotate.x, 0.1f);
@@ -119,7 +128,7 @@ void EngineManual::BackSpriteDraw(ViewProjection view) {
 void EngineManual::ModelDraw(ViewProjection view) {
 
 	//planeModel_->Draw(planeModelTransform_, view);
-	//objModel_->Draw(objModelTransform_, view);
+	objModel_->Draw(objModelTransform_, view);
 }
 
 

@@ -37,6 +37,11 @@ void DebugScene::Update(GameManager* state) {
 	ImGui::Begin("DebugScene");
 	ImGui::End();
 
+	ImGui::Begin("Camera");
+	ImGui::DragFloat3("Rotate", &viewProjection_.rotate.x, 0.005f);
+	ImGui::DragFloat3("Translate", &viewProjection_.translate.x, 0.01f);
+	ImGui::End();
+
 #endif // _DEBUG
 }
 

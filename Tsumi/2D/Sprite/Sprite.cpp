@@ -58,7 +58,7 @@ void Sprite::Draw(uint32_t texHandle, WorldTransform& worldTransform, ViewProjec
 	// 形状を設定
 	DirectXCommon::GetInstance()->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	// 色用のCBufferの場所を設定
+	// Material用のCBufferの場所を設定
 	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(0, resource_.Material->GetGPUVirtualAddress());
 
 	// wvp用のCBufferの場所を設定
