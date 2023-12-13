@@ -47,7 +47,7 @@ void DebugScene::Update(GameManager* state) {
 /// </summary>
 void DebugScene::BackSpriteDraw() {
 
-	engineManual_->BackSpriteDraw();
+	engineManual_->BackSpriteDraw(viewProjection_);
 }
 
 
@@ -67,7 +67,7 @@ void DebugScene::ModelDraw() {
 /// </summary>
 void DebugScene::FrontSpriteDraw() {
 
-
+	engineManual_->FrontSpriteDraw(viewProjection_);
 }
 
 

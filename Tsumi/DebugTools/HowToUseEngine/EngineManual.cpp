@@ -29,24 +29,32 @@ void EngineManual::Initialize() {
 
 
 	// スプライト
-	sprite_ = std::make_unique<Sprite>();
-	sprite_->Initialize({ 0.0f, 0.0f }, { 640.0f, 360.0f });
-	sprite_->SetTextureHandle(uvCheckerHD_);
-	spriteTransform_ = {
-		.scale = {1.0f, 1.0f, 1.0f},
-		.rotate = {0.0f, 0.0f, 0.0f},
-		.translate = {0.0f, 0.0f, 0.0f},
+	spriteA_ = std::make_unique<Sprite>();
+	spriteA_->Initialize({ 0.0f, 0.0f }, { 640.0f, 360.0f });
+	spriteA_->SetTextureHandle(uvCheckerHD_);
+	spriteATransform_.Initialize();
+	uvTransformA_ = {
+		{ 1.0f, 1.0f, 1.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+	};
+
+	spriteB_ = std::make_unique<Sprite>();
+	spriteB_->Initialize({ 0.0f, 0.0f }, { 1280.0f, 720.0f });
+	spriteB_->SetTextureHandle(skyHD_);
+	spriteBTransform_.Initialize();
+	uvTransformB_ = {
+		{ 1.0f, 1.0f, 1.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
 	};
 
 
 	// Objモデル
-	objModel_ = make_unique<Model>();
-	objModel_->CreateFromObj("axis");
-	objModelTransform_ = {
-		{1.0f, 1.0f, 1.0f},
-		{0.0f, 0.0f, 0.0f},
-		{0.0f, 0.0f, 10.0f},
-	};
+	//objModel_ = make_unique<Model>();
+	//objModel_->CreateFromObj("axis");
+	//objModelTransform_.Initialize();
+	
 }
 
 
@@ -57,18 +65,37 @@ void EngineManual::Update() {
 
 	AudioUpdate();
 
-	planeModelTransform_.UpdateMatrix();
-	objModelTransform_.UpdateMatrix();
-	spriteTransform_.UpdateMatrix();
+	spriteA_->SetUVTransform(uvTransformA_);
+	spriteB_->SetUVTransform(uvTransformA_);
+
+	//planeModelTransform_.UpdateMatrix();
+	//objModelTransform_.UpdateMatrix();
+	spriteATransform_.UpdateMatrix();
+	spriteBTransform_.UpdateMatrix();
 
 
 #ifdef _DEBUG
 
-	ImGui::Begin("axis");
-	ImGui::Text("WorldTransform");
-	ImGui::DragFloat3("Scele", &objModelTransform_.scale.x, 0.01f);
-	ImGui::DragFloat3("Rotate", &objModelTransform_.rotate.x, 0.01f);
-	ImGui::DragFloat3("Transform", &objModelTransform_.translate.x, 0.01f);
+	ImGui::Begin("EngineManual");
+	/*ImGui::Text("AxisObj");
+	ImGui::DragFloat3("Axis.Scele", &objModelTransform_.scale.x, 0.01f);
+	ImGui::DragFloat3("Axis.Rotate", &objModelTransform_.rotate.x, 0.01f);
+	ImGui::DragFloat3("Axis.Transform", &objModelTransform_.translate.x, 0.01f);*/
+	ImGui::Text("SpriteA");
+	ImGui::DragFloat3("spriteAScale", &spriteATransform_.scale.x, 0.1f);
+	ImGui::DragFloat3("spriteARotate", &spriteATransform_.rotate.x, 0.1f);
+	ImGui::DragFloat3("spriteATranslate", &spriteATransform_.translate.x, 0.1f);
+	ImGui::DragFloat2("uvScaleA", &uvTransformA_.scale.x, 0.01f);
+	ImGui::DragFloat("uvRotateA", &uvTransformA_.rotate.z, 0.01f);
+	ImGui::DragFloat2("uvTranslateA", &uvTransformA_.translate.x, 0.01f);
+	ImGui::Text("SpriteB");
+	ImGui::DragFloat3("spriteBScale", &spriteBTransform_.scale.x, 0.1f);
+	ImGui::DragFloat3("spriteBRotate", &spriteBTransform_.rotate.x, 0.1f);
+	ImGui::DragFloat3("spriteBTranslate", &spriteBTransform_.translate.x, 0.1f);
+	ImGui::DragFloat2("uvScaleB", &uvTransformB_.scale.x, 0.01f);
+	ImGui::DragFloat("uvRotateB", &uvTransformB_.rotate.z, 0.01f);
+	ImGui::DragFloat2("uvTranslateB", &uvTransformB_.translate.x, 0.01f);
+
 	ImGui::End();
 
 #endif // _DEBUG
@@ -79,9 +106,9 @@ void EngineManual::Update() {
 /// <summary>
 /// 背景スプライトの描画処理
 /// </summary>
-void EngineManual::BackSpriteDraw() {
+void EngineManual::BackSpriteDraw(ViewProjection view) {
 
-
+	spriteB_->Draw(skyHD_, spriteBTransform_, view);
 
 }
 
@@ -92,16 +119,16 @@ void EngineManual::BackSpriteDraw() {
 void EngineManual::ModelDraw(ViewProjection view) {
 
 	//planeModel_->Draw(planeModelTransform_, view);
-	objModel_->Draw(objModelTransform_, view);
+	//objModel_->Draw(objModelTransform_, view);
 }
 
 
 /// <summary>
 /// 前景スプライトの描画処理
 /// </summary>
-void EngineManual::FrontSpriteDraw() {
+void EngineManual::FrontSpriteDraw(ViewProjection view) {
 
-	sprite_->Draw(spriteTransform_);
+	spriteA_->Draw(uvCheckerHD_, spriteATransform_, view);
 }
 
 

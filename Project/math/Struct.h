@@ -51,6 +51,15 @@ struct TransformationMatrix {
 };
 
 
+// 
+struct TransformationViewMatrix {
+	Matrix4x4 view;
+	Matrix4x4 viewProjection;
+	Matrix4x4 orthoGraphic;
+	Vector3 position;
+};
+
+
 // 球
 struct SphereData {
 	Vector3 center;

@@ -11,7 +11,6 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix4x4.h"
-//#include "Struct.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>

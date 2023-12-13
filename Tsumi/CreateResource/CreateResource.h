@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "DirectXCommon.h"
 #include "Struct.h"
 
@@ -17,6 +17,8 @@ public:
 	/// 頂点バッファリソースを作成する
 	/// </summary>
 	static ComPtr<ID3D12Resource> CreateBufferResource(size_t sizeInBytes);
+
+	static void CreateBufferResource(size_t sizeInBytes, ComPtr<ID3D12Resource>& resource);
 
 	/// <summary>
 	/// 頂点バッファビューを作成する

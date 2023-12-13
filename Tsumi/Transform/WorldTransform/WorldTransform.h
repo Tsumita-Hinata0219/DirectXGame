@@ -1,5 +1,7 @@
-﻿#pragma once
+#pragma once
 #include "Function.h"
+#include "Struct.h"
+#include "CreateResource.h"
 
 
 /// <summary>
@@ -20,6 +22,11 @@ struct WorldTransform {
 	// ペアレント
 	const WorldTransform* parent{};
 
+	// 定数バッファー
+	ComPtr<ID3D12Resource> constBuffer = nullptr;
+
+	// マッピング済みアドレス?
+	TransformationMatrix* constMap = nullptr;
 
 
 	/// <summary>
@@ -28,8 +35,27 @@ struct WorldTransform {
 	void Initialize();
 
 	/// <summary>
-	/// 更新処理
+	/// 行列の更新処理
 	/// </summary>
 	void UpdateMatrix();
 
+	/// <summary>
+	/// 定数バッファの生成
+	/// </summary>
+	void CreateBuffer();
+
+	/// <summary>
+	/// マッピングする
+	/// </summary>
+	void Map();
+
+	/// <summary>
+	/// マッピング終了
+	/// </summary>
+	void UnMap();
+
+	/// <summary>
+	/// 行列の計算・転送
+	/// </summary>
+	void TransferMatrix();
 };

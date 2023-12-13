@@ -1,15 +1,16 @@
 #pragma once
 
-#include "Matrix4x4.h"
-#include "Vector3.h"
-#include <d3d12.h>
-#include <wrl.h>
 #include "WinApp.h"
 #include "Function.h"
+#include "CreateResource.h"
+#include <Struct.h>
+
 
 
 /* ビュープロジェクション変換データ */
 struct ViewProjection {
+
+#pragma region ビュー行列の設定
 
 	// X, Y, Z軸周りのローカル回転軸
 	Vector3 rotate = { 0.0f, 0.0f, 0.0f };
@@ -17,14 +18,13 @@ struct ViewProjection {
 	// ローカル座標
 	Vector3 translate = { 0.0f, 0.0f, 0.0f };
 
-	// ワールド -> ビュー変換行列
-	Matrix4x4 matView{};
+#pragma endregion 
 
-	// ビュー -> プロジェクション変換行列
-	Matrix4x4 matProjection{};
+
+#pragma region 射影行列の設定
 
 	// 垂直方向視野角
-	float fov = 0.45f;
+	float fov = 0.45f * 3.141592654f / 180.0f;
 
 	// ビューポートのアスペクト比
 	float aspectRatio = float(WinApp::GetClientWidth()) / float(WinApp::GetCliendHeight());
@@ -35,6 +35,25 @@ struct ViewProjection {
 	// 深度限界 (奥側)
 	float farZ = 1000.0f;
 
+#pragma endregion 
+
+
+	// ビュー行列
+	Matrix4x4 matView{};
+
+	// 射影行列
+	Matrix4x4 matProjection{};
+
+	// 正射影行列
+	Matrix4x4 orthoGraphic{};
+
+
+	// 定数バッファ
+	ComPtr<ID3D12Resource> constBuffer;
+
+	// マッピング済みアドレス
+	TransformationViewMatrix* constMap = nullptr;
+
 
 
 	/// <summary>
@@ -43,8 +62,28 @@ struct ViewProjection {
 	void Initialize(Vector3 initRotate = { 0.0f, 0.0f, 0.0f }, Vector3 initTranslate = { 0.0f, 0.0f, -5.0f });
 
 	/// <summary>
-	/// 更新処理
+	/// 行列の更新処理
 	/// </summary>
 	void UpdateMatrix();
+
+	/// <summary>
+	/// 定数バッファの生成
+	/// </summary>
+	void CreateBuffer();
+
+	/// <summary>
+	/// マッピングする
+	/// </summary>
+	void Map();
+
+	/// <summary>
+	/// マッピング終了
+	/// </summary>
+	void UnMap();
+
+	/// <summary>
+	/// 行列の計算・転送
+	/// </summary>
+	void TransferMatrix();
 
 };

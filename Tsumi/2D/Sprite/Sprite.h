@@ -43,7 +43,7 @@ public:
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw(WorldTransform& transform, ViewProjection view);
+	void Draw(uint32_t texHandle, WorldTransform& transform, ViewProjection view);
 
 	/// <summary>
 	/// 色の変換

@@ -37,7 +37,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 背景スプライトの描画処理
 	/// </summary>
-	void BackSpriteDraw();
+	void BackSpriteDraw(ViewProjection view);
 
 	/// <summary>
 	/// ３Dオブジェクトの描画処理
@@ -47,7 +47,7 @@ public: // メンバ関数
 	/// <summary>
 	/// 前景スプライトの描画処理
 	/// </summary>
-	void FrontSpriteDraw();
+	void FrontSpriteDraw(ViewProjection view);
 
 
 private: // メンバ関数
@@ -68,8 +68,13 @@ private: // メンバ変数
 	WorldTransform objModelTransform_{};
 
 	// Sprite
-	std::unique_ptr<Sprite> sprite_ = nullptr;
-	WorldTransform spriteTransform_{};
+	std::unique_ptr<Sprite> spriteA_ = nullptr;
+	WorldTransform spriteATransform_{};
+	UVTransform uvTransformA_{};
+
+	std::unique_ptr<Sprite> spriteB_ = nullptr;
+	WorldTransform spriteBTransform_{};
+	UVTransform uvTransformB_{};
 
 	// texHandle
 	uint32_t uvCheckerHD_;
