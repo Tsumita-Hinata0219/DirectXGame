@@ -5,6 +5,15 @@ struct TransformationMatrix {
 };
 ConstantBuffer<TransformationMatrix> gTransformationMatrix : register(b0);
 
+struct TransformationViewMatrix {
+	float32_t4x4 view;
+	float32_t4x4 viewProjection;
+	float32_t4x4 orthoGraphic;
+	float32_t3 cameraPosition;
+};
+ConstantBuffer<TransformationViewMatrix> gTransformationViewMatrix : register(b1);
+
+
 struct VertexShaderInput {
 	float32_t4 position : POSITION0;
 	float32_t2 texcoord : TEXCOORD0;
@@ -12,7 +21,15 @@ struct VertexShaderInput {
 
 VertexShaderOutput main(VertexShaderInput input) {
 	VertexShaderOutput output;
-	output.position = mul(input.position, gTransformationMatrix.WVP);
+	float32_t4x4 resultMat;
+
+	float32_t4x4 cameraMat = mul(gTransformationViewMatrix.view, gTransformationViewMatrix.viewProjection);
+	resultMat = mul(gTransformationMatrix.WVP, cameraMat);
+
+	//resultMat = mul(gTransformationMatrix.WVP, gTransformationViewMatrix.orthoGraphic);
+
+
+	output.position = mul(input.position, resultMat);
 	output.texcoord = input.texcoord;
 	return output;
 }
