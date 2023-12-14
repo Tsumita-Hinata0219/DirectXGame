@@ -12,6 +12,7 @@ struct DirectionalLight{
     float intensity;
 };
 ConstantBuffer<DirectionalLight> gDirectionalLight : register(b1);
+ConstantBuffer<TransformationViewMatrix> gTransformationViewMatrix : register(b2);
 
 
 Texture2D<float32_t4> gTexture : register(t0);

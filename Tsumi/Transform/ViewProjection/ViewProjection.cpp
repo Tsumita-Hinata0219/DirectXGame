@@ -72,12 +72,6 @@ void ViewProjection::TransferMatrix() {
 	constMap->viewProjection = matProjection;
 	constMap->orthoGraphic = orthoGraphicMat;
 
-	Vector3 pos = {
-		.x = matView.m[3][0],
-		.y = matView.m[3][1],
-		.z = matView.m[3][2],
-	};
-	worldPosition = pos;
 	constMap->position = translate;
 
 	UnMap();

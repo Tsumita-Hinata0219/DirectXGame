@@ -89,7 +89,7 @@ void EngineManual::Update() {
 	ImGui::Text("AxisObj");
 	ImGui::DragFloat3("Axis.Scele", &objModelTransform_.scale.x, 0.01f);
 	ImGui::DragFloat3("Axis.Rotate", &objModelTransform_.rotate.x, 0.01f);
-	ImGui::DragFloat3("Axis.Transform", &objModelTransform_.translate.x, 0.01f);
+	ImGui::DragFloat3("Axis.Transform", &objModelTransform_.translate.x, 10.0f);
 	ImGui::Text("SpriteA");
 	ImGui::DragFloat3("spriteAScale", &spriteATransform_.scale.x, 0.1f);
 	ImGui::DragFloat3("spriteARotate", &spriteATransform_.rotate.x, 0.1f);

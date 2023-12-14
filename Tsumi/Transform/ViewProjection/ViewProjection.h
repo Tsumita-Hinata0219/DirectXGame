@@ -16,9 +16,7 @@ struct ViewProjection {
 	Vector3 rotate = { 0.0f, 0.0f, 0.0f };
 
 	// ローカル座標
-	Vector3 translate = { 0.0f, 0.0f, 0.0f };
-
-	Vector3 worldPosition{};
+	Vector3 translate = { 0.0f, 0.0f, -15.0f };
 
 #pragma endregion 
 
@@ -26,7 +24,7 @@ struct ViewProjection {
 #pragma region 射影行列の設定
 
 	// 垂直方向視野角
-	float fov = 0.45f * 3.141592654f / 180.0f;
+	float fov = 0.45f;
 
 	// ビューポートのアスペクト比
 	float aspectRatio = float(WinApp::GetClientWidth()) / float(WinApp::GetCliendHeight());
