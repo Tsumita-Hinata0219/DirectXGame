@@ -64,8 +64,16 @@ private: // メンバ変数
 	WorldTransform planeModelTransform_{};
 
 	// ObjModel
-	std::unique_ptr<Model> objModel_ = nullptr;
-	WorldTransform objModelTransform_{};
+	std::unique_ptr<Model> objModel1_ = nullptr;
+	WorldTransform objModelTransform1_{};
+
+	std::unique_ptr<Model> objModel2_ = nullptr;
+	WorldTransform objModelTransform2_{};
+
+	std::unique_ptr<Model> objModel3_ = nullptr;
+	WorldTransform objModelTransform3_{};
+
+	
 
 	// Sprite
 	std::unique_ptr<Sprite> spriteA_ = nullptr;

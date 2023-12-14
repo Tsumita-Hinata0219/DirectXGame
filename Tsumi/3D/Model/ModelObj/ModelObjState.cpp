@@ -9,6 +9,9 @@ void ModelObjState::Initialize(Model* pModel) {
 
 	pModel;
 
+	modelData_.material = pModel->GetObjData().material;
+	modelData_.vertices = pModel->GetObjData().vertices;
+
 	// リソースの作成
 	modelData_ = LoadObjFile(pModel, pModel->GetObjDirectoryPath());
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * modelData_.vertices.size());

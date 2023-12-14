@@ -143,6 +143,9 @@
     <Filter Include="Tsumi\3D\Model\ModelObj\ObjDataResource">
       <UniqueIdentifier>{f4285403-e9ff-4af2-9bcc-674eb83f8b22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tsumi\3D\Model\ModelManager">
+      <UniqueIdentifier>{03b665b6-4594-44c2-942a-d335b22dacc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -265,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="Tsumi\3D\Model\ModelObj\ObjDataResource\ObjDataResource.cpp">
       <Filter>Tsumi\3D\Model\ModelObj\ObjDataResource</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\3D\Model\ModelManager\ModelManager.cpp">
+      <Filter>Tsumi\3D\Model\ModelManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -429,6 +435,9 @@
     </ClInclude>
     <ClInclude Include="Tsumi\3D\Model\ModelObj\ObjDataResource\ObjDataResource.h">
       <Filter>Tsumi\3D\Model\ModelObj\ObjDataResource</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\3D\Model\ModelManager\ModelManager.h">
+      <Filter>Tsumi\3D\Model\ModelManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

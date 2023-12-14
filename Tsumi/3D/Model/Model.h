@@ -4,6 +4,8 @@
 #include "ViewProjection.h"
 #include "IModelState.h"
 #include "ModelObjState.h"
+#include "ObjDataResource.h"
+#include "ModelManager/ModelManager.h"
 
 
 /* Modelクラス */
@@ -53,6 +55,11 @@ public: // メンバ関数
 	// DirectoryPath
 	const std::string GetObjDirectoryPath() { return this->directoryPath_; }
 
+	// ObjHandle
+	uint32_t GetObjHandle() { return objHandle_; }
+
+	ObjData GetObjData() { return objData_; }
+
 #pragma endregion 
 
 
@@ -62,6 +69,10 @@ public: // メンバ関数
 	void SetTexHandle(uint32_t texHD) { this->useTexture_ = texHD; }
 
 #pragma endregion 
+
+
+private: // メンバ関数
+
 
 
 private: // メンバ変数
@@ -89,5 +100,12 @@ private: // メンバ変数
 
 	// Objのファイルパス
 	std::string directoryPath_{};
+
+	// Objのハンドル
+	uint32_t objHandle_;
+
+	ModelData modelData_{};
+
+	ObjData objData_{};
 
 };

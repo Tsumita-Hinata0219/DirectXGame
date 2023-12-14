@@ -3,10 +3,10 @@
 
 
 // コンストラクタ
-ObjDataResource::ObjDataResource(std::string filePath, ObjData objData) {
+ObjDataResource::ObjDataResource(ObjData objData, uint32_t index) {
 
-	filePath_ = filePath;
 	objData_ = objData;
+	index_ = index;
 }
 
 

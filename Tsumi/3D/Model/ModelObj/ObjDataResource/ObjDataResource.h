@@ -9,14 +9,6 @@
 #include <cassert>
 
 
-// Objデータ
-struct ObjData {
-	uint32_t index;
-	ComPtr<ID3D12Resource> resource;
-	vector<VertexData> vertices; 
-};
-
-
 /* ObjDataResourceクラス */
 class ObjDataResource {
 
@@ -25,7 +17,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	ObjDataResource(std::string filePath, ObjData objData);
+	ObjDataResource(ObjData objData, uint32_t index);
 
 	/// <summary>
 	/// デストラクタ
@@ -50,7 +42,7 @@ public:
 
 private:
 
-	std::string filePath_;
 	ObjData objData_{};
+	uint32_t index_;
 
 };

@@ -47,10 +47,12 @@ void Model::CreateFromObj(const std::string& directoryPath, WorldTransform world
 	// Objファイルパス
 	this->directoryPath_ = directoryPath;
 
+	// Objの読み込み
+	objData_ = ModelManager::LoadObjFile(directoryPath_);
+
 	// ステートパターンの初期化処理
 	this->state_ = new ModelObjState();
 	this->state_->Initialize(this);
-
 }
 
 
@@ -61,3 +63,4 @@ void Model::Draw(WorldTransform worldTransform, ViewProjection view) {
 
 	this->state_->Draw(this, worldTransform, view);
 }
+

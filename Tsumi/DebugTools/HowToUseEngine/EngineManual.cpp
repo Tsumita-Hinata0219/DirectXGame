@@ -27,15 +27,6 @@ void EngineManual::Initialize() {
 	mokugyoHD_ = Audio::LoadSound("mokugyo.wav");
 	kakkoiiHD_ = Audio::LoadSound("kakkoii.wav");
 
-	// 平面モデル
-	//planeModel_ = std::make_unique<Model>();
-	//planeModel_->Initialize(new ModelPlaneState());
-	//planeModelTransform_ = {
-	//	{1.0f, 1.0f, 1.0f},
-	//	{0.0f, 0.0f, 0.0f},
-	//	{0.0f, -1.0f, 0.0f},
-	//};
-
 
 	// スプライト
 	spriteA_ = std::make_unique<Sprite>();
@@ -60,10 +51,18 @@ void EngineManual::Initialize() {
 
 
 	// Objモデル
-	objModel_ = make_unique<Model>();
-	objModel_->CreateFromObj("axis");
-	objModelTransform_.Initialize();
-	
+	objModel1_ = make_unique<Model>();
+	objModel1_->CreateFromObj("axis", objModelTransform1_);
+	objModelTransform1_.Initialize();
+
+	objModel2_ = make_unique<Model>();
+	objModel2_->CreateFromObj("plane", objModelTransform2_);
+	objModelTransform2_.Initialize();
+
+	objModel3_ = make_unique<Model>();
+	objModel3_->CreateFromObj("axis", objModelTransform3_);
+	objModelTransform3_.Initialize();
+
 }
 
 
@@ -78,7 +77,9 @@ void EngineManual::Update() {
 	spriteB_->SetUVTransform(uvTransformA_);
 
 	//planeModelTransform_.UpdateMatrix();
-	objModelTransform_.UpdateMatrix();
+	objModelTransform1_.UpdateMatrix();
+	objModelTransform2_.UpdateMatrix();
+	objModelTransform3_.UpdateMatrix();
 	spriteATransform_.UpdateMatrix();
 	spriteBTransform_.UpdateMatrix();
 
@@ -87,9 +88,9 @@ void EngineManual::Update() {
 
 	ImGui::Begin("EngineManual");
 	ImGui::Text("AxisObj");
-	ImGui::DragFloat3("Axis.Scele", &objModelTransform_.scale.x, 0.01f);
-	ImGui::DragFloat3("Axis.Rotate", &objModelTransform_.rotate.x, 0.01f);
-	ImGui::DragFloat3("Axis.Transform", &objModelTransform_.translate.x, 10.0f);
+	ImGui::DragFloat3("Axis.Scele", &objModelTransform1_.scale.x, 0.01f);
+	ImGui::DragFloat3("Axis.Rotate", &objModelTransform2_.rotate.x, 0.01f);
+	ImGui::DragFloat3("Axis.Transform", &objModelTransform1_.translate.x, 0.01f);
 	ImGui::Text("SpriteA");
 	ImGui::DragFloat3("spriteAScale", &spriteATransform_.scale.x, 0.1f);
 	ImGui::DragFloat3("spriteARotate", &spriteATransform_.rotate.x, 0.1f);
@@ -128,7 +129,9 @@ void EngineManual::BackSpriteDraw(ViewProjection view) {
 void EngineManual::ModelDraw(ViewProjection view) {
 
 	//planeModel_->Draw(planeModelTransform_, view);
-	objModel_->Draw(objModelTransform_, view);
+	//objModel1_->Draw(objModelTransform1_, view);
+	objModel2_->Draw(objModelTransform2_, view);
+	//objModel3_->Draw(objModelTransform3_, view);
 }
 
 
