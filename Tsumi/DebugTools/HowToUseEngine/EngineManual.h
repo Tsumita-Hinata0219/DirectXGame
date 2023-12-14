@@ -72,7 +72,6 @@ private: // メンバ変数
 
 	std::unique_ptr<Model> objModel3_ = nullptr;
 	WorldTransform objModelTransform3_{};
-
 	
 
 	// Sprite

@@ -6,6 +6,8 @@
 #include "ModelObjState.h"
 #include "ObjDataResource.h"
 #include "ModelManager/ModelManager.h"
+#include "ModelPlaneState.h"
+#include "ModelSphereState.h"
 
 
 /* Modelクラス */
