@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <d3d12.h>
 #pragma comment(lib, "d3d12.lib")
 
@@ -10,43 +9,41 @@
 #include <cassert>
 
 
-
-// テクスチャデータ
-struct TextureData {
+// Objデータ
+struct ObjData {
 	uint32_t index;
 	ComPtr<ID3D12Resource> resource;
-	Vector2 size;
+	vector<VertexData> vertices; 
 };
 
 
-
-/* TextureDataResouceクラス */
-class TextureDataResource {
+/* ObjDataResourceクラス */
+class ObjDataResource {
 
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	TextureDataResource(std::string filePath, TextureData textureData);
+	ObjDataResource(std::string filePath, ObjData objData);
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~TextureDataResource();
+	~ObjDataResource();
 
 
 #pragma region Get
 
 	/// <summary>
-	/// テクスチャデータの取得
+	/// Objデータ
 	/// </summary>
-	TextureData GetTextureData() { return textureData_; }
+	ObjData GetObjData() { return objData_; }
 
 	/// <summary>
 	/// テクスチャハンドルの取得
 	/// </summary>
-	uint32_t GetTextureHandle() { return textureData_.index; }
+	uint32_t GetObjHandle() { return objData_.index; }
 
 #pragma endregion 
 
@@ -54,5 +51,6 @@ public:
 private:
 
 	std::string filePath_;
-	TextureData textureData_{};
+	ObjData objData_{};
+
 };

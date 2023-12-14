@@ -53,9 +53,6 @@
     <Filter Include="Tsumi\3D\Model\ModelObj">
       <UniqueIdentifier>{c076c4d6-ebcb-4a42-a84a-5949ee257c4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tsumi\Adapter">
-      <UniqueIdentifier>{a7a98e80-4670-414b-ba9c-8526865249f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Tsumi\Transform">
       <UniqueIdentifier>{410c4d1c-9e0d-4acb-8b3d-5a7a47545713}</UniqueIdentifier>
     </Filter>
@@ -143,6 +140,9 @@
     <Filter Include="Project\Scene\SceneState\GameScene">
       <UniqueIdentifier>{8ddca8e6-ed4c-46c8-baac-ef2581b7fa04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tsumi\3D\Model\ModelObj\ObjDataResource">
+      <UniqueIdentifier>{f4285403-e9ff-4af2-9bcc-674eb83f8b22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -193,9 +193,6 @@
     </ClCompile>
     <ClCompile Include="Tsumi\TextureManager\TextureManager.cpp">
       <Filter>Tsumi\TextureManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Tsumi\Adapter\Tsumi.cpp">
-      <Filter>Tsumi\Adapter</Filter>
     </ClCompile>
     <ClCompile Include="Tsumi\Base\DXCommon\DirectXCommon.cpp">
       <Filter>Tsumi\Base\DXCommon</Filter>
@@ -262,6 +259,12 @@
     </ClCompile>
     <ClCompile Include="Project\Scene\SceneState\GameScene\GameScene.cpp">
       <Filter>Project\Scene\SceneState\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Tsumi.cpp">
+      <Filter>Tsumi</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\3D\Model\ModelObj\ObjDataResource\ObjDataResource.cpp">
+      <Filter>Tsumi\3D\Model\ModelObj\ObjDataResource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -336,9 +339,6 @@
     </ClInclude>
     <ClInclude Include="Tsumi\TextureManager\TextureManager.h">
       <Filter>Tsumi\TextureManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Tsumi\Adapter\Tsumi.h">
-      <Filter>Tsumi\Adapter</Filter>
     </ClInclude>
     <ClInclude Include="Tsumi\Base\DXCommon\DirectXCommon.h">
       <Filter>Tsumi\Base\DXCommon</Filter>
@@ -423,6 +423,12 @@
     </ClInclude>
     <ClInclude Include="Project\Scene\SceneState\GameScene\GameScene.h">
       <Filter>Project\Scene\SceneState\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Tsumi.h">
+      <Filter>Tsumi</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\3D\Model\ModelObj\ObjDataResource\ObjDataResource.h">
+      <Filter>Tsumi\3D\Model\ModelObj\ObjDataResource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
