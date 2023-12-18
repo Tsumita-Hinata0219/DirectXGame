@@ -146,6 +146,12 @@
     <Filter Include="Tsumi\3D\Model\ModelManager">
       <UniqueIdentifier>{03b665b6-4594-44c2-942a-d335b22dacc6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tsumi\2D\state">
+      <UniqueIdentifier>{9dc60469-254f-4de8-b168-70438b891779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\2D\state\SpriteBoxState">
+      <UniqueIdentifier>{53d52cc1-c380-49bb-9784-bf4bc42590db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -271,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="Tsumi\3D\Model\ModelManager\ModelManager.cpp">
       <Filter>Tsumi\3D\Model\ModelManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\2D\Sprite\state\SpriteBoxState\SpriteBoxState.cpp">
+      <Filter>Tsumi\2D\state\SpriteBoxState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -438,6 +447,12 @@
     </ClInclude>
     <ClInclude Include="Tsumi\3D\Model\ModelManager\ModelManager.h">
       <Filter>Tsumi\3D\Model\ModelManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\2D\Sprite\state\ISpriteState.h">
+      <Filter>Tsumi\2D\state</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\2D\Sprite\state\SpriteBoxState\SpriteBoxState.h">
+      <Filter>Tsumi\2D\state\SpriteBoxState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

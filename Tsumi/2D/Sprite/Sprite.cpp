@@ -29,7 +29,6 @@ void Sprite::Initialize(Vector2 pos, Vector2 size) {
 
 	// リソースの作成
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * 4);
-	//resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(Matrix4x4));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(MaterialSprite));
 	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * 4, resource_.Vertex.Get(), 4);
 
