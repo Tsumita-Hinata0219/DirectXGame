@@ -19,3 +19,4 @@ void SpriteBoxState::Draw(Sprite* pSprite, WorldTransform worldTransform, ViewPr
 
 
 }
+

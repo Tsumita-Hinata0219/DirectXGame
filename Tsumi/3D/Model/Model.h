@@ -70,6 +70,9 @@ public: // メンバ関数
 	// TextureHandle
 	void SetTexHandle(uint32_t texHD) { this->useTexture_ = texHD; }
 
+	// Color
+	void SetColor(Vector4 color) { this->color_ = color; }
+
 #pragma endregion 
 
 

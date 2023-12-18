@@ -14,7 +14,6 @@ void ModelPlaneState::Initialize(Model* pModel) {
 
 	// リソースの作成
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * 4);
-	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(Matrix4x4));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(Vector4));
 	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * 4, resource_.Vertex.Get(), 4);
 
@@ -30,20 +29,15 @@ void ModelPlaneState::Initialize(Model* pModel) {
 void ModelPlaneState::Draw(Model* pModel, WorldTransform worldTransform, ViewProjection view) {
 
 	VertexData* vertexData = nullptr;
-	TransformationMatrix* transformaationMatData = nullptr;
 	Material* materialData = nullptr;
 	uint32_t* indexData = nullptr;
 
 	// 書き込みができるようにする
 	resource_.Vertex->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
-	resource_.TransformationMatrix->Map(0, nullptr, reinterpret_cast<void**>(&transformaationMatData));
 	resource_.Material->Map(0, nullptr, reinterpret_cast<void**>(&materialData));
 	resource_.Index->Map(0, nullptr, reinterpret_cast<void**>(&indexData));
 
-	// Sphere用のWorldViewProjectionMatrixを作る
-	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale, worldTransform.rotate, worldTransform.translate);
-	transformaationMatData->WVP = Multiply(worldMatrixSphere, view.matProjection);
-	transformaationMatData->World = MakeIdentity4x4();
+
 	Vector3 pos = worldTransform.translate;
 
 	// 左下
@@ -77,14 +71,14 @@ void ModelPlaneState::Draw(Model* pModel, WorldTransform worldTransform, ViewPro
 	materialData->color = pModel->GetColor();
 
 	// コマンドコール
-	CommandCall(pModel->GetUseTexture());
+	CommandCall(pModel->GetUseTexture(), worldTransform, view);
 }
 
 
 /// <summary>
 /// コマンドコール処理
 /// </summary>
-void ModelPlaneState::CommandCall(uint32_t texture) {
+void ModelPlaneState::CommandCall(uint32_t texture, WorldTransform worldTransform, ViewProjection view) {
 
 	// RootSignatureを設定。
 	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootSignature(NormalGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
@@ -103,7 +97,10 @@ void ModelPlaneState::CommandCall(uint32_t texture) {
 	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(0, resource_.Material->GetGPUVirtualAddress());
 
 	// wvp用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(1, resource_.TransformationMatrix->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(1, worldTransform.constBuffer->GetGPUVirtualAddress());
+
+	// View用のCBufferの場所を設定
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(2, view.constBuffer->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
 	if (!texture == 0) {

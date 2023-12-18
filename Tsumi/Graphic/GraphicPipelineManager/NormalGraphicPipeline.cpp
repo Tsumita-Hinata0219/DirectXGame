@@ -27,7 +27,7 @@ void NormalGraphicPipeline::SetNormalPso() {
 
 
 	// 色に関する
-	D3D12_ROOT_PARAMETER rootParameters[3]{};
+	D3D12_ROOT_PARAMETER rootParameters[4]{};
 	rootParameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // CBVを使う
 	rootParameters[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixelShaderで使う
 	rootParameters[0].Descriptor.ShaderRegister = 0; // レジスタ番号0とバインド
@@ -42,16 +42,22 @@ void NormalGraphicPipeline::SetNormalPso() {
 	descriptionRootSignature.NumParameters = _countof(rootParameters); // 配列の長さ
 
 
+	// Viewに関する
+	rootParameters[2].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
+	rootParameters[2].ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX;
+	rootParameters[2].Descriptor.ShaderRegister = 1;
+
+
 	// テクスチャに関する
 	D3D12_DESCRIPTOR_RANGE descriptorRange[1]{};
 	descriptorRange[0].BaseShaderRegister = 0; // 0から始まる
 	descriptorRange[0].NumDescriptors = 1; // 数は1つ
 	descriptorRange[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND; // offsetを自動計算
 	
-	rootParameters[2].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // DescriptorTableを使う
-	rootParameters[2].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixShaderで使う
-	rootParameters[2].DescriptorTable.pDescriptorRanges = descriptorRange; // Tableの中身の配列を指定
-	rootParameters[2].DescriptorTable.NumDescriptorRanges = _countof(descriptorRange); // Tableで利用する
+	rootParameters[3].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // DescriptorTableを使う
+	rootParameters[3].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixShaderで使う
+	rootParameters[3].DescriptorTable.pDescriptorRanges = descriptorRange; // Tableの中身の配列を指定
+	rootParameters[3].DescriptorTable.NumDescriptorRanges = _countof(descriptorRange); // Tableで利用する
 
 
 	// Samplerの設定
@@ -94,7 +100,7 @@ void NormalGraphicPipeline::SetNormalPso() {
 
 
 	/* --- InputLayoutを設定する --- */
-	D3D12_INPUT_ELEMENT_DESC inputElementDescs[2]{};
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs[4]{};
 	inputElementDescs[0].SemanticName = "POSITION";
 	inputElementDescs[0].SemanticIndex = 0;
 	inputElementDescs[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
@@ -104,6 +110,16 @@ void NormalGraphicPipeline::SetNormalPso() {
 	inputElementDescs[1].SemanticIndex = 0;
 	inputElementDescs[1].Format = DXGI_FORMAT_R32G32_FLOAT;
 	inputElementDescs[1].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+
+	inputElementDescs[2].SemanticName = "NORMAL";
+	inputElementDescs[2].SemanticIndex = 0;
+	inputElementDescs[2].Format = DXGI_FORMAT_R32G32_FLOAT;
+	inputElementDescs[2].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+
+	inputElementDescs[3].SemanticName = "WORLDPOSITION";
+	inputElementDescs[3].SemanticIndex = 0;
+	inputElementDescs[3].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	inputElementDescs[2].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
 
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
 	inputLayoutDesc.pInputElementDescs = inputElementDescs;

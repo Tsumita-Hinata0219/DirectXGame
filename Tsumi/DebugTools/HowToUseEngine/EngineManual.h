@@ -62,6 +62,7 @@ private: // メンバ変数
 	// PlaneModel
 	std::unique_ptr<Model> planeModel_ = nullptr;
 	WorldTransform planeModelTransform_{};
+	Vector4 planeModelColor_{};
 
 	// ObjModel
 	std::unique_ptr<Model> objModel1_ = nullptr;

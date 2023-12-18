@@ -50,6 +50,15 @@ void EngineManual::Initialize() {
 	};
 
 
+	// Planeモデル
+	planeModel_ = make_unique<Model>();
+	planeModel_->Initialize(new ModelPlaneState);
+	planeModelTransform_.Initialize();
+	planeModel_->SetTexHandle(monsterBallHD_);
+	planeModelColor_ = { 1.0f, 1.0f, 1.0f, 1.0f };
+	planeModel_->SetColor(planeModelColor_);
+
+
 	// Objモデル
 	objModel1_ = make_unique<Model>();
 	objModel1_->CreateFromObj("axis", objModelTransform1_);
@@ -76,12 +85,14 @@ void EngineManual::Update() {
 	spriteA_->SetUVTransform(uvTransformA_);
 	spriteB_->SetUVTransform(uvTransformA_);
 
-	//planeModelTransform_.UpdateMatrix();
+	planeModelTransform_.UpdateMatrix();
 	objModelTransform1_.UpdateMatrix();
 	objModelTransform2_.UpdateMatrix();
 	objModelTransform3_.UpdateMatrix();
 	spriteATransform_.UpdateMatrix();
 	spriteBTransform_.UpdateMatrix();
+
+	planeModel_->SetColor(planeModelColor_);
 
 
 #ifdef _DEBUG
@@ -105,7 +116,11 @@ void EngineManual::Update() {
 	ImGui::DragFloat2("uvScaleB", &uvTransformB_.scale.x, 0.01f);
 	ImGui::DragFloat("uvRotateB", &uvTransformB_.rotate.z, 0.01f);
 	ImGui::DragFloat2("uvTranslateB", &uvTransformB_.translate.x, 0.01f);
-
+	ImGui::Text("PlaneModel");
+	ImGui::DragFloat3("PlaneModelScale", &planeModelTransform_.scale.x, 0.1f);
+	ImGui::DragFloat3("PlaneModelRotate", &planeModelTransform_.rotate.x, 0.1f);
+	ImGui::DragFloat3("PlaneModelTranslate", &planeModelTransform_.translate.x, 0.1f);
+	ImGui::DragFloat4("PlaneModelColor", &planeModelColor_.x, 0.01f);
 	ImGui::End();
 
 #endif // _DEBUG
@@ -118,7 +133,7 @@ void EngineManual::Update() {
 /// </summary>
 void EngineManual::BackSpriteDraw(ViewProjection view) {
 
-	spriteB_->Draw(skyHD_, spriteBTransform_, view);
+	//spriteB_->Draw(skyHD_, spriteBTransform_, view);
 
 }
 
@@ -129,8 +144,8 @@ void EngineManual::BackSpriteDraw(ViewProjection view) {
 void EngineManual::ModelDraw(ViewProjection view) {
 
 	//planeModel_->Draw(planeModelTransform_, view);
-	//objModel1_->Draw(objModelTransform1_, view);
-	objModel2_->Draw(objModelTransform2_, view);
+	objModel1_->Draw(objModelTransform1_, view);
+	//objModel2_->Draw(objModelTransform2_, view);
 	//objModel3_->Draw(objModelTransform3_, view);
 }
 
