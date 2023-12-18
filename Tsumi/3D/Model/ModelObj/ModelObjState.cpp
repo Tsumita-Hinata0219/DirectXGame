@@ -13,7 +13,7 @@ void ModelObjState::Initialize(Model* pModel) {
 	modelData_.vertices = pModel->GetObjData().vertices;
 
 	// リソースの作成
-	modelData_ = LoadObjFile(pModel, pModel->GetObjDirectoryPath());
+	//modelData_ = LoadObjFile(pModel, pModel->GetObjDirectoryPath());
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * modelData_.vertices.size());
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(Material));
 	resource_.Lighting = CreateResource::CreateBufferResource(sizeof(DirectionalLight));

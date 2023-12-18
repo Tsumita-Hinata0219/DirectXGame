@@ -125,7 +125,7 @@ void LightGraphicPipeline::SetLightPso() {
 	inputElementDescs[3].SemanticName = "WORLDPOSITION";
 	inputElementDescs[3].SemanticIndex = 0;
 	inputElementDescs[3].Format = DXGI_FORMAT_R32G32B32_FLOAT;
-	inputElementDescs[2].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
+	inputElementDescs[3].AlignedByteOffset = D3D12_APPEND_ALIGNED_ELEMENT;
 
 
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
