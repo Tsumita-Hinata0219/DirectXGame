@@ -54,7 +54,7 @@ void EngineManual::Initialize() {
 	planeModel_ = make_unique<Model>();
 	planeModel_->Initialize(new ModelPlaneState);
 	planeModelTransform_.Initialize();
-	planeModel_->SetTexHandle(monsterBallHD_);
+	planeModel_->SetTexHandle(uvCheckerHD_);
 	planeModelColor_ = { 1.0f, 1.0f, 1.0f, 1.0f };
 	planeModel_->SetColor(planeModelColor_);
 
@@ -121,6 +121,7 @@ void EngineManual::Update() {
 	ImGui::DragFloat3("PlaneModelRotate", &planeModelTransform_.rotate.x, 0.1f);
 	ImGui::DragFloat3("PlaneModelTranslate", &planeModelTransform_.translate.x, 0.1f);
 	ImGui::DragFloat4("PlaneModelColor", &planeModelColor_.x, 0.01f);
+	ImGui::ColorEdit4("PlaneModelColor", &planeModelColor_.x);
 	ImGui::End();
 
 #endif // _DEBUG
@@ -143,8 +144,8 @@ void EngineManual::BackSpriteDraw(ViewProjection view) {
 /// </summary>
 void EngineManual::ModelDraw(ViewProjection view) {
 
-	//planeModel_->Draw(planeModelTransform_, view);
-	objModel1_->Draw(objModelTransform1_, view);
+	planeModel_->Draw(planeModelTransform_, view);
+	//objModel1_->Draw(objModelTransform1_, view);
 	//objModel2_->Draw(objModelTransform2_, view);
 	//objModel3_->Draw(objModelTransform3_, view);
 }
