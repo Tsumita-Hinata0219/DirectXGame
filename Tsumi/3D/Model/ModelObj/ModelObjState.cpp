@@ -50,7 +50,7 @@ void ModelObjState::Draw(Model* pModel, WorldTransform worldTransform, ViewProje
 
 
 	// コマンドコール
-	CommandCall(pModel->GetUseTexture(), worldTransform, view);
+	CommandCall(pModel->GetObjData().textureHD, worldTransform, view);
 }
 
 

@@ -11,7 +11,7 @@ void Model::Initialize(IModelState* state, WorldTransform worldTransform) {
 	this->worldTransform_ = worldTransform;
 
 	// テクスチャの初期設定
-	this->useTexture_ = 1;
+	//this->useTexture_ = 1;
 
 	// 色の設定
 	this->color_ = { 1.0f, 1.0f, 1.0f, 1.0f };

@@ -140,7 +140,7 @@ ObjData ModelManager::LoadObjFile(std::string filePath) {
 		}
 		// テクスチャを指定されたものにする
 		uint32_t texHandle = TextureManager::LoadTexture(objData.material.textureFilePath, true);
-		objData.material.textureFilePath = texHandle;
+		objData.textureHD = texHandle;
 		ModelManager::Getinstance()->objModelDatas_[filePath] = make_unique<ObjDataResource>(objData, modelHandle);
 		
 

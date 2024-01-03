@@ -129,6 +129,7 @@ struct SPSO {
 // Objデータ
 struct ObjData {
 	uint32_t index;
+	uint32_t textureHD;
 	ComPtr<ID3D12Resource> resource;
 	vector<VertexData> vertices;
 	MaterialData material;
