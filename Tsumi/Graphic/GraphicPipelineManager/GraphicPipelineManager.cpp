@@ -19,7 +19,7 @@ void GraphicPipelineManager::Initialize() {
 
 	NormalGraphicPipeline::SetupNormalPso();
 	SpriteGraphicPipeline::SetupSpritePso();
-	LightGraphicPipeline::SetLightPso();
+	LightGraphicPipeline::SetupLightPso();
 }
 
 
