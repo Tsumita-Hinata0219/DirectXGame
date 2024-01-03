@@ -133,3 +133,13 @@ struct ObjData {
 	vector<VertexData> vertices;
 	MaterialData material;
 };
+
+
+enum  BlendMode
+{
+	BlendNone,
+	BlendAdd,
+	BlendSubtruct,
+	BlendMultiply,
+	BlendScreen,
+};

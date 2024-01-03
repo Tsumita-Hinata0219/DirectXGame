@@ -67,6 +67,7 @@ private: // メンバ変数
 	// ObjModel
 	std::unique_ptr<Model> objModel1_ = nullptr;
 	WorldTransform objModelTransform1_{};
+	Vector4 objModel1Color_{};
 
 	std::unique_ptr<Model> objModel2_ = nullptr;
 	WorldTransform objModelTransform2_{};
