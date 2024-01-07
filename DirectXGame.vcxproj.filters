@@ -170,6 +170,9 @@
     <Filter Include="Tsumi\Graphic\GraphicPipelineManager\Sprite">
       <UniqueIdentifier>{29110776-b866-4729-bb8d-20c89b34cfbb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project\GameObject\Camera">
+      <UniqueIdentifier>{24509859-5a3f-4020-9443-ada0186ed22f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
