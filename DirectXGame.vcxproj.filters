@@ -332,7 +332,9 @@
     <ClCompile Include="Project\GameObject\Player\Player.cpp">
       <Filter>Project\GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Project\GameObject\EnemyManager\EnemyManager.cpp" />
+    <ClCompile Include="Project\GameObject\EnemyManager\EnemyManager.cpp">
+      <Filter>Project\GameObject\EnemyManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -527,7 +529,9 @@
     <ClInclude Include="Project\GameObject\Player\Player.h">
       <Filter>Project\GameObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Project\GameObject\EnemyManager\EnemyManager.h" />
+    <ClInclude Include="Project\GameObject\EnemyManager\EnemyManager.h">
+      <Filter>Project\GameObject\EnemyManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpriteObject3d.PS.hlsl">

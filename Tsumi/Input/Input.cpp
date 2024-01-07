@@ -35,6 +35,9 @@ void Input::Initialize() {
 	result = Input::GetInstance()->keyboard_->SetCooperativeLevel(
 		WinApp::GetHwnd(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
 	assert(SUCCEEDED(result));
+
+	// 各ボタンのトリガー状態の初期化処理
+	Input::GetInstance()->ResetButtonTriggers();
 }
 
 
@@ -51,6 +54,12 @@ void Input::BeginFrame() {
 
 	// 全キーの入力状態を取得する
 	Input::GetInstance()->keyboard_->GetDeviceState(sizeof(Input::GetInstance()->Keys), Input::GetInstance()->Keys);
+
+	// ジョイスティックの状態をポーリング
+	for (DWORD i = 0; i < XUSER_MAX_COUNT; ++i) {
+		XINPUT_STATE state;
+		ZeroMemory(&state, sizeof(XINPUT_STATE));
+	}
 }
 
 
@@ -99,4 +108,51 @@ bool Input::ReleaseKeys(uint32_t keyNum) {
 		return true;
 	}
 	return false;
+}
+
+
+
+ /// <summary>
+ /// ジョイコンの入力の取得
+ /// </summary>
+bool Input::GetJoyStickState(XINPUT_STATE& state) {
+
+	DWORD dwresult = XInputGetState(0, &state);
+
+	if (dwresult == ERROR_SUCCESS) {
+		return true;
+	}
+	return false;
+}
+
+
+
+/// <summary>
+/// 押された瞬間
+/// </summary>
+bool Input::IsButtonTrigger(const XINPUT_STATE& state, WORD button) {
+
+	// ボタンが押された瞬間だけを判定
+	return((state.Gamepad.wButtons & button) != 0) && ((Input::GetInstance()->buttonTriggers[button] & button) == 0);
+}
+
+
+
+/// <summary>
+/// ボタンが押されたら
+/// </summary>
+bool Input::IsButtonPress(const XINPUT_STATE& state, WORD button) {
+
+	// 指定されたボタンが押されているか確認
+	return (state.Gamepad.wButtons & button) != 0;
+}
+
+
+
+/// <summary>
+/// 各ボタンのトリガー状態の初期化処理
+/// </summary>
+void Input::ResetButtonTriggers() {
+
+	ZeroMemory(buttonTriggers, sizeof(buttonTriggers));
 }

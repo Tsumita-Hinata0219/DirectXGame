@@ -2,8 +2,12 @@
 
 #define DIRECTINPUT_VERSION 0x0800 // DirectInputnoバージョン指定
 #include <dinput.h>
+#include <Xinput.h>
+#define XUSER_MAX_COUNT 4
+#define XINPUT_GAMEPAD_MAX 16
 
 #pragma comment(lib, "dinput8.lib")
+#pragma comment(lib,"xinput.lib")
 #pragma comment(lib, "dxguid.lib")
 
 #include "WinApp.h"
@@ -54,6 +58,29 @@ public: // メンバ関数
 	/// </summary>
 	static bool ReleaseKeys(uint32_t keyNum);
 
+	/// <summary>
+	/// ジョイコンの入力の取得
+	/// </summary>
+	static bool GetJoyStickState(XINPUT_STATE& state);
+
+	/// <summary>
+	/// 押された瞬間
+	/// </summary>
+	static bool IsButtonTrigger(const XINPUT_STATE& state, WORD button);
+
+	/// <summary>
+	/// 押しっぱなし
+	/// </summary>
+	static bool IsButtonPress(const XINPUT_STATE& state, WORD button);
+
+
+private: // メンバ関数
+
+	/// <summary>
+	/// 各ボタンのトリガー状態の初期化処理
+	/// </summary>
+	void ResetButtonTriggers();
+
 
 private: // メンバ変数
 
@@ -62,4 +89,6 @@ private: // メンバ変数
 
 	BYTE Keys[256] = {};
 	BYTE preKeys[256] = {};
+	XINPUT_STATE joyState = {};
+	WORD buttonTriggers[XINPUT_GAMEPAD_MAX];
 };

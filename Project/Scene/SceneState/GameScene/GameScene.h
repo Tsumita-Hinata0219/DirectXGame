@@ -4,6 +4,8 @@
 #include "GameManager.h"
 #include "GameObject.h"
 
+#include "Player/Player.h"
+
 
 class GameScene : public IScene {
 
@@ -49,5 +51,8 @@ private:
 
 	ViewProjection viewProjection_{};
 
+
+	// Player
+	unique_ptr<Player> player_ = nullptr;
 };
 

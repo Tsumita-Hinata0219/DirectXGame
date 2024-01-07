@@ -18,6 +18,13 @@ GameScene::~GameScene() {
 void GameScene::Initialize() {
 
 	viewProjection_.Initialize();
+	viewProjection_.rotate = { 0.45f, 0.0f, 0.0f };
+	viewProjection_.translate = { 0.0f, 11.0f, -15.0f };
+
+	
+	/* ----- プレイヤー Player ----- */
+	player_ = make_unique<Player>();
+	player_->Initialize();
 
 }
 
@@ -31,16 +38,19 @@ void GameScene::Update(GameManager* state) {
 	viewProjection_.UpdateMatrix();
 
 
+	/* ----- プレイヤー Player ----- */
+	player_->Update();
+
+
 
 
 #ifdef _DEBUG
 
 	ImGui::Begin("GameScene");
 	ImGui::End();
-
 	ImGui::Begin("Camera");
 	ImGui::DragFloat3("Rotate", &viewProjection_.rotate.x, 0.005f);
-	ImGui::DragFloat3("Translate", &viewProjection_.translate.x, 1.0f);
+	ImGui::DragFloat3("Translate", &viewProjection_.translate.x, 0.01f);
 	ImGui::End();
 
 #endif // _DEBUG
@@ -61,6 +71,8 @@ void GameScene::BackSpriteDraw() {
 /// </summary>
 void GameScene::ModelDraw() {
 
+	/* ----- プレイヤー Player ----- */
+	player_->Draw(viewProjection_);
 
 }
 
