@@ -25,6 +25,11 @@ public: // メンバ関数
 	void Draw(ViewProjection view);
 
 	/// <summary>
+	/// 更新処理
+	/// </summary>
+	void Update();
+
+	/// <summary>
 	/// リストの登録
 	/// </summary>
 	void PushBackParticles(ParticleProperties prope);

@@ -1,6 +1,8 @@
 #pragma once
 #include "DirectXCommon.h"
 #include "Struct.h"
+#include "CreateResource.h"
+
 
 //
 //struct TransformationMatrix {

@@ -17,6 +17,15 @@ void Particle::Initialize(IParticleState* state, uint32_t instanceNum) {
 }
 
 
+// 更新処理
+void Particle::Update() {
+
+	for (ParticleProperties prope : particlePropes_) {
+		prope.worldTransform.UpdateMatrix();
+	}
+}
+
+
 // 描画処理
 void Particle::Draw(ViewProjection view) {
 

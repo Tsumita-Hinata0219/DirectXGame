@@ -75,6 +75,9 @@ private: // メンバ変数
 
 
 	// Particle
+	std::unique_ptr<Particle> particle_ = nullptr;
+	static constexpr uint32_t NumInstance_ = 10;
+	ParticleProperties particlePrope_[NumInstance_]{};
 
 	// Sprite
 	std::unique_ptr<Sprite> spriteA_ = nullptr;

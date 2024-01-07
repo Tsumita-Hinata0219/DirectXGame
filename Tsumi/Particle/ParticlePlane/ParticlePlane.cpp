@@ -76,8 +76,14 @@ void ParticlePlane::Draw(Particle* pParticle, list<ParticleProperties> prope, Vi
 	itrNum_ = 0;
 	for (auto itr = prope.begin(); itr != prope.end(); itr++) {
 
-		Matrix4x4 worldViewProMat = Multiply((*itr).worldTransform.matWorld, view.matProjection);
-		instancingData[itrNum_].WVP = worldViewProMat;
+		Matrix4x4 worldPos = MakeAffineMatrix((*itr).worldTransform.scale, (*itr).worldTransform.rotate, (*itr).worldTransform.translate);
+		Matrix4x4 worldView = Multiply(view.matView, view.matProjection);
+		Matrix4x4 matWorld = Multiply(worldPos, worldView);
+
+		(*itr).uvTransform.matWorld = MakeAffineMatrix(
+			(*itr).uvTransform.scale, (*itr).uvTransform.rotate, (*itr).uvTransform.translate);
+
+		instancingData[itrNum_].WVP = matWorld;
 		instancingData[itrNum_].World = MakeIdentity4x4();
 		instancingData[itrNum_].Color = (*itr).color;
 		instancingData[itrNum_].uvTansform = (*itr).uvTransform.matWorld;
@@ -119,5 +125,5 @@ void ParticlePlane::CommandCall(uint32_t texHandle) {
 	}
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
-	DirectXCommon::GetInstance()->GetCommandList()->DrawInstanced(6, NumInstance_, 0, 0);
+	DirectXCommon::GetInstance()->GetCommandList()->DrawIndexedInstanced(6, NumInstance_, 0, 0, 0);
 }
