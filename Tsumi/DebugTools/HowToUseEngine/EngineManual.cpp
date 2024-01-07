@@ -80,6 +80,9 @@ void EngineManual::Initialize() {
 	fenceObj_->CreateFromObj("fence", fenceModelTransform_);
 	fenceModelTransform_.Initialize();
 
+
+	// Particle
+
 }
 
 

@@ -3,9 +3,9 @@
 #include "WorldTransform.h"
 #include "ViewProjection.h"
 #include "IModelState.h"
+#include "ModelManager.h"
 #include "ModelObjState.h"
 #include "ObjDataResource.h"
-#include "ModelManager/ModelManager.h"
 #include "ModelPlaneState.h"
 #include "ModelSphereState.h"
 

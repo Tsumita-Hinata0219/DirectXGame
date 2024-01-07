@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <d3d12.h>
 #include <dxgi1_6.h>
@@ -27,6 +27,7 @@ struct ShadersType {
 	ShadersMode Noraml;
 	ShadersMode Sprite;
 	ShadersMode Light;
+	ShadersMode Particle;
 };
 
 
@@ -102,6 +103,11 @@ private: // メンバ関数
 	/// 
 	/// </summary>
 	static void LightShader();
+
+	/// <summary>
+	/// 
+	/// </summary>
+	static void ParticleShader();
 
 #pragma endregion
 

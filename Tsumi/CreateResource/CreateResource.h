@@ -46,4 +46,6 @@ struct ResourcePeroperty {
 	ComPtr<ID3D12Resource> Material;
 	// 
 	ComPtr<ID3D12Resource> Lighting;
+	// 
+	ComPtr<ID3D12Resource> instancing;
 };

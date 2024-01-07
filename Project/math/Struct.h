@@ -16,6 +16,7 @@ using namespace std;
 #include <Matrix4x4.h>
 #include <iostream>
 #include <cstdint>
+#include <WorldTransform.h>
 
 
 
@@ -60,6 +61,15 @@ struct TransformationViewMatrix {
 };
 
 
+// 
+struct ParticleTransformMatrix {
+	Matrix4x4 WVP;
+	Matrix4x4 World;
+	Vector4 Color;
+	Matrix4x4 uvTansform;
+};
+
+
 // 球
 struct SphereData {
 	Vector3 center;
@@ -73,6 +83,10 @@ struct Material {
 	int32_t enableLightting;
 };
 struct MaterialSprite {
+	Vector4 color;
+	Matrix4x4 uvTransform;
+};
+struct MaterialParticle {
 	Vector4 color;
 	Matrix4x4 uvTransform;
 };

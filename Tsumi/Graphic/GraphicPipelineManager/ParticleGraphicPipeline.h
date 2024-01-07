@@ -10,15 +10,14 @@
 #include "ShaderManager.h"
 
 
-
-class LightGraphicPipeline {
+class ParticleGraphicPipeline {
 
 public: // メンバ関数
-	
+
 	/// <summary>
-	/// LightGraphicPipelineクラスのインスタンス取得
+	/// ParticleGraphicPipelineクラスのインスタンス取得
 	/// </summary>
-	static LightGraphicPipeline* GetInstance();
+	static ParticleGraphicPipeline* GetInstance();
 
 	/// <summary>
 	/// 初期化処理
@@ -28,15 +27,15 @@ public: // メンバ関数
 	/// <summary>
 	/// PSOを構築する
 	/// </summary>
-	static void SetupLightPso();
+	static void SetupParticlePso();
 
 	/// <summary>
-	/// LightPSOの取得
+	/// ParticlePsoの取得
 	/// </summary>
-	static PsoProperty GetPsoProperty() { return LightGraphicPipeline::GetInstance()->lightPso_; }
+	static PsoProperty GetPsoProperty() { return ParticleGraphicPipeline::GetInstance()->particlePso_; }
 
 
-private:
+private: // メンバ関数
 
 	/// <summary>
 	/// RootSignatureのセットアップ
@@ -67,5 +66,6 @@ private:
 
 private: // メンバ変数
 
-	PsoProperty lightPso_{};
+	PsoProperty particlePso_{};
+
 };

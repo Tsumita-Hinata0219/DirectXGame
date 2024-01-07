@@ -1,12 +1,6 @@
 #pragma once
 
-#include "Model.h"
-#include "Sprite.h"
-#include "TextureManager.h"
-#include "Audio.h"
-#include "Input.h"
-#include "WorldTransform.h"
-#include "ImGuiManager.h"
+#include "GameObject.h"
 
 
 /* EngineManualクラス */
@@ -64,6 +58,7 @@ private: // メンバ変数
 	WorldTransform planeModelTransform_{};
 	Vector4 planeModelColor_{};
 
+
 	// ObjModel
 	std::unique_ptr<Model> objModel1_ = nullptr;
 	WorldTransform objModelTransform1_{};
@@ -77,7 +72,9 @@ private: // メンバ変数
 
 	std::unique_ptr<Model> fenceObj_ = nullptr;
 	WorldTransform fenceModelTransform_{};
-	
+
+
+	// Particle
 
 	// Sprite
 	std::unique_ptr<Sprite> spriteA_ = nullptr;
@@ -88,11 +85,13 @@ private: // メンバ変数
 	WorldTransform spriteBTransform_{};
 	UVTransform uvTransformB_{};
 
+
 	// texHandle
 	uint32_t uvCheckerHD_;
 	uint32_t monsterBallHD_;
 	uint32_t asanohaHD_;
 	uint32_t skyHD_;
+
 
 	// SoundHandle
 	uint32_t mokugyoHD_;

@@ -1,31 +1,31 @@
 #include "LightObject.hlsli"
 
 struct Material {
-    float32_t4 color;
-    int32_t enableLighting;
+    float4 color;
+    int enableLighting;
 };
 ConstantBuffer<Material> gMaterial : register(b0);
 
 struct DirectionalLight{
-    float32_t4 color;
-    float32_t3 direction;
+    float4 color;
+    float3 direction;
     float intensity;
 };
 ConstantBuffer<DirectionalLight> gDirectionalLight : register(b1);
 ConstantBuffer<TransformationViewMatrix> gTransformationViewMatrix : register(b2);
 
 
-Texture2D<float32_t4> gTexture : register(t0);
+Texture2D<float4> gTexture : register(t0);
 SamplerState gSampler : register(s0);
 
 struct PixcelShaderOutput {
-    float32_t4 color : SV_TARGET0;
+    float4 color : SV_TARGET0;
 };
 
 
 PixcelShaderOutput main(VertexShaderOutput input){
     PixcelShaderOutput output;
-    float32_t4 textureColor = gTexture.Sample(gSampler, input.texcoord);
+    float4 textureColor = gTexture.Sample(gSampler, input.texcoord);
     
     if (gMaterial.enableLighting != 0) {
         

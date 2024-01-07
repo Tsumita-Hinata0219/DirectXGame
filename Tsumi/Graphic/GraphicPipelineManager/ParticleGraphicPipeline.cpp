@@ -1,64 +1,63 @@
-#include "LightGraphicPipeline.h"
+#include "ParticleGraphicPipeline.h"
 
 
 
-// LightGraphicPipelineクラスのインスタンス取得
-LightGraphicPipeline* LightGraphicPipeline::GetInstance() {
-	static LightGraphicPipeline instance;
+// ParticleGraphicPipelineクラスのインスタンス取得
+ParticleGraphicPipeline* ParticleGraphicPipeline::GetInstance() {
+	static ParticleGraphicPipeline instance;
 	return &instance;
 }
 
 
 
 // 初期化処理
-void LightGraphicPipeline::Initialize() {}
+void ParticleGraphicPipeline::Initialize() {}
 
 
 
 // PSOを構築する
-void LightGraphicPipeline::SetupLightPso() {
+void ParticleGraphicPipeline::SetupParticlePso() {
 
-	LightGraphicPipeline* lightGraphicPipeline = LightGraphicPipeline::GetInstance();
+	ParticleGraphicPipeline* particleGraphicPipeline = ParticleGraphicPipeline::GetInstance();
 
 
 	/* --- RootSignatureを作成 --- */
 	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature{};
-	lightGraphicPipeline->SetupRootSignature(descriptionRootSignature);
+	particleGraphicPipeline->SetupRootSignature(descriptionRootSignature);
 
 
 	/* --- InputLayoutを設定する --- */
-	D3D12_INPUT_ELEMENT_DESC inputElementDescs[4]{};
-	lightGraphicPipeline->SetupInputElementDescs(inputElementDescs[0], "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, D3D12_APPEND_ALIGNED_ELEMENT);
-	lightGraphicPipeline->SetupInputElementDescs(inputElementDescs[1], "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, D3D12_APPEND_ALIGNED_ELEMENT);
-	lightGraphicPipeline->SetupInputElementDescs(inputElementDescs[2], "NORMAL", 0, DXGI_FORMAT_R32G32_FLOAT, D3D12_APPEND_ALIGNED_ELEMENT);
-	lightGraphicPipeline->SetupInputElementDescs(inputElementDescs[3], "WORLDPOSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, D3D12_APPEND_ALIGNED_ELEMENT);
+	D3D12_INPUT_ELEMENT_DESC inputElementDescs[3]{};
+	particleGraphicPipeline->SetupInputElementDescs(inputElementDescs[0], "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, D3D12_APPEND_ALIGNED_ELEMENT);
+	particleGraphicPipeline->SetupInputElementDescs(inputElementDescs[1], "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, D3D12_APPEND_ALIGNED_ELEMENT);
+	particleGraphicPipeline->SetupInputElementDescs(inputElementDescs[2], "COLOR", 0, DXGI_FORMAT_R32G32_FLOAT, D3D12_APPEND_ALIGNED_ELEMENT);
 
 	D3D12_INPUT_LAYOUT_DESC inputLayoutDesc{};
-	lightGraphicPipeline->SetupInputLayout(inputLayoutDesc, inputElementDescs, _countof(inputElementDescs));
+	particleGraphicPipeline->SetupInputLayout(inputLayoutDesc, inputElementDescs, _countof(inputElementDescs));
 
 
 	/* --- BlendStateを設定する --- */
 	// 全ての色要素を書き込む
 	D3D12_BLEND_DESC blendDesc{};
 	D3D12_RENDER_TARGET_BLEND_DESC& pBlendDesc = blendDesc.RenderTarget[0];
-	lightGraphicPipeline->SetupBlendState(pBlendDesc, BlendNone);
+	particleGraphicPipeline->SetupBlendState(pBlendDesc, BlendNone);
 
 
 	/* --- RasiterzerStateを設定する --- */
 	D3D12_RASTERIZER_DESC rasterizerDesc{};
-	lightGraphicPipeline->SetupRasterizerState(rasterizerDesc);
+	particleGraphicPipeline->SetupRasterizerState(rasterizerDesc);
 
 
 	/* --- Shaderをcompileする --- */
 	// Shaderをコンパイルする
 	IDxcBlob* vertexShaderBlob = nullptr;
 	IDxcBlob* pixelShaderBlob = nullptr;
-	lightGraphicPipeline->CompileShaders(vertexShaderBlob, pixelShaderBlob);
+	particleGraphicPipeline->CompileShaders(vertexShaderBlob, pixelShaderBlob);
 
 
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineStateDesc{};
 
-	graphicsPipelineStateDesc.pRootSignature = LightGraphicPipeline::GetInstance()->lightPso_.rootSignature; // RootSignature
+	graphicsPipelineStateDesc.pRootSignature = ParticleGraphicPipeline::GetInstance()->particlePso_.rootSignature; // RootSignature
 
 	graphicsPipelineStateDesc.InputLayout = inputLayoutDesc; // InputLayout
 
@@ -106,57 +105,54 @@ void LightGraphicPipeline::SetupLightPso() {
 	HRESULT hr{};
 	hr = DirectXCommon::GetInstance()->GetDevice()->CreateGraphicsPipelineState(
 		&graphicsPipelineStateDesc,
-		IID_PPV_ARGS(&LightGraphicPipeline::GetInstance()->lightPso_.graphicsPipelineState));
+		IID_PPV_ARGS(&ParticleGraphicPipeline::GetInstance()->particlePso_.graphicsPipelineState));
 	assert(SUCCEEDED(hr));
 }
 
 
 
 // RootSignatureのセットアップ
-void LightGraphicPipeline::SetupRootSignature(D3D12_ROOT_SIGNATURE_DESC& descriptionRootSignature) {
+void ParticleGraphicPipeline::SetupRootSignature(D3D12_ROOT_SIGNATURE_DESC& descriptionRootSignature) {
 
 	descriptionRootSignature.Flags =
 		D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 
 
+	// Instancing
+	D3D12_DESCRIPTOR_RANGE descriptorRangeForInstancing[1] = {};
+	descriptorRangeForInstancing[0].BaseShaderRegister = 0;
+	descriptorRangeForInstancing[0].NumDescriptors = 1;
+	descriptorRangeForInstancing[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+	descriptorRangeForInstancing[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+
+	// PixelDescriptorRanged
+	D3D12_DESCRIPTOR_RANGE descriptorRange[1] = {};
+	descriptorRange[0].BaseShaderRegister = 0;
+	descriptorRange[0].NumDescriptors = 1;
+	descriptorRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
+	descriptorRange[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+
+
 	// 色に関する
-	D3D12_ROOT_PARAMETER rootParameters[5]{};
+	D3D12_ROOT_PARAMETER rootParameters[3]{};
 	rootParameters[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // CBVを使う
 	rootParameters[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixelShaderで使う
 	rootParameters[0].Descriptor.ShaderRegister = 0; // レジスタ番号0とバインド
 
 
 	// 頂点位置に関する
-	rootParameters[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // CBVを使う
+	rootParameters[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // CBVを使う
 	rootParameters[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX;// VertexShaderで使う
-	rootParameters[1].Descriptor.ShaderRegister = 0;// レジスタ番号を0にバインド
-
-	descriptionRootSignature.pParameters = rootParameters; // ルートパラメータ配列へのポインタ
-	descriptionRootSignature.NumParameters = _countof(rootParameters); // 配列の長さ
-
-
-	// Viewに関する
-	rootParameters[2].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV;
-	rootParameters[2].ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX;
-	rootParameters[2].Descriptor.ShaderRegister = 1;
+	rootParameters[1].DescriptorTable.pDescriptorRanges = descriptorRangeForInstancing;
+	rootParameters[1].DescriptorTable.NumDescriptorRanges = _countof(descriptorRangeForInstancing);
 
 
 	// テクスチャに関する
-	D3D12_DESCRIPTOR_RANGE descriptorRange[1]{};
-	descriptorRange[0].BaseShaderRegister = 0; // 0から始まる
-	descriptorRange[0].NumDescriptors = 1; // 数は1つ
-	descriptorRange[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND; // offsetを自動計算
-
-	rootParameters[3].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // DescriptorTableを使う
-	rootParameters[3].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixShaderで使う
-	rootParameters[3].DescriptorTable.pDescriptorRanges = descriptorRange; // Tableの中身の配列を指定
-	rootParameters[3].DescriptorTable.NumDescriptorRanges = _countof(descriptorRange); // Tableで利用する
-
-
-	// 光に関する
-	rootParameters[4].ParameterType = D3D12_ROOT_PARAMETER_TYPE_CBV; // CBVを使う
-	rootParameters[4].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixelShaderで使う
-	rootParameters[4].Descriptor.ShaderRegister = 1; // レジスタ番号0とバインド
+	rootParameters[2].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE; // DescriptorTableを使う
+	rootParameters[2].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // VertexShaderで使う
+	rootParameters[2].DescriptorTable.pDescriptorRanges = descriptorRange; // Tableの中身の配列を指定
+	rootParameters[2].DescriptorTable.NumDescriptorRanges = _countof(descriptorRange); // Tableで利用する
 
 
 	// Samplerの設定
@@ -171,6 +167,10 @@ void LightGraphicPipeline::SetupRootSignature(D3D12_ROOT_SIGNATURE_DESC& descrip
 	staticSamplers[0].ShaderRegister = 0; // レジスタ番号0を使う
 	staticSamplers[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL; // PixelShaderで使う
 
+
+	descriptionRootSignature.pParameters = rootParameters; // ルートパラメータ配列へのポインタ
+	descriptionRootSignature.NumParameters = _countof(rootParameters); // 配列の長さ
+
 	descriptionRootSignature.pStaticSamplers = staticSamplers;
 	descriptionRootSignature.NumStaticSamplers = _countof(staticSamplers);
 
@@ -179,10 +179,10 @@ void LightGraphicPipeline::SetupRootSignature(D3D12_ROOT_SIGNATURE_DESC& descrip
 	HRESULT hr_ = D3D12SerializeRootSignature(
 		&descriptionRootSignature,
 		D3D_ROOT_SIGNATURE_VERSION_1,
-		&LightGraphicPipeline::GetInstance()->lightPso_.signatureBlob,
-		&LightGraphicPipeline::GetInstance()->lightPso_.errorBlob);
+		&ParticleGraphicPipeline::GetInstance()->particlePso_.signatureBlob,
+		&ParticleGraphicPipeline::GetInstance()->particlePso_.errorBlob);
 	if (FAILED(hr_)) {
-		Log(reinterpret_cast<char*>(LightGraphicPipeline::GetInstance()->lightPso_.errorBlob->GetBufferPointer()));
+		Log(reinterpret_cast<char*>(ParticleGraphicPipeline::GetInstance()->particlePso_.errorBlob->GetBufferPointer()));
 		assert(false);
 	}
 
@@ -190,22 +190,22 @@ void LightGraphicPipeline::SetupRootSignature(D3D12_ROOT_SIGNATURE_DESC& descrip
 	// バイナリを元に生成
 	hr_ = DirectXCommon::GetInstance()->GetDevice()->CreateRootSignature(
 		0,
-		LightGraphicPipeline::GetInstance()->lightPso_.signatureBlob->GetBufferPointer(),
-		LightGraphicPipeline::GetInstance()->lightPso_.signatureBlob->GetBufferSize(),
-		IID_PPV_ARGS(&LightGraphicPipeline::GetInstance()->lightPso_.rootSignature));
+		ParticleGraphicPipeline::GetInstance()->particlePso_.signatureBlob->GetBufferPointer(),
+		ParticleGraphicPipeline::GetInstance()->particlePso_.signatureBlob->GetBufferSize(),
+		IID_PPV_ARGS(&ParticleGraphicPipeline::GetInstance()->particlePso_.rootSignature));
 	assert(SUCCEEDED(hr_));
 }
 
 
 // InputLayoutのセットアップ
-void LightGraphicPipeline::SetupInputElementDescs(D3D12_INPUT_ELEMENT_DESC& inputElementDescs, LPCSTR SemanticName, UINT SemanticIndex, DXGI_FORMAT Format, UINT AlignedByteOffset) {
+void ParticleGraphicPipeline::SetupInputElementDescs(D3D12_INPUT_ELEMENT_DESC& inputElementDescs, LPCSTR SemanticName, UINT SemanticIndex, DXGI_FORMAT Format, UINT AlignedByteOffset) {
 
 	inputElementDescs.SemanticName = SemanticName;
 	inputElementDescs.SemanticIndex = SemanticIndex;
 	inputElementDescs.Format = Format;
 	inputElementDescs.AlignedByteOffset = AlignedByteOffset;
 }
-void LightGraphicPipeline::SetupInputLayout(D3D12_INPUT_LAYOUT_DESC& inputLayoutDesc, const D3D12_INPUT_ELEMENT_DESC* inputElementDescs, UINT numInputElements) {
+void ParticleGraphicPipeline::SetupInputLayout(D3D12_INPUT_LAYOUT_DESC& inputLayoutDesc, const D3D12_INPUT_ELEMENT_DESC* inputElementDescs, UINT numInputElements) {
 
 	inputLayoutDesc.pInputElementDescs = inputElementDescs;
 	inputLayoutDesc.NumElements = numInputElements;
@@ -213,7 +213,7 @@ void LightGraphicPipeline::SetupInputLayout(D3D12_INPUT_LAYOUT_DESC& inputLayout
 
 
 // BlendStateのセットアップ
-void LightGraphicPipeline::SetupBlendState(D3D12_RENDER_TARGET_BLEND_DESC& blendDesc, BlendMode blendMode) {
+void ParticleGraphicPipeline::SetupBlendState(D3D12_RENDER_TARGET_BLEND_DESC& blendDesc, BlendMode blendMode) {
 
 	blendDesc.RenderTargetWriteMask =
 		D3D12_COLOR_WRITE_ENABLE_ALL;
@@ -274,7 +274,7 @@ void LightGraphicPipeline::SetupBlendState(D3D12_RENDER_TARGET_BLEND_DESC& blend
 
 
 // RasterizerStateのセットアップ
-void LightGraphicPipeline::SetupRasterizerState(D3D12_RASTERIZER_DESC& rasterizerDesc) {
+void ParticleGraphicPipeline::SetupRasterizerState(D3D12_RASTERIZER_DESC& rasterizerDesc) {
 
 	// 裏面(時計回り)を表示しない
 	rasterizerDesc.CullMode = D3D12_CULL_MODE_BACK;
@@ -284,11 +284,14 @@ void LightGraphicPipeline::SetupRasterizerState(D3D12_RASTERIZER_DESC& rasterize
 
 
 // Shadersのコンパイル
-void LightGraphicPipeline::CompileShaders(IDxcBlob*& vertexShaderBlob, IDxcBlob*& pixelShaderBlob) {
+void ParticleGraphicPipeline::CompileShaders(IDxcBlob*& vertexShaderBlob, IDxcBlob*& pixelShaderBlob) {
 
-	vertexShaderBlob = ShaderManager::GetInstance()->GetShaderType().Light.VertexBlob;
+	vertexShaderBlob = ShaderManager::GetInstance()->GetShaderType().Particle.VertexBlob;
 	assert(vertexShaderBlob != nullptr);
 
-	pixelShaderBlob = ShaderManager::GetInstance()->GetShaderType().Light.PixelBlob;
+	pixelShaderBlob = ShaderManager::GetInstance()->GetShaderType().Particle.PixelBlob;
 	assert(pixelShaderBlob != nullptr);
 }
+
+
+
