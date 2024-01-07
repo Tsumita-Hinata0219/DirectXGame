@@ -22,6 +22,7 @@ struct SoundData {
 	IXAudio2SourceVoice* pSourceVoice;
 	uint32_t index;
 	float volum;
+	bool isPlaying;
 };
 
 
@@ -55,6 +56,11 @@ public:
 #pragma region Set
 
 	/// <summary>
+	/// サウドデータの設定
+	/// </summary>
+	void SetSoundData(SoundData soundData) { soundData_ = soundData; }
+
+	/// <summary>
 	/// リソースの設定
 	/// </summary>
 	void SetSoundResource(IXAudio2SourceVoice* pSourceVoice) { soundData_.pSourceVoice = pSourceVoice; }
@@ -63,6 +69,11 @@ public:
 	/// 波形フォーマットの設定
 	/// </summary>
 	void SetSoundWfex(WAVEFORMATEX wfex) { soundData_.wfex = wfex; }
+
+	/// <summary>
+	/// isPlayingの設定
+	/// </summary>
+	void SetSoundIsPlaying(bool flag) { soundData_.isPlaying = flag; }
 
 #pragma endregion 
 

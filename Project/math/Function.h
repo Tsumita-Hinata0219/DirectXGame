@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <string>
@@ -11,7 +11,6 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix4x4.h"
-//#include "Struct.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -92,7 +91,7 @@ Matrix4x4 MakeTranslateMatrix(const Vector3 translate);
 
 
 // 座標変換
-Vector3 Transform(const Vector3 vector, const Matrix4x4 matrix);
+Vector3 TransformByMatrix(const Vector3 vector, const Matrix4x4 matrix);
 
 
 // ベクトル変換

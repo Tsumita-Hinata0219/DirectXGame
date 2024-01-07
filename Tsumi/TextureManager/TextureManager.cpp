@@ -39,14 +39,20 @@ void TextureManager::Finalize() {
 /// <summary>
 /// Textuerデータを読み込む
 /// </summary>
-uint32_t TextureManager::LoadTexture(const std::string& filePath) {
+uint32_t TextureManager::LoadTexture(const std::string& filePath, bool fromObjTex) {
 
 	// パスを追加
-	std::string FilePath = "Resources/Texture/" + filePath;
+	std::string FilePath{};
+	if (!fromObjTex) {
+		FilePath = "Resources/Texture/" + filePath;
+	}
+	else {
+		FilePath = filePath;
+	}
 
 
 	// filePaht同じものがあるならそれを返す
-	if (TextureManager::GetInstance()->CheckAudioDatas(FilePath)) {
+	if (TextureManager::GetInstance()->CheckTextureDatas(FilePath)) {
 
 		// TextureDataを用意
 		TextureData textureData{};
@@ -131,7 +137,7 @@ void TextureManager::UnLoadTexture() {
 /// <summary>
 /// 一回読み込んだものは読み込まない
 /// </summary>
-bool TextureManager::CheckAudioDatas(std::string filePath) {
+bool TextureManager::CheckTextureDatas(std::string filePath) {
 
 	// filePaht同じものがあるならそれを返す
 	if (TextureManager::GetInstance()->textureDatas_.find(filePath) == TextureManager::GetInstance()->textureDatas_.end()) {

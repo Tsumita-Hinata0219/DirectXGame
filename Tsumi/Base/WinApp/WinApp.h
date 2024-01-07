@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <Windows.h>
 #include <cstdint>
 #include <string>
@@ -51,6 +51,11 @@ public: ///// メンバ関数 /////
 	/// ウィンドウクラスの取得
 	/// </summary>
 	static WNDCLASS GetWc() { return WinApp::GetInstance()->wc_; }
+
+	/// <summary>
+	/// メッセージの取得
+	/// </summary>
+	static MSG GetMsg() { return WinApp::GetInstance()->msg_; }
 
 #pragma endregion
 

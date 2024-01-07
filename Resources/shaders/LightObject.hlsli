@@ -1,5 +1,13 @@
 struct VertexShaderOutput {
-    float32_t4 position : SV_POSITION;
-    float32_t2 texcoord : TEXCOORD0;
-    float32_t3 normal : NORMAL0;
+    float4 position : SV_POSITION;
+    float2 texcoord : TEXCOORD0;
+    float3 normal : NORMAL0;
+    float3 worldPosition : WORLDPOSITION0;
+};
+
+struct TransformationViewMatrix {
+	float4x4 view;
+    float4x4 viewProjection;
+    float4x4 orthoGraphic;
+	float3 cameraPosition;
 };

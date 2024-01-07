@@ -1,11 +1,10 @@
 #pragma once
 
 #include "Tsumi.h"
-#include "WinApp.h"
 
 #include "IScene.h"
-#include "DebugScene.h"
-#include "GameScene.h"
+#include "DebugScene/DebugScene.h"
+#include "GameScene/GameScene.h"
 #include "Input.h"
 
 

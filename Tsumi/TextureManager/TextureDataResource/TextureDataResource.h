@@ -46,7 +46,6 @@ public:
 	/// <summary>
 	/// テクスチャハンドルの取得
 	/// </summary>
-	/// <returns></returns>
 	uint32_t GetTextureHandle() { return textureData_.index; }
 
 #pragma endregion 

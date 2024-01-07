@@ -3,40 +3,104 @@
 
 
 /// <summary>
+/// デストラクタ
+/// </summary>
+EngineManual::~EngineManual() {
+
+	Audio::SoundUnload();
+}
+
+
+/// <summary>
 /// 初期化処理
 /// </summary>
 void EngineManual::Initialize() {
 
 	// テクスチャの読み込み
-	texHD1_ = TextureManager::LoadTexture("Resources/Texture/uvChecker.png");
-	texHD2_ = TextureManager::LoadTexture("Resources/Texture/monsterBall.png");
-	texHD3_ = TextureManager::LoadTexture("Resources/Texture/asanoha.png");
-	texHD4_ = TextureManager::LoadTexture("Resources/Texture/sky.png");
+	uvCheckerHD_ = TextureManager::LoadTexture("uvChecker.png");
+	monsterBallHD_ = TextureManager::LoadTexture("monsterBall.png");
+	asanohaHD_ = TextureManager::LoadTexture("asanoha.png");
+	skyHD_ = TextureManager::LoadTexture("sky.png");
 
 
-	// 平面モデル
-	planeModel_ = std::make_unique<Model>();
-	planeModel_->Initialize(new ModelPlaneState());
-	planeModelTransform_ = {
-		{1.0f, 1.0f, 1.0f},
-		{0.0f, 0.0f, 0.0f},
-		{0.0f, -1.0f, 0.0f},
-	};
+	// サウンドの読み込み
+	mokugyoHD_ = Audio::LoadSound("mokugyo.wav");
+	kakkoiiHD_ = Audio::LoadSound("kakkoii.wav");
 
 
 	// スプライト
-	sprite_ = std::make_unique<Sprite>();
-	sprite_->Initialize({ 0.0f, 0.0f }, { 640.0f, 360.0f });
-	sprite_->SetTextureHandle(texHD1_);
+	/*spriteA_ = std::make_unique<Sprite>();
+	spriteA_->Initialize({ 0.0f, 0.0f }, { 640.0f, 360.0f });
+	spriteA_->SetTextureHandle(uvCheckerHD_);
+	spriteATransform_.Initialize();
+	uvTransformA_ = {
+		{ 1.0f, 1.0f, 1.0f },
+		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f },
+	};
+	spriteA_->SetUVTransform(uvTransformA_);*/
+
+	//spriteB_ = std::make_unique<Sprite>();
+	//spriteB_->Initialize({ 0.0f, 0.0f }, { 1280.0f, 720.0f });
+	//spriteB_->SetTextureHandle(skyHD_);
+	//spriteBTransform_.Initialize();
+	//uvTransformB_ = {
+	//	{ 1.0f, 1.0f, 1.0f },
+	//	{ 0.0f, 0.0f, 0.0f },
+	//	{ 0.0f, 0.0f, 0.0f },
+	//};
+
+
+	// Planeモデル
+	/*planeModel_ = make_unique<Model>();
+	planeModel_->Initialize(new ModelPlaneState);
+	planeModelTransform_.Initialize();
+	planeModel_->SetTexHandle(uvCheckerHD_);
+	planeModelColor_ = { 1.0f, 1.0f, 1.0f, 1.0f };
+	planeModel_->SetColor(planeModelColor_);*/
 
 
 	// Objモデル
-	objModel_->CreateFromObj("axis");
-	objModelTransform_ = {
-		{1.0f, 1.0f, 1.0f},
-		{0.0f, 0.0f, 0.0f},
-		{0.0f, -2.0f, 10.0f},
-	};
+	/*objModel1_ = make_unique<Model>();
+	objModel1_->CreateFromObj("axis", objModelTransform1_);
+	objModelTransform1_.Initialize();
+	objModel1Color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
+	objModel1_->SetColor(objModel1Color_);*/
+
+	//objModel2_ = make_unique<Model>();
+	//objModel2_->CreateFromObj("plane", objModelTransform2_);
+	//objModelTransform2_.Initialize();
+
+	//objModel3_ = make_unique<Model>();
+	//objModel3_->CreateFromObj("axis", objModelTransform3_);
+	//objModelTransform3_.Initialize();
+
+	// FenceModel
+	fenceObj_ = make_unique<Model>();
+	fenceObj_->CreateFromObj("fence", fenceModelTransform_);
+	fenceModelTransform_.Initialize();
+
+
+	// Particle
+	particle_ = make_unique<Particle>();
+	particle_->Initialize(new ParticlePlane, NumInstance_);
+	for (int i = 0; i < NumInstance_; i++) {
+
+		particlePrope_[i].worldTransform.scale = {1.0f, 1.0f, 1.0f};
+		particlePrope_[i].worldTransform.rotate = { 0.0f, 0.0f, 0.0f };
+		particlePrope_[i].worldTransform.translate = {
+			i * 0.1f,
+			i * 0.1f ,
+			i * 0.1f,
+		};
+		particlePrope_[i].color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		particlePrope_[i].velocity = { 0.0f, 0.0f, 0.0f };
+		particlePrope_[i].uvTransform.scale = { 1.0f, 1.0f, 1.0f };
+		particlePrope_[i].uvTransform.rotate = { 0.0f, 0.0f, 0.0f };
+		particlePrope_[i].uvTransform.translate = { 0.0f, 0.0f, 0.0f };
+
+		particle_->PushBackParticles(particlePrope_[i]);
+	}
 }
 
 
@@ -45,26 +109,150 @@ void EngineManual::Initialize() {
 /// </summary>
 void EngineManual::Update() {
 
-	planeModelTransform_.UpdateMatrix();
-	objModelTransform_.UpdateMatrix();
-	spriteTransform_.UpdateMatrix();
+	AudioUpdate();
+
+	//spriteA_->SetUVTransform(uvTransformA_);
+	//spriteB_->SetUVTransform(uvTransformB_);
+
+	//planeModelTransform_.UpdateMatrix();
+	//objModelTransform1_.UpdateMatrix();
+	//objModelTransform2_.UpdateMatrix();
+	//objModelTransform3_.UpdateMatrix();
+	//spriteATransform_.UpdateMatrix();
+	//spriteBTransform_.UpdateMatrix();
+
+	fenceModelTransform_.UpdateMatrix();
+
+	//planeModel_->SetColor(planeModelColor_);
+	//objModel1_->SetColor(objModel1Color_);
+
+	//particle_->Update();
+
+#ifdef _DEBUG
+
+	ImGui::Begin("EngineManual");
+	/*ImGui::Text("AxisObj");
+	ImGui::DragFloat3("Axis.Scele", &objModelTransform1_.scale.x, 0.01f);
+	ImGui::DragFloat3("Axis.Rotate", &objModelTransform2_.rotate.x, 0.01f);
+	ImGui::DragFloat3("Axis.Transform", &objModelTransform1_.translate.x, 0.01f);
+	ImGui::ColorEdit4("Axis.color", &objModel1Color_.x);*/
+	/*ImGui::Text("SpriteA");
+	ImGui::DragFloat3("spriteAScale", &spriteATransform_.scale.x, 0.1f);
+	ImGui::DragFloat3("spriteARotate", &spriteATransform_.rotate.x, 0.1f);
+	ImGui::DragFloat3("spriteATranslate", &spriteATransform_.translate.x, 0.1f);
+	ImGui::DragFloat2("uvScaleA", &uvTransformA_.scale.x, 0.01f);
+	ImGui::DragFloat("uvRotateA", &uvTransformA_.rotate.z, 0.01f);
+	ImGui::DragFloat2("uvTranslateA", &uvTransformA_.translate.x, 0.01f);*/
+	/*ImGui::Text("SpriteB");
+	ImGui::DragFloat3("spriteBScale", &spriteBTransform_.scale.x, 0.1f);
+	ImGui::DragFloat3("spriteBRotate", &spriteBTransform_.rotate.x, 0.1f);
+	ImGui::DragFloat3("spriteBTranslate", &spriteBTransform_.translate.x, 0.1f);
+	ImGui::DragFloat2("uvScaleB", &uvTransformB_.scale.x, 0.01f);
+	ImGui::DragFloat("uvRotateB", &uvTransformB_.rotate.z, 0.01f);
+	ImGui::DragFloat2("uvTranslateB", &uvTransformB_.translate.x, 0.01f);*/
+	/*ImGui::Text("PlaneModel");
+	ImGui::DragFloat3("PlaneModelScale", &planeModelTransform_.scale.x, 0.1f);
+	ImGui::DragFloat3("PlaneModelRotate", &planeModelTransform_.rotate.x, 0.1f);
+	ImGui::DragFloat3("PlaneModelTranslate", &planeModelTransform_.translate.x, 0.1f);
+	ImGui::DragFloat4("PlaneModelColor", &planeModelColor_.x, 0.01f);
+	ImGui::ColorEdit4("PlaneModelColor", &planeModelColor_.x);*/
+	ImGui::Text("fenceModel");
+	ImGui::DragFloat3("fenceModelScale", &fenceModelTransform_.scale.x, 0.1f);
+	ImGui::DragFloat3("fenceModelRotate", &fenceModelTransform_.rotate.x, 0.1f);
+	ImGui::DragFloat3("fenceModelTranslate", &fenceModelTransform_.translate.x, 0.1f);
+	ImGui::End();
+
+#endif // _DEBUG
+
 }
 
 
 /// <summary>
-/// 描画処理3D
+/// 背景スプライトの描画処理
 /// </summary>
-void EngineManual::Draw3D(ViewProjection view) {
+void EngineManual::BackSpriteDraw(ViewProjection view) {
 
-	planeModel_->Draw(planeModelTransform_, view);
-	objModel_->Draw(objModelTransform_, view);
+	//spriteB_->Draw(skyHD_, spriteBTransform_, view);
+
 }
 
 
 /// <summary>
-/// 描画処理2D
+/// ３Dオブジェクトの描画処理
 /// </summary>
-void EngineManual::Draw2D() {
+void EngineManual::ModelDraw(ViewProjection view) {
 
-	sprite_->Draw(spriteTransform_);
+	//planeModel_->Draw(planeModelTransform_, view);
+	//objModel1_->Draw(objModelTransform1_, view);
+	//objModel2_->Draw(objModelTransform2_, view);
+	//objModel3_->Draw(objModelTransform3_, view);
+	fenceObj_->Draw(fenceModelTransform_, view);
+	particle_->Draw(view);
+}
+
+
+/// <summary>
+/// 前景スプライトの描画処理
+/// </summary>
+void EngineManual::FrontSpriteDraw(ViewProjection view) {
+
+	//spriteA_->Draw(uvCheckerHD_, spriteATransform_, view);
+}
+
+
+/// <summary>
+/// Audioに関する処理まとめたやつ
+/// </summary>
+void EngineManual::AudioUpdate() {
+
+	if (Input::PressKeys(DIK_B)) {
+
+		if (Input::TriggerKey(DIK_1)) {
+			Audio::PlayOnSound(mokugyoHD_, true, 1.0f);
+		}
+
+		if (Input::TriggerKey(DIK_2)) {
+			Audio::PlayOnSound(mokugyoHD_, false, 1.0f);
+		}
+
+		if (Input::TriggerKey(DIK_3)) {
+			Audio::PlayOnSound(kakkoiiHD_, false, 1.0f);
+		}
+	}
+	if (Input::PressKeys(DIK_S)) {
+
+		if (Input::TriggerKey(DIK_1)) {
+			Audio::StopOnSound(mokugyoHD_);
+		}
+
+		if (Input::TriggerKey(DIK_2)) {
+			Audio::StopOnSound(kakkoiiHD_);
+		}
+	}
+
+
+#ifdef _DEBUG
+
+
+	ImGui::Begin("Audio");
+
+	ImGui::Text("mokugyo : B + 1 -> Loop");
+	ImGui::Text("          B + 2 -> nonLoop");
+	if (Audio::IsPlaying(mokugyoHD_)) {
+		ImGui::Text("mokugyo_isPlaying : true");
+	}
+	else {
+		ImGui::Text("mokugyo_isPlaying : false");
+	}
+
+	ImGui::Text("\nkakkoii : B + 3 -> nonLoop");
+	if (Audio::IsPlaying(kakkoiiHD_)) {
+		ImGui::Text("nkakkoii_isPlaying : true");
+	}
+	else {
+		ImGui::Text("nkakkoii_isPlaying : false");
+	}
+	ImGui::End();
+
+#endif // _DEBUG
 }

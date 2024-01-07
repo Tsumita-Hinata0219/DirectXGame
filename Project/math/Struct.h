@@ -16,6 +16,7 @@ using namespace std;
 #include <Matrix4x4.h>
 #include <iostream>
 #include <cstdint>
+#include <WorldTransform.h>
 
 
 
@@ -43,14 +44,6 @@ struct UVTransform {
 	Vector3 translate;
 };
 
-
-// 
-struct TransformationMatrix {
-	Matrix4x4 WVP;
-	Matrix4x4 World;
-};
-
-
 // 球
 struct SphereData {
 	Vector3 center;
@@ -64,6 +57,10 @@ struct Material {
 	int32_t enableLightting;
 };
 struct MaterialSprite {
+	Vector4 color;
+	Matrix4x4 uvTransform;
+};
+struct MaterialParticle {
 	Vector4 color;
 	Matrix4x4 uvTransform;
 };
@@ -90,7 +87,6 @@ struct DirectionalLight {
 };
 
 
-
 // CompileShader
 struct CompileShaders {
 	IDxcBlobEncoding* Source;
@@ -101,59 +97,11 @@ struct CompileShaders {
 };
 
 
-// PSO
-struct PsoProperty {
-	ID3D12PipelineState* graphicsPipelineState = nullptr;
-	ID3D12RootSignature* rootSignature = nullptr;
-	ID3DBlob* signatureBlob = nullptr;
-	ID3DBlob* errorBlob = nullptr;
-};
-
-
-struct SPSO {
-	PsoProperty normal;
-	PsoProperty Sprite;
-	PsoProperty Light;
-};
-
-
-
-// 直線
-struct Line {
-	Vector3 origin; // !< 始点
-	Vector3 diff;   // !< 終点への差分ベクトル
-};
-
-
-// 半直線
-struct Ray {
-	Vector3 origin; // !< 始点
-	Vector3 diff;   // !< 終点への差分ベクトル
-};
-
-
-// 線分
-struct Segment {
-	Vector3 origin; // !< 始点
-	Vector3 diff;   // !< 終点への差分ベクトル
-};
-
-
-// 平面
-struct Plane {
-	Vector3 normal; // !< 法線
-	float distance; // !< 距離
-};
-
-
-// 三角形
-//struct Triangle {
-//	Vector3 vertices[3]; // !< 頂点
-//};
-
-
-// AABB
-struct AABB {
-	Vector3 min; // !< 最少点
-	Vector3 max; // !< 最大点
+// Objデータ
+struct ObjData {
+	uint32_t index;
+	uint32_t textureHD;
+	ComPtr<ID3D12Resource> resource;
+	vector<VertexData> vertices;
+	MaterialData material;
 };

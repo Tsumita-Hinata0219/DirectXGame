@@ -40,7 +40,7 @@ private: // メンバ関数
 	/// <summary>
 	/// コマンドコール処理
 	/// </summary>
-	void CommandCall(uint32_t texture);
+	void CommandCall(uint32_t texture, WorldTransform worldTransform, ViewProjection view);
 
 	/// <summary>
 	/// objのファイルを読み込む
@@ -61,4 +61,5 @@ private: // メンバ関数
 	// ModelData
 	ModelData modelData_{};
 
+	ObjData objData_{};
 };

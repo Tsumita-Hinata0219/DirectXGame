@@ -17,9 +17,10 @@ GraphicPipelineManager* GraphicPipelineManager::GetInstance() {
 /// </summary>
 void GraphicPipelineManager::Initialize() {
 
-	NormalGraphicPipeline::SetNormalPso();
-	SpriteGraphicPipeline::SetSpritePso();
-	LightGraphicPipeline::SetLightPso();
+	NormalGraphicPipeline::SetupNormalPso();
+	SpriteGraphicPipeline::SetupSpritePso();
+	LightGraphicPipeline::SetupLightPso();
+	ParticleGraphicPipeline::SetupParticlePso();
 }
 
 

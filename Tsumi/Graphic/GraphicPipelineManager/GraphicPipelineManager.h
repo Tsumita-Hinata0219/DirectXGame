@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <d3dx12.h>
 #include <dxcapi.h>
@@ -10,6 +10,7 @@
 #include "NormalGraphicPipeline.h"
 #include "SpriteGraphicPipeline.h"
 #include "LightGraphicPipeline.h"
+#include "ParticleGraphicPipeline.h"
 
 
 

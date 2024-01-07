@@ -9,10 +9,12 @@ void ModelObjState::Initialize(Model* pModel) {
 
 	pModel;
 
+	modelData_.material = pModel->GetObjData().material;
+	modelData_.vertices = pModel->GetObjData().vertices;
+
 	// リソースの作成
-	modelData_ = LoadObjFile(pModel, pModel->GetObjeDirectoryPaht());
+	//modelData_ = LoadObjFile(pModel, pModel->GetObjDirectoryPath());
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * modelData_.vertices.size());
-	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(TransformationMatrix));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(Material));
 	resource_.Lighting = CreateResource::CreateBufferResource(sizeof(DirectionalLight));
 	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * modelData_.vertices.size(), resource_.Vertex.Get(), int(modelData_.vertices.size()));
@@ -25,25 +27,18 @@ void ModelObjState::Initialize(Model* pModel) {
 void ModelObjState::Draw(Model* pModel, WorldTransform worldTransform, ViewProjection view) {
 
 	VertexData* vertexData = nullptr;
-	TransformationMatrix* transformaationMatData = nullptr;
 	Material* material = nullptr;
 	DirectionalLight* lightData = nullptr;
 
 
 	// 書き込むためにアドレスを取得
 	resource_.Vertex->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
-	resource_.TransformationMatrix->Map(0, nullptr, reinterpret_cast<void**>(&transformaationMatData));
 	resource_.Material->Map(0, nullptr, reinterpret_cast<void**>(&material));
 	resource_.Lighting->Map(0, nullptr, reinterpret_cast<void**>(&lightData));
 
 
 	// 頂点データをリソースにコピー
 	std::memcpy(vertexData, modelData_.vertices.data(), sizeof(VertexData) * modelData_.vertices.size());
-
-	// WorldViewProjectionMatrixを作る
-	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale, worldTransform.rotate, worldTransform.translate);
-	transformaationMatData->WVP = Multiply(worldMatrixSphere, view.matProjection);
-	transformaationMatData->World = MakeIdentity4x4();
 
 	// マテリアルの情報を書き込む
 	material->color = pModel->GetColor();
@@ -55,14 +50,14 @@ void ModelObjState::Draw(Model* pModel, WorldTransform worldTransform, ViewProje
 
 
 	// コマンドコール
-	CommandCall(pModel->GetUseTexture());
+	CommandCall(pModel->GetObjData().textureHD, worldTransform, view);
 }
 
 
 /// <summary>
 /// コマンドコール処理
 /// </summary>
-void ModelObjState::CommandCall(uint32_t texture) {
+void ModelObjState::CommandCall(uint32_t texture, WorldTransform worldTransform, ViewProjection view) {
 
 	// RootSignatureを設定。
 	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootSignature(LightGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
@@ -80,7 +75,10 @@ void ModelObjState::CommandCall(uint32_t texture) {
 	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(0, resource_.Material->GetGPUVirtualAddress());
 
 	// wvp用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(1, resource_.TransformationMatrix->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(1, worldTransform.constBuffer->GetGPUVirtualAddress());
+
+	// View用のCBufferの場所を設定
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(2, view.constBuffer->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
 	if (!texture == 0) {
@@ -88,7 +86,7 @@ void ModelObjState::CommandCall(uint32_t texture) {
 	}
 
 	// 光用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(3, resource_.Lighting->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(4, resource_.Lighting->GetGPUVirtualAddress());
 
 	// 描画！(DrawCall / ドローコール)。3頂点で1つのインスタンス。インスタンスについては今後
 	DirectXCommon::GetInstance()->GetCommandList()->DrawInstanced(UINT(modelData_.vertices.size()), 1, 0, 0);
@@ -201,7 +199,7 @@ ModelData ModelObjState::LoadObjFile(Model* pModel, const std::string& directory
 		}
 	}
 	// テクスチャを指定されたものにする
-	uint32_t texHandle = TextureManager::LoadTexture(modelData.material.textureFilePath);
+	uint32_t texHandle = TextureManager::LoadTexture(modelData.material.textureFilePath, true);
 	pModel->SetTexHandle(texHandle);
 
 	/* 4. Modeldataを返す */
@@ -258,6 +256,5 @@ MaterialData ModelObjState::LoadMaterialTemplateFile(const std::string& director
 
 	/* 4. MaterialData を返す */
 	return materialData;
-
 }
 

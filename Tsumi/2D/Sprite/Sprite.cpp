@@ -7,16 +7,16 @@
 /// </summary>
 void Sprite::Initialize(Vector2 pos, Vector2 size) {
 
-	// 座標の設定
+	// 初期座標の設定
 	pos_ = pos;
 
-	// 座標の設定
+	// サイズの設定
 	size_ = size;
 
-	// uvTransform 
+	// uvTransformの設定
 	uvTransform_ = {
 		{ 1.0f, 1.0f, 1.0f },
-		{ 0.0f, 0.0f, 0.0f },
+		{ 0.0f, 1.0f, 0.0f },
 		{ 0.0f, 0.0f, 0.0f },
 	};
 
@@ -29,7 +29,6 @@ void Sprite::Initialize(Vector2 pos, Vector2 size) {
 
 	// リソースの作成
 	resource_.Vertex = CreateResource::CreateBufferResource(sizeof(VertexData) * 4);
-	resource_.TransformationMatrix = CreateResource::CreateBufferResource(sizeof(Matrix4x4));
 	resource_.Material = CreateResource::CreateBufferResource(sizeof(MaterialSprite));
 	resource_.VertexBufferView = CreateResource::CreateVertexBufferView(sizeof(VertexData) * 4, resource_.Vertex.Get(), 4);
 
@@ -38,14 +37,13 @@ void Sprite::Initialize(Vector2 pos, Vector2 size) {
 }
 
 
-
 /// <summary>
 /// 描画処理
 /// </summary>
-void Sprite::Draw(WorldTransform& transform) {
+void Sprite::Draw(uint32_t texHandle, WorldTransform& worldTransform, ViewProjection view) {
 
 	// 頂点データを設定する
-	SetVertex(transform);
+	SetVertex(worldTransform);
 
 	// RootSignatureを設定。
 	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootSignature(SpriteGraphicPipeline::GetInstance()->GetPsoProperty().rootSignature);
@@ -59,15 +57,18 @@ void Sprite::Draw(WorldTransform& transform) {
 	// 形状を設定
 	DirectXCommon::GetInstance()->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	// 色用のCBufferの場所を設定
+	// Material用のCBufferの場所を設定
 	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(0, resource_.Material->GetGPUVirtualAddress());
 
 	// wvp用のCBufferの場所を設定
-	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(1, resource_.TransformationMatrix->GetGPUVirtualAddress());
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(1, worldTransform.constBuffer->GetGPUVirtualAddress());
+
+	// View用のCBufferの場所を設定
+	DirectXCommon::GetInstance()->GetCommandList()->SetGraphicsRootConstantBufferView(2, view.constBuffer->GetGPUVirtualAddress());
 
 	// DescriptorTableを設定する
-	if (!useTexture_ == 0) {
-		DescriptorManager::SetGraphicsRootDescriptorTable(3, useTexture_);
+	if (!texHandle == 0) {
+		DescriptorManager::SetGraphicsRootDescriptorTable(3, texHandle);
 	}
 
 	// 描画！(DrawCall/ドローコール)
@@ -79,29 +80,21 @@ void Sprite::Draw(WorldTransform& transform) {
 /// <summary>
 /// 頂点データを設定する
 /// </summary>
-void Sprite::SetVertex(WorldTransform transform) {
+void Sprite::SetVertex(WorldTransform worldTransform) {
 
 	VertexData* vertexData = nullptr;
-	TransformationMatrix* transformaationMatData = nullptr;
 	MaterialSprite* materialData = nullptr;
 	uint32_t* indexData = nullptr;
 
 	// 書き込みができるようにする
 	resource_.Vertex->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));
-	resource_.TransformationMatrix->Map(0, nullptr, reinterpret_cast<void**>(&transformaationMatData));
 	resource_.Material->Map(0, nullptr, reinterpret_cast<void**>(&materialData));
 	resource_.Index->Map(0, nullptr, reinterpret_cast<void**>(&indexData));
 
-
-	// Sprite用のWorldViewProjectonMatrixを作る
-	Matrix4x4 worldMatrix = MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);
-	Matrix4x4 viewMatrix = MakeIdentity4x4();
-	Matrix4x4 projectionMatrix =
-		MakeOrthographicMatrix(0.0f, 0.0f, float(WinApp::GetInstance()->GetClientWidth()), float(WinApp::GetInstance()->GetCliendHeight()), 0.0f, 100.0f);
-	Matrix4x4 worldProjectionMatrix =
-		Multiply(worldMatrix, Multiply(viewMatrix, projectionMatrix));
-	transformaationMatData->WVP = worldProjectionMatrix;
-
+	pos_ = {
+		.x = worldTansform_.translate.x,
+		.y = worldTansform_.translate.y,
+	};
 
 	// 左下
 	vertexData[0].position = { pos_.x, pos_.y + size_.y, 0.0f, 1.0f };

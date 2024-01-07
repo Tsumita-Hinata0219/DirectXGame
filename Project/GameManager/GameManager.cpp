@@ -28,7 +28,7 @@ GameManager::~GameManager() {
 /// </summary>
 void GameManager::Run() {
 
-	while (WinApp::ProcessMessage() == 0) {
+	while (Tsumi::ProcessMessage() == 0) {
 
 		Tsumi::BeginFlame();
 
