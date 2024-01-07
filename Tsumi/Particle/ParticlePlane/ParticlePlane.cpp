@@ -19,8 +19,8 @@ void ParticlePlane::Initialize(Particle* pParticle) {
 	resource_.Index = CreateResource::CreateBufferResource(sizeof(uint32_t) * 6);
 	resource_.IndexBufferView = CreateResource::CreateIndexBufferview(sizeof(uint32_t) * 6, resource_.Index.Get());
 
-	resource_.instancing = CreateResource::CreateBufferResource(sizeof(ParticleTransformMatrix) * NumInstance_);
-	dsvIndex_ = DescriptorManager::CreateInstancingSRV(NumInstance_, resource_.instancing, sizeof(ParticleTransformMatrix));
+	resource_.instancing = CreateResource::CreateBufferResource(sizeof(ParticleTransformationMatrix) * NumInstance_);
+	dsvIndex_ = DescriptorManager::CreateInstancingSRV(NumInstance_, resource_.instancing, sizeof(ParticleTransformationMatrix));
 }
 
 
@@ -33,7 +33,7 @@ void ParticlePlane::Draw(Particle* pParticle, list<ParticleProperties> prope, Vi
 	VertexData* vertexData = nullptr;
 	MaterialParticle* materialData = nullptr;
 	uint32_t* indexData = nullptr;
-	ParticleTransformMatrix* instancingData = nullptr;
+	ParticleTransformationMatrix* instancingData = nullptr;
 
 	// 書き込みができるようにする
 	resource_.Vertex->Map(0, nullptr, reinterpret_cast<void**>(&vertexData));

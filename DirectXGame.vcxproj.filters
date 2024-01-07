@@ -158,6 +158,18 @@
     <Filter Include="Tsumi\3D\Model\ModelPlane">
       <UniqueIdentifier>{56a52767-94a9-4da5-ad27-5118ab8d8c98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tsumi\Graphic\GraphicPipelineManager\Light">
+      <UniqueIdentifier>{82bd8b4a-4aa1-49e3-89ff-ad75113bb390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Graphic\GraphicPipelineManager\Normal">
+      <UniqueIdentifier>{eee5e0c4-7c8d-4275-9872-16ce799af843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Graphic\GraphicPipelineManager\Particle">
+      <UniqueIdentifier>{4f8bff12-a776-4cb6-bdc8-a21735c8cabf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tsumi\Graphic\GraphicPipelineManager\Sprite">
+      <UniqueIdentifier>{29110776-b866-4729-bb8d-20c89b34cfbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -210,15 +222,6 @@
       <Filter>Tsumi\Base\WinApp</Filter>
     </ClCompile>
     <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineManager.cpp">
-      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\LightGraphicPipeline.cpp">
-      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\NormalGraphicPipeline.cpp">
-      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\SpriteGraphicPipeline.cpp">
       <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
     </ClCompile>
     <ClCompile Include="Tsumi\Graphic\ShaderManager\ShaderManager.cpp">
@@ -281,9 +284,6 @@
     <ClCompile Include="Tsumi\2D\Sprite\state\SpriteBoxState\SpriteBoxState.cpp">
       <Filter>Tsumi\2D\state\SpriteBoxState</Filter>
     </ClCompile>
-    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\ParticleGraphicPipeline.cpp">
-      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
-    </ClCompile>
     <ClCompile Include="Tsumi\Particle\Particle.cpp">
       <Filter>Tsumi\Particle</Filter>
     </ClCompile>
@@ -295,6 +295,18 @@
     </ClCompile>
     <ClCompile Include="Tsumi\Particle\ParticlePlane\ParticlePlane.cpp">
       <Filter>Tsumi\Particle\ParticlePlane</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Light\LightGraphicPipeline.cpp">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Sprite\SpriteGraphicPipeline.cpp">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Particle\ParticleGraphicPipeline.cpp">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Normal\NormalGraphicPipeline.cpp">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager\Normal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -371,15 +383,6 @@
       <Filter>Tsumi\Base\WinApp</Filter>
     </ClInclude>
     <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineManager.h">
-      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\LightGraphicPipeline.h">
-      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\NormalGraphicPipeline.h">
-      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\SpriteGraphicPipeline.h">
       <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
     </ClInclude>
     <ClInclude Include="Tsumi\Graphic\ShaderManager\ShaderManager.h">
@@ -463,9 +466,6 @@
     <ClInclude Include="Tsumi\2D\Sprite\state\SpriteBoxState\SpriteBoxState.h">
       <Filter>Tsumi\2D\state\SpriteBoxState</Filter>
     </ClInclude>
-    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\ParticleGraphicPipeline.h">
-      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
-    </ClInclude>
     <ClInclude Include="Tsumi\Particle\Particle.h">
       <Filter>Tsumi\Particle</Filter>
     </ClInclude>
@@ -483,6 +483,21 @@
     </ClInclude>
     <ClInclude Include="Project\GameObject\GameObject.h">
       <Filter>Project\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\GraphicPipelineStructure.h">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Light\LightGraphicPipeline.h">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Sprite\SpriteGraphicPipeline.h">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Particle\ParticleGraphicPipeline.h">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Normal\NormalGraphicPipeline.h">
+      <Filter>Tsumi\Graphic\GraphicPipelineManager\Normal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

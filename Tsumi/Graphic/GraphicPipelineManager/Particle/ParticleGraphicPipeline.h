@@ -8,17 +8,18 @@
 #include "Struct.h"
 #include "DirectXCommon.h"
 #include "ShaderManager.h"
+#include "GraphicPipelineStructure.h"
 
 
 
-class SpriteGraphicPipeline {
+class ParticleGraphicPipeline {
 
 public: // メンバ関数
 
 	/// <summary>
-	/// SpriteGraphicPipelineクラスのインスタンス取得
+	/// ParticleGraphicPipelineクラスのインスタンス取得
 	/// </summary>
-	static SpriteGraphicPipeline* GetInstance();
+	static ParticleGraphicPipeline* GetInstance();
 
 	/// <summary>
 	/// 初期化処理
@@ -28,15 +29,15 @@ public: // メンバ関数
 	/// <summary>
 	/// PSOを構築する
 	/// </summary>
-	static void SetupSpritePso();
+	static void SetupParticlePso();
 
 	/// <summary>
-	/// SpritePSOの取得
+	/// ParticlePsoの取得
 	/// </summary>
-	static PsoProperty GetPsoProperty() { return SpriteGraphicPipeline::GetInstance()->spritePso_; }
+	static PsoProperty GetPsoProperty() { return ParticleGraphicPipeline::GetInstance()->particlePso_; }
 
 
-private:
+private: // メンバ関数
 
 	/// <summary>
 	/// RootSignatureのセットアップ
@@ -67,5 +68,6 @@ private:
 
 private: // メンバ変数
 
-	PsoProperty spritePso_;
+	PsoProperty particlePso_{};
+
 };

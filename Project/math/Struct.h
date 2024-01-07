@@ -45,30 +45,6 @@ struct UVTransform {
 };
 
 
-// 
-struct TransformationMatrix {
-	Matrix4x4 WVP;
-	Matrix4x4 World;
-};
-
-
-// 
-struct TransformationViewMatrix {
-	Matrix4x4 view;
-	Matrix4x4 viewProjection;
-	Matrix4x4 orthoGraphic;
-	Vector3 position;
-};
-
-
-// 
-struct ParticleTransformMatrix {
-	Matrix4x4 WVP;
-	Matrix4x4 World;
-	Vector4 Color;
-	Matrix4x4 uvTansform;
-};
-
 
 // 球
 struct SphereData {
@@ -113,7 +89,6 @@ struct DirectionalLight {
 };
 
 
-
 // CompileShader
 struct CompileShaders {
 	IDxcBlobEncoding* Source;
@@ -124,22 +99,6 @@ struct CompileShaders {
 };
 
 
-// PSO
-struct PsoProperty {
-	ID3D12PipelineState* graphicsPipelineState = nullptr;
-	ID3D12RootSignature* rootSignature = nullptr;
-	ID3DBlob* signatureBlob = nullptr;
-	ID3DBlob* errorBlob = nullptr;
-};
-
-
-struct SPSO {
-	PsoProperty normal;
-	PsoProperty Sprite;
-	PsoProperty Light;
-};
-
-
 // Objデータ
 struct ObjData {
 	uint32_t index;
@@ -147,14 +106,4 @@ struct ObjData {
 	ComPtr<ID3D12Resource> resource;
 	vector<VertexData> vertices;
 	MaterialData material;
-};
-
-
-enum  BlendMode
-{
-	BlendNone,
-	BlendAdd,
-	BlendSubtruct,
-	BlendMultiply,
-	BlendScreen,
 };

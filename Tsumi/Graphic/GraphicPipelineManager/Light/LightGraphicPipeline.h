@@ -8,6 +8,8 @@
 #include "Struct.h"
 #include "DirectXCommon.h"
 #include "ShaderManager.h"
+#include "GraphicPipelineStructure.h"
+
 
 
 

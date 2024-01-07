@@ -4,6 +4,7 @@
 #include "CreateResource.h"
 
 
+
 /// <summary>
 /// ワールド変換データ
 /// </summary>
@@ -25,7 +26,8 @@ struct WorldTransform {
 	// 定数バッファー
 	ComPtr<ID3D12Resource> constBuffer = nullptr;
 
-	// マッピング済みアドレス?
+	// マッピング済みアドレス
+	//TransformationMatrix *constMap = nullptr;
 	TransformationMatrix* constMap = nullptr;
 
 
