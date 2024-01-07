@@ -3,15 +3,11 @@
 #include "Struct.h"
 
 
-
-// 
 struct TransformationMatrix {
 	Matrix4x4 WVP;
 	Matrix4x4 World;
 };
 
-
-// 
 struct TransformationViewMatrix {
 	Matrix4x4 view;
 	Matrix4x4 viewProjection;
@@ -19,8 +15,6 @@ struct TransformationViewMatrix {
 	Vector3 position;
 };
 
-
-// 
 struct ParticleTransformationMatrix {
 	Matrix4x4 WVP;
 	Matrix4x4 World;
@@ -28,6 +22,25 @@ struct ParticleTransformationMatrix {
 	Matrix4x4 uvTansform;
 };
 
+
+struct ResourcePeroperty {
+	// 頂点バッファビュー
+	D3D12_VERTEX_BUFFER_VIEW VertexBufferView;
+	// 頂点バッファビュー
+	D3D12_INDEX_BUFFER_VIEW IndexBufferView;
+	// 頂点リソース用のヒープ設定
+	ComPtr<ID3D12Resource> Vertex;
+	// 
+	ComPtr<ID3D12Resource> Index;
+	// 
+	ComPtr<ID3D12Resource> TransformationMatrix;
+	// 
+	ComPtr<ID3D12Resource> Material;
+	// 
+	ComPtr<ID3D12Resource> Lighting;
+	// 
+	ComPtr<ID3D12Resource> instancing;
+};
 
 
 class CreateResource {
@@ -56,22 +69,3 @@ private:
 
 };
 
-
-struct ResourcePeroperty {
-	// 頂点バッファビュー
-	D3D12_VERTEX_BUFFER_VIEW VertexBufferView;
-	// 頂点バッファビュー
-	D3D12_INDEX_BUFFER_VIEW IndexBufferView;
-	// 頂点リソース用のヒープ設定
-	ComPtr<ID3D12Resource> Vertex;
-	// 
-	ComPtr<ID3D12Resource> Index;
-	// 
-	ComPtr<ID3D12Resource> TransformationMatrix;
-	// 
-	ComPtr<ID3D12Resource> Material;
-	// 
-	ComPtr<ID3D12Resource> Lighting;
-	// 
-	ComPtr<ID3D12Resource> instancing;
-};

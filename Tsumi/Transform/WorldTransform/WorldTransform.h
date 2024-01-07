@@ -12,7 +12,7 @@ struct WorldTransform {
 
 	// ローカルスケール
 	Vector3 scale = { 1.0f, 1.0f, 1.0f };
-	// X,Y,Z軸回りのローカル回転軸
+	// ローカル回転軸
 	Vector3 rotate = { 0.0f, 0.0f, 0.0f };
 	// ローカル座標
 	Vector3 translate = { 0.0f, 0.0f, 0.0f };
@@ -27,8 +27,7 @@ struct WorldTransform {
 	ComPtr<ID3D12Resource> constBuffer = nullptr;
 
 	// マッピング済みアドレス
-	//TransformationMatrix *constMap = nullptr;
-	TransformationMatrix* constMap = nullptr;
+	TransformationMatrix* constMap;
 
 
 	/// <summary>

@@ -44,8 +44,6 @@ struct UVTransform {
 	Vector3 translate;
 };
 
-
-
 // 球
 struct SphereData {
 	Vector3 center;
