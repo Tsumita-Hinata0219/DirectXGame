@@ -1,7 +1,8 @@
-﻿#pragma once
+#pragma once
 
 #include "IScene.h"
 #include "GameManager.h"
+#include "GameObject.h"
 
 
 class GameScene : public IScene {
@@ -16,7 +17,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~GameScene() {};
+	~GameScene();
 
 	/// <summary>
 	/// 初期化処理
@@ -46,6 +47,7 @@ public:
 
 private:
 
+	ViewProjection viewProjection_{};
 
 };
 

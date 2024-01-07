@@ -173,6 +173,24 @@
     <Filter Include="Project\GameObject\Camera">
       <UniqueIdentifier>{24509859-5a3f-4020-9443-ada0186ed22f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project\Scene\SceneState\TitleScene">
+      <UniqueIdentifier>{c7c64c0a-6d00-4cd3-a4c5-992130cbb052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\SceneState\GameClearScene">
+      <UniqueIdentifier>{59c7162a-aeb2-4397-890b-0e20e0fa3fb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Scene\SceneState\GameOverScene">
+      <UniqueIdentifier>{b0da63b2-2cc0-4b9d-bc2f-8c92369cbcdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\GameObject\Player">
+      <UniqueIdentifier>{71bb6e3b-c455-4ebf-a295-83ea5971fe26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\GameObject\EnemyManager">
+      <UniqueIdentifier>{b3efb917-45cc-493b-bd8c-48a3ec69f5c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\GameObject\EnemyManager\Enemy">
+      <UniqueIdentifier>{49cf1ee7-0d96-4a5a-9efe-b44a64b8bfba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -311,6 +329,10 @@
     <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Normal\NormalGraphicPipeline.cpp">
       <Filter>Tsumi\Graphic\GraphicPipelineManager\Normal</Filter>
     </ClCompile>
+    <ClCompile Include="Project\GameObject\Player\Player.cpp">
+      <Filter>Project\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\EnemyManager\EnemyManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -502,6 +524,10 @@
     <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Normal\NormalGraphicPipeline.h">
       <Filter>Tsumi\Graphic\GraphicPipelineManager\Normal</Filter>
     </ClInclude>
+    <ClInclude Include="Project\GameObject\Player\Player.h">
+      <Filter>Project\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\EnemyManager\EnemyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpriteObject3d.PS.hlsl">

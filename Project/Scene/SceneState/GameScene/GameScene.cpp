@@ -3,11 +3,21 @@
 
 
 /// <summary>
+/// デストラクタ
+/// </summary>
+GameScene::~GameScene() {
+
+
+}
+
+
+
+/// <summary>
 /// 初期化処理
 /// </summary>
 void GameScene::Initialize() {
 
-
+	viewProjection_.Initialize();
 
 }
 
@@ -18,6 +28,22 @@ void GameScene::Initialize() {
 void GameScene::Update(GameManager* state) {
 
 
+	viewProjection_.UpdateMatrix();
+
+
+
+
+#ifdef _DEBUG
+
+	ImGui::Begin("GameScene");
+	ImGui::End();
+
+	ImGui::Begin("Camera");
+	ImGui::DragFloat3("Rotate", &viewProjection_.rotate.x, 0.005f);
+	ImGui::DragFloat3("Translate", &viewProjection_.translate.x, 1.0f);
+	ImGui::End();
+
+#endif // _DEBUG
 }
 
 
