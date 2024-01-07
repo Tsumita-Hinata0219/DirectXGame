@@ -1,9 +1,19 @@
 #pragma once
 #include "Function.h"
-#include "Struct.h"
 #include "CreateResource.h"
 
+#include <vector>
+#include <Vector2.h>
+#include <Vector3.h>
+#include <Vector4.h>
+#include <Matrix4x4.h>
 
+
+
+struct TransformationMatrix {
+	Matrix4x4 WVP;
+	Matrix4x4 World;
+};
 
 /// <summary>
 /// ワールド変換データ
@@ -26,9 +36,9 @@ struct WorldTransform {
 	// 定数バッファー
 	ComPtr<ID3D12Resource> constBuffer = nullptr;
 
-	// マッピング済みアドレス
-	TransformationMatrix* constMap;
-
+	//// マッピング済みアドレス
+	//TransformationMatrix* constMap;
+	TransformationMatrix* buffMap;
 
 	/// <summary>
 	/// 初期化処理

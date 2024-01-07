@@ -2,11 +2,11 @@
 #include "DirectXCommon.h"
 #include "Struct.h"
 
-
-struct TransformationMatrix {
-	Matrix4x4 WVP;
-	Matrix4x4 World;
-};
+//
+//struct TransformationMatrix {
+//	Matrix4x4 WVP;
+//	Matrix4x4 World;
+//};
 
 struct TransformationViewMatrix {
 	Matrix4x4 view;
