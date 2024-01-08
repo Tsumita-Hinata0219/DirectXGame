@@ -19,7 +19,7 @@ void Player::Initialize() {
 
 	// 移動
 	move_ = { 0.0f, 0.0f, 0.0f };
-	moveSpeed_ = 1.0f;
+	moveSpeed_ = 0.5f;
 
 	// BulletModel
 	bulletModel_ = make_unique<Model>();
@@ -32,13 +32,16 @@ void Player::Initialize() {
 /// </summary>
 void Player::Update() {
 
-	worldTrans_.UpdateMatrix();
+	worldTrans_.rotate.z += 0.04f;
 
 	// 入力処理
 	JoyStateCommand();
 
 	// 移動処理
 	Move();
+
+
+	worldTrans_.UpdateMatrix();
 
 #ifdef _DEBUG
 

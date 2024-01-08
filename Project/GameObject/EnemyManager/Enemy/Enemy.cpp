@@ -1,18 +1,24 @@
 #include "Enemy.h"
-
+#include "GameManager.h"
 
 
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Enemy::Init(Model& model, Vector3 position, Vector3 velocity) {
+void Enemy::Init(Model& model, Model& modelBullet, Vector3 position, Vector3 velocity) {
 
 	modle_ = make_unique<Model>();
 	(*modle_) = model;	
+	modleBullet_ = make_unique<Model>();
+	(*modleBullet_) = modelBullet;
 
 	worldTrans_.Initialize();
+	worldTrans_.scale = { 2.0f, 2.0f, 2.0f };
 	worldTrans_.translate = position;
 	velocity_ = velocity;
+	bulletVel_ = { 0.0f, 0.0f, kBulletSpeed_ };
+	bullet_.FireInterval = 80;
+	bullet_.FireTimer = int32_t(RandomGenerator::getRandom({ 5.0f, 300.0f }));
 
 	phaseState_ = new IEnemyApproachState();
 }
@@ -66,4 +72,59 @@ void Enemy::AddTransform(const Vector3& velocity) {
 void Enemy::SubtractTransform(const Vector3& velocity) {
 
 	worldTrans_.translate = Subtract(worldTrans_.translate, velocity);
+}
+
+
+/// <summary>
+/// 攻撃処理
+/// </summary>
+void Enemy::Attack() {
+
+	bullet_.FireTimer--;
+
+	if (bullet_.FireTimer <= 0) {
+
+		FirePreparation();
+		FireBullet();
+		bullet_.FireTimer = bullet_.FireInterval;
+	}
+}
+
+
+/// <summary>
+/// 射撃準備処理
+/// </summary>
+void Enemy::FirePreparation() {
+
+	assert(player_);
+
+	Vector3 plaWorldPos = player_->GetWorldTransform().GetWorldPos();
+	Vector3 eneWorldPos = worldTrans_.GetWorldPos();
+
+	Vector3 toPlayer = Subtract(plaWorldPos, eneWorldPos);
+	toPlayer = Normalize(toPlayer);
+
+	bulletVel_ = {
+		toPlayer.x * kBulletSpeed_,
+		toPlayer.y * kBulletSpeed_,
+		toPlayer.z * kBulletSpeed_,
+	};
+	
+	bulletVel_ = TransformNormal(bulletVel_, worldTrans_.matWorld);
+}
+
+
+/// <summary>
+/// 弾の射撃処理
+/// </summary>
+void Enemy::FireBullet() {
+
+	EnemyBullet* newBullet = new EnemyBullet();
+	Vector3 newPos = worldTrans_.translate;
+	Vector3 newVal = bulletVel_;
+
+	
+	newBullet->Init((*modleBullet_), newPos, newVal);
+
+	gameScene_->AddEnemyBulletList(newBullet);
 }

@@ -6,6 +6,8 @@
 
 // GameSceneの前方宣言
 class GameScene;
+// Playerの前方宣言
+class Player;
 
 /* EnemyManager */
 class EnemyManager {
@@ -50,6 +52,11 @@ public:
 	/// </summary>
 	void SetGameScene(GameScene* scene) { gameScene_ = scene; }
 
+	/// <summary>
+	/// Playerの設定
+	/// </summary>
+	void SetPlayer(Player* player) { player_ = player; }
+
 #pragma endregion
 
 
@@ -69,11 +76,13 @@ private:
 private:
 
 	GameScene* gameScene_ = nullptr;
+	Player* player_ = nullptr;
 
 	WorldTransform worldTrans_{};
 
 
 	std::unique_ptr<Model> enemyModel_ = nullptr;
+	std::unique_ptr<Model> enemyBulletModel_ = nullptr;
 	Vector3 velocity_{};
 
 	Vector2 scopeX_;

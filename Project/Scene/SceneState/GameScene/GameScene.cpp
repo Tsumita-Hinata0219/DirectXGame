@@ -16,6 +16,9 @@ GameScene::~GameScene() {
 	for (Enemy* enemy : enemys_) {
 		delete enemy;
 	}
+	for (EnemyBullet* eneBul : enemyBullets_) {
+		delete eneBul;
+	}
 }
 
 
@@ -38,6 +41,7 @@ void GameScene::Initialize() {
 	/* ----- Enemy エネミー ----- */
 	enemyManager_ = make_unique<EnemyManager>();
 	enemyManager_->SetGameScene(this);
+	enemyManager_->SetPlayer(player_.get());
 	enemyManager_->Initialize();
 }
 
@@ -98,6 +102,9 @@ void GameScene::ModelDraw() {
 	for (Enemy* enemy : enemys_) {
 		enemy->Draw(viewProjection_);
 	}
+	for (EnemyBullet* eneBul : enemyBullets_) {
+		eneBul->Draw(viewProjection_);
+	}
 
 }
 
@@ -151,5 +158,10 @@ void GameScene::EnemyUpdate() {
 	// エネミーの更新処理
 	for (Enemy* enemy : enemys_) {
 		enemy->Update();
+	}
+
+	// エネミーバレットの更新処理
+	for (EnemyBullet* eneBul : enemyBullets_) {
+		eneBul->Update();
 	}
 }

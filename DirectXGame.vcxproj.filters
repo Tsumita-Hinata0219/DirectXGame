@@ -206,6 +206,9 @@
     <Filter Include="Project\GameObject\EnemyManager\PhaseState\Leave">
       <UniqueIdentifier>{b572e872-c57d-4a09-a3bd-7a9e9769666a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project\GameObject\EnemyManager\Enemy\EnemyBullet">
+      <UniqueIdentifier>{3e4ff3ef-26c4-4718-b20c-3742b3b1c9c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -361,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="Project\GameObject\EnemyManager\PhaseState\Leave\IEnemyLeaveState.cpp">
       <Filter>Project\GameObject\EnemyManager\PhaseState\Leave</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\EnemyManager\Enemy\EnemyBullet\EnemyBullet.cpp">
+      <Filter>Project\GameObject\EnemyManager\Enemy\EnemyBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -576,6 +582,9 @@
     </ClInclude>
     <ClInclude Include="Project\GameObject\EnemyManager\PhaseState\IEnemyPhaseState.h">
       <Filter>Project\GameObject\EnemyManager\PhaseState</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\EnemyManager\Enemy\EnemyBullet\EnemyBullet.h">
+      <Filter>Project\GameObject\EnemyManager\Enemy\EnemyBullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

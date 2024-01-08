@@ -59,6 +59,11 @@ public:
 	/// </summary>
 	void AddEnemyList(Enemy* enemy) { enemys_.push_back(enemy); }
 
+	/// <summary>
+	/// エネミーバレットを追加する
+	/// </summary>
+	void AddEnemyBulletList(EnemyBullet* enemyBullet) { enemyBullets_.push_back(enemyBullet); }
+
 
 private:
 
@@ -86,5 +91,6 @@ private:
 	/* ----- Enemy エネミー ----- */
 	unique_ptr<EnemyManager> enemyManager_ = {};
 	std::list<Enemy*> enemys_{};
+	std::list<EnemyBullet*> enemyBullets_{};
 };
 

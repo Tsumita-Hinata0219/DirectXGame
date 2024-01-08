@@ -40,6 +40,11 @@ public:
 
 #pragma region Get
 
+	/// <summary>
+	/// WorldTransformの取得
+	/// </summary>
+	WorldTransform GetWorldTransform() { return worldTrans_; }
+
 #pragma endregion
 
 

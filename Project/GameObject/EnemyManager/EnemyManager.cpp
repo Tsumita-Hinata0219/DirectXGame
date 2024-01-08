@@ -1,5 +1,6 @@
 #include "EnemyManager.h"
 #include "GameManager.h"
+#include "Player/Player.h"
 
 
 /// <summary>
@@ -32,6 +33,9 @@ void EnemyManager::Initialize() {
 
 	enemyModel_ = make_unique<Model>();
 	enemyModel_->CreateFromObj("Enemy");
+
+	enemyBulletModel_ = make_unique<Model>();
+	enemyBulletModel_->CreateFromObj("EnemyBullet");
 
 	for (int i = 0; i < initEnemysCount_; i++) {
 
@@ -103,7 +107,9 @@ void EnemyManager::PushBackEnemy() {
 	Vector3 newPos = Add(worldTrans_.GetWorldPos(), RandomGenerator::getRandom(scopeX_, scopeY_, scopeZ_));
 	Vector3 newVel = velocity_;
 
-	newEnemy->Init((*enemyModel_), newPos, newVel);
+	newEnemy->SetGameScene(gameScene_);
+	newEnemy->SetPlayer(player_);
+	newEnemy->Init((*enemyModel_), (*enemyBulletModel_), newPos, newVel);
 	
 	gameScene_->AddEnemyList(newEnemy);
 }
