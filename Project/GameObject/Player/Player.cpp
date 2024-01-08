@@ -15,6 +15,10 @@ void Player::Initialize() {
 	objModel_ = make_unique<Model>();
 	objModel_->CreateFromObj("Player", worldTrans_);
 	worldTrans_.Initialize();
+
+	// 移動
+	move_ = { 0.0f, 0.0f, 0.0f };
+	moveSpeed_ = 1.0f;
 }
 
 
@@ -37,6 +41,7 @@ void Player::Update() {
 	ImGui::DragFloat3("Scale", &worldTrans_.scale.x, 0.01f, 0.0f, 10.0f);
 	ImGui::DragFloat3("Rotate", &worldTrans_.rotate.x, 0.01f, -100.0f, 100.0f);
 	ImGui::DragFloat3("Translate", &worldTrans_.translate.x, 0.01f);
+	ImGui::DragFloat3("move", &move_.x, 0.01f);
 	ImGui::End();
 
 #endif // _DEBUG
@@ -59,9 +64,9 @@ void Player::Draw(ViewProjection view) {
 void Player::JoyStateCommand() {
 
 	// ゲームパッドを見接続なら何もせず抜ける
-	if (!Input::GetJoyStickState(joyState_)) {
+	/*if (!Input::GetJoyStickState(joyState_)) {
 		return;
-	}
+	}*/
 
 
 	if (Input::IsButtonPress(joyState_, XINPUT_GAMEPAD_Y)) {
@@ -74,14 +79,28 @@ void Player::JoyStateCommand() {
 	}
 
 
-	if (Input::GetJoyStickState(joyState_)) {
+	/*if (Input::GetJoyStickState(joyState_)) {
 		move_.x += (float)joyState_.Gamepad.sThumbLX / SHRT_MAX * moveSpeed_;
 		move_.y += (float)joyState_.Gamepad.sThumbLY / SHRT_MAX * moveSpeed_;
 	}
 	else {
 		move_ = { 0.0f, 0.0f, 0.0f };
-	}
+	}*/
 
+	move_ = zeroVector3;
+	if (Input::PressKeys(DIK_W)) {
+		move_.y = moveSpeed_;
+	}
+	if (Input::PressKeys(DIK_A)) {
+		move_.x = (-moveSpeed_);
+	}
+	if (Input::PressKeys(DIK_S)) {
+		move_.y = (-moveSpeed_);
+	}
+	if (Input::PressKeys(DIK_D)) {
+		move_.x = moveSpeed_;
+	}
+	
 }
 
 

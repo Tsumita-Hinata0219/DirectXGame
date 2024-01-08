@@ -19,7 +19,7 @@ void GameScene::Initialize() {
 
 	viewProjection_.Initialize();
 	viewProjection_.rotate = { 0.45f, 0.0f, 0.0f };
-	viewProjection_.translate = { 0.0f, 11.0f, -15.0f };
+	viewProjection_.translate = { 0.0f, 17.0f, -38.0f };
 
 	
 	/* ----- プレイヤー Player ----- */
