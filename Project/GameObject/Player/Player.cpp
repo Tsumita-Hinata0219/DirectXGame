@@ -138,9 +138,10 @@ void Player::PushBackBullet() {
 
 	PlayerBullet* newBullet = new PlayerBullet();
 	Vector3 newPos = worldTrans_.translate;
-	Vector3 newVel = { 1.0f, 1.0f, 1.0f };
+	//Vector3 newVel = { 0.0f, 0.0f, 1.0f };
+	Vector3 newVel = TransformNormal({ 0.0f, 0.0f, kBulletSpeed_ }, worldTrans_.matWorld);
 
-	newBullet->Init((*bulletModel_), newPos, newPos);
+	newBullet->Init((*bulletModel_), newPos, newVel);
 	newBullet->SetPlayer(this);
 
 	gameScene_->AddPlayerBullet(newBullet);

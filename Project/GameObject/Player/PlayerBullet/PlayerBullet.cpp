@@ -28,6 +28,9 @@ void PlayerBullet::Update() {
 
 	// ぐるぐる回してみる
 	worldTrans_.rotate.z += rotateVelocity_;
+	
+	// 前方に進める
+	worldTrans_.translate = Add(worldTrans_.translate, velocity_);
 
 	// 寿命の処理
 	UpdateLifeStatus();

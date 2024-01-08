@@ -82,13 +82,14 @@ private:
 
 	// PlayerBulelt
 	std::unique_ptr<Model> bulletModel_ = nullptr;
+	const float kBulletSpeed_ = 1.5f;
 
 	// 移動
 	Vector3 move_{};
 	float moveSpeed_;
 
 	// 移動限界座標
-	const float kMoveLimitX = 13.0f;
+	const float kMoveLimitX = 19.0f;
 	const float kMoveLimitY = 9.0f;
 
 

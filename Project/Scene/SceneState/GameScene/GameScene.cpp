@@ -21,8 +21,8 @@ GameScene::~GameScene() {
 void GameScene::Initialize() {
 
 	viewProjection_.Initialize();
-	viewProjection_.rotate = { 0.45f, 0.0f, 0.0f };
-	viewProjection_.translate = { 0.0f, 19.0f, -38.0f };
+	viewProjection_.rotate = { 0.33f, 0.0f, 0.0f };
+	viewProjection_.translate = { 0.0f, 19.0f, -50.0f };
 
 	
 	/* ----- プレイヤー Player ----- */
@@ -50,10 +50,9 @@ void GameScene::Update(GameManager* state) {
 #ifdef _DEBUG
 
 	ImGui::Begin("GameScene");
-	ImGui::End();
-	ImGui::Begin("Camera");
-	ImGui::DragFloat3("Rotate", &viewProjection_.rotate.x, 0.005f);
-	ImGui::DragFloat3("Translate", &viewProjection_.translate.x, 0.01f);
+	ImGui::Text("Camera");
+	ImGui::DragFloat3("CameraRotate", &viewProjection_.rotate.x, 0.005f);
+	ImGui::DragFloat3("CameraTranslate", &viewProjection_.translate.x, 0.01f);
 	ImGui::End();
 
 #endif // _DEBUG
