@@ -5,20 +5,15 @@
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Enemy::Init(Vector3 position, Vector3 move) {
+void Enemy::Init(Model& model, Vector3 position, Vector3 velocity) {
 
-	object_ = make_unique<Model>();
-	object_->CreateFromObj("Enemy");
+	modle_ = make_unique<Model>();
+	(*modle_) = model;	
 
-	worldTransform_.Initialize();
-	worldTransform_.translate = position;
-
-	move_ = move;
-
-	isMoveStart_ = true;
-	isMoveFinish_ = false;
+	worldTrans_.Initialize();
+	worldTrans_.translate = position;
+	velocity_ = velocity;
 }
-
 
 
 /// <summary>
@@ -26,14 +21,11 @@ void Enemy::Init(Vector3 position, Vector3 move) {
 /// </summary>
 void Enemy::Update() {
 
-	worldTransform_.UpdateMatrix();
-	//MoveToSpecificPos();
+	// 後方に進める
+	worldTrans_.translate = Add(worldTrans_.translate, velocity_);
 
 
-	//if (Input::PushKeyPressed(DIK_1)) {
-	//	isMoveStart_ = true;
-	//	isMoveFinish_ = false;
-	//}
+	worldTrans_.UpdateMatrix();
 
 
 #ifdef _DEBUG
@@ -44,47 +36,12 @@ void Enemy::Update() {
 }
 
 
-
 /// <summary>
 /// 描画処理
 /// </summary>
 void Enemy::Draw(ViewProjection view) {
 
-	object_->Draw(worldTransform_, view);
+	modle_->Draw(worldTrans_, view);
 }
 
 
-
-/// <summary>
-/// 移動処理
-/// </summary>
-void Enemy::MoveToSpecificPos() {
-
-	if (isMoveStart_) {
-
-		Vector3 toSpecificPosition = {
-			.x = specificPosition_.x - worldTransform_.translate.x,
-			.y = specificPosition_.y - worldTransform_.translate.y,
-			.z = specificPosition_.z - worldTransform_.translate.z,
-		};
-
-		float distance = sqrt(
-			(toSpecificPosition.x * toSpecificPosition.x) +
-			(toSpecificPosition.y * toSpecificPosition.y) +
-			(toSpecificPosition.z * toSpecificPosition.z));
-
-		vel_ = {
-		.x = toSpecificPosition.x / distance * move_.x,
-		.y = toSpecificPosition.y / distance * move_.y,
-		.z = toSpecificPosition.z / distance * move_.z,
-		};
-
-		worldTransform_.translate = Add(worldTransform_.translate, vel_);
-
-		if (distance < 1.0f) {
-
-			isMoveStart_ = false;
-			isMoveFinish_ = true;
-		}
-	}
-}

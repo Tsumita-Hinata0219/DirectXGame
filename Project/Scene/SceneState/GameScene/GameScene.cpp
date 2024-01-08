@@ -12,6 +12,10 @@ GameScene::~GameScene() {
 		delete bullet;
 	}
 
+	/* ----- Enemy エネミー ----- */
+	for (Enemy* enemy : enemys_) {
+		delete enemy;
+	}
 }
 
 
@@ -25,11 +29,16 @@ void GameScene::Initialize() {
 	viewProjection_.translate = { 0.0f, 19.0f, -50.0f };
 
 	
-	/* ----- プレイヤー Player ----- */
+	/* ----- Player プレイヤー ----- */
 	player_ = make_unique<Player>();
-	player_->Initialize();
 	player_->SetGameScene(this);
+	player_->Initialize();
 
+
+	/* ----- Enemy エネミー ----- */
+	enemyManager_ = make_unique<EnemyManager>();
+	enemyManager_->SetGameScene(this);
+	enemyManager_->Initialize();
 }
 
 
@@ -38,12 +47,16 @@ void GameScene::Initialize() {
 /// </summary>
 void GameScene::Update(GameManager* state) {
 
-	/* ----- カメラ ViewProjection ----- */
+	/* ----- ViewProjection カメラ ----- */
 	viewProjection_.UpdateMatrix();
 
 
-	/* ----- プレイヤー Player ----- */
+	/* ----- Player プレイヤー ----- */
 	PlayerUpdate();
+
+
+	/* ----- Enemy エネミー ----- */
+	EnemyUpdate();
 
 
 
@@ -73,11 +86,17 @@ void GameScene::BackSpriteDraw() {
 /// </summary>
 void GameScene::ModelDraw() {
 
-	/* ----- プレイヤー Player ----- */
+	/* ----- Player プレイヤー ----- */
 	player_->Draw(viewProjection_);
 
 	for (PlayerBullet* bullet : playerBulelts_) {
 		bullet->Draw(viewProjection_);
+	}
+
+
+	/* ----- Enemy エネミー ----- */
+	for (Enemy* enemy : enemys_) {
+		enemy->Draw(viewProjection_);
 	}
 
 }
@@ -119,3 +138,18 @@ void GameScene::PlayerUpdate() {
 	});
 }
 
+
+
+/// <summary>
+/// エネミー更新処理
+/// </summary>
+void GameScene::EnemyUpdate() {
+
+	// エネミーマネージャーの更新処理
+	enemyManager_->Update();
+
+	// エネミーの更新処理
+	for (Enemy* enemy : enemys_) {
+		enemy->Update();
+	}
+}

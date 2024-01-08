@@ -3,6 +3,11 @@
 #include "Enemy/Enemy.h"
 #include "RandomGenerator.h"
 
+
+// GameSceneの前方宣言
+class GameScene;
+
+/* EnemyManager */
 class EnemyManager {
 
 public:
@@ -32,6 +37,22 @@ public:
 	/// </summary>
 	void Draw(ViewProjection view);
 
+
+#pragma region Get
+
+#pragma endregion
+
+
+#pragma region Set
+
+	/// <summary>
+	/// GameSceneの設定
+	/// </summary>
+	void SetGameScene(GameScene* scene) { gameScene_ = scene; }
+
+#pragma endregion
+
+
 private:
 
 	/// <summary>
@@ -44,20 +65,20 @@ private:
 	/// </summary>
 	void PushBackEnemy();
 
-	/// <summary>
-	/// リストのカウント
-	/// </summary>
-	uint32_t CountEnemysList();
-
 
 private:
 
-	std::list<Enemy*> enemys_;
+	GameScene* gameScene_ = nullptr;
+
+	WorldTransform worldTrans_{};
+
+
+	std::unique_ptr<Model> enemyModel_ = nullptr;
+	Vector3 velocity_{};
+
 	Vector2 scopeX_;
 	Vector2 scopeY_;
 	Vector2 scopeZ_;
-
-	Vector3 move_{};
 
 	Vector3 specificPosition_{};
 

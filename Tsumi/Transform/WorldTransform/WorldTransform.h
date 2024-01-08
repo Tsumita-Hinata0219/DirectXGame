@@ -51,6 +51,11 @@ struct WorldTransform {
 	void UpdateMatrix();
 
 	/// <summary>
+	/// ワールド座標の取得
+	/// </summary>
+	Vector3 GetWorldPos();
+
+	/// <summary>
 	/// 定数バッファの生成
 	/// </summary>
 	void CreateBuffer();

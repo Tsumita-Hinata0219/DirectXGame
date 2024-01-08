@@ -20,7 +20,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Init(Vector3 position, Vector3 move);
+	void Init(Model& model, Vector3 position, Vector3 velocity);
 
 	/// <summary>
 	/// 更新処理
@@ -35,42 +35,23 @@ public:
 
 #pragma region Get
 
-	/// <summary>
-	/// 移動終了フラグ
-	/// </summary>
-	bool IsMoveFinish() { return isMoveFinish_; }
-
 #pragma endregion 
 
 
 #pragma region Set
 
-	/// <summary>
-	/// 移動先の座標設定
-	/// </summary>
-	void SetSpecificPosition(Vector3 position) { specificPosition_ = position; }
-
 #pragma endregion 
 
 
 private:
 
-	/// <summary>
-	/// 移動処理
-	/// </summary>
-	void MoveToSpecificPos();
+
 
 private:
 
-	unique_ptr<Model> object_ = nullptr;
-	WorldTransform worldTransform_{};
+	unique_ptr<Model> modle_ = nullptr;
+	WorldTransform worldTrans_{};
+	Vector3 velocity_{};
 
-	// 移動
-	Vector3 vel_{};
-	Vector3 move_{};
-	Vector3 specificPosition_{ 0.0f, 0.0f, 0.0f };
-
-	bool isMoveStart_ = false;
-	bool isMoveFinish_ = false;
-
+	Vector3 specificPosition_{};
 };

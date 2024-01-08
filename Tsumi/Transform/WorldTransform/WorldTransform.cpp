@@ -24,6 +24,20 @@ void WorldTransform::UpdateMatrix() {
 	TransferMatrix();
 }
 
+// ワールド座標の取得
+Vector3 WorldTransform::GetWorldPos() {
+
+	Vector3 worldPos{};
+
+	worldPos = {
+		.x = matWorld.m[3][0],
+		.y = matWorld.m[3][1],
+		.z = matWorld.m[3][2],
+	};
+
+	return worldPos;
+}
+
 // 定数バッファの生成
 void WorldTransform::CreateBuffer() {
 

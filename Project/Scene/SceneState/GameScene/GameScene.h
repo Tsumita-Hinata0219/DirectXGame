@@ -5,8 +5,10 @@
 #include "GameObject.h"
 
 #include "Player/Player.h"
+#include "EnemyManager/EnemyManager.h"
 
 
+/* GameSceneクラス */
 class GameScene : public IScene {
 
 public:
@@ -48,10 +50,14 @@ public:
 
 
 	/// <summary>
-	/// 自弾を追加する
+	/// プレイヤーバレットを追加する
 	/// </summary>
-	/// <param name="playerBullet">自弾</param>
-	void AddPlayerBullet(PlayerBullet* playerBullet) { playerBulelts_.push_back(playerBullet); }
+	void AddPlayerBulletList(PlayerBullet* playerBullet) { playerBulelts_.push_back(playerBullet); }
+
+	/// <summary>
+	/// エネミーを追加する
+	/// </summary>
+	void AddEnemyList(Enemy* enemy) { enemys_.push_back(enemy); }
 
 
 private:
@@ -61,14 +67,24 @@ private:
 	/// </summary>
 	void PlayerUpdate();
 
+	/// <summary>
+	/// エネミー更新処理
+	/// </summary>
+	void EnemyUpdate();
+
 
 private:
 
 	ViewProjection viewProjection_{};
 
 
-	/* ----- Player 自キャラ ----- */
+	/* ----- Player プレイヤー ----- */
 	unique_ptr<Player> player_ = nullptr;
 	std::list<PlayerBullet*> playerBulelts_{};
+
+
+	/* ----- Enemy エネミー ----- */
+	unique_ptr<EnemyManager> enemyManager_ = {};
+	std::list<Enemy*> enemys_{};
 };
 
