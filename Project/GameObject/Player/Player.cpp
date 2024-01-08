@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "GameManager.h"
 
 
 /// <summary>
@@ -19,6 +20,10 @@ void Player::Initialize() {
 	// 移動
 	move_ = { 0.0f, 0.0f, 0.0f };
 	moveSpeed_ = 1.0f;
+
+	// BulletModel
+	bulletModel_ = make_unique<Model>();
+	bulletModel_->CreateFromObj("PlayerBullet");
 }
 
 
@@ -100,6 +105,10 @@ void Player::JoyStateCommand() {
 	if (Input::PressKeys(DIK_D)) {
 		move_.x = moveSpeed_;
 	}
+
+	if (Input::TriggerKey(DIK_SPACE)) {
+		PushBackBullet();
+	}
 	
 }
 
@@ -118,4 +127,21 @@ void Player::Move() {
 
 	// 移動行列に移動ベクトルを加算
 	worldTrans_.translate = Add(worldTrans_.translate, move_);
+}
+
+
+
+/// <summary>
+/// バレットリストの登録
+/// </summary>
+void Player::PushBackBullet() {
+
+	PlayerBullet* newBullet = new PlayerBullet();
+	Vector3 newPos = worldTrans_.translate;
+	Vector3 newVel = { 1.0f, 1.0f, 1.0f };
+
+	newBullet->Init((*bulletModel_), newPos, newPos);
+	newBullet->SetPlayer(this);
+
+	gameScene_->AddPlayerBullet(newBullet);
 }

@@ -7,9 +7,12 @@
 /// </summary>
 GameScene::~GameScene() {
 
+	/* ----- プレイヤー Player ----- */
+	for (PlayerBullet* bullet : playerBulelts_) {
+		delete bullet;
+	}
 
 }
-
 
 
 /// <summary>
@@ -19,12 +22,13 @@ void GameScene::Initialize() {
 
 	viewProjection_.Initialize();
 	viewProjection_.rotate = { 0.45f, 0.0f, 0.0f };
-	viewProjection_.translate = { 0.0f, 17.0f, -38.0f };
+	viewProjection_.translate = { 0.0f, 19.0f, -38.0f };
 
 	
 	/* ----- プレイヤー Player ----- */
 	player_ = make_unique<Player>();
 	player_->Initialize();
+	player_->SetGameScene(this);
 
 }
 
@@ -34,13 +38,12 @@ void GameScene::Initialize() {
 /// </summary>
 void GameScene::Update(GameManager* state) {
 
-
+	/* ----- カメラ ViewProjection ----- */
 	viewProjection_.UpdateMatrix();
 
 
 	/* ----- プレイヤー Player ----- */
-	player_->Update();
-
+	PlayerUpdate();
 
 
 
@@ -74,6 +77,10 @@ void GameScene::ModelDraw() {
 	/* ----- プレイヤー Player ----- */
 	player_->Draw(viewProjection_);
 
+	for (PlayerBullet* bullet : playerBulelts_) {
+		bullet->Draw(viewProjection_);
+	}
+
 }
 
 
@@ -84,3 +91,32 @@ void GameScene::FrontSpriteDraw() {
 
 
 }
+
+
+
+
+/// <summary>
+/// プレイヤー更新処理
+/// </summary>
+void GameScene::PlayerUpdate() {
+
+	// プレイヤーの更新処理
+	player_->Update();
+
+
+	// プレイヤーバレットの更新処理
+	for (PlayerBullet* bullet : playerBulelts_) {
+		bullet->Update();
+	}
+
+
+	// 死亡フラグが立ったバレットを削除
+	playerBulelts_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+}
+

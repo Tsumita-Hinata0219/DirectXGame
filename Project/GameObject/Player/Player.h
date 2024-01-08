@@ -1,7 +1,11 @@
 #pragma once
 
 #include "GameObject.h"
+#include "PlayerBullet/PlayerBullet.h"
 
+
+// GameSceneの前方宣言
+class GameScene;
 
 /* Playerクラス */
 class Player {
@@ -33,7 +37,28 @@ public:
 	/// </summary>
 	void Draw(ViewProjection view);
 
+
+#pragma region Get
+
+#pragma endregion
+
+
+#pragma region Set
+
+	/// <summary>
+	/// GameSceneの設定
+	/// </summary>
+	void SetGameScene(GameScene* scene) { gameScene_ = scene; }
+
+#pragma endregion
+
+
 private:
+
+	/// <summary>
+	/// バレットの更新処理
+	/// </summary>
+	void UpdateBullet();
 
 	/// <summary>
 	/// ゲームパッドの入力処理
@@ -45,10 +70,18 @@ private:
 	/// </summary>
 	void Move();
 
+	/// <summary>
+	/// バレットリストの登録
+	/// </summary>
+	void PushBackBullet();
+
 private:
 
 	std::unique_ptr<Model> objModel_ = nullptr;
 	WorldTransform worldTrans_{};
+
+	// PlayerBulelt
+	std::unique_ptr<Model> bulletModel_ = nullptr;
 
 	// 移動
 	Vector3 move_{};
@@ -56,9 +89,12 @@ private:
 
 	// 移動限界座標
 	const float kMoveLimitX = 13.0f;
-	const float kMoveLimitY = 7.0f;
+	const float kMoveLimitY = 9.0f;
+
 
 	// ジョイコン
 	XINPUT_STATE joyState_{};
+
+	GameScene* gameScene_ = nullptr;
 };
 

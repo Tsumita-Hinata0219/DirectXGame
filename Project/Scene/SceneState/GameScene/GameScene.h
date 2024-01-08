@@ -45,14 +45,30 @@ public:
 	/// 前景スプライトの描画処理
 	/// </summary>
 	void FrontSpriteDraw() override;
-	
+
+
+	/// <summary>
+	/// 自弾を追加する
+	/// </summary>
+	/// <param name="playerBullet">自弾</param>
+	void AddPlayerBullet(PlayerBullet* playerBullet) { playerBulelts_.push_back(playerBullet); }
+
+
+private:
+
+	/// <summary>
+	/// プレイヤー更新処理
+	/// </summary>
+	void PlayerUpdate();
+
 
 private:
 
 	ViewProjection viewProjection_{};
 
 
-	// Player
+	/* ----- Player 自キャラ ----- */
 	unique_ptr<Player> player_ = nullptr;
+	std::list<PlayerBullet*> playerBulelts_{};
 };
 
