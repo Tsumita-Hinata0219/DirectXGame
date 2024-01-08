@@ -11,11 +11,13 @@ Player::~Player() {}
 /// <summary>
 /// 初期化処理
 /// </summary>
-void Player::Initialize() {
+void Player::Initialize(const Vector3& rotate, const Vector3& translate) {
 
 	objModel_ = make_unique<Model>();
 	objModel_->CreateFromObj("Player", worldTrans_);
 	worldTrans_.Initialize();
+	worldTrans_.rotate = rotate;
+	worldTrans_.translate = translate;
 
 	// 移動
 	move_ = { 0.0f, 0.0f, 0.0f };

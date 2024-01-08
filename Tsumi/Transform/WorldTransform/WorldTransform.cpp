@@ -38,6 +38,11 @@ Vector3 WorldTransform::GetWorldPos() {
 	return worldPos;
 }
 
+// 親子関係を結ぶ
+void WorldTransform::SetParent(const WorldTransform* parentTransform) {
+	parent = parentTransform;
+}
+
 // 定数バッファの生成
 void WorldTransform::CreateBuffer() {
 

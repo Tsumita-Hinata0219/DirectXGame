@@ -27,15 +27,37 @@ GameScene::~GameScene() {
 /// </summary>
 void GameScene::Initialize() {
 
+	/* ----- ViewProjection カメラ ----- */
 	viewProjection_.Initialize();
-	viewProjection_.rotate = { 0.33f, 0.0f, 0.0f };
-	viewProjection_.translate = { 0.0f, 19.0f, -50.0f };
 
-	
+
+	/* ----- DebugCamera デバッグカメラ ----- */
+	debugCamera_ = make_unique<DebugCamera>();
+	debugCamera_->Initialize();
+
+
+	/* ----- RailCamera レールカメラ ----- */
+	railCamera_ = make_unique<RailCamera>();
+	railCamera_->Initizlia();
+
+
+	/* ----- Skydome スカイドーム ----- */
+	skydome_ = make_unique<Skydome>();
+	skydome_->Initialize();
+
+
+	/* ----- Ground グラウンド ----- */
+	ground_ = make_unique<Ground>();
+	//ground_->Initialize();
+
+
 	/* ----- Player プレイヤー ----- */
 	player_ = make_unique<Player>();
 	player_->SetGameScene(this);
-	player_->Initialize();
+	Vector3 initRotate = { 0.0f, 0.0f, 0.0f };
+	Vector3 initTrasnlate = { 0.0f, 0.0f, 50.0f };
+	player_->Initialize(initRotate, initTrasnlate);
+	player_->SetParent(&railCamera_->GetWorldTransform());
 
 
 	/* ----- Enemy エネミー ----- */
@@ -55,6 +77,14 @@ void GameScene::Update(GameManager* state) {
 	viewProjection_.UpdateMatrix();
 
 
+	/* ----- Skydome スカイドーム ----- */
+	skydome_->Update();
+
+
+	/* ----- Ground グラウンド ----- */
+	//ground_->Update();
+
+
 	/* ----- Player プレイヤー ----- */
 	PlayerUpdate();
 
@@ -62,6 +92,20 @@ void GameScene::Update(GameManager* state) {
 	/* ----- Enemy エネミー ----- */
 	EnemyUpdate();
 
+
+	// カメラの処理
+	if (isDebugCaneraActive_) {
+
+		/* ----- DebugCamera デバッグカメラ ----- */
+		debugCamera_->Update();
+		viewProjection_ = debugCamera_->GetViewProjection();
+	}
+	else {
+
+		/* ----- RailCamera レールカメラ ----- */
+		railCamera_->Update();
+		viewProjection_ = railCamera_->GetViewProjection();
+	}
 
 
 #ifdef _DEBUG
@@ -90,9 +134,16 @@ void GameScene::BackSpriteDraw() {
 /// </summary>
 void GameScene::ModelDraw() {
 
+	/* ----- Skydome スカイドーム ----- */
+	skydome_->Draw(viewProjection_);
+
+
+	/* ----- Ground グラウンド ----- */
+	//ground_->Draw(viewProjection_);
+
+
 	/* ----- Player プレイヤー ----- */
 	player_->Draw(viewProjection_);
-
 	for (PlayerBullet* bullet : playerBulelts_) {
 		bullet->Draw(viewProjection_);
 	}
@@ -105,7 +156,6 @@ void GameScene::ModelDraw() {
 	for (EnemyBullet* eneBul : enemyBullets_) {
 		eneBul->Draw(viewProjection_);
 	}
-
 }
 
 
@@ -142,7 +192,7 @@ void GameScene::PlayerUpdate() {
 			return true;
 		}
 		return false;
-	});
+		});
 }
 
 

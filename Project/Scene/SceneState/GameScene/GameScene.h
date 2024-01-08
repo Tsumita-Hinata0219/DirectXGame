@@ -4,8 +4,12 @@
 #include "GameManager.h"
 #include "GameObject.h"
 
+#include "Camera/RailCamera/RailCamera.h"
+#include "DebugCamera.h"
 #include "Player/Player.h"
 #include "EnemyManager/EnemyManager.h"
+#include "Skydome/Skydome.h"
+#include "Ground/Ground.h"
 
 
 /* GameSceneクラス */
@@ -80,7 +84,18 @@ private:
 
 private:
 
+	// ビュープロジェクション
 	ViewProjection viewProjection_{};
+	// デバッグカメラ有効フラグ
+	bool isDebugCaneraActive_ = false;
+
+
+	/* ----- DebugCamera デバッグカメラ ----- */
+	unique_ptr<DebugCamera> debugCamera_ = nullptr;
+
+
+	/* ----- RailCamera レールカメラ ----- */
+	unique_ptr<RailCamera> railCamera_ = nullptr;
 
 
 	/* ----- Player プレイヤー ----- */
@@ -92,5 +107,12 @@ private:
 	unique_ptr<EnemyManager> enemyManager_ = {};
 	std::list<Enemy*> enemys_{};
 	std::list<EnemyBullet*> enemyBullets_{};
+
+	/* ----- Skydome スカイドーム ----- */
+	unique_ptr<Skydome> skydome_ = nullptr;
+
+
+	/* ----- Ground グラウンド ----- */
+	unique_ptr<Ground> ground_ = nullptr;
 };
 

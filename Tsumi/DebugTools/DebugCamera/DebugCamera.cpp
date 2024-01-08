@@ -16,7 +16,7 @@ DebugCamera* DebugCamera::GetInstance() {
 /// </summary>
 void DebugCamera::Initialize() {
 
-	DebugCamera::GetInstance()->DebugViewProjection_.Initialize();
+	DebugCamera::GetInstance()->viewProjection_.Initialize();
 	DebugCamera::GetInstance()->matRotate_ = MakeIdentity4x4();
 	DebugCamera::GetInstance()->worldTransform_.Initialize();
 }
@@ -28,7 +28,7 @@ void DebugCamera::Initialize() {
 void DebugCamera::Update() {
 
 	DebugCamera::GetInstance()->worldTransform_.UpdateMatrix();
-	DebugCamera::GetInstance()->DebugViewProjection_.UpdateMatrix();
+	DebugCamera::GetInstance()->viewProjection_.UpdateMatrix();
 
 
 	// 中心からずらす
@@ -46,7 +46,7 @@ void DebugCamera::Update() {
 		Multiply(DebugCamera::GetInstance()->matRotate_, translateMat);
 
 	// view行列の更新
-	DebugCamera::GetInstance()->DebugViewProjection_.matView =
+	DebugCamera::GetInstance()->viewProjection_.matView =
 		Multiply(Inverse(translateMat), Inverse(DebugCamera::GetInstance()->matRotate_));
 
 

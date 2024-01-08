@@ -40,10 +40,21 @@ public:
 	/// </summary>
 	static void Draw();
 
+
+#pragma region Get
+
+	/// <summary>
+	/// ViewProjectionの取得
+	/// </summary>
+	ViewProjection GetViewProjection() { return viewProjection_; }
+
+#pragma endregion
+
+
 private:
 
 	WorldTransform worldTransform_{};
-	ViewProjection DebugViewProjection_{};
+	ViewProjection viewProjection_{};
 	
 	Matrix4x4 matRotate_{};
 

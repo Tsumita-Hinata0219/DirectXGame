@@ -50,10 +50,23 @@ struct WorldTransform {
 	/// </summary>
 	void UpdateMatrix();
 
+#pragma region Get
+
 	/// <summary>
 	/// ワールド座標の取得
 	/// </summary>
 	Vector3 GetWorldPos();
+
+#pragma endregion
+
+#pragma region Set
+	
+	/// <summary>
+	/// 親子関係を結ぶ
+	/// </summary>
+	void SetParent(const WorldTransform* parentTransform);
+
+#pragma endregion
 
 	/// <summary>
 	/// 定数バッファの生成

@@ -25,7 +25,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize();
+	void Initialize(const Vector3& rotate, const Vector3& translate);
 
 	/// <summary>
 	/// 更新処理
@@ -55,15 +55,15 @@ public:
 	/// </summary>
 	void SetGameScene(GameScene* scene) { gameScene_ = scene; }
 
+	/// <summary>
+	/// 親子関係を結ぶ
+	/// </summary>
+	void SetParent(const WorldTransform* parent) { worldTrans_.SetParent(parent); }
+
 #pragma endregion
 
 
 private:
-
-	/// <summary>
-	/// バレットの更新処理
-	/// </summary>
-	void UpdateBullet();
 
 	/// <summary>
 	/// ゲームパッドの入力処理
