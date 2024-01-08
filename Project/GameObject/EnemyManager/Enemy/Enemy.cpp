@@ -13,6 +13,8 @@ void Enemy::Init(Model& model, Vector3 position, Vector3 velocity) {
 	worldTrans_.Initialize();
 	worldTrans_.translate = position;
 	velocity_ = velocity;
+
+	phaseState_ = new IEnemyApproachState();
 }
 
 
@@ -21,8 +23,8 @@ void Enemy::Init(Model& model, Vector3 position, Vector3 velocity) {
 /// </summary>
 void Enemy::Update() {
 
-	// 後方に進める
-	worldTrans_.translate = Add(worldTrans_.translate, velocity_);
+	// ステートパターンによるフェーズ処理
+	phaseState_->Update(this);
 
 
 	worldTrans_.UpdateMatrix();
@@ -32,7 +34,6 @@ void Enemy::Update() {
 
 
 #endif // _DEBUG
-
 }
 
 
@@ -45,3 +46,24 @@ void Enemy::Draw(ViewProjection view) {
 }
 
 
+/// <summary>
+/// フェーズの変更
+/// </summary>
+void Enemy::ChangePhaseState(IEnemyPhaseState* newState) {
+
+	delete phaseState_;
+	phaseState_ = newState;
+}
+
+
+/// <summary>
+/// ステートパターン内で使用する移動用関数(加算 減算) 
+/// </summary>
+void Enemy::AddTransform(const Vector3& velocity) {
+
+	worldTrans_.translate = Add(worldTrans_.translate, velocity);
+}
+void Enemy::SubtractTransform(const Vector3& velocity) {
+
+	worldTrans_.translate = Subtract(worldTrans_.translate, velocity);
+}

@@ -197,6 +197,15 @@
     <Filter Include="Project\GameObject\EnemyManager\Enemy">
       <UniqueIdentifier>{49cf1ee7-0d96-4a5a-9efe-b44a64b8bfba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project\GameObject\EnemyManager\PhaseState">
+      <UniqueIdentifier>{afefd230-6566-4140-abc0-383fa056368f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\GameObject\EnemyManager\PhaseState\Approach">
+      <UniqueIdentifier>{8b67f206-77b0-40dc-8f0d-71962b662d32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\GameObject\EnemyManager\PhaseState\Leave">
+      <UniqueIdentifier>{b572e872-c57d-4a09-a3bd-7a9e9769666a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -346,6 +355,12 @@
     </ClCompile>
     <ClCompile Include="Project\GameObject\EnemyManager\Enemy\Enemy.cpp">
       <Filter>Project\GameObject\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\EnemyManager\PhaseState\Approach\IEnemyApproachState.cpp">
+      <Filter>Project\GameObject\EnemyManager\PhaseState\Approach</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\EnemyManager\PhaseState\Leave\IEnemyLeaveState.cpp">
+      <Filter>Project\GameObject\EnemyManager\PhaseState\Leave</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -552,6 +567,15 @@
     </ClInclude>
     <ClInclude Include="Project\GameObject\EnemyManager\Enemy\Enemy.h">
       <Filter>Project\GameObject\EnemyManager\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\EnemyManager\PhaseState\Approach\IEnemyApproachState.h">
+      <Filter>Project\GameObject\EnemyManager\PhaseState\Approach</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\EnemyManager\PhaseState\Leave\IEnemyLeaveState.h">
+      <Filter>Project\GameObject\EnemyManager\PhaseState\Leave</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\EnemyManager\PhaseState\IEnemyPhaseState.h">
+      <Filter>Project\GameObject\EnemyManager\PhaseState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

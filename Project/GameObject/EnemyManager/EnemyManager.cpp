@@ -19,7 +19,7 @@ void EnemyManager::Initialize() {
 	scopeY_ = { 0.0f, 0.0f };
 	scopeZ_ = { 10.0f, 50.0f };
 
-	velocity_ = { 0.0f, 0.0f, -0.3f };
+	velocity_ = { 0.0f, 0.0f, 0.3f };
 
 	specificPosition_ = { 0.0f, 0.0f, 0.0f };
 
