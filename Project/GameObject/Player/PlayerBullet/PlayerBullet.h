@@ -37,6 +37,11 @@ public:
 	/// </summary>
 	void Draw(ViewProjection view);
 
+	/// <summary>
+	/// 衝突時コールバック関数
+	/// </summary>
+	void OnCollision(uint32_t id) override;
+
 
 #pragma region Get
 
@@ -45,6 +50,16 @@ public:
 	/// </summary>
 	bool IsAlive() { return life_.IsAlive; }
 	bool IsDead() { return life_.IsDead; }
+
+	/// <summary>
+	/// ワールド座標の取得
+	/// </summary>
+	Vector3 GetWorldPosition() override { return worldTrans_.GetWorldPos(); }
+
+	/// <summary>
+	/// Sizeの取得
+	/// </summary>
+	Vector3 GetSize() override { return size_; }
 
 #pragma endregion
 
@@ -76,6 +91,12 @@ private:
 	/// </summary>
 	void SetupOBBProperties();
 
+	/// <summary>
+	/// フィルターのセッティング
+	/// </summary>
+	void SettingColliderAttributeAndMask();
+
+
 private:
 
 	Player* player_ = nullptr;
@@ -84,6 +105,7 @@ private:
 	WorldTransform worldTrans_{};
 	Vector3 velocity_{};
 	float rotateVelocity_;
+	Vector3 size_{};
 
 	MortalityInfo life_{};
 };

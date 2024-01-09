@@ -14,6 +14,7 @@ void PlayerBullet::Init(Model& model, Vector3& position, Vector3& velocity) {
 	worldTrans_.translate = position;
 	velocity_ = velocity;
 	rotateVelocity_ = 2.0f;
+	size_ = { 2.0f, 2.5f, 2.0f };
 
 	life_.kLifeTimer = 60 * 10;
 	life_.Timer = life_.kLifeTimer;
@@ -35,6 +36,8 @@ void PlayerBullet::Update() {
 	// 寿命の処理
 	UpdateLifeStatus();
 
+	SetupOBBProperties();
+
 
 	worldTrans_.UpdateMatrix();
 }
@@ -48,6 +51,16 @@ void PlayerBullet::Draw(ViewProjection view) {
 	model_->Draw(worldTrans_, view);
 }
 
+
+/// <summary>
+/// 衝突時コールバック関数
+/// </summary>
+void PlayerBullet::OnCollision(uint32_t id) {
+
+	id;
+	life_.IsAlive = false;
+	life_.IsDead = true;
+}
 
 
 /// <summary>
@@ -71,6 +84,22 @@ void PlayerBullet::UpdateLifeStatus() {
 /// </summary>
 void PlayerBullet::SetupOBBProperties() {
 
+	this->size_ = {
+		.x = 2.0f * worldTrans_.scale.x,
+		.y = 2.0f * worldTrans_.scale.y,
+		.z = 2.0f * worldTrans_.scale.z,
+	};
+
+	OBBCollider::SetSize(this->size_);
+	OBBCollider::SetRotate(this->worldTrans_.rotate);
+}
 
 
+/// <summary>
+/// フィルターのセッティング
+/// </summary>
+void PlayerBullet::SettingColliderAttributeAndMask() {
+
+	OBBCollider::SetCollosionAttribute(kCollisionAttributePlayer);
+	OBBCollider::SetCollisionMask(kCollisionMaskPlayer);
 }

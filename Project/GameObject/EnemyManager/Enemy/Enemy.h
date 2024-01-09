@@ -46,6 +46,11 @@ public:
 	void Draw(ViewProjection view);
 
 	/// <summary>
+	/// 衝突時コールバック関数
+	/// </summary>
+	void OnCollision(uint32_t id) override;
+
+	/// <summary>
 	/// フェーズの変更
 	/// </summary>
 	void ChangePhaseState(IEnemyPhaseState* newState);
@@ -60,6 +65,10 @@ public:
 	/// </summary>
 	void Attack();
 
+	/// <summary>
+	/// Vec3Vec3の比較関数
+	/// 適当に作ったやつ
+	/// </summary>
 	bool compareVectors(const Vector3& v1, const Vector3& v2) {
 		return std::tie(v1.x, v1.y, v1.z) == std::tie(v2.x, v2.y, v2.z);
 	}
@@ -92,6 +101,17 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	bool GetInitMoveFlag() { return initMoveFlag_; }
+
+
+	/// <summary>
+	/// ワールド座標の取得
+	/// </summary>
+	Vector3 GetWorldPosition() override { return worldTrans_.GetWorldPos(); }
+
+	/// <summary>
+	/// Sizeの取得
+	/// </summary>
+	Vector3 GetSize() override { return size_; }
 
 #pragma endregion 
 
@@ -143,6 +163,12 @@ private:
 	/// OBBのセッティング
 	/// </summary>
 	void SetupOBBProperties();
+
+	/// <summary>
+	/// フィルターのセッティング
+	/// </summary>
+	void SettingColliderAttributeAndMask();
+
 
 private:
 

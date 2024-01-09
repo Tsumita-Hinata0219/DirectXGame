@@ -69,6 +69,13 @@ void Enemy::Draw(ViewProjection view) {
 
 
 /// <summary>
+/// 衝突時コールバック関数
+/// </summary>
+void Enemy::OnCollision(uint32_t id) {
+	id;
+}
+
+/// <summary>
 /// フェーズの変更
 /// </summary>
 void Enemy::ChangePhaseState(IEnemyPhaseState* newState) {
@@ -174,4 +181,14 @@ void Enemy::SetupOBBProperties() {
 
 	OBBCollider::SetSize(this->size_);
 	OBBCollider::SetRotate(this->worldTrans_.rotate);
+}
+
+
+/// <summary>
+/// フィルターのセッティング
+/// </summary>
+void Enemy::SettingColliderAttributeAndMask() {
+
+	OBBCollider::SetCollosionAttribute(kCollisionAttributeEnemy);
+	OBBCollider::SetCollisionMask(kCollisionMaskEnemy);
 }

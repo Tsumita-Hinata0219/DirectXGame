@@ -241,7 +241,7 @@ void GameScene::CheckAllCollision() {
 
 	// コライダーをリストに登録する
 	for (PlayerBullet* bullet : playerBulelts_) {
-		
+		collisionManager_->ColliderOBBPushBack(bullet);
 	}
 	for (Enemy* enemy : enemys_) {
 		collisionManager_->ColliderOBBPushBack(enemy);
