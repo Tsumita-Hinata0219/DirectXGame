@@ -54,7 +54,7 @@ void GameScene::Initialize() {
 	player_ = make_unique<Player>();
 	player_->SetGameScene(this);
 	Vector3 initPlayerRotate = { 0.0f, 0.0f, 0.0f };
-	Vector3 initPlayerTrasnlate = { 0.0f, -15.0f, 50.0f };
+	Vector3 initPlayerTrasnlate = { 0.0f, 2.0f, 50.0f };
 	player_->Initialize(initPlayerRotate, initPlayerTrasnlate);
 
 
@@ -62,7 +62,7 @@ void GameScene::Initialize() {
 	enemyManager_ = make_unique<EnemyManager>();
 	enemyManager_->SetGameScene(this);
 	enemyManager_->SetPlayer(player_.get());
-	Vector3 initEnemyTrasnlate = { 0.0f, -15.0f, 0.0f };
+	Vector3 initEnemyTrasnlate = player_->GetWorldPosition();
 	enemyManager_->Initialize(initEnemyTrasnlate);
 
 
@@ -71,8 +71,8 @@ void GameScene::Initialize() {
 
 
 	/* ----- Parent ペアレント ----- */
-	player_->SetParent(&railCamera_->GetWorldTransform());
-	enemyManager_->SetParent(&railCamera_->GetWorldTransform());
+	//player_->SetParent(&railCamera_->GetWorldTransform());
+	//enemyManager_->SetParent(&railCamera_->GetWorldTransform());
 }
 
 

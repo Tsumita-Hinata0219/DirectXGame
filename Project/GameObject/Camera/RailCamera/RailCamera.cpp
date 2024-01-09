@@ -9,7 +9,7 @@ void RailCamera::Initizlia() {
 
 	worldTrans_.Initialize();
 	worldTrans_.rotate = { 0.0f, 0.0f, 0.0f };
-	worldTrans_.translate = { 0.0f, 15.0f, -50.0f };
+	worldTrans_.translate = { 0.0f, 9.0f, -8.0f };
 	viewProjection_.Initialize();
 }
 

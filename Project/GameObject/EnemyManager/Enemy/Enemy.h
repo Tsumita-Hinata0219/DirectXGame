@@ -80,7 +80,7 @@ public:
 	/// 死亡フラグの取得
 	/// </summary>
 	/// <returns></returns>
-	bool IsDead() { return IsDead_; }
+	bool IsDead() { return life_.IsDead; }
 
 	/// <summary>
 	/// PlayerWorldPosの取得
@@ -155,6 +155,11 @@ public:
 private:
 
 	/// <summary>
+	/// 寿命の処理
+	/// </summary>
+	void UpdateLifeStatus();
+
+	/// <summary>
 	/// 射撃準備処理
 	/// </summary>
 	void FirePreparation();
@@ -199,5 +204,5 @@ private:
 
 	bool initMoveFlag_ = false;
 
-	bool IsDead_ = false;
+	MortalityInfo life_{};
 };

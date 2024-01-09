@@ -38,10 +38,10 @@ void EnemyManager::Initialize(Vector3 translate) {
 	enemyBulletModel_ = make_unique<Model>();
 	enemyBulletModel_->CreateFromObj("EnemyBullet");
 
-	for (int i = 0; i < initEnemysCount_; i++) {
+	/*for (int i = 0; i < initEnemysCount_; i++) {
 
 		PushBackEnemy();
-	}
+	}*/
 }
 
 
@@ -51,7 +51,7 @@ void EnemyManager::Initialize(Vector3 translate) {
 void EnemyManager::Update() {
 
 	// 定期的に敵を湧かせる
-	//SpawnEnemysPeriodically();
+	SpawnEnemysPeriodically();
 
 	worldTrans_.UpdateMatrix();
 
@@ -106,19 +106,18 @@ void EnemyManager::PushBackEnemy() {
 
 	Enemy* newEnemy = new Enemy();
 	Vector3 newPos = Add(worldTrans_.GetWorldPos(), RandomGenerator::getRandom(scopeX_, scopeY_, scopeZ_));
-	newPos = Subtract(newPos, { 0.0f, 25.0f, 0.0f });
 	Vector3 newVel = velocity_;
 	battlePosition_ = {
 		.x = newPos.x,
-		.y = player_->GetWorldTransform().GetWorldPos().y,
+		.y = player_->GetWorldPosition().y,
 		.z = newPos.z,
 	};
 
 	newEnemy->SetGameScene(gameScene_);
 	newEnemy->SetPlayer(player_);
-	newEnemy->Init((*enemyModel_), (*enemyBulletModel_), newPos, newVel);
-	newEnemy->SetParent(&worldTrans_);
 	newEnemy->SetBattlePosition(battlePosition_);
+	newEnemy->Init((*enemyModel_), (*enemyBulletModel_), newPos, newVel);
+
 
 	gameScene_->AddEnemyList(newEnemy);
 }

@@ -22,7 +22,11 @@ void Enemy::Init(Model& model, Model& modelBullet, Vector3 position, Vector3 vel
 	bullet_.FireTimer = int32_t(RandomGenerator::getRandom({ 5.0f, 300.0f }));
 
 	initMoveFlag_ = false;
-	IsDead_ = false;
+
+	life_.kLifeTimer = 60 * 30;
+	life_.Timer = life_.kLifeTimer;
+	life_.IsAlive = true;
+	life_.IsDead = false;
 
 	this->size_ = {
 		.x = 2.0f * worldTrans_.scale.x,
@@ -49,6 +53,8 @@ void Enemy::Update() {
 	playerWorldPos_ = player_->GetWorldTransform().GetWorldPos();
 
 	SetupOBBProperties();
+
+	UpdateLifeStatus();
 
 	worldTrans_.UpdateMatrix();
 
@@ -80,7 +86,7 @@ void Enemy::Draw(ViewProjection view) {
 void Enemy::OnCollision(uint32_t id) {
 
 	if (id == playerBulletID) {
-		IsDead_ = true;
+		life_.IsDead = true;
 	}
 }
 
@@ -116,7 +122,7 @@ void Enemy::Approach2BattlePosition() {
 
 		worldTrans_.translate = Subtract(worldTrans_.translate, vel);
 
-		if (dist < 7.0f) {
+		if (dist < 1.0f) {
 			initMoveFlag_ = true;
 		}
 	}
@@ -137,6 +143,23 @@ void Enemy::Attack() {
 		bullet_.FireTimer = bullet_.FireInterval;
 	}
 }
+
+
+/// <summary>
+/// 寿命の処理
+/// </summary>
+void Enemy::UpdateLifeStatus() {
+
+	life_.Timer--;
+
+	if (life_.Timer <= 0) {
+		life_.Timer = 0;
+		life_.IsAlive = false;
+		life_.IsDead = true;
+	}
+}
+
+
 
 
 /// <summary>
