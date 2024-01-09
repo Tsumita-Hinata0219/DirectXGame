@@ -1,5 +1,5 @@
 #include "PlayerBullet.h"
-
+#include "Player/Player.h"
 
 
 /// <summary>
@@ -19,6 +19,8 @@ void PlayerBullet::Init(Model& model, Vector3& position, Vector3& velocity) {
 	life_.kLifeTimer = 60 * 10;
 	life_.Timer = life_.kLifeTimer;
 	life_.IsAlive = true;
+
+	entityID_ = playerBulletID;
 }
 
 
@@ -57,9 +59,13 @@ void PlayerBullet::Draw(ViewProjection view) {
 /// </summary>
 void PlayerBullet::OnCollision(uint32_t id) {
 
-	id;
 	life_.IsAlive = false;
 	life_.IsDead = true;
+
+	if (id == EnemyID) {
+
+		player_->AddKillCount(1);
+	}
 }
 
 

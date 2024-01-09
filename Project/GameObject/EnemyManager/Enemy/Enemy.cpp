@@ -22,12 +22,15 @@ void Enemy::Init(Model& model, Model& modelBullet, Vector3 position, Vector3 vel
 	bullet_.FireTimer = int32_t(RandomGenerator::getRandom({ 5.0f, 300.0f }));
 
 	initMoveFlag_ = false;
+	IsDead_ = false;
 
 	this->size_ = {
 		.x = 2.0f * worldTrans_.scale.x,
 		.y = 2.0f * worldTrans_.scale.y,
 		.z = 2.0f * worldTrans_.scale.z,
 	};
+
+	entityID_ = EnemyID;
 
 	phaseState_ = new IEnemyApproachState();
 }
@@ -72,7 +75,11 @@ void Enemy::Draw(ViewProjection view) {
 /// 衝突時コールバック関数
 /// </summary>
 void Enemy::OnCollision(uint32_t id) {
-	id;
+
+	if (id == playerBulletID) {
+		IsDead_ = true;
+	}
+
 }
 
 /// <summary>

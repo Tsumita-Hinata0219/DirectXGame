@@ -29,7 +29,7 @@ void TitleScene::Initialize() {
 /// <summary>
 /// 更新処理
 /// </summary>
-void TitleScene::Update(GameManager* state) {
+void TitleScene::Update(GameManager* Scene) {
 
 	/* ----- ViewProjection カメラ ----- */
 	viewProjection_.UpdateMatrix();
@@ -37,6 +37,22 @@ void TitleScene::Update(GameManager* state) {
 
 	/* ----- Skydome スカイドーム ----- */
 	Skydome::Update();
+
+
+	if (Input::TriggerKey(DIK_P)) {
+		Scene->ChangeSceneState(new GameScene);
+	}
+
+
+#ifdef _DEBUG
+
+	ImGui::Begin("TitleScene");
+	ImGui::Text("Camera");
+	ImGui::DragFloat3("CameraRotate", &viewProjection_.rotate.x, 0.005f);
+	ImGui::DragFloat3("CameraTranslate", &viewProjection_.translate.x, 0.01f);
+	ImGui::End();
+
+#endif // _DEBUG
 }
 
 

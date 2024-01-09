@@ -37,7 +37,7 @@ public:
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update(GameManager* state) override;
+	void Update(GameManager* Scene) override;
 
 	/// <summary>
 	/// 背景スプライトの描画処理

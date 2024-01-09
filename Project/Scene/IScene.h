@@ -25,7 +25,7 @@ public:
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	virtual void Update(GameManager* state) = 0;
+	virtual void Update(GameManager* Scene) = 0;
 
 	/// <summary>
 	/// 背景スプライトの描画処理

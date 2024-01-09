@@ -26,6 +26,8 @@ void Player::Initialize(const Vector3& rotate, const Vector3& translate) {
 	// BulletModel
 	bulletModel_ = make_unique<Model>();
 	bulletModel_->CreateFromObj("PlayerBullet");
+
+	killCount_ = 0;
 }
 
 
@@ -52,6 +54,7 @@ void Player::Update() {
 	ImGui::DragFloat3("Rotate", &worldTrans_.rotate.x, 0.01f, -100.0f, 100.0f);
 	ImGui::DragFloat3("Translate", &worldTrans_.translate.x, 0.01f);
 	ImGui::DragFloat3("move", &move_.x, 0.01f);
+	ImGui::DragInt("KillCount", reinterpret_cast<int*>(&killCount_), 1, 0, 20);
 	ImGui::End();
 
 #endif // _DEBUG

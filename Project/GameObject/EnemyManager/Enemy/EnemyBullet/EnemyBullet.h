@@ -83,5 +83,6 @@ private:
 
 	MortalityInfo life_{};
 
+
 };
 

@@ -79,7 +79,7 @@ void GameScene::Initialize() {
 /// <summary>
 /// 更新処理
 /// </summary>
-void GameScene::Update(GameManager* state) {
+void GameScene::Update(GameManager* Scene) {
 
 	/* ----- ViewProjection カメラ ----- */
 	viewProjection_.UpdateMatrix();
@@ -218,6 +218,13 @@ void GameScene::EnemyUpdate() {
 	for (Enemy* enemy : enemys_) {
 		enemy->Update();
 	}
+	enemys_.remove_if([](Enemy* enemy) {
+		if (enemy->IsDead()) {
+			delete enemy;
+			return true;
+		}
+		return false;
+	});
 
 	// エネミーバレットの更新処理
 	for (EnemyBullet* eneBul : enemyBullets_) {

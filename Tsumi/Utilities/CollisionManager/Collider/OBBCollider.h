@@ -50,12 +50,12 @@ public:
 	/// <summary>
 	/// IDの取得
 	/// </summary>
-	uint32_t GetID() { return id_; }
+	uint32_t GetID() { return entityID_; }
 
 	/// <summary>
 	/// IDの設定
 	/// </summary>
-	void SetID(uint32_t id) { id_ = id; }
+	void SetID(uint32_t id) { entityID_ = id; }
 
 #pragma endregion 
 
@@ -88,11 +88,13 @@ public:
 #pragma endregion
 
 
+protected:
+
+	uint32_t entityID_ = 0xffffffff;
+
 private:
 
 	OBB obb_{};
-
-	uint32_t id_ = 0xffffffff;
 
 	uint32_t collisionAttribute_ = 0xffffffff;
 
@@ -101,4 +103,5 @@ private:
 	Vector3 size_ = { 1.0f, 1.0f ,1.0f };
 
 	Vector3 rotate_ = { 0.0f, 0.0f, 0.0f };
+
 };

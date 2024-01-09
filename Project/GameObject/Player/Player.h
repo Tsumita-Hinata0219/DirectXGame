@@ -45,6 +45,7 @@ public:
 	/// </summary>
 	WorldTransform GetWorldTransform() { return worldTrans_; }
 
+
 #pragma endregion
 
 
@@ -59,6 +60,12 @@ public:
 	/// 親子関係を結ぶ
 	/// </summary>
 	void SetParent(const WorldTransform* parent) { worldTrans_.SetParent(parent); }
+
+	/// <summary>
+	/// キルカウントを引数分加算
+	/// </summary>
+	/// <param name="addVal"></param>
+	void AddKillCount(const uint32_t addVal) { killCount_ = killCount_ + addVal; }
 
 #pragma endregion
 
@@ -97,10 +104,12 @@ private:
 	const float kMoveLimitX = 19.0f;
 	const float kMoveLimitY = 9.0f;
 
+	uint32_t killCount_;
 
 	// ジョイコン
 	XINPUT_STATE joyState_{};
 
 	GameScene* gameScene_ = nullptr;
+
 };
 

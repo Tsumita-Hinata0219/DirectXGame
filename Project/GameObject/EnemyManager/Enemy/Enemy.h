@@ -77,6 +77,12 @@ public:
 #pragma region Get
 
 	/// <summary>
+	/// 死亡フラグの取得
+	/// </summary>
+	/// <returns></returns>
+	bool IsDead() { return IsDead_; }
+
+	/// <summary>
 	/// PlayerWorldPosの取得
 	/// </summary>
 	Vector3 GetPlayerWorldPos() { return playerWorldPos_; }
@@ -194,4 +200,5 @@ private:
 
 	bool initMoveFlag_ = false;
 
+	bool IsDead_ = false;
 };

@@ -24,6 +24,7 @@ void EnemyBullet::Init(Model& model, Vector3& position, Vector3& velocity) {
 	float height_ = -kVelocity.y;
 	worldTrans_.rotate.y = std::atan2(kVelocity.x, kVelocity.z);
 	worldTrans_.rotate.x = std::atan2(height_, velocityZ_);
+
 }
 
 
