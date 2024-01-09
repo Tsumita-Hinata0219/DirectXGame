@@ -86,6 +86,7 @@ void EngineManual::Initialize() {
 	particle_->Initialize(new ParticlePlane, NumInstance_);
 	for (int i = 0; i < NumInstance_; i++) {
 
+		particlePrope_[i].worldTransform.Initialize();
 		particlePrope_[i].worldTransform.scale = {1.0f, 1.0f, 1.0f};
 		particlePrope_[i].worldTransform.rotate = { 0.0f, 0.0f, 0.0f };
 		particlePrope_[i].worldTransform.translate = {
@@ -94,10 +95,11 @@ void EngineManual::Initialize() {
 			i * 0.1f,
 		};
 		particlePrope_[i].color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		particlePrope_[i].velocity = { 0.0f, 0.0f, 0.0f };
+		particlePrope_[i].velocity = RandomGenerator::getRandom({ -1.0f, 1.0f }, { -1.0f, 1.0f }, { 0.0f, 0.0f });
 		particlePrope_[i].uvTransform.scale = { 1.0f, 1.0f, 1.0f };
 		particlePrope_[i].uvTransform.rotate = { 0.0f, 0.0f, 0.0f };
 		particlePrope_[i].uvTransform.translate = { 0.0f, 0.0f, 0.0f };
+		particlePrope_[i].isActive = true;
 
 		particle_->PushBackParticles(particlePrope_[i]);
 	}
@@ -126,7 +128,10 @@ void EngineManual::Update() {
 	//planeModel_->SetColor(planeModelColor_);
 	//objModel1_->SetColor(objModel1Color_);
 
-	//particle_->Update();
+	for (int i = 0; i < NumInstance_; i++) {
+		//particlePrope_[i].worldTransform.UpdateMatrix();
+	}
+	particle_->Update();
 
 #ifdef _DEBUG
 

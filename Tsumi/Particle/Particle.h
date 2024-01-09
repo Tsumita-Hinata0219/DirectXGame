@@ -3,6 +3,7 @@
 #include "ViewProjection.h"
 #include "IParticleState.h"
 #include "ParticlePlane.h"
+#include "RandomGenerator.h"
 
 
 /* Particleクラス */
@@ -60,6 +61,10 @@ public: // メンバ関数
 
 private: // メンバ関数
 
+	/// <summary>
+	/// 移動処理
+	/// </summary>
+	void Move();
 
 
 private: // メンバ変数
@@ -79,5 +84,7 @@ private: // メンバ変数
 	// サイズ
 	float size_;
 
+	// Δタイム
+	const float kDeltaTimer = 1.0f / 60.0f;
 };
 
