@@ -179,9 +179,6 @@
     <Filter Include="Project\Scene\SceneState\GameClearScene">
       <UniqueIdentifier>{59c7162a-aeb2-4397-890b-0e20e0fa3fb8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project\Scene\SceneState\GameOverScene">
-      <UniqueIdentifier>{b0da63b2-2cc0-4b9d-bc2f-8c92369cbcdb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project\GameObject\Player">
       <UniqueIdentifier>{71bb6e3b-c455-4ebf-a295-83ea5971fe26}</UniqueIdentifier>
     </Filter>
@@ -223,6 +220,9 @@
     </Filter>
     <Filter Include="Project\GameObject\Count">
       <UniqueIdentifier>{bad9b5b4-4600-4c49-9f74-f7ff4a3afaa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\GameObject\Manual">
+      <UniqueIdentifier>{1021b85d-67af-4852-94f3-1d262e0cbc55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +397,12 @@
     </ClCompile>
     <ClCompile Include="Project\GameObject\Count\Count.cpp">
       <Filter>Project\GameObject\Count</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\Manual\Manual.cpp">
+      <Filter>Project\GameObject\Manual</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Scene\SceneState\GameClearScene\GameClearScene.cpp">
+      <Filter>Project\Scene\SceneState\GameClearScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -633,6 +639,12 @@
     </ClInclude>
     <ClInclude Include="Project\GameObject\Count\Count.h">
       <Filter>Project\GameObject\Count</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\Manual\Manual.h">
+      <Filter>Project\GameObject\Manual</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\SceneState\GameClearScene\GameClearScene.h">
+      <Filter>Project\Scene\SceneState\GameClearScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

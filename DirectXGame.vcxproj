@@ -105,11 +105,13 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Project\GameObject\EnemyManager\PhaseState\Approach\IEnemyApproachState.cpp" />
     <ClCompile Include="Project\GameObject\EnemyManager\PhaseState\Leave\IEnemyLeaveState.cpp" />
     <ClCompile Include="Project\GameObject\Ground\Ground.cpp" />
+    <ClCompile Include="Project\GameObject\Manual\Manual.cpp" />
     <ClCompile Include="Project\GameObject\Player\Player.cpp" />
     <ClCompile Include="Project\GameObject\Player\PlayerBullet\PlayerBullet.cpp" />
     <ClCompile Include="Project\GameObject\Skydome\Skydome.cpp" />
     <ClCompile Include="Project\math\Function.cpp" />
     <ClCompile Include="Project\Scene\SceneState\DebugScene\DebugScene.cpp" />
+    <ClCompile Include="Project\Scene\SceneState\GameClearScene\GameClearScene.cpp" />
     <ClCompile Include="Project\Scene\SceneState\GameScene\GameScene.cpp" />
     <ClCompile Include="Project\Scene\SceneState\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Tsumi\2D\Sprite\Sprite.cpp" />
@@ -167,6 +169,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Project\GameObject\EnemyManager\PhaseState\Leave\IEnemyLeaveState.h" />
     <ClInclude Include="Project\GameObject\GameObject.h" />
     <ClInclude Include="Project\GameObject\Ground\Ground.h" />
+    <ClInclude Include="Project\GameObject\Manual\Manual.h" />
     <ClInclude Include="Project\GameObject\Player\Player.h" />
     <ClInclude Include="Project\GameObject\Player\PlayerBullet\PlayerBullet.h" />
     <ClInclude Include="Project\GameObject\Skydome\Skydome.h" />
@@ -178,6 +181,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Project\math\Vector4.h" />
     <ClInclude Include="Project\Scene\IScene.h" />
     <ClInclude Include="Project\Scene\SceneState\DebugScene\DebugScene.h" />
+    <ClInclude Include="Project\Scene\SceneState\GameClearScene\GameClearScene.h" />
     <ClInclude Include="Project\Scene\SceneState\GameScene\GameScene.h" />
     <ClInclude Include="Project\Scene\SceneState\TitleScene\TitleScene.h" />
     <ClInclude Include="Tsumi\2D\Sprite\Sprite.h" />

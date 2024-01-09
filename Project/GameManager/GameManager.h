@@ -6,6 +6,7 @@
 #include "DebugScene/DebugScene.h"
 #include "TitleScene/TitleScene.h"
 #include "GameScene/GameScene.h"
+#include "GameClearScene/GameClearScene.h"
 #include "Input.h"
 
 

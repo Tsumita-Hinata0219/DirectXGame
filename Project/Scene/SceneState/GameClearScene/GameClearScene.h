@@ -7,19 +7,19 @@
 #include "Ground/Ground.h"
 
 /* TitleSceneクラス */
-class TitleScene : public IScene {
+class GameClearScene : public IScene {
 
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	TitleScene() {};
+	GameClearScene() {};
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~TitleScene();
+	~GameClearScene();
 
 	/// <summary>
 	/// 初期化処理
@@ -54,10 +54,6 @@ private:
 	// ビュープロジェクション
 	ViewProjection viewProjection_{};
 
-	/* ----- TitleBar タイトルバー ----- */
-	unique_ptr<Model> titleBarModel_ = nullptr;
-	WorldTransform titleTransform_{};
 
 	XINPUT_STATE joyState_{};
-
 };

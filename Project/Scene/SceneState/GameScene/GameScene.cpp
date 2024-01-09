@@ -110,7 +110,7 @@ void GameScene::Update(GameManager* Scene) {
 
 	/* ----- SceneChange シーンチェンジ ----- */
 	if (player_->GetKillCount() <= 0) {
-		Scene->ChangeSceneState(new TitleScene());
+		Scene->ChangeSceneState(new GameClearScene());
 		return;
 	}
 

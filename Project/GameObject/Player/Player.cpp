@@ -106,15 +106,6 @@ void Player::JoyStateCommand() {
 		return;
 	}
 
-	if (Input::IsButtonPress(joyState_, XINPUT_GAMEPAD_Y)) {
-
-		OutputDebugStringA("Press Button A\n");
-	}
-	if (Input::IsButtonTrigger(joyState_, XINPUT_GAMEPAD_B)) {
-
-		OutputDebugStringA("Trigger Button B\n");
-	}
-
 	move_ = zeroVector3;
 	if (Input::PressKeys(DIK_A)) {
 		move_.x = (-moveSpeed_);
