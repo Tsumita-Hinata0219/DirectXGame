@@ -61,6 +61,11 @@ public:
 	/// </summary>
 	Vector3 GetSize() override { return size_; }
 
+	/// <summary>
+	/// キルカウント取得
+	/// </summary>
+	uint32_t GetKillCount() { return killCount_; }
+
 
 #pragma endregion
 
@@ -80,7 +85,7 @@ public:
 	/// <summary>
 	/// キルカウントを引数分加算
 	/// </summary>
-	void AddKillCount(const uint32_t addVal) { killCount_ = killCount_ + addVal; }
+	void SubtructKillCount(const uint32_t addVal) { killCount_ = killCount_ - addVal; }
 
 	/// <summary>
 	/// HPを減らす
@@ -143,6 +148,8 @@ private:
 	XINPUT_STATE joyState_{};
 
 	GameScene* gameScene_ = nullptr;
+
+	uint32_t fireTimer_ = 0;
 
 };
 

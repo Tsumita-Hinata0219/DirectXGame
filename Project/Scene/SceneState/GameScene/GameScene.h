@@ -10,6 +10,7 @@
 #include "EnemyManager/EnemyManager.h"
 #include "Skydome/Skydome.h"
 #include "Ground/Ground.h"
+#include "Count/Count.h"
 
 #include "CollisionManager.h"
 
@@ -115,14 +116,8 @@ private:
 	std::list<Enemy*> enemys_{};
 	std::list<EnemyBullet*> enemyBullets_{};
 
-
-	/* ----- Skydome スカイドーム ----- */
-	//unique_ptr<Skydome> skydome_ = nullptr;
-
-
-	/* ----- Ground グラウンド ----- */
-	unique_ptr<Ground> ground_ = nullptr;
-
+	/* ----- Count カウント ----- */
+	unique_ptr<Count> count_ = nullptr;
 
 	/* ----- CollisionManager コリジョンマネージャー ----- */
 	unique_ptr<CollisionManager> collisionManager_ = nullptr;

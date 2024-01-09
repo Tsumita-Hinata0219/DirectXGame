@@ -20,7 +20,7 @@ void PlayerBullet::Init(Model& model, Vector3& position, Vector3& velocity) {
 		.z = 2.0f * worldTrans_.scale.z,
 	};
 
-	life_.kLifeTimer = 60 * 10;
+	life_.kLifeTimer = 60 * 5;
 	life_.Timer = life_.kLifeTimer;
 	life_.IsAlive = true;
 
@@ -82,7 +82,7 @@ void PlayerBullet::OnCollision(uint32_t id) {
 
 	if (id == EnemyID) {
 
-		player_->AddKillCount(1);
+		player_->SubtructKillCount(1);
 	}
 }
 
@@ -100,7 +100,6 @@ void PlayerBullet::UpdateLifeStatus() {
 		life_.IsDead = true;
 	}
 }
-
 
 
 /// <summary>

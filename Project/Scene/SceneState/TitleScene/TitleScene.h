@@ -4,6 +4,7 @@
 #include "GameObject.h"
 
 #include "Skydome/Skydome.h"
+#include "Ground/Ground.h"
 
 /* TitleSceneクラス */
 class TitleScene : public IScene {
@@ -52,5 +53,9 @@ private:
 
 	// ビュープロジェクション
 	ViewProjection viewProjection_{};
+
+	/* ----- TitleBar タイトルバー ----- */
+	unique_ptr<Model> titleBarModel_ = nullptr;
+	WorldTransform titleTransform_{};
 
 };

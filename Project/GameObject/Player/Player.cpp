@@ -33,8 +33,10 @@ void Player::Initialize(const Vector3& rotate, const Vector3& translate) {
 	bulletModel_ = make_unique<Model>();
 	bulletModel_->CreateFromObj("PlayerBullet");
 
-	killCount_ = 0;
+	killCount_ = 15;
 	HP_ = 10;
+
+	fireTimer_ = 5;
 
 	SettingColliderAttributeAndMask();
 }
@@ -100,10 +102,9 @@ void Player::OnCollision(uint32_t id) {
 void Player::JoyStateCommand() {
 
 	// ゲームパッドを見接続なら何もせず抜ける
-	/*if (!Input::GetJoyStickState(joyState_)) {
+	if (!Input::GetJoyStickState(joyState_)) {
 		return;
-	}*/
-
+	}
 
 	if (Input::IsButtonPress(joyState_, XINPUT_GAMEPAD_Y)) {
 
@@ -114,37 +115,37 @@ void Player::JoyStateCommand() {
 		OutputDebugStringA("Trigger Button B\n");
 	}
 
-
-	/*if (Input::GetJoyStickState(joyState_)) {
-		move_.x += (float)joyState_.Gamepad.sThumbLX / SHRT_MAX * moveSpeed_;
-		move_.y += (float)joyState_.Gamepad.sThumbLY / SHRT_MAX * moveSpeed_;
-	}
-	else {
-		move_ = { 0.0f, 0.0f, 0.0f };
-	}*/
-
 	move_ = zeroVector3;
-	if (Input::PressKeys(DIK_W)) {
-		move_.y = moveSpeed_;
-	}
 	if (Input::PressKeys(DIK_A)) {
 		move_.x = (-moveSpeed_);
-	}
-	if (Input::PressKeys(DIK_S)) {
-		move_.y = (-moveSpeed_);
 	}
 	if (Input::PressKeys(DIK_D)) {
 		move_.x = moveSpeed_;
 	}
-	if (Input::PressKeys(DIK_UP)) {
-		move_.z = moveSpeed_;
+
+	if (Input::IsButtonPress(joyState_, XINPUT_GAMEPAD_DPAD_LEFT)) {
+		move_.x = (-moveSpeed_);
 	}
-	if (Input::PressKeys(DIK_DOWN)) {
-		move_.z = (-moveSpeed_);
+	if (Input::IsButtonPress(joyState_, XINPUT_GAMEPAD_DPAD_RIGHT)) {
+		move_.x = moveSpeed_;
 	}
 
-	if (Input::TriggerKey(DIK_SPACE)) {
-		PushBackBullet();
+
+
+	if (Input::PressKeys(DIK_SPACE)) {
+		fireTimer_--;
+		if (fireTimer_ <= 0) {
+			fireTimer_ = 5;
+			PushBackBullet();
+		}
+	}
+
+	if (Input::IsButtonPress(joyState_, XINPUT_GAMEPAD_B)) {
+		fireTimer_--;
+		if (fireTimer_ <= 0) {
+			fireTimer_ = 5;
+			PushBackBullet();
+		}
 	}
 	
 }

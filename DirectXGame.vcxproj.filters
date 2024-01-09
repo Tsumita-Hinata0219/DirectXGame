@@ -221,6 +221,9 @@
     <Filter Include="Project\GameObject\Ground">
       <UniqueIdentifier>{c564f2ef-d9a9-4ce8-b3a4-0026d566f88c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project\GameObject\Count">
+      <UniqueIdentifier>{bad9b5b4-4600-4c49-9f74-f7ff4a3afaa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -391,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="Project\GameObject\EnemyManager\Enemy\EnemyBullet\EnemyBullet.cpp">
       <Filter>Project\GameObject\EnemyManager\Enemy\EnemyBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\Count\Count.cpp">
+      <Filter>Project\GameObject\Count</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -624,6 +630,9 @@
     </ClInclude>
     <ClInclude Include="Project\Scene\SceneState\TitleScene\TitleScene.h">
       <Filter>Project\Scene\SceneState\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\Count\Count.h">
+      <Filter>Project\GameObject\Count</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

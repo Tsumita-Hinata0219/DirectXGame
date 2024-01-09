@@ -1,14 +1,24 @@
 #include "Ground.h"
 
 
+
+/// <summary>
+/// インスタンスの取得
+/// </summary>
+Ground* Ground::GetInstance() {
+	static Ground instance;
+	return &instance;
+}
+
+
 /// <summary>
 /// 初期化処理
 /// </summary>
 void Ground::Initialize() {
 
-	model_ = make_unique<Model>();
-	model_->CreateFromObj("Ground");
-	worldTrans_.Initialize();
+	Ground::GetInstance()->model_ = make_unique<Model>();
+	Ground::GetInstance()->model_->CreateFromObj("Ground");
+	Ground::GetInstance()->worldTrans_.Initialize();
 }
 
 
@@ -17,7 +27,7 @@ void Ground::Initialize() {
 /// </summary>
 void Ground::Update() {
 
-	worldTrans_.UpdateMatrix();
+	Ground::GetInstance()->worldTrans_.UpdateMatrix();
 }
 
 
@@ -27,5 +37,5 @@ void Ground::Update() {
 /// </summary>
 void Ground::Draw(ViewProjection view) {
 
-	model_->Draw(worldTrans_, view);
+	Ground::GetInstance()->model_->Draw(Ground::GetInstance()->worldTrans_, view);
 }

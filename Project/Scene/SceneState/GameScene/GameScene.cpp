@@ -46,8 +46,7 @@ void GameScene::Initialize() {
 
 
 	/* ----- Ground グラウンド ----- */
-	ground_ = make_unique<Ground>();
-	ground_->Initialize();
+	Ground::Initialize();
 
 
 	/* ----- Player プレイヤー ----- */
@@ -66,13 +65,12 @@ void GameScene::Initialize() {
 	enemyManager_->Initialize(initEnemyTrasnlate);
 
 
+	/* ----- Moji 文字 ----- */
+	count_ = make_unique<Count>();
+	count_->Initialize();
+
 	/* ----- CollisionManager コリジョンマネージャー ----- */
 	collisionManager_ = make_unique<CollisionManager>();
-
-
-	/* ----- Parent ペアレント ----- */
-	//player_->SetParent(&railCamera_->GetWorldTransform());
-	//enemyManager_->SetParent(&railCamera_->GetWorldTransform());
 }
 
 
@@ -90,7 +88,7 @@ void GameScene::Update(GameManager* Scene) {
 
 
 	/* ----- Ground グラウンド ----- */
-	ground_->Update();
+	Ground::Update();
 
 
 	/* ----- Player プレイヤー ----- */
@@ -103,6 +101,18 @@ void GameScene::Update(GameManager* Scene) {
 
 	/* ----- CollisionManager コリジョンマネージャー ----- */
 	CheckAllCollision();
+
+
+	/* ----- Count カウント ----- */
+	count_->Update();
+	count_->SetNowSuuji(player_->GetKillCount());
+
+
+	/* ----- SceneChange シーンチェンジ ----- */
+	if (player_->GetKillCount() <= 0) {
+		Scene->ChangeSceneState(new TitleScene());
+		return;
+	}
 
 
 	// カメラの処理
@@ -151,7 +161,7 @@ void GameScene::ModelDraw() {
 
 
 	/* ----- Ground グラウンド ----- */
-	ground_->Draw(viewProjection_);
+	Ground::Draw(viewProjection_);
 
 
 	/* ----- Player プレイヤー ----- */
@@ -168,6 +178,10 @@ void GameScene::ModelDraw() {
 	for (EnemyBullet* eneBul : enemyBullets_) {
 		eneBul->Draw(viewProjection_);
 	}
+
+
+	/* ----- Count カウント ----- */
+	count_->Draw(viewProjection_);
 }
 
 
@@ -187,7 +201,6 @@ void GameScene::PlayerUpdate() {
 
 	// プレイヤーの更新処理
 	player_->Update();
-
 
 	// プレイヤーバレットの更新処理
 	for (PlayerBullet* bullet : playerBulelts_) {
@@ -261,9 +274,9 @@ void GameScene::CheckAllCollision() {
 	for (Enemy* enemy : enemys_) {
 		collisionManager_->ColliderOBBPushBack(enemy);
 	}
-	/*for (EnemyBullet* eneBul : enemyBullets_) {
+	for (EnemyBullet* eneBul : enemyBullets_) {
 		collisionManager_->ColliderOBBPushBack(eneBul);
-	}*/
+	}
 
 	// すべてのコライダーに対して衝突を検出
 	collisionManager_->CheckAllCollision();

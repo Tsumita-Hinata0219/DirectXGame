@@ -8,19 +8,24 @@ class Ground {
 public:
 
 	/// <summary>
+	/// インスタンスの取得
+	/// </summary>
+	static Ground* GetInstance();
+
+	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize();
+	static void Initialize();
 
 	/// <summary>
 	/// 更新処理
 	/// </summary>
-	void Update();
+	static void Update();
 
 	/// <summary>
 	/// 描画処理
 	/// </summary>
-	void Draw(ViewProjection view);
+	static void Draw(ViewProjection view);
 
 private:
 

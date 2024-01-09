@@ -70,7 +70,7 @@ void EnemyBullet::Draw(ViewProjection view) {
 /// 衝突時コールバック関数
 /// </summary>
 void EnemyBullet::OnCollision(uint32_t id) {
-	id;
+
 	life_.IsAlive = false;
 	life_.IsDead = true;
 }
