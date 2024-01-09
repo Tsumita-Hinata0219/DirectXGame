@@ -86,6 +86,7 @@ void EngineManual::Initialize() {
 	particle_->Initialize(new ParticlePlane, NumInstance_);
 	for (int i = 0; i < NumInstance_; i++) {
 
+		particlePrope_[i].worldTransform.Initialize();
 		particlePrope_[i].worldTransform.scale = {1.0f, 1.0f, 1.0f};
 		particlePrope_[i].worldTransform.rotate = { 0.0f, 0.0f, 0.0f };
 		particlePrope_[i].worldTransform.translate = {
@@ -126,7 +127,7 @@ void EngineManual::Update() {
 	//planeModel_->SetColor(planeModelColor_);
 	//objModel1_->SetColor(objModel1Color_);
 
-	//particle_->Update();
+	particle_->Update();
 
 #ifdef _DEBUG
 
