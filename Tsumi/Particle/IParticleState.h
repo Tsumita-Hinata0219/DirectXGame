@@ -9,6 +9,7 @@ struct ParticleProperties {
 	WorldTransform uvTransform;
 	Vector4 color;
 	Vector3 velocity;
+	bool isActive;
 };
 
 

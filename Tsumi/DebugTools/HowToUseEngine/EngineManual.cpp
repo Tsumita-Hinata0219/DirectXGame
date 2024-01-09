@@ -95,10 +95,11 @@ void EngineManual::Initialize() {
 			i * 0.1f,
 		};
 		particlePrope_[i].color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		particlePrope_[i].velocity = { 0.0f, 0.0f, 0.0f };
+		//particlePrope_[i].velocity = Randome
 		particlePrope_[i].uvTransform.scale = { 1.0f, 1.0f, 1.0f };
 		particlePrope_[i].uvTransform.rotate = { 0.0f, 0.0f, 0.0f };
 		particlePrope_[i].uvTransform.translate = { 0.0f, 0.0f, 0.0f };
+		particlePrope_[i].isActive = true;
 
 		particle_->PushBackParticles(particlePrope_[i]);
 	}
