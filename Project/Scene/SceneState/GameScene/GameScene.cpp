@@ -54,16 +54,17 @@ void GameScene::Initialize() {
 	/* ----- Player プレイヤー ----- */
 	player_ = make_unique<Player>();
 	player_->SetGameScene(this);
-	Vector3 initRotate = { 0.0f, 0.0f, 0.0f };
-	Vector3 initTrasnlate = { 0.0f, 0.0f, 50.0f };
-	player_->Initialize(initRotate, initTrasnlate);
+	Vector3 initPlayerRotate = { 0.0f, 0.0f, 0.0f };
+	Vector3 initPlayerTrasnlate = { 0.0f, -15.0f, 50.0f };
+	player_->Initialize(initPlayerRotate, initPlayerTrasnlate);
 
 
 	/* ----- Enemy エネミー ----- */
 	enemyManager_ = make_unique<EnemyManager>();
 	enemyManager_->SetGameScene(this);
 	enemyManager_->SetPlayer(player_.get());
-	enemyManager_->Initialize();
+	Vector3 initEnemyTrasnlate = { 0.0f, -15.0f, 0.0f };
+	enemyManager_->Initialize(initEnemyTrasnlate);
 
 
 	/* ----- Parent ペアレント ----- */

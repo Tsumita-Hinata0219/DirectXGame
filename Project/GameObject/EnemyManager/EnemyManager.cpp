@@ -12,13 +12,14 @@ EnemyManager::~EnemyManager() {}
 /// <summary>
 /// 初期化処理
 /// </summary>
-void EnemyManager::Initialize() {
+void EnemyManager::Initialize(Vector3 translate) {
 
 	worldTrans_.Initialize();
+	worldTrans_.translate = translate;
 
-	scopeX_ = { -10.0f, 10.0f };
-	scopeY_ = { 5.0f, 100.0f };
-	scopeZ_ = { 100.0f, 500.0f };
+	scopeX_ = { -19.0f, 19.0f };
+	scopeY_ = { 50.0f, 200.0f };
+	scopeZ_ = { 200.0f, 400.0f };
 
 	velocity_ = { 0.0f, 0.0f, 0.3f };
 
@@ -105,7 +106,7 @@ void EnemyManager::PushBackEnemy() {
 
 	Enemy* newEnemy = new Enemy();
 	Vector3 newPos = Add(worldTrans_.GetWorldPos(), RandomGenerator::getRandom(scopeX_, scopeY_, scopeZ_));
-	newPos = Subtract(newPos, { 0.0f, 6.0f, 0.0f });
+	newPos = Subtract(newPos, { 0.0f, 25.0f, 0.0f });
 	Vector3 newVel = velocity_;
 	battlePosition_ = {
 		.x = newPos.x,

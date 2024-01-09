@@ -27,7 +27,7 @@ public:
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	void Initialize();
+	void Initialize(Vector3 translate);
 
 	/// <summary>
 	/// 更新処理

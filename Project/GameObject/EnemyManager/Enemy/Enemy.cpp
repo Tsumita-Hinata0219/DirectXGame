@@ -13,7 +13,7 @@ void Enemy::Init(Model& model, Model& modelBullet, Vector3 position, Vector3 vel
 	(*modleBullet_) = modelBullet;
 
 	worldTrans_.Initialize();
-	worldTrans_.scale = { 2.0f, 2.0f, 2.0f };
+	worldTrans_.scale = { 3.0f, 3.0f, 1.0f };
 	worldTrans_.translate = position;
 	velocity_ = velocity;
 	moveSpeed_ = 1.0f;
@@ -41,6 +41,10 @@ void Enemy::Update() {
 
 
 #ifdef _DEBUG
+
+	ImGui::Begin("Enemy");
+	ImGui::DragFloat3("translate", &worldTrans_.translate.x, 0.1f);
+	ImGui::End();
 
 
 #endif // _DEBUG
@@ -72,11 +76,24 @@ void Enemy::ChangePhaseState(IEnemyPhaseState* newState) {
 void Enemy::Approach2BattlePosition() {
 
 	if (!initMoveFlag_) {
-		worldTrans_.translate = Subtract(worldTrans_.translate, { 0.0f, 1.0f, 0.0f });
-	}
+		
+		Vector2 to = {
+			.x = worldTrans_.translate.x - battlePosition_.x,
+			.y = worldTrans_.translate.y - battlePosition_.y,
+		};
+		float dist = sqrt((to.x * to.x) + (to.y * to.y));
 
-	if (worldTrans_.translate.y <= 0.0f) {
-		initMoveFlag_ = true;
+		Vector3 vel = {
+			.x = to.x / dist * moveSpeed_,
+			.y = to.y / dist * moveSpeed_,
+			.z = 0.0f,
+		};
+
+		worldTrans_.translate = Subtract(worldTrans_.translate, vel);
+
+		if (dist < 7.0f) {
+			initMoveFlag_ = true;
+		}
 	}
 }
 
