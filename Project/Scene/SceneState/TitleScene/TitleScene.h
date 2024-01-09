@@ -5,6 +5,7 @@
 
 #include "Skydome/Skydome.h"
 #include "Ground/Ground.h"
+#include "Manual/Manual.h"
 
 /* TitleSceneクラス */
 class TitleScene : public IScene {

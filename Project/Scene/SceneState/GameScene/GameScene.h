@@ -11,6 +11,7 @@
 #include "Skydome/Skydome.h"
 #include "Ground/Ground.h"
 #include "Count/Count.h"
+#include "Sousa/Sousa.h"
 
 #include "CollisionManager.h"
 

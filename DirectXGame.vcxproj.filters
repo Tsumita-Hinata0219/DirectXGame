@@ -224,6 +224,9 @@
     <Filter Include="Project\GameObject\Manual">
       <UniqueIdentifier>{1021b85d-67af-4852-94f3-1d262e0cbc55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project\GameObject\Sousa">
+      <UniqueIdentifier>{2ca31c76-a0fa-48c6-9e54-ab760f8fbb11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -403,6 +406,9 @@
     </ClCompile>
     <ClCompile Include="Project\Scene\SceneState\GameClearScene\GameClearScene.cpp">
       <Filter>Project\Scene\SceneState\GameClearScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\Sousa\Sousa.cpp">
+      <Filter>Project\GameObject\Sousa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -645,6 +651,9 @@
     </ClInclude>
     <ClInclude Include="Project\Scene\SceneState\GameClearScene\GameClearScene.h">
       <Filter>Project\Scene\SceneState\GameClearScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\GameObject\Sousa\Sousa.h">
+      <Filter>Project\GameObject\Sousa</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

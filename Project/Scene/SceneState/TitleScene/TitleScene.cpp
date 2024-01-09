@@ -37,6 +37,8 @@ void TitleScene::Initialize() {
 
 	/* ----- Ground グラウンド ----- */
 	Ground::Initialize();
+
+	Manual::Initialize();
 }
 
 
@@ -60,6 +62,8 @@ void TitleScene::Update(GameManager* Scene) {
 	/* ----- Ground グラウンド ----- */
 	Ground::Update();
 
+
+	Manual::Update();
 
 	if (Input::TriggerKey(DIK_P)) {
 		Scene->ChangeSceneState(new GameScene);
@@ -113,6 +117,7 @@ void TitleScene::ModelDraw() {
 	/* ----- Ground グラウンド ----- */
 	Ground::Draw(viewProjection_);
 
+	Manual::Draw(viewProjection_);
 }
 
 

@@ -1,16 +1,15 @@
 #pragma once
 
-
 #include "GameObject.h"
 
-class Manual {
+class Sousa {
 
 public:
 
 	/// <summary>
 	/// インスタンス取得
 	/// </summary>
-	static Manual* GetInstance();
+	static Sousa* GetInstance();
 
 	/// <summary>
 	/// 初期化処理

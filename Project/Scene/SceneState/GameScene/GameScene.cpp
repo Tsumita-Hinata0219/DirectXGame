@@ -69,6 +69,9 @@ void GameScene::Initialize() {
 	count_ = make_unique<Count>();
 	count_->Initialize();
 
+	Sousa::Initialize();
+
+
 	/* ----- CollisionManager コリジョンマネージャー ----- */
 	collisionManager_ = make_unique<CollisionManager>();
 }
@@ -107,6 +110,8 @@ void GameScene::Update(GameManager* Scene) {
 	count_->Update();
 	count_->SetNowSuuji(player_->GetKillCount());
 
+
+	Sousa::Update();
 
 	/* ----- SceneChange シーンチェンジ ----- */
 	if (player_->GetKillCount() <= 0) {
@@ -182,6 +187,9 @@ void GameScene::ModelDraw() {
 
 	/* ----- Count カウント ----- */
 	count_->Draw(viewProjection_);
+
+
+	Sousa::Draw(viewProjection_);
 }
 
 

@@ -28,6 +28,8 @@ void GameClearScene::Initialize() {
 
 	/* ----- Ground グラウンド ----- */
 	Ground::Initialize();
+
+	Manual::Initialize();
 }
 
 
@@ -47,6 +49,9 @@ void GameClearScene::Update(GameManager* Scene) {
 
 	/* ----- Ground グラウンド ----- */
 	Ground::Update();
+
+
+	Manual::Update();
 
 
 	// ゲームパッドを見接続なら何もせず抜ける
@@ -90,15 +95,15 @@ void GameClearScene::BackSpriteDraw() {
 /// </summary>
 void GameClearScene::ModelDraw() {
 
-	
-
-
 	/* ----- Skydome スカイドーム ----- */
 	Skydome::Draw(viewProjection_);
 
 
 	/* ----- Ground グラウンド ----- */
 	Ground::Draw(viewProjection_);
+
+
+	Manual::Draw(viewProjection_);
 
 }
 
