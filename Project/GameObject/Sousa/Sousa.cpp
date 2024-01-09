@@ -19,7 +19,7 @@ void Sousa::Initialize() {
 	Sousa::GetInstance()->worldTrans_.Initialize();
 	Sousa::GetInstance()->worldTrans_.scale = { 60.0f, 60.0f, 60.0f };
 	Sousa::GetInstance()->worldTrans_.rotate = { 0.0f, 0.0f, 0.0f };
-	Sousa::GetInstance()->worldTrans_.translate = { 00.0f, 20.0f, 400.0f };
+	Sousa::GetInstance()->worldTrans_.translate = { 00.0f, 40.0f, 400.0f };
 }
 
 
