@@ -87,7 +87,7 @@ private:
 
 	// PlayerBulelt
 	std::unique_ptr<Model> bulletModel_ = nullptr;
-	const float kBulletSpeed_ = 1.5f;
+	const float kBulletSpeed_ = 4.0f;
 
 	// 移動
 	Vector3 move_{};

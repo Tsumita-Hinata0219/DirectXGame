@@ -4,9 +4,9 @@
 
 void IEnemyApproachState::Update(Enemy* pEnemy) {
 
-	pEnemy->SubtractTransform(pEnemy->GetVelocity());
+	pEnemy->Approach2BattlePosition();
 
-	if (pEnemy->GetWorldTransform().GetWorldPos().z < 30) {
+	if (pEnemy->GetInitMoveFlag()) {
 		
 		pEnemy->ChangePhaseState(new IEnemyLeaveState());
 	}

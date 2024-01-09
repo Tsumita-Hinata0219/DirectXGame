@@ -17,12 +17,12 @@ void EnemyManager::Initialize() {
 	worldTrans_.Initialize();
 
 	scopeX_ = { -10.0f, 10.0f };
-	scopeY_ = { 0.0f, 0.0f };
-	scopeZ_ = { 10.0f, 50.0f };
+	scopeY_ = { 5.0f, 100.0f };
+	scopeZ_ = { 100.0f, 500.0f };
 
 	velocity_ = { 0.0f, 0.0f, 0.3f };
 
-	specificPosition_ = { 0.0f, 0.0f, 0.0f };
+	battlePosition_ = { 0.0f, 0.0f, 0.0f };
 
 	initEnemysCount_ = 5;
 	intervalFrame_ = 250;
@@ -65,7 +65,7 @@ void EnemyManager::Update() {
 	ImGui::DragFloat2("ScopeY", &scopeY_.x, 0.1f, 0.0f);
 	ImGui::DragFloat2("ScopeZ", &scopeZ_.x, 0.1f, 0.0f);
 	ImGui::DragFloat3("Move", &velocity_.x, 0.1f, 0.0f, 10.0f);
-	ImGui::DragFloat3("SpecificPosition", &specificPosition_.x, 0.1f);
+	ImGui::DragFloat3("SpecificPosition", &battlePosition_.x, 0.1f);
 	ImGui::End();
 
 #endif // _DEBUG
@@ -105,12 +105,20 @@ void EnemyManager::PushBackEnemy() {
 
 	Enemy* newEnemy = new Enemy();
 	Vector3 newPos = Add(worldTrans_.GetWorldPos(), RandomGenerator::getRandom(scopeX_, scopeY_, scopeZ_));
+	newPos = Subtract(newPos, { 0.0f, 6.0f, 0.0f });
 	Vector3 newVel = velocity_;
+	battlePosition_ = {
+		.x = newPos.x,
+		.y = player_->GetWorldTransform().GetWorldPos().y,
+		.z = newPos.z,
+	};
 
 	newEnemy->SetGameScene(gameScene_);
 	newEnemy->SetPlayer(player_);
 	newEnemy->Init((*enemyModel_), (*enemyBulletModel_), newPos, newVel);
-	
+	newEnemy->SetParent(&worldTrans_);
+	newEnemy->SetBattlePosition(battlePosition_);
+
 	gameScene_->AddEnemyList(newEnemy);
 }
 

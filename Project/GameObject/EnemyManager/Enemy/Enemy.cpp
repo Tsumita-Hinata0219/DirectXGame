@@ -8,7 +8,7 @@
 void Enemy::Init(Model& model, Model& modelBullet, Vector3 position, Vector3 velocity) {
 
 	modle_ = make_unique<Model>();
-	(*modle_) = model;	
+	(*modle_) = model;
 	modleBullet_ = make_unique<Model>();
 	(*modleBullet_) = modelBullet;
 
@@ -16,9 +16,12 @@ void Enemy::Init(Model& model, Model& modelBullet, Vector3 position, Vector3 vel
 	worldTrans_.scale = { 2.0f, 2.0f, 2.0f };
 	worldTrans_.translate = position;
 	velocity_ = velocity;
+	moveSpeed_ = 1.0f;
 	bulletVel_ = { 0.0f, 0.0f, kBulletSpeed_ };
 	bullet_.FireInterval = 80;
 	bullet_.FireTimer = int32_t(RandomGenerator::getRandom({ 5.0f, 300.0f }));
+
+	initMoveFlag_ = false;
 
 	phaseState_ = new IEnemyApproachState();
 }
@@ -32,6 +35,7 @@ void Enemy::Update() {
 	// ステートパターンによるフェーズ処理
 	phaseState_->Update(this);
 
+	playerWorldPos_ = player_->GetWorldTransform().GetWorldPos();
 
 	worldTrans_.UpdateMatrix();
 
@@ -65,13 +69,15 @@ void Enemy::ChangePhaseState(IEnemyPhaseState* newState) {
 /// <summary>
 /// ステートパターン内で使用する移動用関数(加算 減算) 
 /// </summary>
-void Enemy::AddTransform(const Vector3& velocity) {
+void Enemy::Approach2BattlePosition() {
 
-	worldTrans_.translate = Add(worldTrans_.translate, velocity);
-}
-void Enemy::SubtractTransform(const Vector3& velocity) {
+	if (!initMoveFlag_) {
+		worldTrans_.translate = Subtract(worldTrans_.translate, { 0.0f, 1.0f, 0.0f });
+	}
 
-	worldTrans_.translate = Subtract(worldTrans_.translate, velocity);
+	if (worldTrans_.translate.y <= 0.0f) {
+		initMoveFlag_ = true;
+	}
 }
 
 
@@ -109,7 +115,7 @@ void Enemy::FirePreparation() {
 		toPlayer.y * kBulletSpeed_,
 		toPlayer.z * kBulletSpeed_,
 	};
-	
+
 	bulletVel_ = TransformNormal(bulletVel_, worldTrans_.matWorld);
 }
 
@@ -123,7 +129,7 @@ void Enemy::FireBullet() {
 	Vector3 newPos = worldTrans_.translate;
 	Vector3 newVal = bulletVel_;
 
-	
+
 	newBullet->Init((*modleBullet_), newPos, newVal);
 
 	gameScene_->AddEnemyBulletList(newBullet);

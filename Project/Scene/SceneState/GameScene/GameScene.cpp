@@ -57,7 +57,6 @@ void GameScene::Initialize() {
 	Vector3 initRotate = { 0.0f, 0.0f, 0.0f };
 	Vector3 initTrasnlate = { 0.0f, 0.0f, 50.0f };
 	player_->Initialize(initRotate, initTrasnlate);
-	player_->SetParent(&railCamera_->GetWorldTransform());
 
 
 	/* ----- Enemy エネミー ----- */
@@ -65,6 +64,10 @@ void GameScene::Initialize() {
 	enemyManager_->SetGameScene(this);
 	enemyManager_->SetPlayer(player_.get());
 	enemyManager_->Initialize();
+
+
+	/* ----- Parent ペアレント ----- */
+	player_->SetParent(&railCamera_->GetWorldTransform());
 	enemyManager_->SetParent(&railCamera_->GetWorldTransform());
 }
 
@@ -170,7 +173,6 @@ void GameScene::FrontSpriteDraw() {
 
 
 
-
 /// <summary>
 /// プレイヤー更新処理
 /// </summary>
@@ -193,7 +195,7 @@ void GameScene::PlayerUpdate() {
 			return true;
 		}
 		return false;
-		});
+	});
 }
 
 

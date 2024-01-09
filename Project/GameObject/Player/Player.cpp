@@ -110,6 +110,12 @@ void Player::JoyStateCommand() {
 	if (Input::PressKeys(DIK_D)) {
 		move_.x = moveSpeed_;
 	}
+	if (Input::PressKeys(DIK_UP)) {
+		move_.z = moveSpeed_;
+	}
+	if (Input::PressKeys(DIK_DOWN)) {
+		move_.z = (-moveSpeed_);
+	}
 
 	if (Input::TriggerKey(DIK_SPACE)) {
 		PushBackBullet();

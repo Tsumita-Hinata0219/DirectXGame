@@ -94,7 +94,7 @@ private:
 	Vector2 scopeY_;
 	Vector2 scopeZ_;
 
-	Vector3 specificPosition_{};
+	Vector3 battlePosition_{};
 
 	int initEnemysCount_ = 0;
 	int intervalFrame_ = 0;

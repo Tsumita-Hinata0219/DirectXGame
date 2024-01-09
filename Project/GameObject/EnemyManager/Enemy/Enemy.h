@@ -53,25 +53,45 @@ public:
 	/// </summary>
 	void AddTransform(const Vector3& velocity);
 	void SubtractTransform(const Vector3& velocity);
+	void Approach2BattlePosition();
 
 	/// <summary>
 	/// 攻撃処理
 	/// </summary>
 	void Attack();
 
+	bool compareVectors(const Vector3& v1, const Vector3& v2) {
+		return std::tie(v1.x, v1.y, v1.z) == std::tie(v2.x, v2.y, v2.z);
+	}
+
 
 #pragma region Get
 
 	/// <summary>
+	/// PlayerWorldPosの取得
+	/// </summary>
+	Vector3 GetPlayerWorldPos() { return playerWorldPos_; }
+
+	/// <summary>
 	/// WorldTransformの取得
 	/// </summary>
-	/// <returns></returns>
 	WorldTransform GetWorldTransform() { return worldTrans_; }
 
 	/// <summary>
 	/// Velocityの取得
 	/// </summary>
 	Vector3 GetVelocity() { return velocity_; }
+
+	/// <summary>
+	/// バトルポジション
+	/// </summary>
+	Vector3 GetBattelPosition() { return battlePosition_; }
+
+	/// <summary>
+	/// 初期移動フラグ
+	/// </summary>
+	/// <returns></returns>
+	bool GetInitMoveFlag() { return initMoveFlag_; }
 
 #pragma endregion 
 
@@ -93,6 +113,17 @@ public:
 	/// </summary>
 	void SetWorldTransform(WorldTransform worldTransform) { worldTrans_ = worldTransform; }
 
+	/// <summary>
+	/// バトルポジション
+	/// </summary>
+	void SetBattlePosition(Vector3 position) { battlePosition_ = position; }
+
+	/// <summary>
+	/// 親子関係を結ぶ
+	/// </summary>
+	void SetParent(const WorldTransform* parent) { worldTrans_.SetParent(parent); }
+
+
 #pragma endregion 
 
 
@@ -112,10 +143,12 @@ private:
 
 	GameScene* gameScene_ = nullptr;
 	Player* player_ = nullptr;
+	Vector3 playerWorldPos_{};
 
 	unique_ptr<Model> modle_ = nullptr;
 	WorldTransform worldTrans_{};
 	Vector3 velocity_{};
+	float moveSpeed_;
 
 	unique_ptr<Model> modleBullet_ = nullptr;
 	Vector3 bulletVel_{};
@@ -125,7 +158,8 @@ private:
 	// ステートパターン
 	IEnemyPhaseState* phaseState_;
 
-	Vector3 specificPosition_{};
-	
+	Vector3 battlePosition_{};
+
+	bool initMoveFlag_ = false;
 
 };
