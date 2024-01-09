@@ -117,7 +117,7 @@ private:
 
 
 	/* ----- Skydome スカイドーム ----- */
-	unique_ptr<Skydome> skydome_ = nullptr;
+	//unique_ptr<Skydome> skydome_ = nullptr;
 
 
 	/* ----- Ground グラウンド ----- */

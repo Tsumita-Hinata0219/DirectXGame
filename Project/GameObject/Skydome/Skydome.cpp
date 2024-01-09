@@ -1,15 +1,25 @@
 #include "Skydome.h"
 
 
+
+/// <summary>
+/// インスタンス取得
+/// </summary>
+Skydome* Skydome::GetInstance() {
+	static Skydome instance;
+	return &instance;
+}
+
+
 /// <summary>
 /// 初期化処理
 /// </summary>
 void Skydome::Initialize() {
 
-	model_ = make_unique<Model>();
-	model_->CreateFromObj("Skydome");
-	worldTrans_.Initialize();
-	worldTrans_.scale = { 500.0f, 500.0f, 500.0f };
+	Skydome::GetInstance()->model_ = make_unique<Model>();
+	Skydome::GetInstance()->model_->CreateFromObj("Skydome");
+	Skydome::GetInstance()->worldTrans_.Initialize();
+	Skydome::GetInstance()->worldTrans_.scale = { 500.0f, 500.0f, 500.0f };
 }
 
 
@@ -18,7 +28,7 @@ void Skydome::Initialize() {
 /// </summary>
 void Skydome::Update() {
 
-	worldTrans_.UpdateMatrix();
+	Skydome::GetInstance()->worldTrans_.UpdateMatrix();
 }
 
 
@@ -28,5 +38,5 @@ void Skydome::Update() {
 /// </summary>
 void Skydome::Draw(ViewProjection view) {
 
-	model_->Draw(worldTrans_, view);
+	Skydome::GetInstance()->model_->Draw(Skydome::GetInstance()->worldTrans_, view);
 }

@@ -389,6 +389,9 @@
     <ClCompile Include="Project\GameObject\Ground\Ground.cpp">
       <Filter>Project\GameObject\Ground</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Scene\SceneState\TitleScene\TitleScene.cpp">
+      <Filter>Project\Scene\SceneState\TitleScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -618,6 +621,9 @@
     </ClInclude>
     <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\Collider.h">
       <Filter>Tsumi\Utilities\CollisionManager\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Scene\SceneState\TitleScene\TitleScene.h">
+      <Filter>Project\Scene\SceneState\TitleScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -42,8 +42,7 @@ void GameScene::Initialize() {
 
 
 	/* ----- Skydome スカイドーム ----- */
-	skydome_ = make_unique<Skydome>();
-	skydome_->Initialize();
+	Skydome::Initialize();
 
 
 	/* ----- Ground グラウンド ----- */
@@ -87,7 +86,7 @@ void GameScene::Update(GameManager* state) {
 
 
 	/* ----- Skydome スカイドーム ----- */
-	skydome_->Update();
+	Skydome::Update();
 
 
 	/* ----- Ground グラウンド ----- */
@@ -148,7 +147,7 @@ void GameScene::BackSpriteDraw() {
 void GameScene::ModelDraw() {
 
 	/* ----- Skydome スカイドーム ----- */
-	skydome_->Draw(viewProjection_);
+	Skydome::Draw(viewProjection_);
 
 
 	/* ----- Ground グラウンド ----- */
@@ -181,7 +180,6 @@ void GameScene::FrontSpriteDraw() {
 }
 
 
-
 /// <summary>
 /// プレイヤー更新処理
 /// </summary>
@@ -208,7 +206,6 @@ void GameScene::PlayerUpdate() {
 }
 
 
-
 /// <summary>
 /// エネミー更新処理
 /// </summary>
@@ -227,7 +224,6 @@ void GameScene::EnemyUpdate() {
 		eneBul->Update();
 	}
 }
-
 
 
 /// <summary>
