@@ -65,6 +65,7 @@ void GameScene::Initialize() {
 	enemyManager_->SetGameScene(this);
 	enemyManager_->SetPlayer(player_.get());
 	enemyManager_->Initialize();
+	enemyManager_->SetParent(&railCamera_->GetWorldTransform());
 }
 
 

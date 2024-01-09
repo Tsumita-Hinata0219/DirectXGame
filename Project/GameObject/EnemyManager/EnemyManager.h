@@ -57,6 +57,11 @@ public:
 	/// </summary>
 	void SetPlayer(Player* player) { player_ = player; }
 
+	/// <summary>
+	/// 親子関係を結ぶ
+	/// </summary>
+	void SetParent(const WorldTransform* parent) { worldTrans_.SetParent(parent); }
+
 #pragma endregion
 
 

@@ -34,7 +34,7 @@ void Player::Initialize(const Vector3& rotate, const Vector3& translate) {
 /// </summary>
 void Player::Update() {
 
-	worldTrans_.rotate.z += 0.04f;
+	//worldTrans_.rotate.z += 0.04f;
 
 	// 入力処理
 	JoyStateCommand();
@@ -142,7 +142,7 @@ void Player::Move() {
 void Player::PushBackBullet() {
 
 	PlayerBullet* newBullet = new PlayerBullet();
-	Vector3 newPos = worldTrans_.translate;
+	Vector3 newPos = worldTrans_.GetWorldPos();
 	Vector3 newVel = TransformNormal({ 0.0f, 0.0f, kBulletSpeed_ }, worldTrans_.matWorld);
 
 	newBullet->Init((*bulletModel_), newPos, newVel);

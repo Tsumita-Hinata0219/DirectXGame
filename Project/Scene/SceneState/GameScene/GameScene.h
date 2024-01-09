@@ -108,6 +108,7 @@ private:
 	std::list<Enemy*> enemys_{};
 	std::list<EnemyBullet*> enemyBullets_{};
 
+
 	/* ----- Skydome スカイドーム ----- */
 	unique_ptr<Skydome> skydome_ = nullptr;
 
