@@ -1,13 +1,14 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Collider.h"
 
 
 // プレイヤークラスの前方宣言
 class Player;
 
 /* PlayerBulletクラス */
-class PlayerBullet {
+class PlayerBullet : public OBBCollider {
 
 public:
 
@@ -69,6 +70,11 @@ private:
 	/// 寿命の処理
 	/// </summary>
 	void UpdateLifeStatus();
+
+	/// <summary>
+	/// OBBのセッティング
+	/// </summary>
+	void SetupOBBProperties();
 
 private:
 

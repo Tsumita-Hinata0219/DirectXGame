@@ -63,3 +63,14 @@ void PlayerBullet::UpdateLifeStatus() {
 		life_.IsDead = true;
 	}
 }
+
+
+
+/// <summary>
+/// OBBのセッティング
+/// </summary>
+void PlayerBullet::SetupOBBProperties() {
+
+
+
+}

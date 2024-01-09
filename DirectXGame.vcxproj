@@ -211,6 +211,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Tsumi\Transform\WorldTransform\WorldTransform.h" />
     <ClInclude Include="Tsumi\Tsumi.h" />
     <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\AABBCollider.h" />
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\Collider.h" />
     <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\ColliderConfig.h" />
     <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\OBBCollider.h" />
     <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\SegmentCollider.h" />

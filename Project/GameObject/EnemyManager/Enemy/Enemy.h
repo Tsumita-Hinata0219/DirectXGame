@@ -7,6 +7,8 @@
 #include "EnemyManager/PhaseState/Leave/IEnemyLeaveState.h"
 #include "EnemyBullet/EnemyBullet.h"
 
+#include "Collider.h"
+
 
 // GameSceneの前方宣言
 class GameScene;
@@ -14,7 +16,7 @@ class GameScene;
 class Player;
 
 /* Enemyクラス */
-class Enemy {
+class Enemy : public OBBCollider {
 
 public:
 
@@ -51,8 +53,6 @@ public:
 	/// <summary>
 	/// ステートパターン内で使用する移動用関数(加算 減算) 
 	/// </summary>
-	void AddTransform(const Vector3& velocity);
-	void SubtractTransform(const Vector3& velocity);
 	void Approach2BattlePosition();
 
 	/// <summary>
@@ -139,11 +139,17 @@ private:
 	/// </summary>
 	void FireBullet();
 
+	/// <summary>
+	/// OBBのセッティング
+	/// </summary>
+	void SetupOBBProperties();
+
 private:
 
 	GameScene* gameScene_ = nullptr;
 	Player* player_ = nullptr;
 	Vector3 playerWorldPos_{};
+	Vector3 size_{};
 
 	unique_ptr<Model> modle_ = nullptr;
 	WorldTransform worldTrans_{};

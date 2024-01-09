@@ -67,6 +67,10 @@ void GameScene::Initialize() {
 	enemyManager_->Initialize(initEnemyTrasnlate);
 
 
+	/* ----- CollisionManager コリジョンマネージャー ----- */
+	collisionManager_ = make_unique<CollisionManager>();
+
+
 	/* ----- Parent ペアレント ----- */
 	player_->SetParent(&railCamera_->GetWorldTransform());
 	enemyManager_->SetParent(&railCamera_->GetWorldTransform());
@@ -96,6 +100,10 @@ void GameScene::Update(GameManager* state) {
 
 	/* ----- Enemy エネミー ----- */
 	EnemyUpdate();
+
+
+	/* ----- CollisionManager コリジョンマネージャー ----- */
+	CheckAllCollision();
 
 
 	// カメラの処理
@@ -218,4 +226,27 @@ void GameScene::EnemyUpdate() {
 	for (EnemyBullet* eneBul : enemyBullets_) {
 		eneBul->Update();
 	}
+}
+
+
+
+/// <summary>
+/// 衝突判定
+/// </summary>
+void GameScene::CheckAllCollision() {
+
+
+	// 登録されたコライダーリストをクリアする
+	collisionManager_->ClliderClear();
+
+	// コライダーをリストに登録する
+	for (PlayerBullet* bullet : playerBulelts_) {
+		
+	}
+	for (Enemy* enemy : enemys_) {
+		collisionManager_->ColliderOBBPushBack(enemy);
+	}
+
+	// すべてのコライダーに対して衝突を検出
+	collisionManager_->CheckAllCollision();
 }

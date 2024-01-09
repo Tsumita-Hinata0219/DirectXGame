@@ -11,6 +11,8 @@
 #include "Skydome/Skydome.h"
 #include "Ground/Ground.h"
 
+#include "CollisionManager.h"
+
 
 /* GameSceneクラス */
 class GameScene : public IScene {
@@ -81,6 +83,11 @@ private:
 	/// </summary>
 	void EnemyUpdate();
 
+	/// <summary>
+	/// 衝突判定
+	/// </summary>
+	void CheckAllCollision();
+
 
 private:
 
@@ -115,5 +122,9 @@ private:
 
 	/* ----- Ground グラウンド ----- */
 	unique_ptr<Ground> ground_ = nullptr;
+
+
+	/* ----- CollisionManager コリジョンマネージャー ----- */
+	unique_ptr<CollisionManager> collisionManager_ = nullptr;
 };
 

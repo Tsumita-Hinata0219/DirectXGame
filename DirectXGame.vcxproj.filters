@@ -616,6 +616,9 @@
     <ClInclude Include="Project\GameObject\Ground\Ground.h">
       <Filter>Project\GameObject\Ground</Filter>
     </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\CollisionManager\Collider\Collider.h">
+      <Filter>Tsumi\Utilities\CollisionManager\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpriteObject3d.PS.hlsl">

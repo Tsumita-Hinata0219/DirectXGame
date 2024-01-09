@@ -23,6 +23,12 @@ void Enemy::Init(Model& model, Model& modelBullet, Vector3 position, Vector3 vel
 
 	initMoveFlag_ = false;
 
+	this->size_ = {
+		.x = 2.0f * worldTrans_.scale.x,
+		.y = 2.0f * worldTrans_.scale.y,
+		.z = 2.0f * worldTrans_.scale.z,
+	};
+
 	phaseState_ = new IEnemyApproachState();
 }
 
@@ -36,6 +42,8 @@ void Enemy::Update() {
 	phaseState_->Update(this);
 
 	playerWorldPos_ = player_->GetWorldTransform().GetWorldPos();
+
+	SetupOBBProperties();
 
 	worldTrans_.UpdateMatrix();
 
@@ -150,4 +158,20 @@ void Enemy::FireBullet() {
 	newBullet->Init((*modleBullet_), newPos, newVal);
 
 	gameScene_->AddEnemyBulletList(newBullet);
+}
+
+
+/// <summary>
+/// OBBのセッティング
+/// </summary>
+void Enemy::SetupOBBProperties() {
+
+	this->size_ = {
+		.x = 2.0f * worldTrans_.scale.x,
+		.y = 2.0f * worldTrans_.scale.y,
+		.z = 2.0f * worldTrans_.scale.z,
+	};
+
+	OBBCollider::SetSize(this->size_);
+	OBBCollider::SetRotate(this->worldTrans_.rotate);
 }
