@@ -27,12 +27,14 @@ void Enemy::Init(Model& model, Model& modelBullet, Vector3 position, Vector3 vel
 	this->size_ = {
 		.x = 2.0f * worldTrans_.scale.x,
 		.y = 2.0f * worldTrans_.scale.y,
-		.z = 2.0f * worldTrans_.scale.z,
+		.z = 0.2f * worldTrans_.scale.z,
 	};
 
 	entityID_ = EnemyID;
 
 	phaseState_ = new IEnemyApproachState();
+
+	SettingColliderAttributeAndMask();
 }
 
 
@@ -55,6 +57,7 @@ void Enemy::Update() {
 
 	ImGui::Begin("Enemy");
 	ImGui::DragFloat3("translate", &worldTrans_.translate.x, 0.1f);
+	ImGui::DragFloat3("size", &size_.x, 0.1f);
 	ImGui::End();
 
 
@@ -79,8 +82,8 @@ void Enemy::OnCollision(uint32_t id) {
 	if (id == playerBulletID) {
 		IsDead_ = true;
 	}
-
 }
+
 
 /// <summary>
 /// フェーズの変更
@@ -183,7 +186,7 @@ void Enemy::SetupOBBProperties() {
 	this->size_ = {
 		.x = 2.0f * worldTrans_.scale.x,
 		.y = 2.0f * worldTrans_.scale.y,
-		.z = 2.0f * worldTrans_.scale.z,
+		.z = 0.2f * worldTrans_.scale.z,
 	};
 
 	OBBCollider::SetSize(this->size_);

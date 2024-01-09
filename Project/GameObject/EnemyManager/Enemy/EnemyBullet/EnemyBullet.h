@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-
+#include "Collider.h"
 
 struct EnemyBulletPropeties {
 
@@ -14,7 +14,7 @@ struct EnemyBulletPropeties {
 class Enemy;
 
 /* EnemyBulletクラス */
-class EnemyBullet {
+class EnemyBullet : public OBBCollider {
 
 public:
 
@@ -43,6 +43,11 @@ public:
 	/// </summary>
 	void Draw(ViewProjection view);
 
+	/// <summary>
+	/// 衝突時コールバック関数
+	/// </summary>
+	void OnCollision(uint32_t id) override;
+
 
 #pragma region Get
 
@@ -51,6 +56,16 @@ public:
 	/// </summary>
 	bool IsAlive() { return life_.IsAlive; }
 	bool IsDead() { return life_.IsDead; }
+
+	/// <summary>
+	/// ワールド座標の取得
+	/// </summary>
+	Vector3 GetWorldPosition() override { return worldTrans_.GetWorldPos(); }
+
+	/// <summary>
+	/// Sizeの取得
+	/// </summary>
+	Vector3 GetSize() override { return size_; }
 
 #pragma endregion
 
@@ -72,9 +87,20 @@ private:
 	/// </summary>
 	void UpdateLifeStatus();
 
+	/// <summary>
+	/// OBBのセッティング
+	/// </summary>
+	void SetupOBBProperties();
+
+	/// <summary>
+	/// フィルターのセッティング
+	/// </summary>
+	void SettingColliderAttributeAndMask();
+
 private:
 
 	Enemy* enemy_ = nullptr;
+	Vector3 size_{};
 
 	unique_ptr<Model> model_ = nullptr;
 	WorldTransform worldTrans_{};
@@ -82,7 +108,6 @@ private:
 	float rotateVelocity_;
 
 	MortalityInfo life_{};
-
 
 };
 

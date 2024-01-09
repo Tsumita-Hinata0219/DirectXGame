@@ -377,9 +377,6 @@
     <ClCompile Include="Project\GameObject\EnemyManager\PhaseState\Leave\IEnemyLeaveState.cpp">
       <Filter>Project\GameObject\EnemyManager\PhaseState\Leave</Filter>
     </ClCompile>
-    <ClCompile Include="Project\GameObject\EnemyManager\Enemy\EnemyBullet\EnemyBullet.cpp">
-      <Filter>Project\GameObject\EnemyManager\Enemy\EnemyBullet</Filter>
-    </ClCompile>
     <ClCompile Include="Project\GameObject\Camera\RailCamera\RailCamera.cpp">
       <Filter>Project\GameObject\Camera\RailCamera</Filter>
     </ClCompile>
@@ -391,6 +388,9 @@
     </ClCompile>
     <ClCompile Include="Project\Scene\SceneState\TitleScene\TitleScene.cpp">
       <Filter>Project\Scene\SceneState\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\GameObject\EnemyManager\Enemy\EnemyBullet\EnemyBullet.cpp">
+      <Filter>Project\GameObject\EnemyManager\Enemy\EnemyBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

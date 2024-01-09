@@ -18,6 +18,13 @@ void EnemyBullet::Init(Model& model, Vector3& position, Vector3& velocity) {
 	life_.kLifeTimer = 60 * 10;
 	life_.Timer = life_.kLifeTimer;
 	life_.IsAlive = true;
+	life_.IsDead = false;
+
+	this->size_ = {
+		.x = 2.0f * worldTrans_.scale.x,
+		.y = 2.0f * worldTrans_.scale.y,
+		.z = 0.4f * worldTrans_.scale.z,
+	};
 
 	Vector3 kVelocity = velocity_;
 	float velocityZ_ = sqrt((kVelocity.x * kVelocity.x) + (kVelocity.z * kVelocity.z));
@@ -25,6 +32,7 @@ void EnemyBullet::Init(Model& model, Vector3& position, Vector3& velocity) {
 	worldTrans_.rotate.y = std::atan2(kVelocity.x, kVelocity.z);
 	worldTrans_.rotate.x = std::atan2(height_, velocityZ_);
 
+	SettingColliderAttributeAndMask();
 }
 
 
@@ -42,6 +50,7 @@ void EnemyBullet::Update() {
 	// 寿命の処理
 	UpdateLifeStatus();
 
+	SetupOBBProperties();
 
 	worldTrans_.UpdateMatrix();
 }
@@ -56,6 +65,18 @@ void EnemyBullet::Draw(ViewProjection view) {
 }
 
 
+
+/// <summary>
+/// 衝突時コールバック関数
+/// </summary>
+void EnemyBullet::OnCollision(uint32_t id) {
+	id;
+	life_.IsAlive = false;
+	life_.IsDead = true;
+}
+
+
+
 /// <summary>
 /// 寿命の処理
 /// </summary>
@@ -68,4 +89,32 @@ void EnemyBullet::UpdateLifeStatus() {
 		life_.IsAlive = false;
 		life_.IsDead = true;
 	}
+}
+
+
+
+/// <summary>
+/// OBBのセッティング
+/// </summary>
+void EnemyBullet::SetupOBBProperties() {
+
+	this->size_ = {
+		.x = 2.0f * worldTrans_.scale.x,
+		.y = 2.0f * worldTrans_.scale.y,
+		.z = 0.4f * worldTrans_.scale.z,
+	};
+
+	OBBCollider::SetSize(this->size_);
+	OBBCollider::SetRotate(this->worldTrans_.rotate);
+}
+
+
+
+/// <summary>
+/// フィルターのセッティング
+/// </summary>
+void EnemyBullet::SettingColliderAttributeAndMask() {
+
+	OBBCollider::SetCollosionAttribute(kCollisionAttributeEnemy);
+	OBBCollider::SetCollisionMask(kCollisionMaskEnemy);
 }

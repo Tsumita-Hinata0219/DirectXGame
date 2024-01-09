@@ -14,13 +14,19 @@ void PlayerBullet::Init(Model& model, Vector3& position, Vector3& velocity) {
 	worldTrans_.translate = position;
 	velocity_ = velocity;
 	rotateVelocity_ = 2.0f;
-	size_ = { 2.0f, 2.5f, 2.0f };
+	this->size_ = {
+		.x = 2.0f * worldTrans_.scale.x,
+		.y = 2.5f * worldTrans_.scale.y,
+		.z = 2.0f * worldTrans_.scale.z,
+	};
 
 	life_.kLifeTimer = 60 * 10;
 	life_.Timer = life_.kLifeTimer;
 	life_.IsAlive = true;
 
 	entityID_ = playerBulletID;
+
+	SettingColliderAttributeAndMask();
 }
 
 
@@ -42,6 +48,18 @@ void PlayerBullet::Update() {
 
 
 	worldTrans_.UpdateMatrix();
+
+
+#ifdef _DEBUG
+
+	ImGui::Begin("PlayerBullet");
+	ImGui::DragFloat3("Scale", &worldTrans_.scale.x, 0.01f, 0.0f, 10.0f);
+	ImGui::DragFloat3("Rotate", &worldTrans_.rotate.x, 0.01f, -100.0f, 100.0f);
+	ImGui::DragFloat3("Translate", &worldTrans_.translate.x, 0.01f);
+	ImGui::DragFloat3("size", &size_.x, 0.1f);
+	ImGui::End();
+
+#endif // _DEBUG
 }
 
 
@@ -92,7 +110,7 @@ void PlayerBullet::SetupOBBProperties() {
 
 	this->size_ = {
 		.x = 2.0f * worldTrans_.scale.x,
-		.y = 2.0f * worldTrans_.scale.y,
+		.y = 2.5f * worldTrans_.scale.y,
 		.z = 2.0f * worldTrans_.scale.z,
 	};
 

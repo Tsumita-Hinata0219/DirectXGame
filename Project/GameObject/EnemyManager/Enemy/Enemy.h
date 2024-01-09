@@ -108,7 +108,6 @@ public:
 	/// <returns></returns>
 	bool GetInitMoveFlag() { return initMoveFlag_; }
 
-
 	/// <summary>
 	/// ワールド座標の取得
 	/// </summary>

@@ -19,6 +19,12 @@ void Player::Initialize(const Vector3& rotate, const Vector3& translate) {
 	worldTrans_.rotate = rotate;
 	worldTrans_.translate = translate;
 
+	this->size_ = {
+		.x = 2.0f * worldTrans_.scale.x,
+		.y = 2.0f * worldTrans_.scale.y,
+		.z = 4.0f * worldTrans_.scale.z,
+	};
+
 	// 移動
 	move_ = { 0.0f, 0.0f, 0.0f };
 	moveSpeed_ = 0.5f;
@@ -28,6 +34,9 @@ void Player::Initialize(const Vector3& rotate, const Vector3& translate) {
 	bulletModel_->CreateFromObj("PlayerBullet");
 
 	killCount_ = 0;
+	HP_ = 10;
+
+	SettingColliderAttributeAndMask();
 }
 
 
@@ -44,6 +53,7 @@ void Player::Update() {
 	// 移動処理
 	Move();
 
+	SetupOBBProperties();
 
 	worldTrans_.UpdateMatrix();
 
@@ -54,6 +64,7 @@ void Player::Update() {
 	ImGui::DragFloat3("Rotate", &worldTrans_.rotate.x, 0.01f, -100.0f, 100.0f);
 	ImGui::DragFloat3("Translate", &worldTrans_.translate.x, 0.01f);
 	ImGui::DragFloat3("move", &move_.x, 0.01f);
+	ImGui::DragFloat3("size", &size_.x, 0.1f);
 	ImGui::DragInt("KillCount", reinterpret_cast<int*>(&killCount_), 1, 0, 20);
 	ImGui::End();
 
@@ -67,6 +78,18 @@ void Player::Update() {
 void Player::Draw(ViewProjection view) {
 
 	objModel_->Draw(worldTrans_, view);
+}
+
+
+
+/// <summary>
+/// 衝突時コールバック関数
+/// </summary>
+void Player::OnCollision(uint32_t id) {
+
+	if (id == EnemyBulletID) {
+		SubtructHP(1);
+	}
 }
 
 
@@ -158,4 +181,32 @@ void Player::PushBackBullet() {
 	newBullet->SetPlayer(this);
 
 	gameScene_->AddPlayerBulletList(newBullet);
+}
+
+
+
+/// <summary>
+/// OBBのセッティング
+/// </summary>
+void Player::SetupOBBProperties() {
+
+	this->size_ = {
+		.x = 2.0f * worldTrans_.scale.x,
+		.y = 2.0f * worldTrans_.scale.y,
+		.z = 4.0f * worldTrans_.scale.z,
+	};
+
+	OBBCollider::SetSize(this->size_);
+	OBBCollider::SetRotate(this->worldTrans_.rotate);
+}
+
+
+
+/// <summary>
+/// フィルターのセッティング
+/// </summary>
+void Player::SettingColliderAttributeAndMask() {
+
+	OBBCollider::SetCollosionAttribute(kCollisionAttributePlayer);
+	OBBCollider::SetCollisionMask(kCollisionMaskPlayer);
 }

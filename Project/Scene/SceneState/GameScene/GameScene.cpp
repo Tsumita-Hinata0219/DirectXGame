@@ -47,7 +47,7 @@ void GameScene::Initialize() {
 
 	/* ----- Ground グラウンド ----- */
 	ground_ = make_unique<Ground>();
-	//ground_->Initialize();
+	ground_->Initialize();
 
 
 	/* ----- Player プレイヤー ----- */
@@ -90,7 +90,7 @@ void GameScene::Update(GameManager* Scene) {
 
 
 	/* ----- Ground グラウンド ----- */
-	//ground_->Update();
+	ground_->Update();
 
 
 	/* ----- Player プレイヤー ----- */
@@ -151,7 +151,7 @@ void GameScene::ModelDraw() {
 
 
 	/* ----- Ground グラウンド ----- */
-	//ground_->Draw(viewProjection_);
+	ground_->Draw(viewProjection_);
 
 
 	/* ----- Player プレイヤー ----- */
@@ -218,6 +218,14 @@ void GameScene::EnemyUpdate() {
 	for (Enemy* enemy : enemys_) {
 		enemy->Update();
 	}
+
+	// エネミーバレットの更新処理
+	for (EnemyBullet* eneBul : enemyBullets_) {
+		eneBul->Update();
+	}
+
+
+	// 死亡フラグが立ったら削除
 	enemys_.remove_if([](Enemy* enemy) {
 		if (enemy->IsDead()) {
 			delete enemy;
@@ -225,11 +233,14 @@ void GameScene::EnemyUpdate() {
 		}
 		return false;
 	});
+	enemyBullets_.remove_if([](EnemyBullet* eneBul) {
+		if (eneBul->IsDead()) {
+			delete eneBul;
+			return true;
+		}
+		return false;
+	});
 
-	// エネミーバレットの更新処理
-	for (EnemyBullet* eneBul : enemyBullets_) {
-		eneBul->Update();
-	}
 }
 
 
@@ -243,12 +254,16 @@ void GameScene::CheckAllCollision() {
 	collisionManager_->ClliderClear();
 
 	// コライダーをリストに登録する
+	collisionManager_->ColliderOBBPushBack(player_.get());
 	for (PlayerBullet* bullet : playerBulelts_) {
 		collisionManager_->ColliderOBBPushBack(bullet);
 	}
 	for (Enemy* enemy : enemys_) {
 		collisionManager_->ColliderOBBPushBack(enemy);
 	}
+	/*for (EnemyBullet* eneBul : enemyBullets_) {
+		collisionManager_->ColliderOBBPushBack(eneBul);
+	}*/
 
 	// すべてのコライダーに対して衝突を検出
 	collisionManager_->CheckAllCollision();

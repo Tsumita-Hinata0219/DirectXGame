@@ -2,13 +2,14 @@
 
 #include "GameObject.h"
 #include "PlayerBullet/PlayerBullet.h"
+#include "Collider.h"
 
 
 // GameSceneの前方宣言
 class GameScene;
 
 /* Playerクラス */
-class Player {
+class Player : public OBBCollider {
 
 public:
 
@@ -37,6 +38,11 @@ public:
 	/// </summary>
 	void Draw(ViewProjection view);
 
+	/// <summary>
+	/// 衝突時コールバック関数
+	/// </summary>
+	void OnCollision(uint32_t id) override;
+
 
 #pragma region Get
 
@@ -44,6 +50,16 @@ public:
 	/// WorldTransformの取得
 	/// </summary>
 	WorldTransform GetWorldTransform() { return worldTrans_; }
+
+	/// <summary>
+	/// ワールド座標の取得
+	/// </summary>
+	Vector3 GetWorldPosition() override { return worldTrans_.GetWorldPos(); }
+
+	/// <summary>
+	/// Sizeの取得
+	/// </summary>
+	Vector3 GetSize() override { return size_; }
 
 
 #pragma endregion
@@ -64,8 +80,12 @@ public:
 	/// <summary>
 	/// キルカウントを引数分加算
 	/// </summary>
-	/// <param name="addVal"></param>
 	void AddKillCount(const uint32_t addVal) { killCount_ = killCount_ + addVal; }
+
+	/// <summary>
+	/// HPを減らす
+	/// </summary>
+	void SubtructHP(const uint32_t subHP) { HP_ = HP_ - subHP; }
 
 #pragma endregion
 
@@ -87,10 +107,22 @@ private:
 	/// </summary>
 	void PushBackBullet();
 
+	/// <summary>
+	/// OBBのセッティング
+	/// </summary>
+	void SetupOBBProperties();
+
+	/// <summary>
+	/// フィルターのセッティング
+	/// </summary>
+	void SettingColliderAttributeAndMask();
+
 private:
 
 	std::unique_ptr<Model> objModel_ = nullptr;
 	WorldTransform worldTrans_{};
+
+	Vector3 size_{};
 
 	// PlayerBulelt
 	std::unique_ptr<Model> bulletModel_ = nullptr;
@@ -105,6 +137,7 @@ private:
 	const float kMoveLimitY = 9.0f;
 
 	uint32_t killCount_;
+	uint32_t HP_;
 
 	// ジョイコン
 	XINPUT_STATE joyState_{};
