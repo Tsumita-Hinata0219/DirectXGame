@@ -173,6 +173,9 @@
     <Filter Include="Project\GameObject\Camera">
       <UniqueIdentifier>{24509859-5a3f-4020-9443-ada0186ed22f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tsumi\Utilities\RandomGenerator">
+      <UniqueIdentifier>{789707df-a11b-48e0-998c-88a760911e11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -501,6 +504,9 @@
     </ClInclude>
     <ClInclude Include="Tsumi\Graphic\GraphicPipelineManager\Normal\NormalGraphicPipeline.h">
       <Filter>Tsumi\Graphic\GraphicPipelineManager\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\RandomGenerator\RandomGenerator.h">
+      <Filter>Tsumi\Utilities\RandomGenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

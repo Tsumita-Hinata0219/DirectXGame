@@ -199,6 +199,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Tsumi\Utilities\CollisionManager\GeometryCollision\GeometryCollision.h" />
     <ClInclude Include="Tsumi\Utilities\CollisionManager\IsCollision\IsCollision.h" />
     <ClInclude Include="Tsumi\Utilities\ImGuiManager\ImGuiManager.h" />
+    <ClInclude Include="Tsumi\Utilities\RandomGenerator\RandomGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\LightObject.PS.hlsl">
