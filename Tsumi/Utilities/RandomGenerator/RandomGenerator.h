@@ -5,6 +5,7 @@
 #include <random>
 
 
+/* RandomGeneratorクラス */
 class RandomGenerator {
 
 public:

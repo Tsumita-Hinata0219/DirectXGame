@@ -20,9 +20,6 @@
     <Filter Include="Project\GameObject">
       <UniqueIdentifier>{d4c3b252-12fa-45d0-a8df-ed30ab616ed5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project\math">
-      <UniqueIdentifier>{54521541-bbdb-4dfd-9717-5f6e364402b7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project\GameManager">
       <UniqueIdentifier>{2c43ed14-4585-4202-b992-5b02ef0e6773}</UniqueIdentifier>
     </Filter>
@@ -176,6 +173,27 @@
     <Filter Include="Tsumi\Utilities\RandomGenerator">
       <UniqueIdentifier>{789707df-a11b-48e0-998c-88a760911e11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project\Math">
+      <UniqueIdentifier>{54521541-bbdb-4dfd-9717-5f6e364402b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Math\MathFunction">
+      <UniqueIdentifier>{cbb07098-6a66-4874-99f7-82875660df4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Math\MathOperations">
+      <UniqueIdentifier>{b79778bb-2c4c-40e5-93e2-b3ac61ed554c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Math\MathStructure">
+      <UniqueIdentifier>{56713aad-a8ab-40b7-9829-6c8a9f86d700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Math\MathStructure\Matrix">
+      <UniqueIdentifier>{6f9b0e27-4c35-4bee-81fa-605ab11495fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Math\MathStructure\Vector">
+      <UniqueIdentifier>{09c2550a-c7bb-4b97-88ed-3fc2268e6dbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project\Math\MathQuaternion">
+      <UniqueIdentifier>{0b8bd0f7-c92a-44e0-9320-3ece1762735a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -200,7 +218,7 @@
       <Filter>externals\imgui</Filter>
     </ClCompile>
     <ClCompile Include="Project\math\Function.cpp">
-      <Filter>Project\math</Filter>
+      <Filter>Project\Math</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Project\GameManager\GameManager.cpp">
@@ -314,6 +332,15 @@
     <ClCompile Include="Tsumi\Graphic\GraphicPipelineManager\Normal\NormalGraphicPipeline.cpp">
       <Filter>Tsumi\Graphic\GraphicPipelineManager\Normal</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Math\MathFunction\MathFunction.cpp">
+      <Filter>Project\Math\MathFunction</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Math\MathOperations\MathOperations.cpp">
+      <Filter>Project\Math\MathOperations</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Math\MathQuaternion\MathQuaternion.cpp">
+      <Filter>Project\Math\MathQuaternion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -341,22 +368,22 @@
       <Filter>externals\imgui</Filter>
     </ClInclude>
     <ClInclude Include="Project\math\Function.h">
-      <Filter>Project\math</Filter>
+      <Filter>Project\Math</Filter>
     </ClInclude>
     <ClInclude Include="Project\math\Matrix4x4.h">
-      <Filter>Project\math</Filter>
+      <Filter>Project\Math</Filter>
     </ClInclude>
     <ClInclude Include="Project\math\Struct.h">
-      <Filter>Project\math</Filter>
+      <Filter>Project\Math</Filter>
     </ClInclude>
     <ClInclude Include="Project\math\Vector2.h">
-      <Filter>Project\math</Filter>
+      <Filter>Project\Math</Filter>
     </ClInclude>
     <ClInclude Include="Project\math\Vector3.h">
-      <Filter>Project\math</Filter>
+      <Filter>Project\Math</Filter>
     </ClInclude>
     <ClInclude Include="Project\math\Vector4.h">
-      <Filter>Project\math</Filter>
+      <Filter>Project\Math</Filter>
     </ClInclude>
     <ClInclude Include="Project\GameManager\GameManager.h">
       <Filter>Project\GameManager</Filter>
@@ -507,6 +534,21 @@
     </ClInclude>
     <ClInclude Include="Tsumi\Utilities\RandomGenerator\RandomGenerator.h">
       <Filter>Tsumi\Utilities\RandomGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Math\MathFunction\MathFunction.h">
+      <Filter>Project\Math\MathFunction</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Math\MathOperations\MathOperations.h">
+      <Filter>Project\Math\MathOperations</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Math\MathStructure\Matrix\Matrix.h">
+      <Filter>Project\Math\MathStructure\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Math\MathStructure\Vector\Vector.h">
+      <Filter>Project\Math\MathStructure\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Math\MathQuaternion\MathQuaternion.h">
+      <Filter>Project\Math\MathQuaternion</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
