@@ -341,6 +341,12 @@
     <ClCompile Include="Project\Math\MathQuaternion\MathQuaternion.cpp">
       <Filter>Project\Math\MathQuaternion</Filter>
     </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Project\Math\MathStructure\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Math\MathStructure\Matrix\Matrix.cpp">
+      <Filter>Project\Math\MathStructure\Matrix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -541,14 +547,14 @@
     <ClInclude Include="Project\Math\MathOperations\MathOperations.h">
       <Filter>Project\Math\MathOperations</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Math\MathStructure\Matrix\Matrix.h">
-      <Filter>Project\Math\MathStructure\Matrix</Filter>
+    <ClInclude Include="Project\Math\MathQuaternion\MathQuaternion.h">
+      <Filter>Project\Math\MathQuaternion</Filter>
     </ClInclude>
     <ClInclude Include="Project\Math\MathStructure\Vector\Vector.h">
       <Filter>Project\Math\MathStructure\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Project\Math\MathQuaternion\MathQuaternion.h">
-      <Filter>Project\Math\MathQuaternion</Filter>
+    <ClInclude Include="Project\Math\MathStructure\Matrix\Matrix.h">
+      <Filter>Project\Math\MathStructure\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -101,6 +101,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Project\Math\MathFunction\MathFunction.cpp" />
     <ClCompile Include="Project\Math\MathOperations\MathOperations.cpp" />
     <ClCompile Include="Project\Math\MathQuaternion\MathQuaternion.cpp" />
+    <ClCompile Include="Project\Math\MathStructure\Matrix\Matrix.cpp" />
     <ClCompile Include="Project\Scene\SceneState\DebugScene\DebugScene.cpp" />
     <ClCompile Include="Project\Scene\SceneState\GameScene\GameScene.cpp" />
     <ClCompile Include="Tsumi\2D\Sprite\Sprite.cpp" />
@@ -137,6 +138,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="Tsumi\Utilities\CollisionManager\GeometryCollision\GeometryCollision.cpp" />
     <ClCompile Include="Tsumi\Utilities\CollisionManager\IsCollision\IsCollision.cpp" />
     <ClCompile Include="Tsumi\Utilities\ImGuiManager\ImGuiManager.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h" />
