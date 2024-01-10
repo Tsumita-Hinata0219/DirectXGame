@@ -107,9 +107,8 @@ uint32_t TextureManager::LoadTexture(const std::string& filePath, bool fromObjTe
 
 		// textureのサイズの取得
 		textureData.size = {
-			.x = static_cast<float>(metadata.width),
-			.y = static_cast<float>(metadata.height),
-		};
+			static_cast<float>(metadata.width),
+			static_cast<float>(metadata.height)};
 
 
 		// コンテナに保存

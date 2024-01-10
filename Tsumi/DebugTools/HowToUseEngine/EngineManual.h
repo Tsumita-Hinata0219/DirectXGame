@@ -99,4 +99,5 @@ private: // メンバ変数
 	// SoundHandle
 	uint32_t mokugyoHD_;
 	uint32_t kakkoiiHD_;
+
 };

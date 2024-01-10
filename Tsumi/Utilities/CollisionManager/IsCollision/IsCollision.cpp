@@ -66,15 +66,13 @@ namespace Collision {
 	bool IsCollision(const AABB& aabb, const Segment& s) {
 
 		Vector3 tMin = {
-		.x = (aabb.min.x - s.origin.x) / s.diff.x,
-		.y = (aabb.min.y - s.origin.y) / s.diff.y,
-		.z = (aabb.min.z - s.origin.z) / s.diff.z,
-		};
+			(aabb.min.x - s.origin.x) / s.diff.x,
+			(aabb.min.y - s.origin.y) / s.diff.y,
+			(aabb.min.z - s.origin.z) / s.diff.z};
 		Vector3 tMax = {
-			.x = (aabb.max.x - s.origin.x) / s.diff.x,
-			.y = (aabb.max.y - s.origin.y) / s.diff.y,
-			.z = (aabb.max.z - s.origin.z) / s.diff.z,
-		};
+			(aabb.max.x - s.origin.x) / s.diff.x,
+			(aabb.max.y - s.origin.y) / s.diff.y,
+			(aabb.max.z - s.origin.z) / s.diff.z};
 
 
 		if (std::isnan(tMin.x) || std::isnan(tMax.x) ||
@@ -85,15 +83,13 @@ namespace Collision {
 
 
 		Vector3 tNear = {
-			.x = min(tMin.x, tMax.x),
-			.y = min(tMin.y, tMax.y),
-			.z = min(tMin.z, tMax.z),
-		};
+			min(tMin.x, tMax.x),
+			min(tMin.y, tMax.y),
+			min(tMin.z, tMax.z)};
 		Vector3 tFar = {
-			.x = max(tMin.x, tMax.x),
-			.y = max(tMin.y, tMax.y),
-			.z = max(tMin.z, tMax.z),
-		};
+			max(tMin.x, tMax.x),
+			max(tMin.y, tMax.y),
+			max(tMin.z, tMax.z)};
 
 		// AABBとの衝突点(貫通点)のtが小さいほう
 		float ntMin = max(max(tNear.x, tNear.y), tNear.z);
