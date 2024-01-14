@@ -158,6 +158,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="Project\Math\MathStructure\Matrix\Matrix.h" />
     <ClInclude Include="Project\Math\MathStructure\Vector\Vector.h" />
     <ClInclude Include="Project\math\Matrix4x4.h" />
+    <ClInclude Include="Project\Math\MyMath.h" />
     <ClInclude Include="Project\math\Struct.h" />
     <ClInclude Include="Project\math\Vector2.h" />
     <ClInclude Include="Project\math\Vector3.h" />

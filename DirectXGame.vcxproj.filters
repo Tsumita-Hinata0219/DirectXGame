@@ -556,6 +556,9 @@
     <ClInclude Include="Project\Math\MathStructure\Matrix\Matrix.h">
       <Filter>Project\Math\MathStructure\Matrix</Filter>
     </ClInclude>
+    <ClInclude Include="Project\Math\MyMath.h">
+      <Filter>Project\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpriteObject3d.PS.hlsl">
