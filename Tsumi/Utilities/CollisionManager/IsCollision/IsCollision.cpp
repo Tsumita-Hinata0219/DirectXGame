@@ -8,7 +8,7 @@ namespace Collision {
 	bool IsCollision(const Sphere& s1, const Sphere& s2) {
 
 		// 中心からの距離
-		float distance = Length(Subtract(s2.center, s1.center));
+		float distance = Length(s2.center - s1.center);
 
 		// 距離と半径を比べる
 		if (distance <= s1.radius + s2.radius) {
@@ -47,7 +47,7 @@ namespace Collision {
 			std::clamp(s.center.z, aabb.min.z, aabb.max.z), };
 
 		// 最近接点と球の中心と距離を求める
-		float dist = Length(Subtract(ClosestPoint, s.center));
+		float dist = Length(ClosestPoint - s.center);
 
 		// 距離が半径よりも小さければ衝突
 		if (dist <= s.radius) {
@@ -156,11 +156,11 @@ namespace Collision {
 
 
 		Vector3 localOrigin = TransformByMatrix(s.origin, obbInverse);
-		Vector3 LocalEnd = TransformByMatrix(Add(s.origin, s.diff), obbInverse);
+		Vector3 LocalEnd = TransformByMatrix(s.origin +s.diff, obbInverse);
 
 		Segment localSegment = {
 			.origin = localOrigin,
-			.diff = Subtract(LocalEnd, localOrigin),
+			.diff = LocalEnd -localOrigin,
 		};
 
 

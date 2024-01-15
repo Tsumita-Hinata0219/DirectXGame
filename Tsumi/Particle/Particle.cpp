@@ -49,6 +49,6 @@ void Particle::PushBackParticles(ParticleProperties prope) {
 void Particle::Move() {
 
 	for (ParticleProperties prope : particlePropes_) {
-		prope.worldTransform.translate = Multiply(kDeltaTimer, Add(prope.worldTransform.translate, prope.velocity));
+		prope.worldTransform.translate = kDeltaTimer * (prope.worldTransform.translate + prope.velocity);
 	}
 }

@@ -3,6 +3,8 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include "MathQuaternion.h"
+#include "MathOperations.h"
+#include "MathFunction.h"
 #include "CollisionStructures.h"
 
 
