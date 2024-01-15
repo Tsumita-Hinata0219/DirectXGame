@@ -2,6 +2,9 @@
 
 #include "Vector.h"
 #include "Matrix.h"
+#include "MathQuaternion.h"
+#include "CollisionStructures.h"
+
 
 
 #define _USE_MATH_DEFINES
