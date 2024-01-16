@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Function.h"
+#include "MyMath.h"
 #include "Struct.h"
 #include "WorldTransform.h"
 #include "ViewProjection.h"

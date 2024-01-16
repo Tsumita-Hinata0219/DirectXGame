@@ -1,7 +1,7 @@
 #pragma once
 
 #include "WinApp.h"
-#include "Function.h"
+#include "MyMath.h"
 #include "CreateResource.h"
 #include <Struct.h>
 

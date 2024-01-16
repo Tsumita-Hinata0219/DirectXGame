@@ -217,9 +217,6 @@
     <ClCompile Include="externals\imgui\imgui_widgets.cpp">
       <Filter>externals\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Project\math\Function.cpp">
-      <Filter>Project\Math</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Project\GameManager\GameManager.cpp">
       <Filter>Project\GameManager</Filter>
@@ -335,9 +332,6 @@
     <ClCompile Include="Project\Math\MathFunction\MathFunction.cpp">
       <Filter>Project\Math\MathFunction</Filter>
     </ClCompile>
-    <ClCompile Include="Project\Math\MathOperations\MathOperations.cpp">
-      <Filter>Project\Math\MathOperations</Filter>
-    </ClCompile>
     <ClCompile Include="Project\Math\MathQuaternion\MathQuaternion.cpp">
       <Filter>Project\Math\MathQuaternion</Filter>
     </ClCompile>
@@ -373,22 +367,7 @@
     <ClInclude Include="externals\imgui\imstb_truetype.h">
       <Filter>externals\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Project\math\Function.h">
-      <Filter>Project\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\math\Matrix4x4.h">
-      <Filter>Project\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Project\math\Struct.h">
-      <Filter>Project\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\math\Vector2.h">
-      <Filter>Project\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\math\Vector3.h">
-      <Filter>Project\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Project\math\Vector4.h">
       <Filter>Project\Math</Filter>
     </ClInclude>
     <ClInclude Include="Project\GameManager\GameManager.h">

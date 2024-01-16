@@ -4,7 +4,7 @@
 #include "OBBCollider.h"
 #include "AABBCollider.h"
 #include "SegmentCollider.h"
-#include "Function.h"
+#include "MyMath.h"
 #include "Struct.h"
 #include "IsCollision/IsCollision.h"
 

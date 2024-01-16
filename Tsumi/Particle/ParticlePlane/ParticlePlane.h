@@ -1,5 +1,5 @@
 #pragma once
-#include "Function.h"
+#include "MyMath.h"
 #include "Struct.h"
 #include "IParticleState.h"
 #include "ParticleGraphicPipeline.h"

@@ -4,7 +4,7 @@
 #include "DirectXCommon.h"
 #include "DescriptorManager.h"
 #include "TextureDataResource.h"
-#include "Function.h"
+#include "MyMath.h"
 
 #include <cassert>
 #include <map>
