@@ -15,6 +15,5 @@
 #include <iostream>
 #include <cassert>
 #include <algorithm>
-#include <Windows.h>
 #include <array>
 #include <numbers>
