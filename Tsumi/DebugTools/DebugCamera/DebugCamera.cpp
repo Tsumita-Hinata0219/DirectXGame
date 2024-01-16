@@ -17,7 +17,7 @@ DebugCamera* DebugCamera::GetInstance() {
 void DebugCamera::Initialize() {
 
 	DebugCamera::GetInstance()->DebugViewProjection_.Initialize();
-	DebugCamera::GetInstance()->matRotate_ = MakeIdentity4x4();
+	DebugCamera::GetInstance()->matRotate_ = Matrix4x4::identity;
 	DebugCamera::GetInstance()->worldTransform_.Initialize();
 }
 
@@ -43,11 +43,11 @@ void DebugCamera::Update() {
 
 	// worldTransformの更新
 	DebugCamera::GetInstance()->worldTransform_.matWorld =
-		Multiply(DebugCamera::GetInstance()->matRotate_, translateMat);
+		DebugCamera::GetInstance()->matRotate_ * translateMat;
 
 	// view行列の更新
 	DebugCamera::GetInstance()->DebugViewProjection_.matView =
-		Multiply(Inverse(translateMat), Inverse(DebugCamera::GetInstance()->matRotate_));
+		Inverse(translateMat) * Inverse(DebugCamera::GetInstance()->matRotate_);
 
 
 	ImGui::Begin("DebugCamera");

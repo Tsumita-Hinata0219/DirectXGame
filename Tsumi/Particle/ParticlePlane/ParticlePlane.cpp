@@ -77,14 +77,14 @@ void ParticlePlane::Draw(Particle* pParticle, list<ParticleProperties> prope, Vi
 	for (auto itr = prope.begin(); itr != prope.end(); itr++) {
 
 		Matrix4x4 worldPos = MakeAffineMatrix((*itr).worldTransform.scale, (*itr).worldTransform.rotate, (*itr).worldTransform.translate);
-		Matrix4x4 worldView = Multiply(view.matView, view.matProjection);
-		Matrix4x4 matWorld = Multiply(worldPos, worldView);
+		Matrix4x4 worldView = view.matView * view.matProjection;
+		Matrix4x4 matWorld = worldPos * worldView;
 
 		(*itr).uvTransform.matWorld = MakeAffineMatrix(
 			(*itr).uvTransform.scale, (*itr).uvTransform.rotate, (*itr).uvTransform.translate);
 
 		instancingData[itrNum_].WVP = matWorld;
-		instancingData[itrNum_].World = MakeIdentity4x4();
+		instancingData[itrNum_].World = Matrix4x4::identity;
 		instancingData[itrNum_].Color = (*itr).color;
 		instancingData[itrNum_].uvTansform = (*itr).uvTransform.matWorld;
 		itrNum_++;

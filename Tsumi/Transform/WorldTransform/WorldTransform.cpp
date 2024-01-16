@@ -6,7 +6,7 @@
 void WorldTransform::Initialize() {
 
 	CreateBuffer();
-	matWorld = MakeIdentity4x4();
+	matWorld = Matrix4x4::identity;
 	UpdateMatrix();
 }
 
@@ -18,7 +18,7 @@ void WorldTransform::UpdateMatrix() {
 
 	// 親があれば親のワールド行列を掛ける
 	if (parent) {
-		matWorld = Multiply(matWorld, parent->matWorld);
+		matWorld = matWorld * parent->matWorld;
 	}
 
 	TransferMatrix();

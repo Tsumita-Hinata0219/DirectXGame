@@ -43,8 +43,8 @@ void ModelSphereState::Draw(Model* pModel, WorldTransform worldTransform, ViewPr
 
 	// Sphere用のWorldViewProjectionMatrixを作る
 	Matrix4x4 worldMatrixSphere = MakeAffineMatrix(worldTransform.scale, worldTransform.rotate, worldTransform.translate);
-	transformaationMatData->WVP = Multiply(worldMatrixSphere, view.matProjection);
-	transformaationMatData->World = MakeIdentity4x4();
+	transformaationMatData->WVP = worldMatrixSphere * view.matProjection;
+	transformaationMatData->World = Matrix4x4::identity;
 
 
 	// 経度分割の1つ分の角度

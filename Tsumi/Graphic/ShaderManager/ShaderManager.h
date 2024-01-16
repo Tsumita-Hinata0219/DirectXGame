@@ -5,7 +5,9 @@
 #include <dxgidebug.h>
 #include <dxcapi.h>
 #include <string>
-#include <cassert>
+#include <wrl.h>
+#include <format>
+
 #include "MyMath.h"
 
 

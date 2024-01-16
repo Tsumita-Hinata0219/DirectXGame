@@ -4,6 +4,8 @@
 #include "Matrix.h"
 #include "MathQuaternion.h"
 #include "MathOperations.h"
+#include "MathFunction.h"
+#include "CollisionStructures.h"
 
 #include <iostream>
 
@@ -62,6 +64,8 @@ Vector3 ClosestPoint(const Vector3& p, const Segment& s);
 Vector3 Perpendicular(const Vector3& v);
 // 座標変換
 Vector3 TransformByMatrix(const Vector3 v, const Matrix4x4 m);
+// ベクトル変換
+Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m);
 
 
 
