@@ -680,97 +680,97 @@ Matrix4x4 DirectionToDirection(const Vector3& from, const Vector3& to) {
 /// -------------------------------------------------------------------------
 /// クォータニオン
 /// -------------------------------------------------------------------------
-//// 内積
-//float Dot(const Quaternion& q1, const Quaternion& q2) {
-//	return (q1.x * q2.x) + (q1.y * q2.y) + (q1.z * q2.z) + (q1.w * q2.w);
-//}
-//
-//// 長さ
-//float Length(const Quaternion p) {
-//	return  std::sqrt(Dot(p, p));
-//}
-//
-//// 共役Quaternionを返す
-//Quaternion Conjugate(const Quaternion& q) {
-//	return { q.w , -q.x, -q.y, -q.z };
-//}
-//
-//// Quaternionのnormを返す
-//float Norm(const Quaternion& q) {
-//	return std::sqrt(float(pow(q.w, 2) + pow(q.x, 2) + pow(q.y, 2) + (q.z, 2)));
-//}
-//
-//// 正規化したQuaternionを返す
-//Quaternion Normalize(const Quaternion& q) {
-//	float length = Length(q);
-//	return q / length;
-//}
-//
-//// 逆Quatenionを返す
-//Quaternion Inverse(const Quaternion& q) {
-//	Quaternion result = Conjugate(q);
-//	float norm = float(pow(Norm(q), 2));
-//	return result / norm;
-//}
-//
-//// 球面線形補間
-//Quaternion Slerp(const Quaternion& q1, const Quaternion& q2, float t) {
-//	Quaternion q0 = q1;
-//	float dot = Dot(q1, q2);
-//	if (dot < 0.0f) {
-//		q0 = -q0;
-//		dot = -dot;
-//	}
-//	constexpr float EPSILON = 0.0001f;
-//	if (dot >= 1.0f - EPSILON) {
-//		return (1.0f - t) * q0 + t * q1;
-//	}
-//	float theta = std::acos(dot);
-//	float sinTheta = 1.0f / std::sin(theta);
-//	float scale1 = std::sin((1.0f - t) * theta) * sinTheta;
-//	float scale2 = std::sin(t * theta) * sinTheta;
-//	return (q0 * scale1) + (q2 * scale2);
-//}
-//
-//// 任意軸回転を表すQuaternionの生成
-//Quaternion	MakeRotateAxisAngleQuatenion(const Vector3& axis, float angle) {
-//	float halfAngle = angle * 0.5f;
-//	float sinHalfAngle = sinf(halfAngle);
-//	float cosHalfAngle = cosf(halfAngle);
-//	Quaternion hr = {
-//		axis.x * sinHalfAngle,
-//		axis.y * sinHalfAngle,
-//		axis.z * sinHalfAngle,
-//		cosHalfAngle };
-//
-//	return hr;
-//}
-//
-//// ベクトルをQuaternionで回転させた結果のベクトルを求める
-//Vector3 RotateVector(const Vector3& v, const Quaternion& q) {
-//	Quaternion vecQ = { 0.0f, v.x, v.y, v.z };
-//	Quaternion conQ = Conjugate(q);
-//	Quaternion rotV = q * (vecQ * conQ);
-//	return { rotV.x, rotV.y, rotV.z };
-//}
-//
-//// Quaternionから回転行列を求める
-//Matrix4x4 MakeRotateMatrix(const Quaternion& q) {
-//	Quaternion powQ = { float(pow(q.w, 2)), float(pow(q.x, 2)), float(pow(q.y, 2)), float(pow(q.z, 2)) };
-//	Matrix4x4 hr = Matrix4x4::identity;
-//	hr.m[0][0] = powQ.w + powQ.x - powQ.y - powQ.z;
-//	hr.m[0][1] = 2 * ((q.x * q.y) + (q.w * q.z));
-//	hr.m[0][2] = 2 * ((q.x * q.z) - (q.w * q.y));
-//
-//	hr.m[1][0] = 2 * ((q.x * q.y) - (q.w * q.z));
-//	hr.m[1][1] = powQ.w - powQ.x + powQ.y - powQ.z;
-//	hr.m[1][2] = 2 * ((q.y * q.z) + (q.w * q.x));
-//
-//	hr.m[2][0] = 2 * ((q.x * q.z) + (q.w * q.y));
-//	hr.m[2][1] = 2 * ((q.y * q.z) - (q.w * q.x));
-//	hr.m[2][2] = powQ.w - powQ.x - powQ.y + powQ.z;
-//	return hr;
-//}
+// 内積
+float Dot(const Quaternion& q1, const Quaternion& q2) {
+	return (q1.x * q2.x) + (q1.y * q2.y) + (q1.z * q2.z) + (q1.w * q2.w);
+}
+
+// 長さ
+float Length(const Quaternion p) {
+	return  std::sqrt(Dot(p, p));
+}
+
+// 共役Quaternionを返す
+Quaternion Conjugate(const Quaternion& q) {
+	return { q.w , -q.x, -q.y, -q.z };
+}
+
+// Quaternionのnormを返す
+float Norm(const Quaternion& q) {
+	return std::sqrt(float(pow(q.w, 2) + pow(q.x, 2) + pow(q.y, 2) + (q.z, 2)));
+}
+
+// 正規化したQuaternionを返す
+Quaternion Normalize(const Quaternion& q) {
+	float length = Length(q);
+	return q / length;
+}
+
+// 逆Quatenionを返す
+Quaternion Inverse(const Quaternion& q) {
+	Quaternion result = Conjugate(q);
+	float norm = float(pow(Norm(q), 2));
+	return result / norm;
+}
+
+// 球面線形補間
+Quaternion Slerp(const Quaternion& q1, const Quaternion& q2, float t) {
+	Quaternion q0 = q1;
+	float dot = Dot(q1, q2);
+	if (dot < 0.0f) {
+		q0 = -q0;
+		dot = -dot;
+	}
+	constexpr float EPSILON = 0.0001f;
+	if (dot >= 1.0f - EPSILON) {
+		return (1.0f - t) * q0 + t * q1;
+	}
+	float theta = std::acos(dot);
+	float sinTheta = 1.0f / std::sin(theta);
+	float scale1 = std::sin((1.0f - t) * theta) * sinTheta;
+	float scale2 = std::sin(t * theta) * sinTheta;
+	return (q0 * scale1) + (q2 * scale2);
+}
+
+// 任意軸回転を表すQuaternionの生成
+Quaternion	MakeRotateAxisAngleQuatenion(const Vector3& axis, float angle) {
+	float halfAngle = angle * 0.5f;
+	float sinHalfAngle = sinf(halfAngle);
+	float cosHalfAngle = cosf(halfAngle);
+	Quaternion hr = {
+		axis.x * sinHalfAngle,
+		axis.y * sinHalfAngle,
+		axis.z * sinHalfAngle,
+		cosHalfAngle };
+
+	return hr;
+}
+
+// ベクトルをQuaternionで回転させた結果のベクトルを求める
+Vector3 RotateVector(const Vector3& v, const Quaternion& q) {
+	Quaternion vecQ = { 0.0f, v.x, v.y, v.z };
+	Quaternion conQ = Conjugate(q);
+	Quaternion rotV = q * (vecQ * conQ);
+	return { rotV.x, rotV.y, rotV.z };
+}
+
+// Quaternionから回転行列を求める
+Matrix4x4 MakeRotateMatrix(const Quaternion& q) {
+	Quaternion powQ = { float(pow(q.w, 2)), float(pow(q.x, 2)), float(pow(q.y, 2)), float(pow(q.z, 2)) };
+	Matrix4x4 hr = Matrix4x4::identity;
+	hr.m[0][0] = powQ.w + powQ.x - powQ.y - powQ.z;
+	hr.m[0][1] = 2 * ((q.x * q.y) + (q.w * q.z));
+	hr.m[0][2] = 2 * ((q.x * q.z) - (q.w * q.y));
+
+	hr.m[1][0] = 2 * ((q.x * q.y) - (q.w * q.z));
+	hr.m[1][1] = powQ.w - powQ.x + powQ.y - powQ.z;
+	hr.m[1][2] = 2 * ((q.y * q.z) + (q.w * q.x));
+
+	hr.m[2][0] = 2 * ((q.x * q.z) + (q.w * q.y));
+	hr.m[2][1] = 2 * ((q.y * q.z) - (q.w * q.x));
+	hr.m[2][2] = powQ.w - powQ.x - powQ.y + powQ.z;
+	return hr;
+}
 
 
 

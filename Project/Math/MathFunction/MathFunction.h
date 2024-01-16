@@ -1,13 +1,25 @@
 #pragma once
 
+#include <iostream>
+#include <cstdint>
+#include <string>
+#include <format>
+#include <cassert>
+#include <wrl.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include <cmath>
+#include <iostream>
+#include <algorithm>
+#include <cassert>
+#include "imgui.h"
+#include <numbers>
+
 #include "Vector.h"
 #include "Matrix.h"
 #include "MathQuaternion.h"
 #include "MathOperations.h"
-#include "MathFunction.h"
 #include "CollisionStructures.h"
-
-#include <iostream>
 
 
 
@@ -116,26 +128,26 @@ Matrix4x4 DirectionToDirection(const Vector3& from, const Vector3& to);
 /// -------------------------------------------------------------------------
 /// クォータニオン
 /// -------------------------------------------------------------------------
-//// 内積
-//float Dot(const Quaternion& q1, const Quaternion& q2);
-//// 長さ
-//float Length(const Quaternion v);
-//// 共役Quaternionを返す
-//Quaternion Conjugate(const Quaternion& q);
-//// Quaternionのnormを返す
-//float Norm(const Quaternion& q);
-//// 正規化したQuaternionを返す
-//Quaternion Normalize(const Quaternion& q);
-//// 逆Quatenionを返す
-//Quaternion Inverse(const Quaternion& q);
-//// 球面線形補間
-//Quaternion Slerp(const Quaternion& q1, const Quaternion& q2, float t);
-//// 任意軸回転を表すQuaternionの生成
-//Quaternion MakeRotateAxisAngleQuatenion(const Vector3& axis, float angle);
-//// ベクトルをQuaternionで回転させた結果のベクトルを求める
-//Vector3 RotateVector(const Vector3& v, const Quaternion& q);
-//// Quaternionから回転行列を求める
-//Matrix4x4 MakeRotateMatrix(const Quaternion& q);
+// 内積
+float Dot(const Quaternion& q1, const Quaternion& q2);
+// 長さ
+float Length(const Quaternion v);
+// 共役Quaternionを返す
+Quaternion Conjugate(const Quaternion& q);
+// Quaternionのnormを返す
+float Norm(const Quaternion& q);
+// 正規化したQuaternionを返す
+Quaternion Normalize(const Quaternion& q);
+// 逆Quatenionを返す
+Quaternion Inverse(const Quaternion& q);
+// 球面線形補間
+Quaternion Slerp(const Quaternion& q1, const Quaternion& q2, float t);
+// 任意軸回転を表すQuaternionの生成
+Quaternion MakeRotateAxisAngleQuatenion(const Vector3& axis, float angle);
+// ベクトルをQuaternionで回転させた結果のベクトルを求める
+Vector3 RotateVector(const Vector3& v, const Quaternion& q);
+// Quaternionから回転行列を求める
+Matrix4x4 MakeRotateMatrix(const Quaternion& q);
 
 
 
