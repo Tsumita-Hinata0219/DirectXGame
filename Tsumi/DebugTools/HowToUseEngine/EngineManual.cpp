@@ -27,7 +27,7 @@ void EngineManual::Initialize() {
 	mokugyoHD_ = Audio::LoadSound("mokugyo.wav");
 	kakkoiiHD_ = Audio::LoadSound("kakkoii.wav");
 
-	Audio::PlayOnSound(kakkoiiHD_, true, 1.0f);
+	//Audio::PlayOnSound(kakkoiiHD_, true, 1.0f);
 
 
 	// スプライト
