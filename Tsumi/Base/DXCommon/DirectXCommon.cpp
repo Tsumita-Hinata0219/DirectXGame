@@ -641,7 +641,9 @@ void DirectXCommon::CreateDepthStencilResource() {
 
 	// DSVHeapの先頭にDSVを作る
 	DirectXCommon::GetInstance()->device_->CreateDepthStencilView(
-		DirectXCommon::GetInstance()->depthStencilResource_.Get(), &dsvDesc, DirectXCommon::GetInstance()->dsvDescriptorHeap_->GetCPUDescriptorHandleForHeapStart());
+		DirectXCommon::GetInstance()->depthStencilResource_.Get(), 
+		&dsvDesc, 
+		DirectXCommon::GetInstance()->dsvDescriptorHeap_->GetCPUDescriptorHandleForHeapStart());
 }
 
 
