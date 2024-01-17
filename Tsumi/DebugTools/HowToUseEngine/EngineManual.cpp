@@ -113,27 +113,27 @@ void EngineManual::FrontSpriteDraw(ViewProjection view) {
 /// </summary>
 void EngineManual::AudioUpdate() {
 
-	if (Input::PressKeys(DIK_B)) {
+	if (KeyInput::PressKeys(DIK_B)) {
 
-		if (Input::TriggerKey(DIK_1)) {
+		if (KeyInput::TriggerKey(DIK_1)) {
 			Audio::PlayOnSound(mokugyoHD_, true, 1.0f);
 		}
 
-		if (Input::TriggerKey(DIK_2)) {
+		if (KeyInput::TriggerKey(DIK_2)) {
 			Audio::PlayOnSound(mokugyoHD_, false, 1.0f);
 		}
 
-		if (Input::TriggerKey(DIK_3)) {
+		if (KeyInput::TriggerKey(DIK_3)) {
 			Audio::PlayOnSound(kakkoiiHD_, false, 1.0f);
 		}
 	}
-	if (Input::PressKeys(DIK_S)) {
+	if (KeyInput::PressKeys(DIK_S)) {
 
-		if (Input::TriggerKey(DIK_1)) {
+		if (KeyInput::TriggerKey(DIK_1)) {
 			Audio::StopOnSound(mokugyoHD_);
 		}
 
-		if (Input::TriggerKey(DIK_2)) {
+		if (KeyInput::TriggerKey(DIK_2)) {
 			Audio::StopOnSound(kakkoiiHD_);
 		}
 	}

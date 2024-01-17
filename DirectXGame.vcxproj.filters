@@ -260,9 +260,6 @@
     <ClCompile Include="Tsumi\Transform\ViewProjection\ViewProjection.cpp">
       <Filter>Tsumi\Transform\ViewProjection</Filter>
     </ClCompile>
-    <ClCompile Include="Tsumi\Input\Input.cpp">
-      <Filter>Tsumi\Input</Filter>
-    </ClCompile>
     <ClCompile Include="Tsumi\Audio\Audio.cpp">
       <Filter>Tsumi\Audio</Filter>
     </ClCompile>
@@ -341,6 +338,9 @@
     <ClCompile Include="Project\Math\MathStructure\Matrix\Matrix.cpp">
       <Filter>Project\Math\MathStructure\Matrix</Filter>
     </ClCompile>
+    <ClCompile Include="Tsumi\Input\Input.cpp">
+      <Filter>Tsumi\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="externals\imgui\imconfig.h">
@@ -417,9 +417,6 @@
     </ClInclude>
     <ClInclude Include="Tsumi\Transform\ViewProjection\ViewProjection.h">
       <Filter>Tsumi\Transform\ViewProjection</Filter>
-    </ClInclude>
-    <ClInclude Include="Tsumi\Input\Input.h">
-      <Filter>Tsumi\Input</Filter>
     </ClInclude>
     <ClInclude Include="Tsumi\Audio\Audio.h">
       <Filter>Tsumi\Audio</Filter>
@@ -537,6 +534,9 @@
     </ClInclude>
     <ClInclude Include="Project\Math\MyMath.h">
       <Filter>Project\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Input\Input.h">
+      <Filter>Tsumi\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

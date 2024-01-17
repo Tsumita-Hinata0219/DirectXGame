@@ -2,101 +2,119 @@
 
 
 
-/// <summary>
-/// インスタンスの取得
-/// </summary>
-Input* Input::GetInstance() {
-	static Input instance;
+
+// -------------------------------------------------------------------------
+// KeyInput : キーボード
+// -------------------------------------------------------------------------
+
+// インスタンスの取得
+KeyInput* KeyInput::GetInstance() {
+	static KeyInput instance;
 	return &instance;
 }
 
-
-
-/// <summary>
-/// 初期化処理
-/// </summary>
-void Input::Initialize() {
+// 初期化処理
+void KeyInput::Initialize() {
 
 	// DirectInputのインスタンス生成
 	HRESULT result = DirectInput8Create(
 		WinApp::GetWc().hInstance, DIRECTINPUT_VERSION, 
-		IID_IDirectInput8, (void**)&Input::GetInstance()->directInput_, nullptr);
+		IID_IDirectInput8, (void**)&KeyInput::GetInstance()->directInput_, nullptr);
 	assert(SUCCEEDED(result));
 
 	// キーボードデバイス生成
-	result = Input::GetInstance()->directInput_->CreateDevice(GUID_SysKeyboard, &Input::GetInstance()->keyboard_, NULL);
+	result = KeyInput::GetInstance()->directInput_->CreateDevice(GUID_SysKeyboard, &KeyInput::GetInstance()->keyboard_, NULL);
 	assert(SUCCEEDED(result));
 
 	// 入力データ形式のセット
-	result = Input::GetInstance()->keyboard_->SetDataFormat(&c_dfDIKeyboard);
+	result = KeyInput::GetInstance()->keyboard_->SetDataFormat(&c_dfDIKeyboard);
 	assert(SUCCEEDED(result));
 
 	// 排他制御レベルのセット
-	result = Input::GetInstance()->keyboard_->SetCooperativeLevel(
+	result = KeyInput::GetInstance()->keyboard_->SetCooperativeLevel(
 		WinApp::GetHwnd(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
 	assert(SUCCEEDED(result));
 }
 
-
-/// <summary>
-/// 更新処理
-/// </summary>
-void Input::BeginFrame() {
+// 更新処理
+void KeyInput::BeginFrame() {
 
 	// メモリコピー
-	memcpy(Input::GetInstance()->preKeys, Input::GetInstance()->Keys, 256);
+	memcpy(KeyInput::GetInstance()->preKeys, KeyInput::GetInstance()->Keys, 256);
 
 	// キーボード情報の取得開始
-	Input::GetInstance()->keyboard_->Acquire();
+	KeyInput::GetInstance()->keyboard_->Acquire();
 
 	// 全キーの入力状態を取得する
-	Input::GetInstance()->keyboard_->GetDeviceState(sizeof(Input::GetInstance()->Keys), Input::GetInstance()->Keys);
+	KeyInput::GetInstance()->keyboard_->GetDeviceState(sizeof(KeyInput::GetInstance()->Keys), KeyInput::GetInstance()->Keys);
 }
 
+// 押されていない
+bool KeyInput::NoneKey(uint32_t keyNum) {
 
-/// <summary>
-/// 押されていない
-/// </summary>
-bool Input::NoneKey(uint32_t keyNum) {
-
-	if (Input::GetInstance()->preKeys[keyNum] == 0x00 && Input::GetInstance()->Keys[keyNum] == 0x00) {
+	if (KeyInput::GetInstance()->preKeys[keyNum] == 0x00 && KeyInput::GetInstance()->Keys[keyNum] == 0x00) {
 		return true;
 	}
 	return false;
 }
 
+// 押した瞬間
+bool KeyInput::TriggerKey(uint32_t keyNum) {
 
-/// <summary>
-/// 押した瞬間
-/// </summary>
-bool Input::TriggerKey(uint32_t keyNum) {
-
-	if (Input::GetInstance()->preKeys[keyNum] == 0x00 && Input::GetInstance()->Keys[keyNum] == 0x80) {
+	if (KeyInput::GetInstance()->preKeys[keyNum] == 0x00 && KeyInput::GetInstance()->Keys[keyNum] == 0x80) {
 		return true;
 	}
 	return false;
 }
 
+// 押しっぱなし
+bool KeyInput::PressKeys(uint32_t keyNum) {
 
-/// <summary>
-/// 押しっぱなし
-/// </summary>
-bool Input::PressKeys(uint32_t keyNum) {
-
-	if (Input::GetInstance()->preKeys[keyNum] == 0x80 && Input::GetInstance()->Keys[keyNum] == 0x80) {
+	if (KeyInput::GetInstance()->preKeys[keyNum] == 0x80 && KeyInput::GetInstance()->Keys[keyNum] == 0x80) {
 		return true;
 	}
 	return false;
 }
 
+// 離された瞬間
+bool KeyInput::ReleaseKeys(uint32_t keyNum) {
 
-/// <summary>
-/// 離された瞬間
-/// </summary>
-bool Input::ReleaseKeys(uint32_t keyNum) {
-
-	if (Input::GetInstance()->preKeys[keyNum] == 0x80 && Input::GetInstance()->Keys[keyNum] == 0x00) {
+	if (KeyInput::GetInstance()->preKeys[keyNum] == 0x80 && KeyInput::GetInstance()->Keys[keyNum] == 0x00) {
 		return true;
 	}
 	return false;
 }
+
+// -------------------------------------------------------------------------
+// KeyInput : キーボード
+// -------------------------------------------------------------------------
+
+
+
+
+
+// -------------------------------------------------------------------------
+// GamePadInput : ゲームパッド
+// -------------------------------------------------------------------------
+
+// インスタンスの取得
+GamePadInput* GamePadInput::GetInstance() {
+	static GamePadInput instance;
+	return &instance;
+}
+
+// 初期化処理
+void GamePadInput::Initialize() {
+
+}
+
+// 更新処理
+void GamePadInput::BeginFrame() {
+
+}
+
+
+// -------------------------------------------------------------------------
+// GamePadInput : ゲームパッド
+// -------------------------------------------------------------------------
+

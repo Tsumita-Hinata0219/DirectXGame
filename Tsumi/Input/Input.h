@@ -11,10 +11,15 @@
 
 #include <cassert>
 #include <wrl.h>
+#include <array>
 
 
 
-/* Inputクラス */
+// -------------------------------------------------------------------------
+// 入力
+// -------------------------------------------------------------------------
+// 
+// -------------------------------------------------------------------------
 class Input {
 
 public: // メンバ関数
@@ -22,7 +27,42 @@ public: // メンバ関数
 	/// <summary>
 	/// インスタンスの取得
 	/// </summary>
-	static Input* GetInstance();
+	static Input* GetInstance() {
+		static Input instance;
+		return &instance;
+	}
+
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
+	static void Initialize() {
+		KeyInput::GetInstance()->Initialize();
+	}
+
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	static void BeginFrame() {
+		KeyInput::GetInstance()->BeginFrame();
+	}
+};
+
+
+
+
+// -------------------------------------------------------------------------
+// 入力
+// -------------------------------------------------------------------------
+// KeyInput : キーボード
+// -------------------------------------------------------------------------
+class KeyInput {
+
+public: // メンバ関数
+
+	/// <summary>
+	/// インスタンスの取得
+	/// </summary>
+	static KeyInput* GetInstance();
 
 	/// <summary>
 	/// 初期化処理
@@ -62,4 +102,39 @@ private: // メンバ変数
 
 	BYTE Keys[256] = {};
 	BYTE preKeys[256] = {};
+};
+
+
+
+
+
+// -------------------------------------------------------------------------
+// 入力
+// -------------------------------------------------------------------------
+// GamePadInput : ゲームパッド
+// -------------------------------------------------------------------------
+class GamePadInput {
+
+public: // メンバ関数
+
+	/// <summary>
+	/// インスタンスの取得
+	/// </summary>
+	static GamePadInput* GetInstance();
+
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
+	static void Initialize();
+
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	static void BeginFrame();
+
+
+
+private: // メンバ変数
+
+
 };
