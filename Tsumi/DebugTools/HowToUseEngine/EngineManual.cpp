@@ -27,81 +27,22 @@ void EngineManual::Initialize() {
 	mokugyoHD_ = Audio::LoadSound("mokugyo.wav");
 	kakkoiiHD_ = Audio::LoadSound("kakkoii.wav");
 
+	Audio::PlayOnSound(kakkoiiHD_, true, 1.0f);
+
 
 	// スプライト
-	spriteA_ = std::make_unique<Sprite>();
-	spriteA_->Initialize({ 0.0f, 0.0f }, { 640.0f, 360.0f });
-	spriteA_->SetTextureHandle(uvCheckerHD_);
-	spriteATransform_.Initialize();
-	uvTransformA_ = {
-		{ 1.0f, 1.0f, 1.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-	};
-	spriteA_->SetUVTransform(uvTransformA_);
+	spriteFront_ = make_unique<Sprite>();
+	spriteFront_->Initialize({ 0.0f, 0.0f }, { 400.0f, 300.0f });
+	spriteFrontTrans_.Initialize();
 
-	spriteB_ = std::make_unique<Sprite>();
-	spriteB_->Initialize({ 0.0f, 0.0f }, { 1280.0f, 720.0f });
-	spriteB_->SetTextureHandle(skyHD_);
-	spriteBTransform_.Initialize();
-	uvTransformB_ = {
-		{ 1.0f, 1.0f, 1.0f },
-		{ 0.0f, 0.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f },
-	};
+	spriteBack_ = make_unique<Sprite>();
+	spriteBack_->Initialize({ 0.0f, 0.0f }, { 600.0f, 500.0f });
+	spriteBackTrans_.Initialize();
 
-
-	// Planeモデル
-	/*planeModel_ = make_unique<Model>();
-	planeModel_->Initialize(new ModelPlaneState);
-	planeModelTransform_.Initialize();
-	planeModel_->SetTexHandle(uvCheckerHD_);
-	planeModelColor_ = { 1.0f, 1.0f, 1.0f, 1.0f };
-	planeModel_->SetColor(planeModelColor_);*/
-
-
-	// Objモデル
-	/*objModel1_ = make_unique<Model>();
-	objModel1_->CreateFromObj("axis", objModelTransform1_);
-	objModelTransform1_.Initialize();
-	objModel1Color_ = { 1.0f, 1.0f, 1.0f, 1.0f };
-	objModel1_->SetColor(objModel1Color_);*/
-
-	//objModel2_ = make_unique<Model>();
-	//objModel2_->CreateFromObj("plane", objModelTransform2_);
-	//objModelTransform2_.Initialize();
-
-	//objModel3_ = make_unique<Model>();
-	//objModel3_->CreateFromObj("axis", objModelTransform3_);
-	//objModelTransform3_.Initialize();
-
-	// FenceModel
-	fenceObj_ = make_unique<Model>();
-	fenceObj_->CreateFromObj("fence", fenceModelTransform_);
-	fenceModelTransform_.Initialize();
-
-	// Particle
-	/*particle_ = make_unique<Particle>();
-	particle_->Initialize(new ParticlePlane, NumInstance_);
-	for (int i = 0; i < NumInstance_; i++) {
-
-		particlePrope_[i].worldTransform.Initialize();
-		particlePrope_[i].worldTransform.scale = {1.0f, 1.0f, 1.0f};
-		particlePrope_[i].worldTransform.rotate = { 0.0f, 0.0f, 0.0f };
-		particlePrope_[i].worldTransform.translate = {
-			i * 0.1f,
-			i * 0.1f ,
-			i * 0.1f,
-		};
-		particlePrope_[i].color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		particlePrope_[i].velocity = Vector3::one;
-		particlePrope_[i].uvTransform.scale = { 1.0f, 1.0f, 1.0f };
-		particlePrope_[i].uvTransform.rotate = { 0.0f, 0.0f, 0.0f };
-		particlePrope_[i].uvTransform.translate = { 0.0f, 0.0f, 0.0f };
-		particlePrope_[i].isActive = true;
-
-		particle_->PushBackParticles(particlePrope_[i]);
-	}*/
+	// Obj
+	modelObj_ = make_unique<Model>();
+	modelObj_->CreateFromObj("axis");
+	modelTrans_.Initialize();
 
 }
 
@@ -113,55 +54,26 @@ void EngineManual::Update() {
 
 	AudioUpdate();
 
-	spriteA_->SetUVTransform(uvTransformA_);
-	spriteB_->SetUVTransform(uvTransformB_);
-
-	//planeModelTransform_.UpdateMatrix();
-	//objModelTransform1_.UpdateMatrix();
-	//objModelTransform2_.UpdateMatrix();
-	//objModelTransform3_.UpdateMatrix();
-	spriteATransform_.UpdateMatrix();
-	spriteBTransform_.UpdateMatrix();
-
-	fenceModelTransform_.UpdateMatrix();
-
-	//planeModel_->SetColor(planeModelColor_);
-	//objModel1_->SetColor(objModel1Color_);
-
-	//particle_->Update();
+	
+	spriteFrontTrans_.UpdateMatrix();
+	spriteBackTrans_.UpdateMatrix();
+	modelTrans_.UpdateMatrix();
 
 #ifdef _DEBUG
 
 	ImGui::Begin("EngineManual");
-	/*ImGui::Text("AxisObj");
-	ImGui::DragFloat3("Axis.Scele", &objModelTransform1_.scale.x, 0.01f);
-	ImGui::DragFloat3("Axis.Rotate", &objModelTransform2_.rotate.x, 0.01f);
-	ImGui::DragFloat3("Axis.Transform", &objModelTransform1_.translate.x, 0.01f);
-	ImGui::ColorEdit4("Axis.color", &objModel1Color_.x);*/
-	ImGui::Text("SpriteA");
-	ImGui::DragFloat3("spriteAScale", &spriteATransform_.scale.x, 0.1f);
-	ImGui::DragFloat3("spriteARotate", &spriteATransform_.rotate.x, 0.1f);
-	ImGui::DragFloat3("spriteATranslate", &spriteATransform_.translate.x, 0.1f);
-	ImGui::DragFloat2("uvScaleA", &uvTransformA_.scale.x, 0.01f);
-	ImGui::DragFloat("uvRotateA", &uvTransformA_.rotate.z, 0.01f);
-	ImGui::DragFloat2("uvTranslateA", &uvTransformA_.translate.x, 0.01f);
-	ImGui::Text("SpriteB");
-	ImGui::DragFloat3("spriteBScale", &spriteBTransform_.scale.x, 0.1f);
-	ImGui::DragFloat3("spriteBRotate", &spriteBTransform_.rotate.x, 0.1f);
-	ImGui::DragFloat3("spriteBTranslate", &spriteBTransform_.translate.x, 0.1f);
-	ImGui::DragFloat2("uvScaleB", &uvTransformB_.scale.x, 0.01f);
-	ImGui::DragFloat("uvRotateB", &uvTransformB_.rotate.z, 0.01f);
-	ImGui::DragFloat2("uvTranslateB", &uvTransformB_.translate.x, 0.01f);
-	/*ImGui::Text("PlaneModel");
-	ImGui::DragFloat3("PlaneModelScale", &planeModelTransform_.scale.x, 0.1f);
-	ImGui::DragFloat3("PlaneModelRotate", &planeModelTransform_.rotate.x, 0.1f);
-	ImGui::DragFloat3("PlaneModelTranslate", &planeModelTransform_.translate.x, 0.1f);
-	ImGui::DragFloat4("PlaneModelColor", &planeModelColor_.x, 0.01f);
-	ImGui::ColorEdit4("PlaneModelColor", &planeModelColor_.x);*/
-	ImGui::Text("fenceModel");
-	ImGui::DragFloat3("fenceModelScale", &fenceModelTransform_.scale.x, 0.1f);
-	ImGui::DragFloat3("fenceModelRotate", &fenceModelTransform_.rotate.x, 0.1f);
-	ImGui::DragFloat3("fenceModelTranslate", &fenceModelTransform_.translate.x, 0.1f);
+	ImGui::Text("SpriteFront");
+	ImGui::DragFloat3("SpriteF_Scale", &spriteFrontTrans_.scale.x, 0.01f);
+	ImGui::DragFloat3("SpriteF_Rotate", &spriteFrontTrans_.rotate.x, 0.01f);
+	ImGui::DragFloat3("SpriteF_Translate", &spriteFrontTrans_.translate.x, 0.01f);
+	ImGui::Text("SpriteBack");
+	ImGui::DragFloat3("SpriteB_Scale", &spriteBackTrans_.scale.x, 0.01f);
+	ImGui::DragFloat3("SpriteB_Rotate", &spriteBackTrans_.rotate.x, 0.01f);
+	ImGui::DragFloat3("SpriteB_Translate", &spriteBackTrans_.translate.x, 0.01f);
+	ImGui::Text("Axis");
+	ImGui::DragFloat3("Axis_Scale", &modelTrans_.scale.x, 0.01f);
+	ImGui::DragFloat3("Axis_Rotate", &modelTrans_.rotate.x, 0.01f);
+	ImGui::DragFloat3("Axis_Translate", &modelTrans_.translate.x, 0.01f);
 	ImGui::End();
 
 #endif // _DEBUG
@@ -174,8 +86,7 @@ void EngineManual::Update() {
 /// </summary>
 void EngineManual::BackSpriteDraw(ViewProjection view) {
 
-	spriteB_->Draw(skyHD_, spriteBTransform_, view);
-
+	spriteBack_->Draw(asanohaHD_, spriteBackTrans_, view);
 }
 
 
@@ -184,12 +95,7 @@ void EngineManual::BackSpriteDraw(ViewProjection view) {
 /// </summary>
 void EngineManual::ModelDraw(ViewProjection view) {
 
-	//planeModel_->Draw(planeModelTransform_, view);
-	//objModel1_->Draw(objModelTransform1_, view);
-	//objModel2_->Draw(objModelTransform2_, view);
-	//objModel3_->Draw(objModelTransform3_, view);
-	fenceObj_->Draw(fenceModelTransform_, view);
-	//particle_->Draw(view);
+	modelObj_->Draw(modelTrans_, view);
 }
 
 
@@ -198,7 +104,7 @@ void EngineManual::ModelDraw(ViewProjection view) {
 /// </summary>
 void EngineManual::FrontSpriteDraw(ViewProjection view) {
 
-	spriteA_->Draw(uvCheckerHD_, spriteATransform_, view);
+	spriteFront_->Draw(monsterBallHD_, spriteFrontTrans_, view);
 }
 
 

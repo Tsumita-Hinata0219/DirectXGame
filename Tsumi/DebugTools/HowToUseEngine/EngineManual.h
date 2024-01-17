@@ -53,40 +53,15 @@ private: // メンバ関数
 
 private: // メンバ変数
 
-	// PlaneModel
-	std::unique_ptr<Model> planeModel_ = nullptr;
-	WorldTransform planeModelTransform_{};
-	Vector4 planeModelColor_{};
+	// スプライト
+	std::unique_ptr<Sprite> spriteFront_ = nullptr;
+	WorldTransform spriteFrontTrans_{};
+	std::unique_ptr<Sprite> spriteBack_ = nullptr;
+	WorldTransform spriteBackTrans_{};
 
-
-	// ObjModel
-	std::unique_ptr<Model> objModel1_ = nullptr;
-	WorldTransform objModelTransform1_{};
-	Vector4 objModel1Color_{};
-
-	std::unique_ptr<Model> objModel2_ = nullptr;
-	WorldTransform objModelTransform2_{};
-
-	std::unique_ptr<Model> objModel3_ = nullptr;
-	WorldTransform objModelTransform3_{};
-
-	std::unique_ptr<Model> fenceObj_ = nullptr;
-	WorldTransform fenceModelTransform_{};
-
-
-	// Particle
-	std::unique_ptr<Particle> particle_ = nullptr;
-	static constexpr uint32_t NumInstance_ = 10;
-	ParticleProperties particlePrope_[NumInstance_]{};
-
-	// Sprite
-	std::unique_ptr<Sprite> spriteA_ = nullptr;
-	WorldTransform spriteATransform_{};
-	UVTransform uvTransformA_{};
-
-	std::unique_ptr<Sprite> spriteB_ = nullptr;
-	WorldTransform spriteBTransform_{};
-	UVTransform uvTransformB_{};
+	// Obj
+	std::unique_ptr<Model> modelObj_ = nullptr;
+	WorldTransform modelTrans_{};
 
 
 	// texHandle
@@ -99,5 +74,8 @@ private: // メンバ変数
 	// SoundHandle
 	uint32_t mokugyoHD_;
 	uint32_t kakkoiiHD_;
+
+
+	int bgmStartTimer = 0;
 
 };

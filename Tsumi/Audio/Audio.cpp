@@ -275,6 +275,7 @@ void Audio::SetSoundVolum(UINT soundDataNum, float volum = 1.0f) {
 void Audio::SoundUnload() {
 
 	Audio::GetInstance()->AudioDatas_.clear();
+	Audio::GetInstance()->xAudio2_.Reset();
 }
 
 

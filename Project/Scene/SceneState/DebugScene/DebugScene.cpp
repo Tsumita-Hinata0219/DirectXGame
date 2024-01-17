@@ -15,6 +15,7 @@ DebugScene::~DebugScene() {}
 void DebugScene::Initialize() {
 
 	viewProjection_.Initialize();
+	viewProjection_.translate = { 0.0f, 0.0f, -15.0f };
 
 	engineManual_ = std::make_unique<EngineManual>();
 	engineManual_->Initialize();
