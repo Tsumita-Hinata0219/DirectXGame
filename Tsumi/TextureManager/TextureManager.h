@@ -24,24 +24,20 @@ public: // メンバ関数
 	/// </summary>
 	~TextureManager() {};
 
-
 	/// <summary>
 	/// TextureManagerのインスタンス取得
 	/// </summary>
 	static TextureManager* GetInstance();
-
 
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
 	static void Initialize();
 
-
 	/// <summary>
 	/// 解放処理
 	/// </summary>
 	static void Finalize();
-
 
 	/// <summary>
 	/// Textuerデータを読み込む
@@ -52,7 +48,6 @@ public: // メンバ関数
 	/// Textureデータの解放
 	/// </summary>
 	static void UnLoadTexture();
-
 
 
 private: // メンバ関数
@@ -67,12 +62,10 @@ private: // メンバ関数
 	/// </summary>
 	static DirectX::ScratchImage CreateMipImage(const std::string& filePath);
 
-
 	/// <summary>
-	/// DirectX12のTExtureResourceを作る
+	/// DirectX12のTextureResourceを作る
 	/// </summary>
 	static ComPtr<ID3D12Resource> CreateTextureResource(const DirectX::TexMetadata& metadata);
-
 
 	/// <summary>
 	/// TextureResourceにデータを転送する
@@ -84,24 +77,20 @@ private: // メンバ関数
 	/// </summary>
 	static D3D12_SHADER_RESOURCE_VIEW_DESC SettingSRVDesc(const DirectX::TexMetadata& metadata);
 
-
 	/// <summary>
 	/// metadataを基にResourceの設定
 	/// </summary>
 	static D3D12_RESOURCE_DESC SettingResource(const DirectX::TexMetadata& metadata);
-
 
 	/// <summary>
 	/// 利用するHeapの設定
 	/// </summary>
 	static D3D12_HEAP_PROPERTIES SettingUseHeap();
 
-
 	/// <summary>
 	/// Resourceを生成する
 	/// </summary>
 	static ComPtr<ID3D12Resource> CreateResource(D3D12_RESOURCE_DESC resourceDesc, D3D12_HEAP_PROPERTIES heapProperties);
-
 
 
 private: // メンバ変数
