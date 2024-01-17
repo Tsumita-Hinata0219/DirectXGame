@@ -625,7 +625,8 @@ void DirectXCommon::CreateDepthStencilResource() {
 
 	// DepthStencilTextureをウィンドウサイズで作成
 	DirectXCommon::GetInstance()->depthStencilResource_ = CreateDepthStencilTexturerResource(
-		WinApp::GetInstance()->GetClientWidth(), WinApp::GetInstance()->GetCliendHeight());
+		WinApp::GetInstance()->GetClientWidth(), 
+		WinApp::GetInstance()->GetCliendHeight());
 
 
 	// DSV用のヒープでディスクリプタのの数は1。DSVはShader内で触るものではないので、ShaderVisibleはfalse
