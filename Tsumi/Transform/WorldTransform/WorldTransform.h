@@ -32,8 +32,8 @@ struct WorldTransform {
 	ComPtr<ID3D12Resource> constBuffer = nullptr;
 
 	//// マッピング済みアドレス
-	//TransformationMatrix* constMap;
-	TransformationMatrix* buffMap;
+	TransformationMatrix* constMap;
+	//TransformationMatrix* buffMap;
 
 	/// <summary>
 	/// 初期化処理

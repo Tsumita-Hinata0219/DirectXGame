@@ -20,14 +20,14 @@ void Particle::Initialize(IParticleState* state, uint32_t instanceNum) {
 // 更新処理
 void Particle::Update() {
 
-	for (ParticleProperties prope : particlePropes_) {
+	/*for (ParticleProperties prope : particlePropes_) {
 		prope.worldTransform.UpdateMatrix();
 
 		if (prope.isActive) {
 
 			Move();
 		}
-	}
+	}*/
 }
 
 

@@ -31,7 +31,7 @@ void ViewProjection::UpdateMatrix() {
 // 定数バッファの生成
 void ViewProjection::CreateBuffer() {
 
-	CreateResource::CreateBufferResource(sizeof(TransformationMatrix), constBuffer);
+	CreateResource::CreateBufferResource(sizeof(TransformationViewMatrix), constBuffer);
 
 	// constBuffer が nullptr の場合はエラーログを出力してアサーションでプログラムを停止させる
 	if (!constBuffer) {

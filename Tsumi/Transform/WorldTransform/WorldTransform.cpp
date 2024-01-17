@@ -46,7 +46,7 @@ void WorldTransform::Map() {
 		return;
 	}
 
-	HRESULT result = constBuffer->Map(0, nullptr, reinterpret_cast<void**>(&buffMap));
+	HRESULT result = constBuffer->Map(0, nullptr, reinterpret_cast<void**>(&constMap));
 	assert(SUCCEEDED(result));
 }
 
@@ -60,7 +60,7 @@ void WorldTransform::UnMap() {
 void WorldTransform::TransferMatrix() {
 
 	Map();
-	buffMap->WVP = matWorld;
-	buffMap->World = matWorld;
+	constMap->WVP = matWorld;
+	constMap->World = matWorld;
 	UnMap();
 }
