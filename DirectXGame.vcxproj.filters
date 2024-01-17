@@ -191,7 +191,7 @@
     <Filter Include="Project\Math\MathQuaternion">
       <UniqueIdentifier>{0b8bd0f7-c92a-44e0-9320-3ece1762735a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tsumi\Graphic\Input">
+    <Filter Include="Tsumi\Input">
       <UniqueIdentifier>{49ea0ea1-2e38-4d0a-879c-314b1a687ea8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -261,7 +261,7 @@
       <Filter>Tsumi\Transform\ViewProjection</Filter>
     </ClCompile>
     <ClCompile Include="Tsumi\Input\Input.cpp">
-      <Filter>Tsumi\Graphic\Input</Filter>
+      <Filter>Tsumi\Input</Filter>
     </ClCompile>
     <ClCompile Include="Tsumi\Audio\Audio.cpp">
       <Filter>Tsumi\Audio</Filter>
@@ -419,7 +419,7 @@
       <Filter>Tsumi\Transform\ViewProjection</Filter>
     </ClInclude>
     <ClInclude Include="Tsumi\Input\Input.h">
-      <Filter>Tsumi\Graphic\Input</Filter>
+      <Filter>Tsumi\Input</Filter>
     </ClInclude>
     <ClInclude Include="Tsumi\Audio\Audio.h">
       <Filter>Tsumi\Audio</Filter>
