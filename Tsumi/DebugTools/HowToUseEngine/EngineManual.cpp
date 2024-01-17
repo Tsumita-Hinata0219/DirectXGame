@@ -113,30 +113,30 @@ void EngineManual::FrontSpriteDraw(ViewProjection view) {
 /// </summary>
 void EngineManual::AudioUpdate() {
 
-	if (KeyInput::PressKeys(DIK_B)) {
+	//if (KeyInput::PressKeys(DIK_B)) {
 
-		if (KeyInput::TriggerKey(DIK_1)) {
-			Audio::PlayOnSound(mokugyoHD_, true, 1.0f);
-		}
+	//	if (KeyInput::TriggerKey(DIK_1)) {
+	//		Audio::PlayOnSound(mokugyoHD_, true, 1.0f);
+	//	}
 
-		if (KeyInput::TriggerKey(DIK_2)) {
-			Audio::PlayOnSound(mokugyoHD_, false, 1.0f);
-		}
+	//	if (KeyInput::TriggerKey(DIK_2)) {
+	//		Audio::PlayOnSound(mokugyoHD_, false, 1.0f);
+	//	}
 
-		if (KeyInput::TriggerKey(DIK_3)) {
-			Audio::PlayOnSound(kakkoiiHD_, false, 1.0f);
-		}
-	}
-	if (KeyInput::PressKeys(DIK_S)) {
+	//	if (KeyInput::TriggerKey(DIK_3)) {
+	//		Audio::PlayOnSound(kakkoiiHD_, false, 1.0f);
+	//	}
+	//}
+	//if (KeyInput::PressKeys(DIK_S)) {
 
-		if (KeyInput::TriggerKey(DIK_1)) {
-			Audio::StopOnSound(mokugyoHD_);
-		}
+	//	if (KeyInput::TriggerKey(DIK_1)) {
+	//		Audio::StopOnSound(mokugyoHD_);
+	//	}
 
-		if (KeyInput::TriggerKey(DIK_2)) {
-			Audio::StopOnSound(kakkoiiHD_);
-		}
-	}
+	//	if (KeyInput::TriggerKey(DIK_2)) {
+	//		Audio::StopOnSound(kakkoiiHD_);
+	//	}
+	//}
 
 
 #ifdef _DEBUG
