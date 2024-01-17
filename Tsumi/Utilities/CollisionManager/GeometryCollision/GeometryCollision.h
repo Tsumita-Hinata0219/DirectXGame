@@ -3,7 +3,7 @@
 #include "CollisionStructures.h"
 #include "OBBCollider.h"
 #include "AABBCollider.h"
-#include "Function.h"
+#include "MyMath.h"
 
 #include <array>
 

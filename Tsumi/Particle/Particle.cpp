@@ -20,9 +20,14 @@ void Particle::Initialize(IParticleState* state, uint32_t instanceNum) {
 // 更新処理
 void Particle::Update() {
 
-	for (ParticleProperties prope : particlePropes_) {
+	/*for (ParticleProperties prope : particlePropes_) {
 		prope.worldTransform.UpdateMatrix();
-	}
+
+		if (prope.isActive) {
+
+			Move();
+		}
+	}*/
 }
 
 
@@ -37,4 +42,13 @@ void Particle::Draw(ViewProjection view) {
 void Particle::PushBackParticles(ParticleProperties prope) {
 
 	particlePropes_.push_back(prope);
+}
+
+
+// 移動処理
+void Particle::Move() {
+
+	for (ParticleProperties prope : particlePropes_) {
+		prope.worldTransform.translate = kDeltaTimer * (prope.worldTransform.translate + prope.velocity);
+	}
 }

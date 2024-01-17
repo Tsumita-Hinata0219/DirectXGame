@@ -4,7 +4,7 @@
 #include <d3d12.h>
 #pragma comment(lib, "d3d12.lib")
 
-#include "Function.h"
+#include "MyMath.h"
 #include "Struct.h"
 
 #include <cassert>

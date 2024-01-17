@@ -91,10 +91,9 @@ void Sprite::SetVertex(WorldTransform worldTransform) {
 	resource_.Material->Map(0, nullptr, reinterpret_cast<void**>(&materialData));
 	resource_.Index->Map(0, nullptr, reinterpret_cast<void**>(&indexData));
 
-	pos_ = {
-		.x = worldTansform_.translate.x,
-		.y = worldTansform_.translate.y,
-	};
+	pos_ = { 
+		worldTansform_.translate.x, 
+		worldTansform_.translate.y };
 
 	// 左下
 	vertexData[0].position = { pos_.x, pos_.y + size_.y, 0.0f, 1.0f };

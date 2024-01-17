@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Function.h"
+#include "MyMath.h"
 #include "Struct.h"
 #include "TextureManager.h"
 #include "ObjDataResource.h"

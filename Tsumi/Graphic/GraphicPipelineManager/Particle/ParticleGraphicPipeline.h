@@ -4,7 +4,7 @@
 #include <d3dx12.h>
 #include <dxcapi.h>
 
-#include "Function.h"
+#include "MyMath.h"
 #include "Struct.h"
 #include "DirectXCommon.h"
 #include "ShaderManager.h"

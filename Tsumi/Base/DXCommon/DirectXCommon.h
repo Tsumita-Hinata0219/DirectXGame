@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <d3d12.h>
 #include <dxgi1_6.h>
@@ -9,15 +9,10 @@
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "dxcompiler.lib")
 
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
-#include "Matrix4x4.h"
-
 #include "WinApp.h"
 #include "DirectXCommon.h"
 #include "GraphicPipelineManager.h"
-#include "Function.h"
+#include "MyMath.h"
 #include "Struct.h"
 
 

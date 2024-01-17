@@ -1,13 +1,8 @@
 #pragma once
-#include "Function.h"
+#include "MyMath.h"
 #include "CreateResource.h"
 
 #include <vector>
-#include <Vector2.h>
-#include <Vector3.h>
-#include <Vector4.h>
-#include <Matrix4x4.h>
-
 
 
 struct TransformationMatrix {
@@ -37,8 +32,8 @@ struct WorldTransform {
 	ComPtr<ID3D12Resource> constBuffer = nullptr;
 
 	//// マッピング済みアドレス
-	//TransformationMatrix* constMap;
-	TransformationMatrix* buffMap;
+	TransformationMatrix* constMap;
+	//TransformationMatrix* buffMap;
 
 	/// <summary>
 	/// 初期化処理

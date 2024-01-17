@@ -20,7 +20,7 @@ void ViewProjection::UpdateMatrix() {
 	Matrix4x4 translateMat = MakeTranslateMatrix(translate);
 	Matrix4x4 rotateMat = MakeRotateXYZMatrix(rotate.x, rotate.y, rotate.z);
 
-	matView = Multiply(Inverse(translateMat), Inverse(rotateMat));
+	matView = Inverse(translateMat) * Inverse(rotateMat);
 	matProjection = MakePerspectiveFovMatrix(fov, aspectRatio, nearZ, farZ);
 	orthoGraphicMat = MakeOrthographicMatrix(0.0f, 0.0f, float(WinApp::GetClientWidth()), float(WinApp::GetCliendHeight()), 0.0f, 100.0f);
 
@@ -31,7 +31,7 @@ void ViewProjection::UpdateMatrix() {
 // 定数バッファの生成
 void ViewProjection::CreateBuffer() {
 
-	CreateResource::CreateBufferResource(sizeof(TransformationMatrix), constBuffer);
+	CreateResource::CreateBufferResource(sizeof(TransformationViewMatrix), constBuffer);
 
 	// constBuffer が nullptr の場合はエラーログを出力してアサーションでプログラムを停止させる
 	if (!constBuffer) {

@@ -5,7 +5,10 @@
 #include <dxgidebug.h>
 #include <dxcapi.h>
 #include <string>
-#include "Function.h"
+#include <wrl.h>
+#include <format>
+
+#include "MyMath.h"
 
 
 
