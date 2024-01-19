@@ -76,7 +76,6 @@ void ParticlePlane::Draw(Particle* pParticle, list<ParticleProperties> prope, Vi
 	itrNum_ = 0;
 	for (auto itr = prope.begin(); itr != prope.end(); itr++) {
 
-		//(*itr).worldTransform.translate += (*itr).velocity;
 		Matrix4x4 worldPos = MakeAffineMatrix((*itr).worldTransform.scale, (*itr).worldTransform.rotate, (*itr).worldTransform.translate);
 		Matrix4x4 worldView = view.matView * view.matProjection;
 		Matrix4x4 matWorld = worldPos * worldView;
