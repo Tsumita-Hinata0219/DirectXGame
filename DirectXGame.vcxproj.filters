@@ -227,6 +227,9 @@
     <Filter Include="Project\GameObject\Sousa">
       <UniqueIdentifier>{2ca31c76-a0fa-48c6-9e54-ab760f8fbb11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tsumi\Utilities\ClassTemplate">
+      <UniqueIdentifier>{d22cc69f-043c-4ef6-9ff4-622cad149e2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="externals\imgui\imgui.cpp">
@@ -409,6 +412,9 @@
     </ClCompile>
     <ClCompile Include="Project\GameObject\Sousa\Sousa.cpp">
       <Filter>Project\GameObject\Sousa</Filter>
+    </ClCompile>
+    <ClCompile Include="Tsumi\Utilities\ClassTemplate\ClassTemplate.cpp">
+      <Filter>Tsumi\Utilities\ClassTemplate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -654,6 +660,9 @@
     </ClInclude>
     <ClInclude Include="Project\GameObject\Sousa\Sousa.h">
       <Filter>Project\GameObject\Sousa</Filter>
+    </ClInclude>
+    <ClInclude Include="Tsumi\Utilities\ClassTemplate\ClassTemplate.h">
+      <Filter>Tsumi\Utilities\ClassTemplate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
