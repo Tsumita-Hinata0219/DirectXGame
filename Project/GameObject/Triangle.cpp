@@ -75,11 +75,11 @@ void Triangle::Initialize(Pastorale* pastorale) {
 /// </summary>
 void Triangle::Update() {
 
-	modelTransform_.rotate_.y += 0.02f;
+	//modelTransform_.rotate_.y += 0.02f;
 
-	sphereTransform_.rotate_.x -= 0.02f;
+	//sphereTransform_.rotate_.x -= 0.02f;
 	sphereTransform_.rotate_.y += 0.02f;
-	sphereTransform_.rotate_.z += 0.02f;
+	//sphereTransform_.rotate_.z += 0.02f;
 	sphere_->SetDirectionalLight(light_);
 
 	ImGui::Begin("DrawObject");
